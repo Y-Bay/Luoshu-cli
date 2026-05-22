@@ -25,7 +25,7 @@ import {
 
 vi.mock('../hooks/useQwenAuth.js', () => ({
   useQwenAuth: vi.fn(() => ({
-    qwenAuthState: {},
+    luoshuAuthState: {},
     cancelQwenAuth: vi.fn(),
   })),
 }));

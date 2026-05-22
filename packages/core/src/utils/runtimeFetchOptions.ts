@@ -625,7 +625,7 @@ function buildFetchOptionsWithDispatcher(
     const redactedMessage = redactProxyCredentials(errorMessage);
     const logMessage = `Failed to create proxy dispatcher for ${hostname} (${failureLabel}), falling back to direct connection: ${redactedMessage}`;
     debugLogger.warn(logMessage);
-    // Dual logging: debugLogger writes to ~/.qwen/debug/ (for local debugging),
+    // Dual logging: debugLogger writes to ~/.luoshu/debug/ (for local debugging),
     // console.error writes to stderr (captured by container orchestrators and log aggregators).
     // This ensures visibility in production even when debug sessions are inactive.
     // eslint-disable-next-line no-console

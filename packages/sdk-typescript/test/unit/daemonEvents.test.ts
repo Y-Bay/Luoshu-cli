@@ -1207,7 +1207,7 @@ describe('daemon event schema', () => {
       type: 'memory_changed',
       data: {
         scope: 'global',
-        filePath: '/home/.qwen/QWEN.md',
+        filePath: '/home/.luoshu/QWEN.md',
         mode: 'replace',
         bytesWritten: 100,
       },
@@ -1215,7 +1215,7 @@ describe('daemon event schema', () => {
     expect(state.lastWorkspaceMutationType).toBe('memory_changed');
     expect(state.lastWorkspaceMutation).toEqual({
       scope: 'global',
-      filePath: '/home/.qwen/QWEN.md',
+      filePath: '/home/.luoshu/QWEN.md',
       mode: 'replace',
       bytesWritten: 100,
     });

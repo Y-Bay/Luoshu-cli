@@ -4,7 +4,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DEFAULT_QWEN_MODEL, MAINLINE_CODER_MODEL } from '../config/models.js';
+import {
+  DEFAULT_LUOSHU_MODEL,
+  MAINLINE_CODER_MODEL,
+} from '../config/models.js';
 
 import type { ModelConfig } from './types.js';
 
@@ -66,7 +69,7 @@ export const AUTH_ENV_MAPPINGS = {
   openai: {
     apiKey: ['OPENAI_API_KEY'],
     baseUrl: ['OPENAI_BASE_URL'],
-    model: ['OPENAI_MODEL', 'QWEN_MODEL'],
+    model: ['OPENAI_MODEL', 'LUOSHU_MODEL'],
   },
   anthropic: {
     apiKey: ['ANTHROPIC_API_KEY'],
@@ -92,7 +95,7 @@ export const AUTH_ENV_MAPPINGS = {
 
 export const DEFAULT_MODELS = {
   openai: MAINLINE_CODER_MODEL,
-  'qwen-oauth': DEFAULT_QWEN_MODEL,
+  'qwen-oauth': DEFAULT_LUOSHU_MODEL,
 } as Partial<Record<AuthType, string>>;
 
 /**

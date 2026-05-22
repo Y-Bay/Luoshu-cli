@@ -126,7 +126,7 @@ export function MemoryDialog({ onClose }: MemoryDialogProps) {
     () =>
       path.join(
         Storage.getGlobalQwenDir(),
-        getAllGeminiMdFilenames()[0] ?? 'QWEN.md',
+        getAllGeminiMdFilenames()[0] ?? 'LUOSHU.md',
       ),
     [],
   );
@@ -134,7 +134,7 @@ export function MemoryDialog({ onClose }: MemoryDialogProps) {
     () =>
       path.join(
         config.getWorkingDir(),
-        getAllGeminiMdFilenames()[0] ?? 'QWEN.md',
+        getAllGeminiMdFilenames()[0] ?? 'LUOSHU.md',
       ),
     [config],
   );
@@ -211,12 +211,12 @@ export function MemoryDialog({ onClose }: MemoryDialogProps) {
         case 'project':
           return resolvePreferredMemoryFile(
             config.getWorkingDir(),
-            getAllGeminiMdFilenames()[0] ?? 'QWEN.md',
+            getAllGeminiMdFilenames()[0] ?? 'LUOSHU.md',
           );
         case 'global':
           return resolvePreferredMemoryFile(
             Storage.getGlobalQwenDir(),
-            getAllGeminiMdFilenames()[0] ?? 'QWEN.md',
+            getAllGeminiMdFilenames()[0] ?? 'LUOSHU.md',
           );
         case 'managed':
           return managedMemoryPath;

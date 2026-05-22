@@ -35,14 +35,14 @@ describe('startupProfiler', () => {
     resetStartupProfiler();
     vi.restoreAllMocks();
     saveEnv(
-      'QWEN_CODE_PROFILE_STARTUP',
-      'QWEN_CODE_PROFILE_STARTUP_OUTER',
-      'QWEN_CODE_PROFILE_STARTUP_NO_HEAP',
+      'LUOSHU_PROFILE_STARTUP',
+      'LUOSHU_PROFILE_STARTUP_OUTER',
+      'LUOSHU_PROFILE_STARTUP_NO_HEAP',
       'SANDBOX',
     );
-    delete process.env['QWEN_CODE_PROFILE_STARTUP'];
-    delete process.env['QWEN_CODE_PROFILE_STARTUP_OUTER'];
-    delete process.env['QWEN_CODE_PROFILE_STARTUP_NO_HEAP'];
+    delete process.env['LUOSHU_PROFILE_STARTUP'];
+    delete process.env['LUOSHU_PROFILE_STARTUP_OUTER'];
+    delete process.env['LUOSHU_PROFILE_STARTUP_NO_HEAP'];
     delete process.env['SANDBOX'];
   });
 
@@ -51,7 +51,7 @@ describe('startupProfiler', () => {
   });
 
   function enableProfiler() {
-    process.env['QWEN_CODE_PROFILE_STARTUP'] = '1';
+    process.env['LUOSHU_PROFILE_STARTUP'] = '1';
     process.env['SANDBOX'] = '1';
   }
 
@@ -72,8 +72,8 @@ describe('startupProfiler', () => {
   });
 
   describe('when outside sandbox (SANDBOX not set)', () => {
-    it('should not enable profiler even with QWEN_CODE_PROFILE_STARTUP=1', () => {
-      process.env['QWEN_CODE_PROFILE_STARTUP'] = '1';
+    it('should not enable profiler even with LUOSHU_PROFILE_STARTUP=1', () => {
+      process.env['LUOSHU_PROFILE_STARTUP'] = '1';
       delete process.env['SANDBOX'];
 
       initStartupProfiler();
@@ -82,7 +82,7 @@ describe('startupProfiler', () => {
     });
   });
 
-  describe('when enabled (QWEN_CODE_PROFILE_STARTUP=1 + SANDBOX)', () => {
+  describe('when enabled (LUOSHU_PROFILE_STARTUP=1 + SANDBOX)', () => {
     beforeEach(() => {
       enableProfiler();
     });
@@ -332,8 +332,8 @@ describe('startupProfiler', () => {
       expect(report.phases[0]!.heapUsedMb).toBeGreaterThan(0);
     });
 
-    it('omits heap snapshots when QWEN_CODE_PROFILE_STARTUP_NO_HEAP=1', () => {
-      process.env['QWEN_CODE_PROFILE_STARTUP_NO_HEAP'] = '1';
+    it('omits heap snapshots when LUOSHU_PROFILE_STARTUP_NO_HEAP=1', () => {
+      process.env['LUOSHU_PROFILE_STARTUP_NO_HEAP'] = '1';
       initStartupProfiler();
       profileCheckpoint('phase_a');
       const report = getStartupReport()!;
@@ -341,9 +341,9 @@ describe('startupProfiler', () => {
     });
   });
 
-  describe('outer-process opt-in (QWEN_CODE_PROFILE_STARTUP_OUTER=1)', () => {
+  describe('outer-process opt-in (LUOSHU_PROFILE_STARTUP_OUTER=1)', () => {
     it('does NOT collect outside sandbox without OUTER opt-in', () => {
-      process.env['QWEN_CODE_PROFILE_STARTUP'] = '1';
+      process.env['LUOSHU_PROFILE_STARTUP'] = '1';
       delete process.env['SANDBOX'];
 
       initStartupProfiler();
@@ -352,8 +352,8 @@ describe('startupProfiler', () => {
     });
 
     it('collects outside sandbox when OUTER=1 and writes outer-prefixed file', () => {
-      process.env['QWEN_CODE_PROFILE_STARTUP'] = '1';
-      process.env['QWEN_CODE_PROFILE_STARTUP_OUTER'] = '1';
+      process.env['LUOSHU_PROFILE_STARTUP'] = '1';
+      process.env['LUOSHU_PROFILE_STARTUP_OUTER'] = '1';
       delete process.env['SANDBOX'];
 
       vi.mocked(fs.mkdirSync).mockReturnValue(undefined);

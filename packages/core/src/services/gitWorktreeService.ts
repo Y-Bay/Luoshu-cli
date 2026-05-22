@@ -32,7 +32,7 @@ export function worktreeBranchForSlug(slug: string): string {
  * provisioning time and consulted by `exit_worktree` to decide
  * whether the current session is allowed to drop the worktree. The
  * file lives outside the working tree (it is .gitignored as part of
- * `.qwen/worktrees/.gitignore`) so it cannot leak into commits.
+ * `.luoshu/worktrees/.gitignore`) so it cannot leak into commits.
  */
 export const WORKTREE_SESSION_FILE = '.qwen-session';
 
@@ -118,7 +118,7 @@ export const BASELINE_COMMIT_MESSAGE = 'baseline (dirty state overlay)';
 
 /**
  * Default directory and branch-prefix name used for worktrees.
- * Changing this value affects the on-disk layout (`~/.qwen/<WORKTREES_DIR>/`)
+ * Changing this value affects the on-disk layout (`~/.luoshu/<WORKTREES_DIR>/`)
  * **and** the default git branch prefix (`<WORKTREES_DIR>/<sessionId>/…`).
  */
 export const WORKTREES_DIR = 'worktrees';
@@ -282,7 +282,7 @@ export class GitWorktreeService {
    * directory. Used by callers that need to anchor general-purpose
    * worktrees at the *repo* root rather than the cwd they were invoked
    * from — otherwise running `qwen` from a monorepo subdirectory would
-   * scatter `.qwen/worktrees/` under each subdirectory instead of
+   * scatter `.luoshu/worktrees/` under each subdirectory instead of
    * gathering them under the repo root.
    *
    * Returns the canonical top-level path on success, or `null` when the
@@ -981,16 +981,16 @@ export class GitWorktreeService {
   // ──────────────────────────────────────────────────────────────────────
   // User-facing worktree APIs (used by EnterWorktree / ExitWorktree tools
   // and AgentTool `isolation: 'worktree'`). These create worktrees under
-  // `<projectRoot>/.qwen/worktrees/<slug>` rather than under the
+  // `<projectRoot>/.luoshu/worktrees/<slug>` rather than under the
   // session-scoped Arena baseDir.
   // ──────────────────────────────────────────────────────────────────────
 
   /**
    * Returns the directory holding all general-purpose worktrees for this
-   * repo: `<projectRoot>/.qwen/worktrees`.
+   * repo: `<projectRoot>/.luoshu/worktrees`.
    */
   getUserWorktreesDir(): string {
-    return path.join(this.sourceRepoPath, '.qwen', WORKTREES_DIR);
+    return path.join(this.sourceRepoPath, '.luoshu', WORKTREES_DIR);
   }
 
   /**
@@ -1076,7 +1076,7 @@ export class GitWorktreeService {
   }
 
   /**
-   * Creates a general-purpose worktree at `<projectRoot>/.qwen/worktrees/<slug>`
+   * Creates a general-purpose worktree at `<projectRoot>/.luoshu/worktrees/<slug>`
    * with branch `worktree-<slug>`. Used by `EnterWorktreeTool` and
    * `AgentTool isolation:'worktree'`.
    *
@@ -1112,7 +1112,7 @@ export class GitWorktreeService {
       // Keep the worktrees directory and its contents out of the parent
       // repo's `git status` and any subsequent glob/grep that walks from
       // the parent root. Only writes when the file is missing — never
-      // touches an existing user-managed `.qwen/.gitignore`.
+      // touches an existing user-managed `.luoshu/.gitignore`.
       await this.ensureWorktreesGitignored();
 
       const base = baseBranch || (await this.getCurrentBranch());
@@ -1287,14 +1287,14 @@ export class GitWorktreeService {
   }
 
   /**
-   * Ensures `<projectRoot>/.qwen/.gitignore` ignores the worktrees
+   * Ensures `<projectRoot>/.luoshu/.gitignore` ignores the worktrees
    * directory. Idempotent: writes only when the file is missing. If the
    * file exists (user may have curated it), this method is a no-op so
    * we never disturb intentional configuration.
    */
   private async ensureWorktreesGitignored(): Promise<void> {
     try {
-      const qwenDir = path.join(this.sourceRepoPath, '.qwen');
+      const qwenDir = path.join(this.sourceRepoPath, '.luoshu');
       await fs.mkdir(qwenDir, { recursive: true });
       const gitignorePath = path.join(qwenDir, '.gitignore');
       // `flag: 'wx'` is "open for write, fail if exists" — one atomic

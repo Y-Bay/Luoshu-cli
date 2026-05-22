@@ -74,7 +74,9 @@ describe('ShellTool', () => {
         .fn()
         .mockReturnValue(createMockWorkspaceContext('/test/dir')),
       storage: {
-        getUserSkillsDirs: vi.fn().mockReturnValue(['/test/dir/.qwen/skills']),
+        getUserSkillsDirs: vi
+          .fn()
+          .mockReturnValue(['/test/dir/.luoshu/skills']),
         getProjectTempDir: vi.fn().mockReturnValue('/tmp/qwen-temp'),
         getProjectDir: vi.fn().mockReturnValue('/test/proj'),
       },
@@ -189,7 +191,7 @@ describe('ShellTool', () => {
       expect(() =>
         shellTool.build({
           command: 'ls',
-          directory: '/test/dir/.qwen/skills/my-skill',
+          directory: '/test/dir/.luoshu/skills/my-skill',
           is_background: false,
         }),
       ).toThrow(
@@ -201,7 +203,7 @@ describe('ShellTool', () => {
       expect(() =>
         shellTool.build({
           command: 'ls',
-          directory: '/test/dir/.qwen/skills',
+          directory: '/test/dir/.luoshu/skills',
           is_background: false,
         }),
       ).toThrow(
@@ -213,7 +215,7 @@ describe('ShellTool', () => {
       expect(() =>
         shellTool.build({
           command: 'ls',
-          directory: '/test/dir/.qwen/skills/../skills/my-skill',
+          directory: '/test/dir/.luoshu/skills/../skills/my-skill',
           is_background: false,
         }),
       ).toThrow(

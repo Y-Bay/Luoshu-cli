@@ -47,7 +47,7 @@ import {
 const debugLogger = createDebugLogger('SUBAGENT_MANAGER');
 import { BuiltinAgentRegistry } from './builtin-agents.js';
 import { ToolDisplayNamesMigration } from '../tools/tool-names.js';
-import { QWEN_DIR, Storage } from '../config/storage.js';
+import { LUOSHU_DIR, Storage } from '../config/storage.js';
 import {
   hasRebuiltToolRegistry,
   rebuildToolRegistryOnOverride,
@@ -927,7 +927,7 @@ export class SubagentManager {
 
     const baseDir =
       level === 'project'
-        ? path.join(this.config.getProjectRoot(), QWEN_DIR, AGENT_CONFIG_DIR)
+        ? path.join(this.config.getProjectRoot(), LUOSHU_DIR, AGENT_CONFIG_DIR)
         : path.join(Storage.getGlobalQwenDir(), AGENT_CONFIG_DIR);
 
     return path.join(baseDir, `${name}.md`);
@@ -965,7 +965,7 @@ export class SubagentManager {
 
     const baseDir =
       level === 'project'
-        ? path.join(projectRoot, QWEN_DIR, AGENT_CONFIG_DIR)
+        ? path.join(projectRoot, LUOSHU_DIR, AGENT_CONFIG_DIR)
         : path.join(Storage.getGlobalQwenDir(), AGENT_CONFIG_DIR);
 
     try {

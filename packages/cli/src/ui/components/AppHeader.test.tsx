@@ -38,7 +38,7 @@ const createSettings = (options?: {
     user: {
       settings: { ui },
       originalSettings: { ui },
-      path: '/home/u/.qwen/settings.json',
+      path: '/home/u/.luoshu/settings.json',
     },
     workspace: { settings: {}, originalSettings: {}, path: '' },
   } as never;

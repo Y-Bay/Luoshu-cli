@@ -80,7 +80,8 @@ export const tipRegistry: ContextualTip[] = [
   },
   {
     id: 'new-user-qwenmd',
-    content: 'Add a QWEN.md file to give Qwen Code persistent project context.',
+    content:
+      'Add a LUOSHU.md file to give Luoshu CLI persistent project context.',
     trigger: 'startup',
     isRelevant: (ctx) => ctx.sessionCount < 10,
     cooldownPrompts: 0,
@@ -89,7 +90,7 @@ export const tipRegistry: ContextualTip[] = [
   {
     id: 'new-user-resume',
     content:
-      'You can resume a previous conversation by running qwen --continue or qwen --resume.',
+      'You can resume a previous conversation by running luoshu --continue or luoshu --resume.',
     trigger: 'startup',
     isRelevant: (ctx) => ctx.sessionCount < 10,
     cooldownPrompts: 0,
@@ -98,7 +99,7 @@ export const tipRegistry: ContextualTip[] = [
   {
     id: 'shell-commands',
     content:
-      'You can run any shell commands from Qwen Code using ! (e.g. !ls).',
+      'You can run any shell commands from Luoshu CLI using ! (e.g. !ls).',
     trigger: 'startup',
     isRelevant: (ctx) => ctx.sessionCount < 15,
     cooldownPrompts: 0,

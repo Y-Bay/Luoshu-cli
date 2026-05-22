@@ -354,14 +354,14 @@ describe('createHttpAcpBridge', () => {
     const bridge1 = makeBridge({
       channelFactory: factory,
       childEnvOverrides: {
-        QWEN_SERVE_MCP_CLIENT_BUDGET: '5',
+        LUOSHU_SERVE_MCP_CLIENT_BUDGET: '5',
         QWEN_SERVE_MCP_BUDGET_MODE: 'enforce',
       },
     });
     const bridge2 = makeBridge({
       channelFactory: factory,
       childEnvOverrides: {
-        QWEN_SERVE_MCP_CLIENT_BUDGET: '20',
+        LUOSHU_SERVE_MCP_CLIENT_BUDGET: '20',
         QWEN_SERVE_MCP_BUDGET_MODE: 'warn',
       },
     });
@@ -369,11 +369,11 @@ describe('createHttpAcpBridge', () => {
     await bridge2.spawnOrAttach({ workspaceCwd: WS_A });
     expect(seenEnvs).toHaveLength(2);
     expect(seenEnvs[0]).toEqual({
-      QWEN_SERVE_MCP_CLIENT_BUDGET: '5',
+      LUOSHU_SERVE_MCP_CLIENT_BUDGET: '5',
       QWEN_SERVE_MCP_BUDGET_MODE: 'enforce',
     });
     expect(seenEnvs[1]).toEqual({
-      QWEN_SERVE_MCP_CLIENT_BUDGET: '20',
+      LUOSHU_SERVE_MCP_CLIENT_BUDGET: '20',
       QWEN_SERVE_MCP_BUDGET_MODE: 'warn',
     });
     await bridge1.shutdown();

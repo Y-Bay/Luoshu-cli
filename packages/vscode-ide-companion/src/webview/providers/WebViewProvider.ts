@@ -1062,7 +1062,7 @@ export class WebViewProvider {
   }
 
   /**
-   * Sync VSCode extension settings (qwen-code.*) to ~/.qwen/settings.json
+   * Sync VSCode extension settings (qwen-code.*) to ~/.luoshu/settings.json
    * if an API key is configured. This enables auto-connect on startup
    * without requiring the user to click "Connect" each time.
    *
@@ -1093,7 +1093,7 @@ export class WebViewProvider {
       writeCodingPlanConfig(region, apiKey);
 
       console.log(
-        `[WebViewProvider] Synced VSCode settings → ~/.qwen/settings.json (provider=${provider})`,
+        `[WebViewProvider] Synced VSCode settings → ~/.luoshu/settings.json (provider=${provider})`,
       );
       return true;
     } catch (error) {
@@ -1103,7 +1103,7 @@ export class WebViewProvider {
   }
 
   /**
-   * Sync ~/.qwen/settings.json values back to VSCode Settings UI.
+   * Sync ~/.luoshu/settings.json values back to VSCode Settings UI.
    * This makes existing CLI-configured non-secret metadata visible in the
    * VSCode Settings page without mirroring credentials into settings.json.
    */
@@ -1115,7 +1115,7 @@ export class WebViewProvider {
       }
 
       console.log(
-        '[WebViewProvider] Syncing ~/.qwen/settings.json → VSCode settings',
+        '[WebViewProvider] Syncing ~/.luoshu/settings.json → VSCode settings',
       );
 
       // Set guard to prevent onDidChangeConfiguration from triggering a write-back
@@ -1143,7 +1143,7 @@ export class WebViewProvider {
 
       if (updates.length === 0) {
         console.log(
-          '[WebViewProvider] VSCode settings already match ~/.qwen/settings.json',
+          '[WebViewProvider] VSCode settings already match ~/.luoshu/settings.json',
         );
         return;
       }
@@ -1165,9 +1165,9 @@ export class WebViewProvider {
 
   /**
    * Attempt to restore authentication state and initialize connection.
-   * On startup, sync ~/.qwen/settings.json → VSCode settings so the Settings UI
+   * On startup, sync ~/.luoshu/settings.json → VSCode settings so the Settings UI
    * reflects existing non-secret CLI config, then attempt a connection.
-   * Writing back to ~/.qwen/settings.json happens through the auth flow and
+   * Writing back to ~/.luoshu/settings.json happens through the auth flow and
    * auth-related VSCode setting changes.
    */
   private async attemptAuthStateRestoration(): Promise<void> {
@@ -1319,7 +1319,7 @@ export class WebViewProvider {
 
   /**
    * Handle auth interactive — interactive auth flow result.
-   * Writes provider config to ~/.qwen/settings.json and reconnects.
+   * Writes provider config to ~/.luoshu/settings.json and reconnects.
    * Mirrors the CLI's `qwen auth coding-plan` / `qwen auth` flow.
    */
   private async handleAuthInteractive(

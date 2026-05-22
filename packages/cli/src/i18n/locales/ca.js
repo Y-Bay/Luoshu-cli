@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// Traduccions en català per al CLI de Qwen Code per Jordi Mas i Hernàndez <jmas@softcatala.org>
+// Traduccions en català per al CLI de Luoshu CLI per Jordi Mas i Hernàndez <jmas@softcatala.org>
 
 export default {
   // ============================================================================
@@ -80,7 +80,7 @@ export default {
   'For a full list of shortcuts, see {{docPath}}':
     'Per a una llista completa de dreceres, vegeu {{docPath}}',
   'docs/keyboard-shortcuts.md': 'docs/keyboard-shortcuts.md',
-  'for help on Qwen Code': 'per a ajuda sobre Qwen Code',
+  'for help on Luoshu CLI': 'per a ajuda sobre Luoshu CLI',
   'show version info': 'mostrar informació de la versió',
   'submit a bug report': "enviar un informe d'error",
   Status: 'Estat',
@@ -88,7 +88,7 @@ export default {
   // ============================================================================
   // Informació del sistema
   // ============================================================================
-  'Qwen Code': 'Qwen Code',
+  'Luoshu CLI': 'Luoshu CLI',
   Runtime: "Entorn d'execució",
   OS: 'SO',
   Auth: 'Autenticació',
@@ -104,12 +104,12 @@ export default {
   // ============================================================================
   // Ordres - General
   // ============================================================================
-  'Analyzes the project and creates a tailored QWEN.md file.':
-    'Analitza el projecte i crea un fitxer QWEN.md personalitzat.',
-  'List available Qwen Code tools. Usage: /tools [desc]':
-    'Llistar les eines disponibles de Qwen Code. Ús: /tools [desc]',
+  'Analyzes the project and creates a tailored LUOSHU.md file.':
+    'Analitza el projecte i crea un fitxer LUOSHU.md personalitzat.',
+  'List available Luoshu CLI tools. Usage: /tools [desc]':
+    'Llistar les eines disponibles de Luoshu CLI. Ús: /tools [desc]',
   'List available skills.': 'Llistar les habilitats disponibles.',
-  'Available Qwen Code CLI tools:': 'Eines del CLI de Qwen Code disponibles:',
+  'Available Luoshu CLI CLI tools:': 'Eines del CLI de Luoshu CLI disponibles:',
   'No tools available': 'No hi ha eines disponibles',
   'View or change the approval mode for tool usage':
     "Veure o canviar el mode d'aprovació per a l'ús d'eines",
@@ -187,8 +187,8 @@ export default {
     "Esborrar l'historial de la conversa i alliberar context",
   'Compresses the context by replacing it with a summary.':
     'Comprimeix el context substituint-lo per un resum.',
-  'open full Qwen Code documentation in your browser':
-    'obrir la documentació completa de Qwen Code al navegador',
+  'open full Luoshu CLI documentation in your browser':
+    'obrir la documentació completa de Luoshu CLI al navegador',
   'Configuration not available.': 'Configuració no disponible.',
   'Connect an LLM provider': 'Connectar un proveïdor LLM',
   'Copy the last result or code snippet to clipboard':
@@ -276,7 +276,8 @@ export default {
   'Step {{n}}: Choose Location': 'Pas {{n}}: Triar ubicació',
   'Step {{n}}: Choose Generation Method':
     'Pas {{n}}: Triar mètode de generació',
-  'Generate with Qwen Code (Recommended)': 'Generar amb Qwen Code (Recomanat)',
+  'Generate with Luoshu CLI (Recommended)':
+    'Generar amb Luoshu CLI (Recomanat)',
   'Manual Creation': 'Creació manual',
   'Describe what this subagent should do and when it should be used. (Be comprehensive for best results)':
     "Descriviu què ha de fer aquest subagent i quan s'ha d'usar. (Sigueu exhaustiu per obtenir els millors resultats)",
@@ -386,11 +387,11 @@ export default {
   // ============================================================================
   // Ordres - General (continuació)
   // ============================================================================
-  'View and edit Qwen Code settings':
-    'Veure i editar la configuració de Qwen Code',
+  'View and edit Luoshu CLI settings':
+    'Veure i editar la configuració de Luoshu CLI',
   Settings: 'Configuració',
-  'To see changes, Qwen Code must be restarted. Press r to exit and apply changes now.':
-    'Per veure els canvis, cal reiniciar Qwen Code. Premeu r per sortir i aplicar els canvis ara.',
+  'To see changes, Luoshu CLI must be restarted. Press r to exit and apply changes now.':
+    'Per veure els canvis, cal reiniciar Luoshu CLI. Premeu r per sortir i aplicar els canvis ara.',
   // ============================================================================
   // Etiquetes de configuració
   // ============================================================================
@@ -500,16 +501,16 @@ export default {
   remote: 'remot',
   'This extension will add the following commands: {{commands}}.':
     'Aquesta extensió afegirà les ordres següents: {{commands}}.',
-  'This extension will append info to your QWEN.md context using {{fileName}}':
-    'Aquesta extensió afegirà informació al vostre context QWEN.md usant {{fileName}}',
+  'This extension will append info to your LUOSHU.md context using {{fileName}}':
+    'Aquesta extensió afegirà informació al vostre context LUOSHU.md usant {{fileName}}',
   'This extension will install the following skills:':
     'Aquesta extensió instal·larà les habilitats següents:',
   'This extension will install the following subagents:':
     'Aquesta extensió instal·larà els subagents següents:',
   'Installation cancelled for "{{name}}".':
     'Instal·lació cancel·lada per a "{{name}}".',
-  'You are installing an extension from {{originSource}}. Some features may not work perfectly with Qwen Code.':
-    'Esteu instal·lant una extensió des de {{originSource}}. Algunes funcions poden no funcionar perfectament amb Qwen Code.',
+  'You are installing an extension from {{originSource}}. Some features may not work perfectly with Luoshu CLI.':
+    'Esteu instal·lant una extensió des de {{originSource}}. Algunes funcions poden no funcionar perfectament amb Luoshu CLI.',
   '--ref and --auto-update are not applicable for marketplace extensions.':
     "--ref i --auto-update no s'apliquen a les extensions del mercat.",
   'Extension "{{name}}" installed successfully and enabled.':
@@ -619,8 +620,8 @@ export default {
     'instal·lar el complement IDE necessari per a {{ideName}}',
   'enable IDE integration': "activar la integració de l'IDE",
   'disable IDE integration': "desactivar la integració de l'IDE",
-  'IDE integration is not supported in your current environment. To use this feature, run Qwen Code in one of these supported IDEs: VS Code or VS Code forks.':
-    "La integració de l'IDE no és compatible en el vostre entorn actual. Per usar aquesta funció, executeu Qwen Code en un dels IDEs compatibles: VS Code o bifurcacions de VS Code.",
+  'IDE integration is not supported in your current environment. To use this feature, run Luoshu CLI in one of these supported IDEs: VS Code or VS Code forks.':
+    "La integració de l'IDE no és compatible en el vostre entorn actual. Per usar aquesta funció, executeu Luoshu CLI en un dels IDEs compatibles: VS Code o bifurcacions de VS Code.",
   'Set up GitHub Actions': 'Configurar GitHub Actions',
   'Configure terminal keybindings for multiline input (VS Code, Cursor, Windsurf, Trae)':
     'Configurar les dreceres del terminal per a entrada multilínia (VS Code, Cursor, Windsurf, Trae)',
@@ -655,7 +656,7 @@ export default {
   // ============================================================================
   // Ordres - Hooks
   // ============================================================================
-  'Manage Qwen Code hooks': 'Gestionar els hooks de Qwen Code',
+  'Manage Luoshu CLI hooks': 'Gestionar els hooks de Luoshu CLI',
   'List all configured hooks': 'Llistar tots els hooks configurats',
   Hooks: 'Hooks',
   'Loading hooks...': 'Carregant hooks...',
@@ -669,8 +670,8 @@ export default {
   'No hook events found.': "No s'han trobat esdeveniments de hook.",
   '{{count}} hook configured': '{{count}} hook configurat',
   '{{count}} hooks configured': '{{count}} hooks configurats',
-  'This menu is read-only. To add or modify hooks, edit settings.json directly or ask Qwen Code.':
-    'Aquest menú és de només lectura. Per afegir o modificar hooks, editeu settings.json directament o demaneu-ho a Qwen Code.',
+  'This menu is read-only. To add or modify hooks, edit settings.json directly or ask Luoshu CLI.':
+    'Aquest menú és de només lectura. Per afegir o modificar hooks, editeu settings.json directament o demaneu-ho a Luoshu CLI.',
   'Enter to select · Esc to cancel':
     'Enter per seleccionar · Esc per cancel·lar',
   'Exit codes:': 'Codis de sortida:',
@@ -697,8 +698,8 @@ export default {
   'StatusLine will not be displayed': "La barra d'estat no es mostrarà",
   'Tool operations will proceed without hook validation':
     "Les operacions d'eines continuaran sense validació de hook",
-  'To re-enable hooks, remove "disableAllHooks" from settings.json or ask Qwen Code.':
-    'Per tornar a activar els hooks, elimineu "disableAllHooks" de settings.json o demaneu-ho a Qwen Code.',
+  'To re-enable hooks, remove "disableAllHooks" from settings.json or ask Luoshu CLI.':
+    'Per tornar a activar els hooks, elimineu "disableAllHooks" de settings.json o demaneu-ho a Luoshu CLI.',
   Project: 'Projecte',
   User: 'Usuari',
   Skill: 'Habilitat',
@@ -715,8 +716,8 @@ export default {
   'When notifications are sent': "Quan s'envien notificacions",
   'When the user submits a prompt': "Quan l'usuari envia un missatge",
   'When a new session is started': "Quan s'inicia una nova sessió",
-  'Right before Qwen Code concludes its response':
-    'Immediatament abans que Qwen Code conclou la seva resposta',
+  'Right before Luoshu CLI concludes its response':
+    'Immediatament abans que Luoshu CLI conclou la seva resposta',
   'When a subagent (Agent tool call) is started':
     "Quan s'inicia un subagent (crida a l'eina Agent)",
   'Right before a subagent concludes its response':
@@ -1040,8 +1041,8 @@ export default {
   'The /directory add command is not supported in restrictive sandbox profiles. Please use --include-directories when starting the session instead.':
     "L'ordre /directory add no és compatible en perfils d'entorn aïllat restrictius. En el seu lloc, useu --include-directories en iniciar la sessió.",
   "Error adding '{{path}}': {{error}}": "Error en afegir '{{path}}': {{error}}",
-  'Successfully added QWEN.md files from the following directories if there are:\n- {{directories}}':
-    "S'han afegit correctament els fitxers QWEN.md dels directoris següents si n'hi ha:\n- {{directories}}",
+  'Successfully added LUOSHU.md files from the following directories if there are:\n- {{directories}}':
+    "S'han afegit correctament els fitxers LUOSHU.md dels directoris següents si n'hi ha:\n- {{directories}}",
   'Error refreshing memory: {{error}}':
     'Error en actualitzar la memòria: {{error}}',
   'Successfully added directories:\n- {{directories}}':
@@ -1167,8 +1168,8 @@ export default {
     'Error en autenticar-se. Missatge: {{message}}',
   'Authenticated successfully with {{authType}} credentials.':
     "S'ha autenticat correctament amb les credencials {{authType}}.",
-  'Invalid QWEN_DEFAULT_AUTH_TYPE value: "{{value}}". Valid values are: {{validValues}}':
-    'Valor de QWEN_DEFAULT_AUTH_TYPE no vàlid: "{{value}}". Els valors vàlids són: {{validValues}}',
+  'Invalid LUOSHU_DEFAULT_AUTH_TYPE value: "{{value}}". Valid values are: {{validValues}}':
+    'Valor de LUOSHU_DEFAULT_AUTH_TYPE no vàlid: "{{value}}". Els valors vàlids són: {{validValues}}',
   // ============================================================================
   // Diàlegs - Model
   // ============================================================================
@@ -1197,12 +1198,12 @@ export default {
   Ask: 'Preguntar',
   Deny: 'Denegar',
   Workspace: 'Espai de treball',
-  "Qwen Code won't ask before using allowed tools.":
-    "Qwen Code no preguntarà abans d'usar les eines permeses.",
-  'Qwen Code will ask before using these tools.':
-    "Qwen Code preguntarà abans d'usar aquestes eines.",
-  'Qwen Code is not allowed to use denied tools.':
-    'Qwen Code no té permís per usar les eines denegades.',
+  "Luoshu CLI won't ask before using allowed tools.":
+    "Luoshu CLI no preguntarà abans d'usar les eines permeses.",
+  'Luoshu CLI will ask before using these tools.':
+    "Luoshu CLI preguntarà abans d'usar aquestes eines.",
+  'Luoshu CLI is not allowed to use denied tools.':
+    'Luoshu CLI no té permís per usar les eines denegades.',
   'Manage trusted directories for this workspace.':
     "Gestionar els directoris de confiança d'aquest espai de treball.",
   'Any use of the {{tool}} tool': "Qualsevol ús de l'eina {{tool}}",
@@ -1236,10 +1237,10 @@ export default {
   'Search…': 'Cercar…',
   'Add directory…': 'Afegir directori…',
   'Add directory to workspace': "Afegir directori a l'espai de treball",
-  'Qwen Code can read files in the workspace, and make edits when auto-accept edits is on.':
-    "Qwen Code pot llegir fitxers a l'espai de treball i fer canvis quan l'acceptació automàtica de canvis està activada.",
-  'Qwen Code will be able to read files in this directory and make edits when auto-accept edits is on.':
-    "Qwen Code podrà llegir fitxers en aquest directori i fer canvis quan l'acceptació automàtica de canvis està activada.",
+  'Luoshu CLI can read files in the workspace, and make edits when auto-accept edits is on.':
+    "Luoshu CLI pot llegir fitxers a l'espai de treball i fer canvis quan l'acceptació automàtica de canvis està activada.",
+  'Luoshu CLI will be able to read files in this directory and make edits when auto-accept edits is on.':
+    "Luoshu CLI podrà llegir fitxers en aquest directori i fer canvis quan l'acceptació automàtica de canvis està activada.",
   'Enter the path to the directory:': 'Introduïu el camí del directori:',
   'Enter directory path…': 'Introduïu el camí del directori…',
   'Tab to complete · Enter to add · Esc to cancel':
@@ -1328,8 +1329,8 @@ export default {
     'Useu /bug per enviar incidències als mantenidors quan alguna cosa vagi malament.',
   'Switch auth type quickly with /auth.':
     "Canvieu ràpidament el tipus d'autenticació amb /auth.",
-  'You can run any shell commands from Qwen Code using ! (e.g. !ls).':
-    'Podeu executar qualsevol ordre shell des de Qwen Code usant ! (p. ex. !ls).',
+  'You can run any shell commands from Luoshu CLI using ! (e.g. !ls).':
+    'Podeu executar qualsevol ordre shell des de Luoshu CLI usant ! (p. ex. !ls).',
   'Type / to open the command popup; Tab autocompletes slash commands and saved prompts.':
     "Escriviu / per obrir el menú emergent d'ordres; Tab completa automàticament les ordres de barra i els missatges desats.",
   'You can resume a previous conversation by running qwen --continue or qwen --resume.':
@@ -1342,8 +1343,8 @@ export default {
     'Proveu /insight per generar idees personalitzades a partir del vostre historial de xat.',
   'Press Ctrl+O to toggle compact mode — hide tool output and thinking for a cleaner view.':
     'Premeu Ctrl+O per canviar el mode compacte — amagueu la sortida de les eines i el pensament per a una vista més neta.',
-  'Add a QWEN.md file to give Qwen Code persistent project context.':
-    'Afegiu un fitxer QWEN.md per donar a Qwen Code un context persistent del projecte.',
+  'Add a LUOSHU.md file to give Luoshu CLI persistent project context.':
+    'Afegiu un fitxer LUOSHU.md per donar a Luoshu CLI un context persistent del projecte.',
   'Use /btw to ask a quick side question without disrupting the conversation.':
     'Useu /btw per fer una pregunta ràpida sense interrompre la conversa.',
   'Context is almost full! Run /compress now or start /new to continue.':
@@ -1785,8 +1786,8 @@ export default {
     'Ja esteu en mode de planificació. Useu "/plan exit" per sortir del mode de planificació.',
   'Not in plan mode. Use "/plan" to enter plan mode first.':
     'No esteu en mode de planificació. Useu "/plan" per entrar al mode de planificació primer.',
-  "Set up Qwen Code's status line UI":
-    "Configurar la interfície de la barra d'estat de Qwen Code",
+  "Set up Luoshu CLI's status line UI":
+    "Configurar la interfície de la barra d'estat de Luoshu CLI",
 
   // === Core: added from PR #3328 ===
   'Open the memory manager.': 'Obrir el gestor de memòria.',

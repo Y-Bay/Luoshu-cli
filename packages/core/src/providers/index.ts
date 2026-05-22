@@ -2,6 +2,9 @@
  * @license
  * Copyright 2026 Qwen Team
  * SPDX-License-Identifier: Apache-2.0
+ *
+ * Modifications copyright 2026 Luoshu Team.
+ * Modified: removed Alibaba ModelStudio re-exports.
  */
 
 // Types
@@ -36,9 +39,6 @@ export {
 // Provider registry
 export {
   ALL_PROVIDERS,
-  ALIBABA_PROVIDERS,
-  alibabaStandardProvider,
-  codingPlanProvider,
   CUSTOM_API_KEY_ENV_PREFIX,
   customProvider,
   deepseekProvider,
@@ -51,20 +51,10 @@ export {
   modelscopeProvider,
   openRouterProvider,
   THIRD_PARTY_PROVIDERS,
-  tokenPlanProvider,
   zaiProvider,
 } from './all-providers.js';
 
 // Preset constants
-export {
-  CODING_PLAN_CHINA_BASE_URL,
-  CODING_PLAN_ENV_KEY,
-  CODING_PLAN_GLOBAL_BASE_URL,
-} from './presets/alibaba-coding-plan.js';
-export {
-  TOKEN_PLAN_BASE_URL,
-  TOKEN_PLAN_ENV_KEY,
-} from './presets/alibaba-token-plan.js';
 export {
   OPENROUTER_BASE_URL,
   OPENROUTER_ENV_KEY,

@@ -129,8 +129,8 @@ WILL corrupt settings.json and prevent Qwen Code from starting.
 
 You MUST follow these rules:
 1. For ANY command that uses jq, pipes, single-quote escaping, or nested quotes:
-   ALWAYS save it as a script file (~/.qwen/statusline-command.sh) and set
-   the command to "bash ~/.qwen/statusline-command.sh".
+   ALWAYS save it as a script file (~/.luoshu/statusline-command.sh) and set
+   the command to "bash ~/.luoshu/statusline-command.sh".
 2. Only use inline commands for VERY simple cases (e.g., "echo hello").
 3. NEVER use shell single-quote escape sequences like '\\'' in the command value.
 4. After writing settings.json, ALWAYS read it back and verify it is valid JSON.
@@ -213,32 +213,32 @@ How to use the statusLine command:
    IMPORTANT: stdin can only be consumed once. Always read it into a variable first.
 
    IMPORTANT: The examples below are meant for use INSIDE a script file
-   (e.g. ~/.qwen/statusline-command.sh), NOT as inline command values in settings.json.
+   (e.g. ~/.luoshu/statusline-command.sh), NOT as inline command values in settings.json.
    Putting these directly in the "command" field will corrupt settings.json.
 
-   Example script content (save to ~/.qwen/statusline-command.sh):
+   Example script content (save to ~/.luoshu/statusline-command.sh):
    #!/bin/bash
    input=$(cat)
    echo "$(echo "$input" | jq -r '.model.display_name') in $(echo "$input" | jq -r '.workspace.current_dir')"
 
-   Example displaying context usage (save to ~/.qwen/statusline-command.sh):
+   Example displaying context usage (save to ~/.luoshu/statusline-command.sh):
    #!/bin/bash
    input=$(cat)
    pct=$(echo "$input" | jq -r '.context_window.used_percentage')
    echo "Context: $pct% used"
 
-   Example displaying git branch (save to ~/.qwen/statusline-command.sh):
+   Example displaying git branch (save to ~/.luoshu/statusline-command.sh):
    #!/bin/bash
    input=$(cat)
    branch=$(echo "$input" | jq -r '.git.branch // empty')
    echo "\${branch:-no branch}"
 
 2. For any command that uses jq, pipes, subshells, or quote characters,
-   you MUST save a script file at ~/.qwen/statusline-command.sh and use
-   "bash ~/.qwen/statusline-command.sh" as the command value in settings (no chmod needed).
+   you MUST save a script file at ~/.luoshu/statusline-command.sh and use
+   "bash ~/.luoshu/statusline-command.sh" as the command value in settings (no chmod needed).
    This is REQUIRED to avoid JSON escaping issues that corrupt settings.json.
 
-3. Update the user's ~/.qwen/settings.json. The statusLine setting is nested under the "ui" key:
+3. Update the user's ~/.luoshu/settings.json. The statusLine setting is nested under the "ui" key:
    {
      "ui": {
        "statusLine": {

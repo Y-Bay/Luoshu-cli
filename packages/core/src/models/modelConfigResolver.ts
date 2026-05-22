@@ -20,7 +20,7 @@
 
 import { AuthType } from '../core/contentGenerator.js';
 import type { ContentGeneratorConfig } from '../core/contentGenerator.js';
-import { DEFAULT_QWEN_MODEL } from '../config/models.js';
+import { DEFAULT_LUOSHU_MODEL } from '../config/models.js';
 import { defaultModalities } from '../core/modalityDefaults.js';
 import {
   resolveField,
@@ -107,7 +107,7 @@ export interface ModelConfigResolutionResult {
 }
 
 /**
- * Applies QWEN_CODE_API_TIMEOUT_MS env override if modelProvider has not set a timeout.
+ * Applies LUOSHU_API_TIMEOUT_MS env override if modelProvider has not set a timeout.
  * Precedence: modelProvider > env > settings > default
  * Mutates generationConfig and sources in-place.
  */
@@ -119,7 +119,7 @@ function applyTimeoutEnvOverride(
 ): void {
   if (modelProvider?.generationConfig?.timeout !== undefined) return;
 
-  const raw = env['QWEN_CODE_API_TIMEOUT_MS'];
+  const raw = env['LUOSHU_API_TIMEOUT_MS'];
   if (raw === undefined) return;
 
   const parsed = Number(raw);
@@ -127,7 +127,7 @@ function applyTimeoutEnvOverride(
     generationConfig.timeout = Math.floor(parsed);
     sources['timeout'] = {
       kind: 'env',
-      envKey: 'QWEN_CODE_API_TIMEOUT_MS',
+      envKey: 'LUOSHU_API_TIMEOUT_MS',
     };
   }
 }
@@ -273,7 +273,7 @@ export function resolveModelConfig(
     sources,
   );
 
-  // ---- Env override: QWEN_CODE_API_TIMEOUT_MS ----
+  // ---- Env override: LUOSHU_API_TIMEOUT_MS ----
   applyTimeoutEnvOverride(env, generationConfig, sources, modelProvider);
 
   // Build final config
@@ -330,11 +330,11 @@ function resolveQwenOAuthConfig(
         ? ` Note: vision-model has been removed since coder-model now supports vision capabilities.`
         : '';
       warnings.push(
-        `Warning: Unsupported Qwen OAuth model '${requestedModel}', falling back to '${DEFAULT_QWEN_MODEL}'.${extraMessage}`,
+        `Warning: Unsupported Qwen OAuth model '${requestedModel}', falling back to '${DEFAULT_LUOSHU_MODEL}'.${extraMessage}`,
       );
     }
-    resolvedModel = DEFAULT_QWEN_MODEL;
-    modelSource = defaultSource(`fallback to '${DEFAULT_QWEN_MODEL}'`);
+    resolvedModel = DEFAULT_LUOSHU_MODEL;
+    modelSource = defaultSource(`fallback to '${DEFAULT_LUOSHU_MODEL}'`);
   }
 
   sources['model'] = modelSource;
@@ -354,7 +354,7 @@ function resolveQwenOAuthConfig(
     sources,
   );
 
-  // ---- Env override: QWEN_CODE_API_TIMEOUT_MS ----
+  // ---- Env override: LUOSHU_API_TIMEOUT_MS ----
   applyTimeoutEnvOverride(input.env, generationConfig, sources, modelProvider);
 
   const config: ContentGeneratorConfig = {

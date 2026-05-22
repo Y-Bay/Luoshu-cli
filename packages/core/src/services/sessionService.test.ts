@@ -1423,13 +1423,13 @@ describe('SessionService', () => {
       realTmpDir = fs.mkdtempSync(
         realPath.join(realOs.tmpdir(), 'fork-session-'),
       );
-      process.env['QWEN_RUNTIME_DIR'] = realTmpDir;
+      process.env['LUOSHU_RUNTIME_DIR'] = realTmpDir;
       cwd = process.cwd();
       service = new SessionService(cwd);
     });
 
     afterEach(() => {
-      delete process.env['QWEN_RUNTIME_DIR'];
+      delete process.env['LUOSHU_RUNTIME_DIR'];
       try {
         fs.rmSync(realTmpDir, { recursive: true, force: true });
       } catch {
@@ -1623,13 +1623,13 @@ describe('SessionService', () => {
       realTmpDir = fs.mkdtempSync(
         realPath.join(realOs.tmpdir(), 'find-titles-prefix-'),
       );
-      process.env['QWEN_RUNTIME_DIR'] = realTmpDir;
+      process.env['LUOSHU_RUNTIME_DIR'] = realTmpDir;
       cwd = process.cwd();
       service = new SessionService(cwd);
     });
 
     afterEach(() => {
-      delete process.env['QWEN_RUNTIME_DIR'];
+      delete process.env['LUOSHU_RUNTIME_DIR'];
       try {
         fs.rmSync(realTmpDir, { recursive: true, force: true });
       } catch {

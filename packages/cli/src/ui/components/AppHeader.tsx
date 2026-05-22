@@ -6,8 +6,8 @@
 
 import { useMemo } from 'react';
 import { Box } from 'ink';
+import type { AuthType } from '@qwen-code/qwen-code-core';
 import {
-  AuthType,
   findProviderByCredentials,
   resolveMetadataKey,
 } from '@qwen-code/qwen-code-core';
@@ -39,12 +39,7 @@ function getAuthDisplayType(
     return matched.label;
   }
 
-  switch (authType) {
-    case AuthType.QWEN_OAUTH:
-      return AuthDisplayType.QWEN_OAUTH;
-    default:
-      return AuthDisplayType.API_KEY;
-  }
+  return AuthDisplayType.API_KEY;
 }
 
 export const AppHeader = ({ version }: AppHeaderProps) => {

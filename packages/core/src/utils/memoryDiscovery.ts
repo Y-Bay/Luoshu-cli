@@ -11,7 +11,7 @@ import { homedir } from 'node:os';
 import { getAllGeminiMdFilenames } from '../memory/const.js';
 import type { FileDiscoveryService } from '../services/fileDiscoveryService.js';
 import { processImports } from './memoryImportProcessor.js';
-import { QWEN_DIR } from './paths.js';
+import { LUOSHU_DIR } from './paths.js';
 import { Storage } from '../config/storage.js';
 import { createDebugLogger } from './debugLogger.js';
 import { loadRules, type RuleFile } from './rulesDiscovery.js';
@@ -200,7 +200,7 @@ async function getGeminiMdFilePathsInternalForEachDir(
       while (currentDir && currentDir !== path.dirname(currentDir)) {
         if (
           currentDir === globalQwenDir ||
-          currentDir === path.join(resolvedHome, QWEN_DIR)
+          currentDir === path.join(resolvedHome, LUOSHU_DIR)
         ) {
           break;
         }
@@ -340,7 +340,7 @@ export interface LoadServerHierarchicalMemoryOptions {
 
 /**
  * Loads hierarchical QWEN.md files and concatenates their content.
- * Also loads path-based context rules from `.qwen/rules/` directories.
+ * Also loads path-based context rules from `.luoshu/rules/` directories.
  * This function is intended for use by the server.
  *
  * @param contextRuleExcludes - Glob patterns to skip when loading rules.
@@ -392,7 +392,7 @@ export async function loadServerHierarchicalMemory(
     ).length;
   }
 
-  // Load path-based context rules from .qwen/rules/ directories
+  // Load path-based context rules from .luoshu/rules/ directories
   const resolvedCwd = path.resolve(currentWorkingDirectory);
   const foundRoot = await findProjectRoot(resolvedCwd);
   const effectiveRoot = foundRoot ?? resolvedCwd;

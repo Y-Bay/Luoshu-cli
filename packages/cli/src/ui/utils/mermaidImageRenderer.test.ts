@@ -110,7 +110,7 @@ describe('mermaid image renderer', () => {
       availableTerminalHeight: 20,
       env: {
         PATH: process.env['PATH'] ?? '',
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'kitty',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'kitty',
       },
     });
 
@@ -138,8 +138,8 @@ describe('mermaid image renderer', () => {
         availableTerminalHeight: 20,
         env: {
           PATH: binDir,
-          QWEN_CODE_MERMAID_IMAGE_RENDERING: '1',
-          QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'kitty',
+          LUOSHU_MERMAID_IMAGE_RENDERING: '1',
+          LUOSHU_MERMAID_IMAGE_PROTOCOL: 'kitty',
         },
       });
 
@@ -171,8 +171,8 @@ describe('mermaid image renderer', () => {
       availableTerminalHeight: 20,
       env: {
         PATH: binDir,
-        QWEN_CODE_MERMAID_IMAGE_RENDERING: '1',
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'kitty',
+        LUOSHU_MERMAID_IMAGE_RENDERING: '1',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'kitty',
       },
     });
 
@@ -185,17 +185,17 @@ describe('mermaid image renderer', () => {
   it('detects forced terminal image protocols', () => {
     expect(
       detectTerminalImageProtocol({
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'kitty',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'kitty',
       }),
     ).toBe('kitty');
     expect(
       detectTerminalImageProtocol({
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'iterm2',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'iterm2',
       }),
     ).toBe('iterm2');
     expect(
       detectTerminalImageProtocol({
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'off',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'off',
       }),
     ).toBeNull();
   });
@@ -203,8 +203,8 @@ describe('mermaid image renderer', () => {
   it('honors the Mermaid image disable flag over forced protocols', () => {
     expect(
       detectTerminalImageProtocol({
-        QWEN_CODE_DISABLE_MERMAID_IMAGES: '1',
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'kitty',
+        LUOSHU_DISABLE_MERMAID_IMAGES: '1',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'kitty',
       }),
     ).toBeNull();
   });
@@ -214,12 +214,12 @@ describe('mermaid image renderer', () => {
 
     expect(
       detectTerminalImageProtocol({
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'kitty',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'kitty',
       }),
     ).toBeNull();
     expect(
       detectTerminalImageProtocol({
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'iterm2',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'iterm2',
       }),
     ).toBeNull();
   });
@@ -265,8 +265,8 @@ describe('mermaid image renderer', () => {
       availableTerminalHeight: 20,
       env: {
         PATH: `${binDir}${path.delimiter}${process.env['PATH'] ?? ''}`,
-        QWEN_CODE_MERMAID_IMAGE_RENDERING: '1',
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'iterm2',
+        LUOSHU_MERMAID_IMAGE_RENDERING: '1',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'iterm2',
       },
     });
 
@@ -288,8 +288,8 @@ describe('mermaid image renderer', () => {
       availableTerminalHeight: 20,
       env: {
         PATH: `${binDir}${path.delimiter}${process.env['PATH'] ?? ''}`,
-        QWEN_CODE_MERMAID_IMAGE_RENDERING: '1',
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'kitty',
+        LUOSHU_MERMAID_IMAGE_RENDERING: '1',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'kitty',
       },
     });
 
@@ -308,8 +308,8 @@ describe('mermaid image renderer', () => {
       availableTerminalHeight: 20,
       env: {
         PATH: `${binDir}${path.delimiter}${process.env['PATH'] ?? ''}`,
-        QWEN_CODE_MERMAID_IMAGE_RENDERING: '1',
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'iterm2',
+        LUOSHU_MERMAID_IMAGE_RENDERING: '1',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'iterm2',
       },
     });
 
@@ -328,9 +328,9 @@ describe('mermaid image renderer', () => {
       availableTerminalHeight: 60,
       env: {
         PATH: `${binDir}${path.delimiter}${process.env['PATH'] ?? ''}`,
-        QWEN_CODE_MERMAID_IMAGE_RENDERING: '1',
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'iterm2',
-        QWEN_CODE_MERMAID_CELL_ASPECT_RATIO: '1',
+        LUOSHU_MERMAID_IMAGE_RENDERING: '1',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'iterm2',
+        LUOSHU_MERMAID_CELL_ASPECT_RATIO: '1',
       },
     });
 
@@ -348,9 +348,9 @@ describe('mermaid image renderer', () => {
       availableTerminalHeight: 20,
       env: {
         PATH: `${binDir}${path.delimiter}${process.env['PATH'] ?? ''}`,
-        QWEN_CODE_MERMAID_IMAGE_RENDERING: '1',
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'iterm2',
-        QWEN_CODE_MERMAID_RENDER_TIMEOUT_MS: 'not-a-number',
+        LUOSHU_MERMAID_IMAGE_RENDERING: '1',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'iterm2',
+        LUOSHU_MERMAID_RENDER_TIMEOUT_MS: 'not-a-number',
       },
     });
 
@@ -370,8 +370,8 @@ describe('mermaid image renderer', () => {
       availableTerminalHeight: 20,
       env: {
         PATH: `${binDir}${path.delimiter}${process.env['PATH'] ?? ''}`,
-        QWEN_CODE_MERMAID_IMAGE_RENDERING: '1',
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'off',
+        LUOSHU_MERMAID_IMAGE_RENDERING: '1',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'off',
       },
     });
 
@@ -394,15 +394,15 @@ describe('mermaid image renderer', () => {
       availableTerminalHeight: 20,
       env: {
         PATH: `${binDir}${path.delimiter}${process.env['PATH'] ?? ''}`,
-        QWEN_CODE_DISABLE_MERMAID_IMAGES: '1',
-        QWEN_CODE_MERMAID_IMAGE_RENDERING: '1',
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'off',
+        LUOSHU_DISABLE_MERMAID_IMAGES: '1',
+        LUOSHU_MERMAID_IMAGE_RENDERING: '1',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'off',
       },
     });
 
     expect(result.kind).toBe('unavailable');
     expect(result.kind === 'unavailable' && result.reason).toContain(
-      'QWEN_CODE_DISABLE_MERMAID_IMAGES',
+      'LUOSHU_DISABLE_MERMAID_IMAGES',
     );
   });
 
@@ -418,15 +418,15 @@ describe('mermaid image renderer', () => {
       availableTerminalHeight: 20,
       env: {
         PATH: `${binDir}${path.delimiter}${process.env['PATH'] ?? ''}`,
-        QWEN_CODE_DISABLE_MERMAID_IMAGES: '1',
-        QWEN_CODE_MERMAID_IMAGE_RENDERING: '1',
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'off',
+        LUOSHU_DISABLE_MERMAID_IMAGES: '1',
+        LUOSHU_MERMAID_IMAGE_RENDERING: '1',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'off',
       },
     });
 
     expect(result.kind).toBe('unavailable');
     expect(result.kind === 'unavailable' && result.reason).toContain(
-      'QWEN_CODE_DISABLE_MERMAID_IMAGES',
+      'LUOSHU_DISABLE_MERMAID_IMAGES',
     );
   });
 
@@ -453,8 +453,8 @@ describe('mermaid image renderer', () => {
         PATH: `${binDir}${path.delimiter}${process.env['PATH'] ?? ''}`,
         OPENAI_API_KEY: 'should-not-leak',
         GEMINI_API_KEY: 'should-not-leak',
-        QWEN_CODE_MERMAID_IMAGE_RENDERING: '1',
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'kitty',
+        LUOSHU_MERMAID_IMAGE_RENDERING: '1',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'kitty',
       },
     });
 
@@ -473,8 +473,8 @@ describe('mermaid image renderer', () => {
       availableTerminalHeight: 20,
       env: {
         PATH: `${binDir}${path.delimiter}${process.env['PATH'] ?? ''}`,
-        QWEN_CODE_MERMAID_IMAGE_RENDERING: '1',
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'off',
+        LUOSHU_MERMAID_IMAGE_RENDERING: '1',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'off',
       },
     });
 
@@ -499,8 +499,8 @@ describe('mermaid image renderer', () => {
       availableTerminalHeight: 20,
       env: {
         PATH: `${binDir}${path.delimiter}${process.env['PATH'] ?? ''}`,
-        QWEN_CODE_MERMAID_IMAGE_RENDERING: '1',
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'off',
+        LUOSHU_MERMAID_IMAGE_RENDERING: '1',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'off',
       },
     });
 
@@ -535,8 +535,8 @@ describe('mermaid image renderer', () => {
       availableTerminalHeight: 20,
       env: {
         PATH: `${binDir}${path.delimiter}${process.env['PATH'] ?? ''}`,
-        QWEN_CODE_MERMAID_IMAGE_RENDERING: '1',
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'off',
+        LUOSHU_MERMAID_IMAGE_RENDERING: '1',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'off',
       },
     });
 
@@ -562,8 +562,8 @@ describe('mermaid image renderer', () => {
       signal: abortController.signal,
       env: {
         PATH: `${binDir}${path.delimiter}${process.env['PATH'] ?? ''}`,
-        QWEN_CODE_MERMAID_IMAGE_RENDERING: '1',
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'kitty',
+        LUOSHU_MERMAID_IMAGE_RENDERING: '1',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'kitty',
       },
     });
 
@@ -582,8 +582,8 @@ describe('mermaid image renderer', () => {
       availableTerminalHeight: 20,
       env: {
         PATH: `${binDir}${path.delimiter}${process.env['PATH'] ?? ''}`,
-        QWEN_CODE_MERMAID_IMAGE_RENDERING: '1',
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'kitty',
+        LUOSHU_MERMAID_IMAGE_RENDERING: '1',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'kitty',
       },
     });
 
@@ -601,8 +601,8 @@ describe('mermaid image renderer', () => {
       availableTerminalHeight: 20,
       env: {
         PATH: `${binDir}${path.delimiter}${process.env['PATH'] ?? ''}`,
-        QWEN_CODE_MERMAID_IMAGE_RENDERING: '1',
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'kitty',
+        LUOSHU_MERMAID_IMAGE_RENDERING: '1',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'kitty',
       },
     });
 
@@ -633,8 +633,8 @@ describe('mermaid image renderer', () => {
       availableTerminalHeight: 20,
       env: {
         PATH: `${binDir}${path.delimiter}${process.env['PATH'] ?? ''}`,
-        QWEN_CODE_MERMAID_IMAGE_RENDERING: '1',
-        QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'kitty',
+        LUOSHU_MERMAID_IMAGE_RENDERING: '1',
+        LUOSHU_MERMAID_IMAGE_PROTOCOL: 'kitty',
       },
     });
 
@@ -662,8 +662,8 @@ describe('mermaid image renderer', () => {
 
     const env = {
       PATH: `${binDir}${path.delimiter}${process.env['PATH'] ?? ''}`,
-      QWEN_CODE_MERMAID_IMAGE_RENDERING: '1',
-      QWEN_CODE_MERMAID_IMAGE_PROTOCOL: 'iterm2',
+      LUOSHU_MERMAID_IMAGE_RENDERING: '1',
+      LUOSHU_MERMAID_IMAGE_PROTOCOL: 'iterm2',
     };
 
     for (let index = 0; index < 5; index++) {

@@ -10,7 +10,7 @@ import {
   isDebugLoggingDegraded,
   isBareMode,
   logUserPrompt,
-  QWEN_CODE_SIMPLE_ENV_VAR,
+  LUOSHU_SIMPLE_ENV_VAR,
   Storage,
   SessionService,
   setStartupEventSink,
@@ -129,7 +129,7 @@ function getNodeMemoryArgs(isDebugMode: boolean): string[] {
     );
   }
 
-  if (process.env['QWEN_CODE_NO_RELAUNCH']) {
+  if (process.env['LUOSHU_NO_RELAUNCH']) {
     return [];
   }
 
@@ -393,7 +393,7 @@ export async function main() {
   profileCheckpoint('main_entry');
   // Bridge core-package startup events (Config.initialize, MCP discovery,
   // GeminiClient.setTools) into the cli's startup profiler. Gated on
-  // `isStartupProfilerEnabled()` so that when QWEN_CODE_PROFILE_STARTUP is
+  // `isStartupProfilerEnabled()` so that when LUOSHU_PROFILE_STARTUP is
   // unset (the common case) every core-side `recordStartupEvent()` call
   // sees a null sink and short-circuits at the first comparison, instead
   // of going through this arrow wrapper and the profiler's own enabled
@@ -404,7 +404,7 @@ export async function main() {
   setupUnhandledRejectionHandler();
 
   if (process.argv.includes('--bare')) {
-    process.env[QWEN_CODE_SIMPLE_ENV_VAR] = '1';
+    process.env[LUOSHU_SIMPLE_ENV_VAR] = '1';
   }
 
   // Run before yargs parses subcommands — handlers like `channel status`/`stop`
@@ -415,7 +415,7 @@ export async function main() {
   profileCheckpoint('after_parse_arguments');
 
   if (isBareMode(argv.bare)) {
-    process.env[QWEN_CODE_SIMPLE_ENV_VAR] = '1';
+    process.env[LUOSHU_SIMPLE_ENV_VAR] = '1';
   }
 
   const settings = isBareMode(argv.bare)
@@ -755,7 +755,7 @@ export async function main() {
         ...(config.getModelsConfig().getCurrentAuthType() ===
         AuthType.QWEN_OAUTH
           ? [
-              'Qwen OAuth free tier was discontinued on 2026-04-15. Run /auth to switch to Coding Plan or another provider.',
+              'Qwen OAuth is no longer supported. Run /auth to switch to another provider.',
             ]
           : []),
       ]),
@@ -858,7 +858,7 @@ export async function main() {
         writeStderrLine(
           `Warning: MCP server(s) failed to start: ${failedMcpServers.join(', ')}. ` +
             `Continuing with built-in tools and any servers that did connect. ` +
-            `Re-run with QWEN_CODE_DEBUG=1 to see per-server reasons.`,
+            `Re-run with LUOSHU_DEBUG=1 to see per-server reasons.`,
         );
       }
       // Finalize the non-interactive startup profile here so MCP events

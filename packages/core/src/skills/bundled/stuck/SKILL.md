@@ -31,15 +31,15 @@ If the user gave an argument, treat it as a PID **only if it consists entirely o
 
 ## Investigation steps
 
-**Preamble — resolve the runtime base directory.** Required for both paths below (sidecar enumeration in step 1, debug log lookup in step 3, and the PID fast path). The base directory is taken from (in priority order): `QWEN_RUNTIME_DIR` env var, the `advanced.runtimeOutputDir` setting, `QWEN_HOME` env var, and finally `~/.qwen`.
+**Preamble — resolve the runtime base directory.** Required for both paths below (sidecar enumeration in step 1, debug log lookup in step 3, and the PID fast path). The base directory is taken from (in priority order): `LUOSHU_RUNTIME_DIR` env var, the `advanced.runtimeOutputDir` setting, `LUOSHU_HOME` env var, and finally `~/.qwen`.
 
 ```
-RUNTIME_DIR="${QWEN_RUNTIME_DIR:-}"
-[ -z "$RUNTIME_DIR" ] && command -v jq >/dev/null && RUNTIME_DIR=$(jq -r '.advanced.runtimeOutputDir // empty' "${QWEN_HOME:-$HOME/.qwen}/settings.json" 2>/dev/null)
+RUNTIME_DIR="${LUOSHU_RUNTIME_DIR:-}"
+[ -z "$RUNTIME_DIR" ] && command -v jq >/dev/null && RUNTIME_DIR=$(jq -r '.advanced.runtimeOutputDir // empty' "${LUOSHU_HOME:-$HOME/.qwen}/settings.json" 2>/dev/null)
 # `advanced.runtimeOutputDir` may be `~/...` or relative; mirror Storage.resolvePath() before using in globs
 [ -n "$RUNTIME_DIR" ] && RUNTIME_DIR="${RUNTIME_DIR/#\~/$HOME}"
 [ -n "$RUNTIME_DIR" ] && case "$RUNTIME_DIR" in /*) ;; *) RUNTIME_DIR="$(cd "$RUNTIME_DIR" 2>/dev/null && pwd)" || RUNTIME_DIR="" ;; esac
-RUNTIME_DIR="${RUNTIME_DIR:-${QWEN_HOME:-$HOME/.qwen}}"
+RUNTIME_DIR="${RUNTIME_DIR:-${LUOSHU_HOME:-$HOME/.qwen}}"
 ```
 
 (If `jq` isn't installed, the settings layer is silently skipped — the env-var / default fallback covers the common case.)

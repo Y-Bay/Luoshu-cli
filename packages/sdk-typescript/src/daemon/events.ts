@@ -213,7 +213,7 @@ export interface DaemonMcpChildRefusedBatchData {
 /**
  * Issue #4175 PR 16: a `POST /workspace/memory` write completed
  * successfully. `scope` records which file was touched (workspace QWEN.md
- * vs global ~/.qwen/QWEN.md), `mode` is the requested write mode, and
+ * vs global ~/.luoshu/QWEN.md), `mode` is the requested write mode, and
  * `bytesWritten` is the size of the file post-write.
  */
 export interface DaemonMemoryChangedData {

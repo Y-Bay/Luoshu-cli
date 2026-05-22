@@ -21,7 +21,7 @@ interface ArenaStartDialogProps {
 }
 
 const MODEL_PROVIDERS_DOCUMENTATION_URL =
-  'https://qwenlm.github.io/qwen-code-docs/en/users/configuration/settings/#modelproviders';
+  'https://github.com/luoshu-cli/luoshu-cli';
 
 export function ArenaStartDialog({
   onClose,
@@ -122,12 +122,10 @@ export function ArenaStartDialog({
                 {t('Arena requires at least 2 models. To add more:')}
               </Text>
               <Text color={theme.status.warning}>
-                {t(
-                  '  - Run /auth to set up a Coding Plan (includes multiple models)',
-                )}
+                {t('  - Configure modelProviders in settings.json')}
               </Text>
               <Text color={theme.status.warning}>
-                {t('  - Or configure modelProviders in settings.json')}
+                {t('  - Or run /auth to add another provider')}
               </Text>
             </>
           )}

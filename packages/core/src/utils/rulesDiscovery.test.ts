@@ -13,7 +13,7 @@ import {
   loadRules,
   ConditionalRulesRegistry,
 } from './rulesDiscovery.js';
-import { QWEN_DIR, unescapePath } from './paths.js';
+import { LUOSHU_DIR, unescapePath } from './paths.js';
 
 vi.mock('os', async (importOriginal) => {
   const actualOs = await importOriginal<typeof os>();
@@ -186,7 +186,7 @@ Body.
     });
 
     it('loads baseline rules into content', async () => {
-      const rulesDir = path.join(projectRoot, QWEN_DIR, 'rules');
+      const rulesDir = path.join(projectRoot, LUOSHU_DIR, 'rules');
       await createTestFile(
         path.join(rulesDir, 'general.md'),
         `---
@@ -202,7 +202,7 @@ Always write tests.`,
     });
 
     it('puts conditional rules in conditionalRules, not in content', async () => {
-      const rulesDir = path.join(projectRoot, QWEN_DIR, 'rules');
+      const rulesDir = path.join(projectRoot, LUOSHU_DIR, 'rules');
       await createTestFile(
         path.join(rulesDir, 'fe.md'),
         `---
@@ -220,7 +220,7 @@ Use hooks.`,
     });
 
     it('splits baseline and conditional correctly', async () => {
-      const rulesDir = path.join(projectRoot, QWEN_DIR, 'rules');
+      const rulesDir = path.join(projectRoot, LUOSHU_DIR, 'rules');
       await createTestFile(
         path.join(rulesDir, '01-general.md'),
         'Write clean code.',
@@ -241,7 +241,7 @@ Use hooks.`,
     });
 
     it('recursively scans subdirectories', async () => {
-      const rulesDir = path.join(projectRoot, QWEN_DIR, 'rules');
+      const rulesDir = path.join(projectRoot, LUOSHU_DIR, 'rules');
       await createTestFile(
         path.join(rulesDir, 'frontend', 'react.md'),
         'Use hooks.',
@@ -261,7 +261,7 @@ Use hooks.`,
 
     it('skips project rules when folder is untrusted', async () => {
       await createTestFile(
-        path.join(projectRoot, QWEN_DIR, 'rules', 'r.md'),
+        path.join(projectRoot, LUOSHU_DIR, 'rules', 'r.md'),
         'Untrusted.',
       );
       const result = await loadRules(projectRoot, false);
@@ -270,7 +270,7 @@ Use hooks.`,
 
     it('loads global rules even when folder is untrusted', async () => {
       await createTestFile(
-        path.join(homedir, QWEN_DIR, 'rules', 'g.md'),
+        path.join(homedir, LUOSHU_DIR, 'rules', 'g.md'),
         'Global.',
       );
       const result = await loadRules(projectRoot, false);
@@ -280,7 +280,7 @@ Use hooks.`,
 
     it('does not duplicate rules when projectRoot equals homedir', async () => {
       await createTestFile(
-        path.join(homedir, QWEN_DIR, 'rules', 's.md'),
+        path.join(homedir, LUOSHU_DIR, 'rules', 's.md'),
         'Shared.',
       );
       const result = await loadRules(homedir, true);
@@ -289,7 +289,7 @@ Use hooks.`,
     });
 
     it('excludes rules matching exclude patterns', async () => {
-      const rulesDir = path.join(projectRoot, QWEN_DIR, 'rules');
+      const rulesDir = path.join(projectRoot, LUOSHU_DIR, 'rules');
       await createTestFile(path.join(rulesDir, 'keep.md'), 'Keep.');
       const skipped = await createTestFile(
         path.join(rulesDir, 'skip.md'),
@@ -303,7 +303,7 @@ Use hooks.`,
     });
 
     it('excludes rules in subdirectories by glob', async () => {
-      const rulesDir = path.join(projectRoot, QWEN_DIR, 'rules');
+      const rulesDir = path.join(projectRoot, LUOSHU_DIR, 'rules');
       await createTestFile(
         path.join(rulesDir, 'other-team', 'r.md'),
         'Their rule.',
@@ -317,28 +317,28 @@ Use hooks.`,
 
     it('formats rules with source markers', async () => {
       await createTestFile(
-        path.join(projectRoot, QWEN_DIR, 'rules', 'test.md'),
+        path.join(projectRoot, LUOSHU_DIR, 'rules', 'test.md'),
         'Content.',
       );
       const result = await loadRules(projectRoot, true);
       expect(result.content).toContain(
-        `--- Rule from: ${QWEN_DIR}/rules/test.md ---`,
+        `--- Rule from: ${LUOSHU_DIR}/rules/test.md ---`,
       );
     });
 
-    it('reads global rules from QWEN_HOME when set', async () => {
+    it('reads global rules from LUOSHU_HOME when set', async () => {
       const customQwenHome = path.join(testRootDir, 'custom-qwen-home');
-      const originalQwenHome = process.env['QWEN_HOME'];
-      process.env['QWEN_HOME'] = customQwenHome;
+      const originalQwenHome = process.env['LUOSHU_HOME'];
+      process.env['LUOSHU_HOME'] = customQwenHome;
       try {
         await createTestFile(
           path.join(customQwenHome, 'rules', 'fromCustomHome.md'),
           'CustomHome rule.',
         );
-        // A stale rule in the legacy ~/.qwen/rules location should NOT be
-        // loaded once QWEN_HOME points elsewhere.
+        // A stale rule in the legacy ~/.luoshu/rules location should NOT be
+        // loaded once LUOSHU_HOME points elsewhere.
         await createTestFile(
-          path.join(homedir, QWEN_DIR, 'rules', 'fromLegacyHome.md'),
+          path.join(homedir, LUOSHU_DIR, 'rules', 'fromLegacyHome.md'),
           'LegacyHome rule.',
         );
 
@@ -348,9 +348,9 @@ Use hooks.`,
         expect(result.content).not.toContain('LegacyHome rule.');
       } finally {
         if (originalQwenHome === undefined) {
-          delete process.env['QWEN_HOME'];
+          delete process.env['LUOSHU_HOME'];
         } else {
-          process.env['QWEN_HOME'] = originalQwenHome;
+          process.env['LUOSHU_HOME'] = originalQwenHome;
         }
       }
     });

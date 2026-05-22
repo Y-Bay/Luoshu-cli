@@ -198,7 +198,7 @@ export function validateAuthMethod(
     // Qwen OAuth free tier was discontinued on 2026-04-15.
     // Block new OAuth setups; existing cached tokens still work until server rejects them.
     return t(
-      'Qwen OAuth free tier was discontinued on 2026-04-15. Run /auth to switch to Coding Plan, OpenRouter, Fireworks AI, or another provider.',
+      'Qwen OAuth is no longer supported. Run /auth to switch to OpenRouter, a custom provider, or another OpenAI-compatible API.',
     );
   }
 

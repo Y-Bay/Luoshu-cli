@@ -134,7 +134,7 @@ export class FileDiscoveryService {
   }
 
   /**
-   * Returns loaded patterns from .qwenignore
+   * Returns loaded patterns from .luoshuignore
    */
   getQwenIgnorePatterns(): string[] {
     return this.qwenIgnoreFilter?.getPatterns() ?? [];

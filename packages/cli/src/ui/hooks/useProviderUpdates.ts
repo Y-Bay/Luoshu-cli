@@ -79,11 +79,6 @@ function getProviderMetadata(
 // Migration: move legacy top-level keys into providerMetadata namespace
 // ---------------------------------------------------------------------------
 
-const LEGACY_KEY_MAP: Record<string, string> = {
-  codingPlan: 'coding-plan',
-  tokenPlan: 'token-plan',
-};
-
 function migrateProviderMetadata(settings: LoadedSettings): void {
   const mergedSettings = settings.merged as Record<string, unknown>;
   const persistScope = getPersistScopeForModelSelection(settings);
@@ -105,10 +100,6 @@ function migrateProviderMetadata(settings: LoadedSettings): void {
     settings.setValue(persistScope, oldKey, undefined);
     migrated = true;
   };
-
-  for (const [oldKey, newKey] of Object.entries(LEGACY_KEY_MAP)) {
-    migrateKey(oldKey, newKey);
-  }
 
   for (const provider of ALL_PROVIDERS) {
     const key = resolveMetadataKey(provider);

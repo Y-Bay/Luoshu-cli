@@ -252,13 +252,13 @@ export function mcpTransportOf(config: MCPServerConfig): McpTransportKind {
  * leave them unset and get `{ budgetMode: 'off' }` — the historical
  * behavior, no enforcement.
  *
- * `QWEN_SERVE_MCP_CLIENT_BUDGET` — positive integer; non-numeric /
+ * `LUOSHU_SERVE_MCP_CLIENT_BUDGET` — positive integer; non-numeric /
  *   zero / negative / NaN are silently ignored (treated as unset).
  * `QWEN_SERVE_MCP_BUDGET_MODE` — `enforce|warn|off`. Defaults to
  *   `warn` when a budget is set, `off` otherwise.
  */
 function readBudgetFromEnv(): McpBudgetConfig {
-  const rawBudget = process.env['QWEN_SERVE_MCP_CLIENT_BUDGET'];
+  const rawBudget = process.env['LUOSHU_SERVE_MCP_CLIENT_BUDGET'];
   const rawMode = process.env['QWEN_SERVE_MCP_BUDGET_MODE'];
   let clientBudget: number | undefined;
   if (rawBudget !== undefined && rawBudget !== '') {
@@ -267,7 +267,7 @@ function readBudgetFromEnv(): McpBudgetConfig {
       clientBudget = parsed;
     } else {
       // PR 14 fix (review #4247 wenshao R7 line 191): operator typos
-      // like `QWEN_SERVE_MCP_CLIENT_BUDGET=abc` previously fell
+      // like `LUOSHU_SERVE_MCP_CLIENT_BUDGET=abc` previously fell
       // through silently to "no budget" with zero indication. The
       // CLI parent (`commands/serve.ts` + `runQwenServe.ts`)
       // validates and throws, but the ACP child process — where
@@ -275,7 +275,7 @@ function readBudgetFromEnv(): McpBudgetConfig {
       // boot breadcrumb so operators see the misconfiguration in
       // journald / docker logs.
       process.stderr.write(
-        `qwen serve: ignoring invalid QWEN_SERVE_MCP_CLIENT_BUDGET=` +
+        `qwen serve: ignoring invalid LUOSHU_SERVE_MCP_CLIENT_BUDGET=` +
           `'${rawBudget}' (expected positive integer); ` +
           `MCP budget enforcement disabled for this child.\n`,
       );
@@ -323,7 +323,7 @@ function readBudgetFromEnv(): McpBudgetConfig {
   ) {
     process.stderr.write(
       `qwen serve: QWEN_SERVE_MCP_BUDGET_MODE=${budgetMode} requires ` +
-        `QWEN_SERVE_MCP_CLIENT_BUDGET=N; downgrading to off. ` +
+        `LUOSHU_SERVE_MCP_CLIENT_BUDGET=N; downgrading to off. ` +
         `Set both env vars to enable MCP guardrail enforcement.\n`,
     );
     budgetMode = 'off';

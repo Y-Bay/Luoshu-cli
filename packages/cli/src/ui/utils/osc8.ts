@@ -141,7 +141,7 @@ function parseVersion(versionString: string | undefined): ParsedVersion {
  *      host supports OSC 8 and have `allow-passthrough on` (tmux 3.3+) can
  *      opt in with `FORCE_HYPERLINK=1`.
  *
- *   2. `QWEN_DISABLE_HYPERLINKS=1` is a hard opt-out (e.g. for users whose
+ *   2. `LUOSHU_DISABLE_HYPERLINKS=1` is a hard opt-out (e.g. for users whose
  *      terminal advertises support but breaks on long URLs).
  *
  * The detector deliberately allocates nothing and reads env vars on every
@@ -154,7 +154,7 @@ export function supportsHyperlinks(
   const env = process.env;
 
   // Hard opt-outs win unconditionally.
-  if (env['QWEN_DISABLE_HYPERLINKS'] === '1') return false;
+  if (env['LUOSHU_DISABLE_HYPERLINKS'] === '1') return false;
   if (env['NO_COLOR'] !== undefined && env['NO_COLOR'] !== '') return false;
   if (env['FORCE_COLOR'] === '0' || env['FORCE_COLOR'] === 'false') {
     return false;
@@ -477,5 +477,5 @@ export const HYPERLINK_ENV_KEYS = [
   'TERM',
   'TEAMCITY_VERSION',
   'FORCE_HYPERLINK',
-  'QWEN_DISABLE_HYPERLINKS',
+  'LUOSHU_DISABLE_HYPERLINKS',
 ] as const;

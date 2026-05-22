@@ -142,7 +142,7 @@ class ExitWorktreeInvocation extends BaseToolInvocation<
     // Mirror `enter_worktree`: anchor at the repo top-level so we look
     // for the worktree under the same directory it was created in.
     // Otherwise launching `qwen` from a subdirectory of a monorepo would
-    // make exit_worktree look at `<subdir>/.qwen/worktrees/<slug>`,
+    // make exit_worktree look at `<subdir>/.luoshu/worktrees/<slug>`,
     // which never exists, and every call would return "Worktree not
     // found" even when the worktree is alive.
     const cwd = this.config.getTargetDir();
@@ -209,7 +209,7 @@ class ExitWorktreeInvocation extends BaseToolInvocation<
     // 0. Session ownership: refuse to drop a worktree that was created
     //    by a different session. Without this, a prompt injection (or
     //    just a confused model) in session A could enumerate
-    //    `.qwen/worktrees/` and call `exit_worktree` with a name
+    //    `.luoshu/worktrees/` and call `exit_worktree` with a name
     //    belonging to session B, destroying its work. Worktrees
     //    created before this guard existed lack the marker; we treat
     //    those as "owner unknown" and allow removal (matches prior

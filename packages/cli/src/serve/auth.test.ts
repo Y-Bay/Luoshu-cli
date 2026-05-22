@@ -93,7 +93,7 @@ describe('createMutationGate (#4175 PR 15)', () => {
     // paths, not just one. Test for keyword presence rather than
     // exact text so future copy edits don't churn the assertion.
     const body = res.body as { error?: string };
-    expect(body.error).toMatch(/QWEN_SERVER_TOKEN/);
+    expect(body.error).toMatch(/LUOSHU_SERVER_TOKEN/);
     expect(body.error).toMatch(/--token/);
     // `--require-auth` is intentionally NOT named here as a remediation:
     // setting it without a token is itself a boot-error path (see

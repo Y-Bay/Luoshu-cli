@@ -58,7 +58,7 @@ import {
   resetHomeEnvBootstrapForTesting,
 } from './settings.js';
 import { needsMigration } from './migration/index.js';
-import { QWEN_DIR } from '@qwen-code/qwen-code-core';
+import { LUOSHU_DIR } from '@qwen-code/qwen-code-core';
 
 const mockDebugLogger = vi.hoisted(() => ({
   debug: vi.fn(),
@@ -78,7 +78,7 @@ vi.mock('@qwen-code/qwen-code-core', async (importOriginal) => {
 
 // Resolve the (mocked) user-settings path once at module load. Tests mock
 // `os.homedir`, so the value is stable across the suite. Production callers
-// must keep going through `getUserSettingsPath()` to pick up `QWEN_HOME`
+// must keep going through `getUserSettingsPath()` to pick up `LUOSHU_HOME`
 // resolved from `~/.env` after module load.
 const USER_SETTINGS_PATH = getUserSettingsPath();
 
@@ -2372,16 +2372,16 @@ describe('Settings Loading and Merging', () => {
       delete process.env['TEST_PORT'];
     });
 
-    describe('when QWEN_CODE_SYSTEM_SETTINGS_PATH is set', () => {
+    describe('when LUOSHU_SYSTEM_SETTINGS_PATH is set', () => {
       const MOCK_ENV_SYSTEM_SETTINGS_PATH = '/mock/env/system/settings.json';
 
       beforeEach(() => {
-        process.env['QWEN_CODE_SYSTEM_SETTINGS_PATH'] =
+        process.env['LUOSHU_SYSTEM_SETTINGS_PATH'] =
           MOCK_ENV_SYSTEM_SETTINGS_PATH;
       });
 
       afterEach(() => {
-        delete process.env['QWEN_CODE_SYSTEM_SETTINGS_PATH'];
+        delete process.env['LUOSHU_SYSTEM_SETTINGS_PATH'];
       });
 
       it('should load system settings from the path specified in the environment variable', () => {
@@ -2739,7 +2739,7 @@ describe('Settings Loading and Merging', () => {
       isWorkspaceTrustedValue = true,
     }) {
       delete process.env['TESTTEST']; // reset
-      const geminiEnvPath = path.resolve(path.join(QWEN_DIR, '.env'));
+      const geminiEnvPath = path.resolve(path.join(LUOSHU_DIR, '.env'));
 
       vi.mocked(isWorkspaceTrusted).mockReturnValue({
         isTrusted: isWorkspaceTrustedValue,
@@ -2868,7 +2868,7 @@ describe('Settings Loading and Merging', () => {
       });
 
       it('should allow .env file to override settings.env values', () => {
-        const geminiEnvPath = path.resolve(path.join(QWEN_DIR, '.env'));
+        const geminiEnvPath = path.resolve(path.join(LUOSHU_DIR, '.env'));
         const userSettingsContent: Settings = {
           env: {
             ENV_OVERRIDE_TEST: 'from_settings',
@@ -2902,7 +2902,7 @@ describe('Settings Loading and Merging', () => {
       it('should not override existing system environment variables', () => {
         process.env['SYSTEM_ENV_VAR'] = 'system_value';
 
-        const geminiEnvPath = path.resolve(path.join(QWEN_DIR, '.env'));
+        const geminiEnvPath = path.resolve(path.join(LUOSHU_DIR, '.env'));
         const userSettingsContent: Settings = {
           env: {
             SYSTEM_ENV_VAR: 'from_settings',
@@ -2966,17 +2966,17 @@ describe('Settings Loading and Merging', () => {
         expect(process.env['MULTI_VAR_C']).toEqual('value_c');
       });
 
-      it('should never set QWEN_HOME or QWEN_RUNTIME_DIR from settings.env', () => {
+      it('should never set LUOSHU_HOME or LUOSHU_RUNTIME_DIR from settings.env', () => {
         // Storage-routing vars must not come from settings.json — even at
         // user scope — because a workspace settings.json could otherwise
         // redirect global state after the path bootstrap has run.
-        delete process.env['QWEN_HOME'];
-        delete process.env['QWEN_RUNTIME_DIR'];
+        delete process.env['LUOSHU_HOME'];
+        delete process.env['LUOSHU_RUNTIME_DIR'];
 
         const userSettingsContent: Settings = {
           env: {
-            QWEN_HOME: '/redirected/by/settings',
-            QWEN_RUNTIME_DIR: '/redirected/runtime',
+            LUOSHU_HOME: '/redirected/by/settings',
+            LUOSHU_RUNTIME_DIR: '/redirected/runtime',
             HARMLESS_VAR: 'ok',
           },
         };
@@ -2999,8 +2999,8 @@ describe('Settings Loading and Merging', () => {
 
         loadSettings(MOCK_WORKSPACE_DIR);
 
-        expect(process.env['QWEN_HOME']).toBeUndefined();
-        expect(process.env['QWEN_RUNTIME_DIR']).toBeUndefined();
+        expect(process.env['LUOSHU_HOME']).toBeUndefined();
+        expect(process.env['LUOSHU_RUNTIME_DIR']).toBeUndefined();
         expect(process.env['HARMLESS_VAR']).toEqual('ok');
       });
 
@@ -3086,29 +3086,29 @@ describe('Settings Loading and Merging', () => {
       });
     });
 
-    describe('QWEN_HOME custom directory', () => {
-      const originalQwenHome = process.env['QWEN_HOME'];
+    describe('LUOSHU_HOME custom directory', () => {
+      const originalQwenHome = process.env['LUOSHU_HOME'];
 
       beforeEach(() => {
         delete process.env['DEBUG'];
         delete process.env['DEBUG_MODE'];
-        delete process.env['QWEN_HOME_TEST_VAR'];
+        delete process.env['LUOSHU_HOME_TEST_VAR'];
       });
 
       afterEach(() => {
         if (originalQwenHome === undefined) {
-          delete process.env['QWEN_HOME'];
+          delete process.env['LUOSHU_HOME'];
         } else {
-          process.env['QWEN_HOME'] = originalQwenHome;
+          process.env['LUOSHU_HOME'] = originalQwenHome;
         }
         delete process.env['DEBUG'];
         delete process.env['DEBUG_MODE'];
-        delete process.env['QWEN_HOME_TEST_VAR'];
+        delete process.env['LUOSHU_HOME_TEST_VAR'];
       });
 
-      it('does not exclude DEBUG/DEBUG_MODE from .env in a QWEN_HOME dir not named .qwen', () => {
+      it('does not exclude DEBUG/DEBUG_MODE from .env in a LUOSHU_HOME dir not named .qwen', () => {
         const customHome = '/tmp/qwen-home-custom';
-        process.env['QWEN_HOME'] = customHome;
+        process.env['LUOSHU_HOME'] = customHome;
         const customGlobalEnvPath = path.join(customHome, '.env');
 
         vi.mocked(isWorkspaceTrusted).mockReturnValue({
@@ -3122,7 +3122,7 @@ describe('Settings Loading and Merging', () => {
           (p: fs.PathOrFileDescriptor) => {
             if (p === USER_SETTINGS_PATH) return JSON.stringify({});
             if (p === customGlobalEnvPath)
-              return 'DEBUG=true\nDEBUG_MODE=1\nQWEN_HOME_TEST_VAR=hello';
+              return 'DEBUG=true\nDEBUG_MODE=1\nLUOSHU_HOME_TEST_VAR=hello';
             return '{}';
           },
         );
@@ -3130,15 +3130,15 @@ describe('Settings Loading and Merging', () => {
         loadEnvironment(loadSettings(MOCK_WORKSPACE_DIR).merged);
 
         // All three should be set — DEBUG and DEBUG_MODE must NOT be excluded
-        // because the .env lives inside the user-level QWEN_HOME directory.
+        // because the .env lives inside the user-level LUOSHU_HOME directory.
         expect(process.env['DEBUG']).toEqual('true');
         expect(process.env['DEBUG_MODE']).toEqual('1');
-        expect(process.env['QWEN_HOME_TEST_VAR']).toEqual('hello');
+        expect(process.env['LUOSHU_HOME_TEST_VAR']).toEqual('hello');
       });
 
-      it('ignores QWEN_HOME and QWEN_RUNTIME_DIR set in a project .env', () => {
-        delete process.env['QWEN_HOME'];
-        delete process.env['QWEN_RUNTIME_DIR'];
+      it('ignores LUOSHU_HOME and LUOSHU_RUNTIME_DIR set in a project .env', () => {
+        delete process.env['LUOSHU_HOME'];
+        delete process.env['LUOSHU_RUNTIME_DIR'];
 
         const cwdSpy = vi
           .spyOn(process, 'cwd')
@@ -3157,8 +3157,8 @@ describe('Settings Loading and Merging', () => {
             if (p === USER_SETTINGS_PATH) return JSON.stringify({});
             if (p === projectEnvPath)
               return [
-                'QWEN_HOME=/tmp/hijack',
-                'QWEN_RUNTIME_DIR=/tmp/hijack-runtime',
+                'LUOSHU_HOME=/tmp/hijack',
+                'LUOSHU_RUNTIME_DIR=/tmp/hijack-runtime',
                 'OTHER_VAR=ok',
               ].join('\n');
             return '{}';
@@ -3168,8 +3168,8 @@ describe('Settings Loading and Merging', () => {
         loadEnvironment(loadSettings(MOCK_WORKSPACE_DIR).merged);
 
         // A project .env must never redirect global state.
-        expect(process.env['QWEN_HOME']).toBeUndefined();
-        expect(process.env['QWEN_RUNTIME_DIR']).toBeUndefined();
+        expect(process.env['LUOSHU_HOME']).toBeUndefined();
+        expect(process.env['LUOSHU_RUNTIME_DIR']).toBeUndefined();
         // Other vars from the same project .env still load.
         expect(process.env['OTHER_VAR']).toEqual('ok');
 
@@ -3177,13 +3177,17 @@ describe('Settings Loading and Merging', () => {
         cwdSpy.mockRestore();
       });
 
-      it('still honors QWEN_HOME from a user-level .env (~/.qwen/.env)', () => {
-        delete process.env['QWEN_HOME'];
+      it('still honors LUOSHU_HOME from a user-level .env (~/.luoshu/.env)', () => {
+        delete process.env['LUOSHU_HOME'];
 
         const cwdSpy = vi
           .spyOn(process, 'cwd')
           .mockReturnValue('/mock/home/user');
-        const userQwenEnvPath = path.join('/mock/home/user', QWEN_DIR, '.env');
+        const userQwenEnvPath = path.join(
+          '/mock/home/user',
+          LUOSHU_DIR,
+          '.env',
+        );
 
         vi.mocked(isWorkspaceTrusted).mockReturnValue({
           isTrusted: true,
@@ -3195,24 +3199,24 @@ describe('Settings Loading and Merging', () => {
         (fs.readFileSync as Mock).mockImplementation(
           (p: fs.PathOrFileDescriptor) => {
             if (p === USER_SETTINGS_PATH) return JSON.stringify({});
-            if (p === userQwenEnvPath) return 'QWEN_HOME=/tmp/from-user-env';
+            if (p === userQwenEnvPath) return 'LUOSHU_HOME=/tmp/from-user-env';
             return '{}';
           },
         );
 
         loadEnvironment(loadSettings(MOCK_WORKSPACE_DIR).merged);
 
-        expect(process.env['QWEN_HOME']).toEqual('/tmp/from-user-env');
+        expect(process.env['LUOSHU_HOME']).toEqual('/tmp/from-user-env');
         cwdSpy.mockRestore();
       });
 
-      it('does not exclude DEBUG/DEBUG_MODE from a workspace .qwen/.env', () => {
+      it('does not exclude DEBUG/DEBUG_MODE from a workspace .luoshu/.env', () => {
         const cwdSpy = vi
           .spyOn(process, 'cwd')
           .mockReturnValue(MOCK_WORKSPACE_DIR);
         const workspaceQwenEnvPath = path.join(
           MOCK_WORKSPACE_DIR,
-          QWEN_DIR,
+          LUOSHU_DIR,
           '.env',
         );
 
@@ -3227,31 +3231,31 @@ describe('Settings Loading and Merging', () => {
           (p: fs.PathOrFileDescriptor) => {
             if (p === USER_SETTINGS_PATH) return JSON.stringify({});
             if (p === workspaceQwenEnvPath)
-              return 'DEBUG=true\nDEBUG_MODE=1\nQWEN_HOME_TEST_VAR=hello';
+              return 'DEBUG=true\nDEBUG_MODE=1\nLUOSHU_HOME_TEST_VAR=hello';
             return '{}';
           },
         );
 
         loadEnvironment(loadSettings(MOCK_WORKSPACE_DIR).merged);
 
-        // Per docs, `.qwen/.env` files are never filtered by excludedEnvVars,
+        // Per docs, `.luoshu/.env` files are never filtered by excludedEnvVars,
         // even when nested inside a workspace.
         expect(process.env['DEBUG']).toEqual('true');
         expect(process.env['DEBUG_MODE']).toEqual('1');
-        expect(process.env['QWEN_HOME_TEST_VAR']).toEqual('hello');
+        expect(process.env['LUOSHU_HOME_TEST_VAR']).toEqual('hello');
         cwdSpy.mockRestore();
       });
 
-      it('still blocks QWEN_HOME from a workspace .qwen/.env', () => {
-        delete process.env['QWEN_HOME'];
-        delete process.env['QWEN_RUNTIME_DIR'];
+      it('still blocks LUOSHU_HOME from a workspace .luoshu/.env', () => {
+        delete process.env['LUOSHU_HOME'];
+        delete process.env['LUOSHU_RUNTIME_DIR'];
 
         const cwdSpy = vi
           .spyOn(process, 'cwd')
           .mockReturnValue(MOCK_WORKSPACE_DIR);
         const workspaceQwenEnvPath = path.join(
           MOCK_WORKSPACE_DIR,
-          QWEN_DIR,
+          LUOSHU_DIR,
           '.env',
         );
 
@@ -3267,8 +3271,8 @@ describe('Settings Loading and Merging', () => {
             if (p === USER_SETTINGS_PATH) return JSON.stringify({});
             if (p === workspaceQwenEnvPath)
               return [
-                'QWEN_HOME=/tmp/hijack',
-                'QWEN_RUNTIME_DIR=/tmp/hijack-runtime',
+                'LUOSHU_HOME=/tmp/hijack',
+                'LUOSHU_RUNTIME_DIR=/tmp/hijack-runtime',
                 'OTHER_VAR=ok',
               ].join('\n');
             return '{}';
@@ -3277,23 +3281,27 @@ describe('Settings Loading and Merging', () => {
 
         loadEnvironment(loadSettings(MOCK_WORKSPACE_DIR).merged);
 
-        // A workspace `.qwen/.env` is exempt from `excludedEnvVars` but must
+        // A workspace `.luoshu/.env` is exempt from `excludedEnvVars` but must
         // still be blocked from redirecting global state.
-        expect(process.env['QWEN_HOME']).toBeUndefined();
-        expect(process.env['QWEN_RUNTIME_DIR']).toBeUndefined();
+        expect(process.env['LUOSHU_HOME']).toBeUndefined();
+        expect(process.env['LUOSHU_RUNTIME_DIR']).toBeUndefined();
         expect(process.env['OTHER_VAR']).toEqual('ok');
 
         delete process.env['OTHER_VAR'];
         cwdSpy.mockRestore();
       });
 
-      it('redirects user settings path when QWEN_HOME is set in ~/.qwen/.env', () => {
-        delete process.env['QWEN_HOME'];
+      it('redirects user settings path when LUOSHU_HOME is set in ~/.luoshu/.env', () => {
+        delete process.env['LUOSHU_HOME'];
 
         const cwdSpy = vi
           .spyOn(process, 'cwd')
           .mockReturnValue(MOCK_WORKSPACE_DIR);
-        const userQwenEnvPath = path.join('/mock/home/user', QWEN_DIR, '.env');
+        const userQwenEnvPath = path.join(
+          '/mock/home/user',
+          LUOSHU_DIR,
+          '.env',
+        );
         const customSettingsPath = path.join(
           '/tmp/from-user-env',
           'settings.json',
@@ -3308,7 +3316,7 @@ describe('Settings Loading and Merging', () => {
         );
         (fs.readFileSync as Mock).mockImplementation(
           (p: fs.PathOrFileDescriptor) => {
-            if (p === userQwenEnvPath) return 'QWEN_HOME=/tmp/from-user-env';
+            if (p === userQwenEnvPath) return 'LUOSHU_HOME=/tmp/from-user-env';
             if (p === customSettingsPath) return JSON.stringify({});
             return '{}';
           },
@@ -3316,23 +3324,23 @@ describe('Settings Loading and Merging', () => {
 
         const loaded = loadSettings(MOCK_WORKSPACE_DIR);
 
-        // The pre-pass propagates QWEN_HOME from ~/.qwen/.env into
+        // The pre-pass propagates LUOSHU_HOME from ~/.luoshu/.env into
         // process.env so subsequent path getters (which now read it lazily)
         // route to /tmp/from-user-env consistently.
-        expect(process.env['QWEN_HOME']).toEqual('/tmp/from-user-env');
+        expect(process.env['LUOSHU_HOME']).toEqual('/tmp/from-user-env');
         expect(loaded.user.path).toEqual(customSettingsPath);
         cwdSpy.mockRestore();
       });
 
-      it('warns when QWEN_HOME redirects but the legacy ~/.qwen still has settings', () => {
+      it('warns when LUOSHU_HOME redirects but the legacy ~/.qwen still has settings', () => {
         const customHome = '/tmp/qwen-home-fresh';
-        process.env['QWEN_HOME'] = customHome;
+        process.env['LUOSHU_HOME'] = customHome;
         const legacySettings = path.join(
           '/mock/home/user',
-          QWEN_DIR,
+          LUOSHU_DIR,
           'settings.json',
         );
-        // Active QWEN_HOME has nothing yet; legacy ~/.qwen has settings.json.
+        // Active LUOSHU_HOME has nothing yet; legacy ~/.qwen has settings.json.
         const customSettingsPath = path.join(customHome, 'settings.json');
 
         vi.mocked(isWorkspaceTrusted).mockReturnValue({
@@ -3341,7 +3349,7 @@ describe('Settings Loading and Merging', () => {
         });
         (mockFsExistsSync as Mock).mockImplementation((p: fs.PathLike) => {
           const s = p.toString();
-          // Legacy settings exist, active QWEN_HOME settings do not.
+          // Legacy settings exist, active LUOSHU_HOME settings do not.
           if (s === legacySettings) return true;
           if (s === customSettingsPath) return false;
           return false;
@@ -3351,16 +3359,18 @@ describe('Settings Loading and Merging', () => {
         const loaded = loadSettings(MOCK_WORKSPACE_DIR);
 
         const warningMatch = loaded.migrationWarnings.find((w) =>
-          w.includes('QWEN_HOME points to'),
+          w.includes('LUOSHU_HOME points to'),
         );
         expect(warningMatch).toBeDefined();
         expect(warningMatch).toContain(customHome);
-        expect(warningMatch).toContain(path.join('/mock/home/user', QWEN_DIR));
+        expect(warningMatch).toContain(
+          path.join('/mock/home/user', LUOSHU_DIR),
+        );
       });
 
-      it('does not warn when QWEN_HOME points to a directory with settings.json', () => {
+      it('does not warn when LUOSHU_HOME points to a directory with settings.json', () => {
         const customHome = '/tmp/qwen-home-migrated';
-        process.env['QWEN_HOME'] = customHome;
+        process.env['LUOSHU_HOME'] = customHome;
         const customSettingsPath = path.join(customHome, 'settings.json');
 
         vi.mocked(isWorkspaceTrusted).mockReturnValue({
@@ -3375,16 +3385,16 @@ describe('Settings Loading and Merging', () => {
         const loaded = loadSettings(MOCK_WORKSPACE_DIR);
 
         const warningMatch = loaded.migrationWarnings.find((w) =>
-          w.includes('QWEN_HOME points to'),
+          w.includes('LUOSHU_HOME points to'),
         );
         expect(warningMatch).toBeUndefined();
       });
 
-      it('does not warn when QWEN_HOME is unset (default ~/.qwen)', () => {
-        delete process.env['QWEN_HOME'];
+      it('does not warn when LUOSHU_HOME is unset (default ~/.qwen)', () => {
+        delete process.env['LUOSHU_HOME'];
         const legacySettings = path.join(
           '/mock/home/user',
-          QWEN_DIR,
+          LUOSHU_DIR,
           'settings.json',
         );
 
@@ -3400,14 +3410,14 @@ describe('Settings Loading and Merging', () => {
         const loaded = loadSettings(MOCK_WORKSPACE_DIR);
 
         const warningMatch = loaded.migrationWarnings.find((w) =>
-          w.includes('QWEN_HOME points to'),
+          w.includes('LUOSHU_HOME points to'),
         );
         expect(warningMatch).toBeUndefined();
       });
 
-      it('prefers QWEN_HOME/.env over ~/.env at the home-dir step', () => {
+      it('prefers LUOSHU_HOME/.env over ~/.env at the home-dir step', () => {
         const customHome = '/tmp/qwen-home-custom';
-        process.env['QWEN_HOME'] = customHome;
+        process.env['LUOSHU_HOME'] = customHome;
         const customGlobalEnvPath = path.join(customHome, '.env');
         const homeEnvPath = path.join('/mock/home/user', '.env');
 
@@ -3424,40 +3434,44 @@ describe('Settings Loading and Merging', () => {
           (p: fs.PathOrFileDescriptor) => {
             if (p === USER_SETTINGS_PATH) return JSON.stringify({});
             if (p === customGlobalEnvPath)
-              return 'QWEN_HOME_TEST_VAR=fromQwenHome';
-            if (p === homeEnvPath) return 'QWEN_HOME_TEST_VAR=fromHomeDir';
+              return 'LUOSHU_HOME_TEST_VAR=fromQwenHome';
+            if (p === homeEnvPath) return 'LUOSHU_HOME_TEST_VAR=fromHomeDir';
             return '{}';
           },
         );
 
         loadEnvironment(loadSettings(MOCK_WORKSPACE_DIR).merged);
 
-        // QWEN_HOME/.env must win — without the precedence fix, ~/.env would
-        // be returned by the walk-up before the QWEN_HOME fallback was ever
+        // LUOSHU_HOME/.env must win — without the precedence fix, ~/.env would
+        // be returned by the walk-up before the LUOSHU_HOME fallback was ever
         // consulted.
-        expect(process.env['QWEN_HOME_TEST_VAR']).toEqual('fromQwenHome');
+        expect(process.env['LUOSHU_HOME_TEST_VAR']).toEqual('fromQwenHome');
       });
 
-      it('falls back to legacy ~/.qwen/.env for non-routing keys when <QWEN_HOME>/.env is absent', () => {
-        // User keeps OPENAI_API_KEY in ~/.qwen/.env and adds QWEN_HOME to the
+      it('falls back to legacy ~/.luoshu/.env for non-routing keys when <LUOSHU_HOME>/.env is absent', () => {
+        // User keeps OPENAI_API_KEY in ~/.luoshu/.env and adds LUOSHU_HOME to the
         // same file. Adding the redirect must not silently drop credentials
         // sitting in that file when the new dir hasn't been populated yet.
-        delete process.env['QWEN_HOME'];
+        delete process.env['LUOSHU_HOME'];
         delete process.env['OPENAI_API_KEY'];
 
         const cwdSpy = vi
           .spyOn(process, 'cwd')
           .mockReturnValue('/mock/home/user');
         const customHome = '/tmp/qwen-home-fresh-fallback';
-        const userQwenEnvPath = path.join('/mock/home/user', QWEN_DIR, '.env');
+        const userQwenEnvPath = path.join(
+          '/mock/home/user',
+          LUOSHU_DIR,
+          '.env',
+        );
         const customSettingsPath = path.join(customHome, 'settings.json');
 
         vi.mocked(isWorkspaceTrusted).mockReturnValue({
           isTrusted: true,
           source: 'file',
         });
-        // Only the legacy ~/.qwen/.env exists; <QWEN_HOME>/.env, the active
-        // settings.json under <QWEN_HOME>, and ~/.env all do not.
+        // Only the legacy ~/.luoshu/.env exists; <LUOSHU_HOME>/.env, the active
+        // settings.json under <LUOSHU_HOME>, and ~/.env all do not.
         (mockFsExistsSync as Mock).mockImplementation((p: fs.PathLike) =>
           [USER_SETTINGS_PATH, customSettingsPath, userQwenEnvPath].includes(
             p.toString(),
@@ -3469,7 +3483,7 @@ describe('Settings Loading and Merging', () => {
             if (p === customSettingsPath) return JSON.stringify({});
             if (p === userQwenEnvPath)
               return [
-                `QWEN_HOME=${customHome}`,
+                `LUOSHU_HOME=${customHome}`,
                 'OPENAI_API_KEY=secret-from-legacy',
               ].join('\n');
             return '{}';
@@ -3478,7 +3492,7 @@ describe('Settings Loading and Merging', () => {
 
         loadEnvironment(loadSettings(MOCK_WORKSPACE_DIR).merged);
 
-        expect(process.env['QWEN_HOME']).toEqual(customHome);
+        expect(process.env['LUOSHU_HOME']).toEqual(customHome);
         expect(process.env['OPENAI_API_KEY']).toEqual('secret-from-legacy');
 
         delete process.env['OPENAI_API_KEY'];

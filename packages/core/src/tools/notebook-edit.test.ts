@@ -692,7 +692,7 @@ describe('NotebookEditTool', () => {
   });
 
   it('rejects qwenignored notebooks during validation', () => {
-    fs.writeFileSync(path.join(tempDir, '.qwenignore'), '*.ipynb\n', 'utf-8');
+    fs.writeFileSync(path.join(tempDir, '.luoshuignore'), '*.ipynb\n', 'utf-8');
     const filePath = writeNotebook('ignored.ipynb', {
       cells: [],
       metadata: {},
@@ -704,7 +704,7 @@ describe('NotebookEditTool', () => {
         edit_mode: 'insert',
         new_source: 'x = 1',
       }),
-    ).toThrow(/ignored by \.qwenignore/);
+    ).toThrow(/ignored by \.luoshuignore/);
   });
 
   it('returns a notebook diff for confirmation', async () => {

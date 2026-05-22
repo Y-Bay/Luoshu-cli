@@ -55,7 +55,7 @@ function getOpenUrlsCommands(readmeUrl: string): string[] {
 
 // Add Qwen Code specific entries to .gitignore file
 export async function updateGitignore(gitRepoRoot: string): Promise<void> {
-  const gitignoreEntries = ['.qwen/', 'gha-creds-*.json'];
+  const gitignoreEntries = ['.luoshu/', 'gha-creds-*.json'];
 
   const gitignorePath = path.join(gitRepoRoot, '.gitignore');
   try {

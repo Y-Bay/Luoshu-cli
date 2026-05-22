@@ -1053,7 +1053,7 @@ describe('WebViewProvider settings sync', () => {
     expect(mockWriteModelProvidersConfig).not.toHaveBeenCalled();
   });
 
-  it('only syncs non-secret VS Code settings from ~/.qwen/settings.json', async () => {
+  it('only syncs non-secret VS Code settings from ~/.luoshu/settings.json', async () => {
     mockReadQwenSettingsForVSCode.mockReturnValue({
       provider: 'coding-plan',
       apiKey: 'sk-updated',

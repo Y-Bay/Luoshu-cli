@@ -288,7 +288,7 @@ export function ModelDialog({
               : 'Runtime model';
           }
           if (isQwenOAuth && !isRuntime) {
-            description = t('Discontinued — switch to Coding Plan or API Key');
+            description = t('Discontinued — switch to API Key');
           }
 
           return {
@@ -433,7 +433,7 @@ export function ModelDialog({
       if (isQwenOAuthSelection && !isRuntimeOAuthSelection) {
         setErrorMessage(
           t(
-            'Qwen OAuth free tier was discontinued on 2026-04-15. Please select a model from another provider or run /auth to switch.',
+            'Qwen OAuth is no longer supported. Please select a model from another provider or run /auth to switch.',
           ),
         );
         return;
@@ -579,7 +579,7 @@ export function ModelDialog({
             !highlightedEntry.isRuntime && (
               <Box marginTop={1}>
                 <Text color={theme.status.warning}>
-                  ⚠ {t('Discontinued — switch to Coding Plan or API Key')}
+                  ⚠ {t('Discontinued — switch to API Key')}
                 </Text>
               </Box>
             )}

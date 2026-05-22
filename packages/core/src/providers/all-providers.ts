@@ -3,15 +3,15 @@
  * Copyright 2026 Qwen Team
  * SPDX-License-Identifier: Apache-2.0
  *
+ * Modifications copyright 2026 Luoshu Team.
+ * Modified: removed Alibaba ModelStudio presets and the ALIBABA_PROVIDERS export.
+ *
  * Provider registry — imports all provider definitions and assembles the
  * lookup tables used by the UI and CLI commands.
  */
 
 import { providerMatchesCredentials } from './provider-config.js';
 import type { ProviderConfig } from './types.js';
-import { codingPlanProvider } from './presets/alibaba-coding-plan.js';
-import { tokenPlanProvider } from './presets/alibaba-token-plan.js';
-import { alibabaStandardProvider } from './presets/alibaba-standard.js';
 import { openRouterProvider } from './presets/openrouter.js';
 import { deepseekProvider } from './presets/deepseek.js';
 import { minimaxProvider } from './presets/minimax.js';
@@ -22,9 +22,6 @@ import { customProvider } from './presets/custom-provider.js';
 
 // Re-export all providers
 export {
-  codingPlanProvider,
-  tokenPlanProvider,
-  alibabaStandardProvider,
   openRouterProvider,
   deepseekProvider,
   minimaxProvider,
@@ -44,9 +41,6 @@ export {
 
 /** All known providers, in display order. */
 export const ALL_PROVIDERS: readonly ProviderConfig[] = [
-  codingPlanProvider,
-  tokenPlanProvider,
-  alibabaStandardProvider,
   deepseekProvider,
   minimaxProvider,
   zaiProvider,
@@ -57,9 +51,6 @@ export const ALL_PROVIDERS: readonly ProviderConfig[] = [
 ];
 
 /** Providers grouped by uiGroup. */
-export const ALIBABA_PROVIDERS = ALL_PROVIDERS.filter(
-  (p) => p.uiGroup === 'alibaba',
-);
 export const THIRD_PARTY_PROVIDERS = ALL_PROVIDERS.filter(
   (p) => p.uiGroup === 'third-party',
 );

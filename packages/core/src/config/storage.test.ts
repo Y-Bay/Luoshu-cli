@@ -47,8 +47,8 @@ function mockRealpath(
 }
 
 describe('Storage – getGlobalSettingsPath', () => {
-  it('returns path to ~/.qwen/settings.json', () => {
-    const expected = path.join(os.homedir(), '.qwen', 'settings.json');
+  it('returns path to ~/.luoshu/settings.json', () => {
+    const expected = path.join(os.homedir(), '.luoshu', 'settings.json');
     expect(Storage.getGlobalSettingsPath()).toBe(expected);
   });
 });
@@ -57,43 +57,47 @@ describe('Storage – additional helpers', () => {
   const projectRoot = '/tmp/project';
   const storage = new Storage(projectRoot);
 
-  it('getWorkspaceSettingsPath returns project/.qwen/settings.json', () => {
-    const expected = path.join(projectRoot, '.qwen', 'settings.json');
+  it('getWorkspaceSettingsPath returns project/.luoshu/settings.json', () => {
+    const expected = path.join(projectRoot, '.luoshu', 'settings.json');
     expect(storage.getWorkspaceSettingsPath()).toBe(expected);
   });
 
-  it('getUserCommandsDir returns ~/.qwen/commands', () => {
-    const expected = path.join(os.homedir(), '.qwen', 'commands');
+  it('getUserCommandsDir returns ~/.luoshu/commands', () => {
+    const expected = path.join(os.homedir(), '.luoshu', 'commands');
     expect(Storage.getUserCommandsDir()).toBe(expected);
   });
 
-  it('getProjectCommandsDir returns project/.qwen/commands', () => {
-    const expected = path.join(projectRoot, '.qwen', 'commands');
+  it('getProjectCommandsDir returns project/.luoshu/commands', () => {
+    const expected = path.join(projectRoot, '.luoshu', 'commands');
     expect(storage.getProjectCommandsDir()).toBe(expected);
   });
 
-  it('getMcpOAuthTokensPath returns ~/.qwen/mcp-oauth-tokens.json', () => {
-    const expected = path.join(os.homedir(), '.qwen', 'mcp-oauth-tokens.json');
+  it('getMcpOAuthTokensPath returns ~/.luoshu/mcp-oauth-tokens.json', () => {
+    const expected = path.join(
+      os.homedir(),
+      '.luoshu',
+      'mcp-oauth-tokens.json',
+    );
     expect(Storage.getMcpOAuthTokensPath()).toBe(expected);
   });
 });
 
 describe('Storage – getRuntimeBaseDir / setRuntimeBaseDir', () => {
-  const originalEnv = process.env['QWEN_RUNTIME_DIR'];
+  const originalEnv = process.env['LUOSHU_RUNTIME_DIR'];
 
   beforeEach(() => {
     // Reset state before each test
     Storage.setRuntimeBaseDir(null);
-    delete process.env['QWEN_RUNTIME_DIR'];
+    delete process.env['LUOSHU_RUNTIME_DIR'];
   });
 
   afterEach(() => {
     // Restore original env
     Storage.setRuntimeBaseDir(null);
     if (originalEnv !== undefined) {
-      process.env['QWEN_RUNTIME_DIR'] = originalEnv;
+      process.env['LUOSHU_RUNTIME_DIR'] = originalEnv;
     } else {
-      delete process.env['QWEN_RUNTIME_DIR'];
+      delete process.env['LUOSHU_RUNTIME_DIR'];
     }
   });
 
@@ -107,11 +111,11 @@ describe('Storage – getRuntimeBaseDir / setRuntimeBaseDir', () => {
     expect(Storage.getRuntimeBaseDir()).toBe(runtimeDir);
   });
 
-  it('env var QWEN_RUNTIME_DIR takes priority over setRuntimeBaseDir', () => {
+  it('env var LUOSHU_RUNTIME_DIR takes priority over setRuntimeBaseDir', () => {
     const settingsDir = path.resolve('from-settings');
     const envDir = path.resolve('from-env');
     Storage.setRuntimeBaseDir(settingsDir);
-    process.env['QWEN_RUNTIME_DIR'] = envDir;
+    process.env['LUOSHU_RUNTIME_DIR'] = envDir;
     expect(Storage.getRuntimeBaseDir()).toBe(envDir);
   });
 
@@ -127,8 +131,8 @@ describe('Storage – getRuntimeBaseDir / setRuntimeBaseDir', () => {
     expect(Storage.getRuntimeBaseDir()).toBe(expected);
   });
 
-  it('expands tilde (~) in QWEN_RUNTIME_DIR env var', () => {
-    process.env['QWEN_RUNTIME_DIR'] = '~/env-runtime';
+  it('expands tilde (~) in LUOSHU_RUNTIME_DIR env var', () => {
+    process.env['LUOSHU_RUNTIME_DIR'] = '~/env-runtime';
     const expected = path.join(os.homedir(), 'env-runtime');
     expect(Storage.getRuntimeBaseDir()).toBe(expected);
   });
@@ -141,8 +145,8 @@ describe('Storage – getRuntimeBaseDir / setRuntimeBaseDir', () => {
 
   it('resolves relative paths in setRuntimeBaseDir using explicit cwd', () => {
     const cwd = path.resolve('workspace', 'projectA');
-    Storage.setRuntimeBaseDir('.qwen', cwd);
-    expect(Storage.getRuntimeBaseDir()).toBe(path.join(cwd, '.qwen'));
+    Storage.setRuntimeBaseDir('.luoshu', cwd);
+    expect(Storage.getRuntimeBaseDir()).toBe(path.join(cwd, '.luoshu'));
   });
 
   it('ignores cwd when path is absolute', () => {
@@ -161,8 +165,8 @@ describe('Storage – getRuntimeBaseDir / setRuntimeBaseDir', () => {
     expect(Storage.getRuntimeBaseDir()).toBe(expected);
   });
 
-  it('resolves relative paths in QWEN_RUNTIME_DIR env var', () => {
-    process.env['QWEN_RUNTIME_DIR'] = 'relative/env-path';
+  it('resolves relative paths in LUOSHU_RUNTIME_DIR env var', () => {
+    process.env['LUOSHU_RUNTIME_DIR'] = 'relative/env-path';
     const expected = path.resolve('relative/env-path');
     expect(Storage.getRuntimeBaseDir()).toBe(expected);
   });
@@ -207,7 +211,7 @@ describe('Storage – getPlansDir', () => {
     mockRealpathSync.mockReset();
   });
 
-  it('defaults to ~/.qwen/plans when plansDirectory is not configured', () => {
+  it('defaults to ~/.luoshu/plans when plansDirectory is not configured', () => {
     expect(Storage.getPlansDir(projectRoot)).toBe(
       path.join(Storage.getGlobalQwenDir(), 'plans'),
     );
@@ -341,19 +345,19 @@ describe('Storage – getPlansDir', () => {
 });
 
 describe('Storage – runtime path methods use getRuntimeBaseDir', () => {
-  const originalEnv = process.env['QWEN_RUNTIME_DIR'];
+  const originalEnv = process.env['LUOSHU_RUNTIME_DIR'];
 
   beforeEach(() => {
     Storage.setRuntimeBaseDir(null);
-    delete process.env['QWEN_RUNTIME_DIR'];
+    delete process.env['LUOSHU_RUNTIME_DIR'];
   });
 
   afterEach(() => {
     Storage.setRuntimeBaseDir(null);
     if (originalEnv !== undefined) {
-      process.env['QWEN_RUNTIME_DIR'] = originalEnv;
+      process.env['LUOSHU_RUNTIME_DIR'] = originalEnv;
     } else {
-      delete process.env['QWEN_RUNTIME_DIR'];
+      delete process.env['LUOSHU_RUNTIME_DIR'];
     }
   });
 
@@ -429,20 +433,20 @@ describe('Storage – runtime path methods use getRuntimeBaseDir', () => {
 });
 
 describe('Storage – config paths remain at ~/.qwen regardless of runtime dir', () => {
-  const originalEnv = process.env['QWEN_RUNTIME_DIR'];
+  const originalEnv = process.env['LUOSHU_RUNTIME_DIR'];
   const globalQwenDir = Storage.getGlobalQwenDir();
 
   beforeEach(() => {
     Storage.setRuntimeBaseDir(path.resolve('custom-runtime'));
-    process.env['QWEN_RUNTIME_DIR'] = path.resolve('env-runtime');
+    process.env['LUOSHU_RUNTIME_DIR'] = path.resolve('env-runtime');
   });
 
   afterEach(() => {
     Storage.setRuntimeBaseDir(null);
     if (originalEnv !== undefined) {
-      process.env['QWEN_RUNTIME_DIR'] = originalEnv;
+      process.env['LUOSHU_RUNTIME_DIR'] = originalEnv;
     } else {
-      delete process.env['QWEN_RUNTIME_DIR'];
+      delete process.env['LUOSHU_RUNTIME_DIR'];
     }
   });
 
@@ -492,7 +496,7 @@ describe('Storage – config paths remain at ~/.qwen regardless of runtime dir',
     expect(Storage.getGlobalBinDir()).toBe(path.join(globalQwenDir, 'bin'));
   });
 
-  it('getUserSkillsDirs still includes ~/.qwen/skills', () => {
+  it('getUserSkillsDirs still includes ~/.luoshu/skills', () => {
     const storage = new Storage('/tmp/project');
     const skillsDirs = storage.getUserSkillsDirs();
     expect(
@@ -501,38 +505,38 @@ describe('Storage – config paths remain at ~/.qwen regardless of runtime dir',
   });
 });
 
-describe('Storage – QWEN_HOME env var', () => {
-  const originalEnv = process.env['QWEN_HOME'];
+describe('Storage – LUOSHU_HOME env var', () => {
+  const originalEnv = process.env['LUOSHU_HOME'];
 
   afterEach(() => {
     if (originalEnv !== undefined) {
-      process.env['QWEN_HOME'] = originalEnv;
+      process.env['LUOSHU_HOME'] = originalEnv;
     } else {
-      delete process.env['QWEN_HOME'];
+      delete process.env['LUOSHU_HOME'];
     }
   });
 
-  it('defaults to ~/.qwen when QWEN_HOME is not set', () => {
-    delete process.env['QWEN_HOME'];
-    const expected = path.join(os.homedir(), '.qwen');
+  it('defaults to ~/.qwen when LUOSHU_HOME is not set', () => {
+    delete process.env['LUOSHU_HOME'];
+    const expected = path.join(os.homedir(), '.luoshu');
     expect(Storage.getGlobalQwenDir()).toBe(expected);
   });
 
-  it('uses QWEN_HOME when set to absolute path', () => {
+  it('uses LUOSHU_HOME when set to absolute path', () => {
     const configDir = path.resolve('/tmp/custom-qwen');
-    process.env['QWEN_HOME'] = configDir;
+    process.env['LUOSHU_HOME'] = configDir;
     expect(Storage.getGlobalQwenDir()).toBe(configDir);
   });
 
-  it('resolves relative QWEN_HOME to absolute path', () => {
-    process.env['QWEN_HOME'] = 'relative/config';
+  it('resolves relative LUOSHU_HOME to absolute path', () => {
+    process.env['LUOSHU_HOME'] = 'relative/config';
     const expected = path.resolve('relative/config');
     expect(Storage.getGlobalQwenDir()).toBe(expected);
   });
 
-  it('config paths follow QWEN_HOME', () => {
+  it('config paths follow LUOSHU_HOME', () => {
     const configDir = path.resolve('/tmp/custom-qwen');
-    process.env['QWEN_HOME'] = configDir;
+    process.env['LUOSHU_HOME'] = configDir;
     expect(Storage.getGlobalSettingsPath()).toBe(
       path.join(configDir, 'settings.json'),
     );
@@ -552,41 +556,41 @@ describe('Storage – QWEN_HOME env var', () => {
     );
   });
 
-  it('project-level paths are NOT affected by QWEN_HOME', () => {
+  it('project-level paths are NOT affected by LUOSHU_HOME', () => {
     const configDir = path.resolve('/tmp/custom-qwen');
     const projectDir = path.resolve('/tmp/project');
-    process.env['QWEN_HOME'] = configDir;
+    process.env['LUOSHU_HOME'] = configDir;
     const storage = new Storage(projectDir);
     expect(storage.getWorkspaceSettingsPath()).toBe(
-      path.join(projectDir, '.qwen', 'settings.json'),
+      path.join(projectDir, '.luoshu', 'settings.json'),
     );
     expect(storage.getProjectCommandsDir()).toBe(
-      path.join(projectDir, '.qwen', 'commands'),
+      path.join(projectDir, '.luoshu', 'commands'),
     );
   });
 
-  it('expands tilde (~) in QWEN_HOME', () => {
-    process.env['QWEN_HOME'] = '~/custom-qwen';
+  it('expands tilde (~) in LUOSHU_HOME', () => {
+    process.env['LUOSHU_HOME'] = '~/custom-qwen';
     const expected = path.join(os.homedir(), 'custom-qwen');
     expect(Storage.getGlobalQwenDir()).toBe(expected);
   });
 
-  it('expands Windows-style tilde in QWEN_HOME', () => {
-    process.env['QWEN_HOME'] = '~\\custom-qwen';
+  it('expands Windows-style tilde in LUOSHU_HOME', () => {
+    process.env['LUOSHU_HOME'] = '~\\custom-qwen';
     const expected = path.join(os.homedir(), 'custom-qwen');
     expect(Storage.getGlobalQwenDir()).toBe(expected);
   });
 
-  it('handles bare tilde (~) as home directory in QWEN_HOME', () => {
-    process.env['QWEN_HOME'] = '~';
+  it('handles bare tilde (~) as home directory in LUOSHU_HOME', () => {
+    process.env['LUOSHU_HOME'] = '~';
     expect(Storage.getGlobalQwenDir()).toBe(os.homedir());
   });
 
-  it('QWEN_HOME and QWEN_RUNTIME_DIR are independent', () => {
+  it('LUOSHU_HOME and LUOSHU_RUNTIME_DIR are independent', () => {
     const configDir = path.resolve('/tmp/config');
     const runtimeDir = path.resolve('/tmp/runtime');
-    process.env['QWEN_HOME'] = configDir;
-    process.env['QWEN_RUNTIME_DIR'] = runtimeDir;
+    process.env['LUOSHU_HOME'] = configDir;
+    process.env['LUOSHU_RUNTIME_DIR'] = runtimeDir;
     expect(Storage.getGlobalQwenDir()).toBe(configDir);
     expect(Storage.getRuntimeBaseDir()).toBe(runtimeDir);
     expect(Storage.getGlobalSettingsPath()).toBe(
@@ -594,24 +598,24 @@ describe('Storage – QWEN_HOME env var', () => {
     );
     expect(Storage.getGlobalTempDir()).toBe(path.join(runtimeDir, 'tmp'));
     expect(Storage.getGlobalDebugDir()).toBe(path.join(runtimeDir, 'debug'));
-    delete process.env['QWEN_RUNTIME_DIR'];
+    delete process.env['LUOSHU_RUNTIME_DIR'];
   });
 });
 
 describe('Storage – runtime base dir async context isolation', () => {
-  const originalEnv = process.env['QWEN_RUNTIME_DIR'];
+  const originalEnv = process.env['LUOSHU_RUNTIME_DIR'];
 
   beforeEach(() => {
     Storage.setRuntimeBaseDir(null);
-    delete process.env['QWEN_RUNTIME_DIR'];
+    delete process.env['LUOSHU_RUNTIME_DIR'];
   });
 
   afterEach(() => {
     Storage.setRuntimeBaseDir(null);
     if (originalEnv !== undefined) {
-      process.env['QWEN_RUNTIME_DIR'] = originalEnv;
+      process.env['LUOSHU_RUNTIME_DIR'] = originalEnv;
     } else {
-      delete process.env['QWEN_RUNTIME_DIR'];
+      delete process.env['LUOSHU_RUNTIME_DIR'];
     }
   });
 
@@ -619,8 +623,8 @@ describe('Storage – runtime base dir async context isolation', () => {
     Storage.setRuntimeBaseDir(path.resolve('global-runtime'));
     const cwd = path.resolve('workspace', 'project-a');
 
-    await Storage.runWithRuntimeBaseDir('.qwen', cwd, async () => {
-      expect(Storage.getRuntimeBaseDir()).toBe(path.join(cwd, '.qwen'));
+    await Storage.runWithRuntimeBaseDir('.luoshu', cwd, async () => {
+      expect(Storage.getRuntimeBaseDir()).toBe(path.join(cwd, '.luoshu'));
     });
   });
 

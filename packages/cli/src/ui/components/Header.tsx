@@ -2,11 +2,14 @@
  * @license
  * Copyright 2025 Google LLC
  * SPDX-License-Identifier: Apache-2.0
+ *
+ * Modifications copyright 2026 Luoshu Team.
+ * Modified: default banner title changed to ">_ LUOSHU".
  */
 
 import type React from 'react';
 import { Box, Text } from 'ink';
-import Gradient from 'ink-gradient';
+import { RadialBanner } from './RadialBanner.js';
 import { shortenPath, tildeifyPath } from '@qwen-code/qwen-code-core';
 import { theme } from '../semantic-colors.js';
 import { shortAsciiLogo } from './AsciiArt.js';
@@ -21,8 +24,6 @@ import { t } from '../../i18n/index.js';
  * Simplified representation of authentication method shown to users.
  */
 export enum AuthDisplayType {
-  QWEN_OAUTH = 'qwen_oauth',
-  CODING_PLAN = 'coding_plan',
   API_KEY = 'api_key',
   UNKNOWN = 'unknown',
 }
@@ -36,10 +37,6 @@ function formatAuthDisplayType(
 
   const value = authDisplayType.trim();
   switch (value) {
-    case AuthDisplayType.QWEN_OAUTH:
-      return t('Qwen OAuth');
-    case AuthDisplayType.CODING_PLAN:
-      return t('Coding Plan');
     case AuthDisplayType.API_KEY:
       return t('API Key');
     case AuthDisplayType.UNKNOWN:
@@ -181,10 +178,12 @@ export const Header: React.FC<HeaderProps> = ({
       {showLogo && (
         <>
           <Box flexShrink={0}>
-            {gradientColors ? (
-              <Gradient colors={gradientColors}>
-                <Text>{displayLogo}</Text>
-              </Gradient>
+            {gradientColors && gradientColors.length >= 2 ? (
+              <RadialBanner
+                text={displayLogo}
+                colors={gradientColors}
+                origin="top-left"
+              />
             ) : (
               <Text>{displayLogo}</Text>
             )}
@@ -207,7 +206,7 @@ export const Header: React.FC<HeaderProps> = ({
             ">_ Qwen Code" brand. Version suffix is always appended. */}
         <Text>
           <Text bold color={theme.text.accent}>
-            {customBannerTitle ? customBannerTitle : '>_ Qwen Code'}
+            {customBannerTitle ? customBannerTitle : '>_ LUOSHU'}
           </Text>
           <Text color={theme.text.secondary}> (v{version})</Text>
         </Text>

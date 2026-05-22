@@ -1,586 +1,170 @@
-<div align="center">
+# Luoshu CLI
 
-[![npm version](https://img.shields.io/npm/v/@qwen-code/qwen-code.svg)](https://www.npmjs.com/package/@qwen-code/qwen-code)
-[![License](https://img.shields.io/github/license/QwenLM/qwen-code.svg)](./LICENSE)
+```
+       ░░      ▓█▓░                        ▓▓▓▓   ░▒▒▒
+       ▒██▓   ▒█████▒                      ▓▓██  ▒▒▓██▓
+     ░░▓███▒▒▓██▓▓██▒                      █▓██▓▓░   ░
+    ▓░   ▒▒▓███▒▒█▓░                    ░▓███████▓
+    █▓▒  ░░░░▒▓███▓▒                  ░▓███▓▓██▓░
+    ░▓█▓░    ▒█▓▒▒▓██▓▒░                   ▒▓██▒▒▒▒░
+      ▓█░▒░▒█▓▒ ░▒▓▓▓█████▓▒            ░▓█████▓▒▒▒██▒
+     ▒▒░▒█▓▒█▓▓███▓██▒▒▒▒▒▒▒░         ▒▓██▓▒▓█▓   ▒██▒
+     ▒▒▓█░  ▓█▓░░░▓██░                ▓█▒░  ▒█▓▒▓██▓▒
+     ▒██▒   ▒██▓▓███░                       ▓█▓▒▓▒░
+      ▓█     ▒▓▒▒▒▒▒░                       ▓█▓
+                                            ░▓▒
+```
+
+> **洛书 (LUOSHU) CLI** — 一款配套**洛书**大语言模型的终端 AI 智能体客户端。
+> 基于 [QwenLM/qwen-code](https://github.com/QwenLM/qwen-code) 改造而来，
+> 后者基于 [google-gemini/gemini-cli](https://github.com/google-gemini/gemini-cli)。
+> 三者皆遵循 Apache License 2.0。
+
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D22.0.0-brightgreen.svg)](https://nodejs.org/)
-[![Downloads](https://img.shields.io/npm/dm/@qwen-code/qwen-code.svg)](https://www.npmjs.com/package/@qwen-code/qwen-code)
+[![Based on](https://img.shields.io/badge/based%20on-qwen--code%20%2F%20gemini--cli-orange.svg)](./LUOSHU_NOTICE.md)
 
-<a href="https://trendshift.io/repositories/15287" target="_blank"><img src="https://trendshift.io/api/badge/repositories/15287" alt="QwenLM%2Fqwen-code | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+---
 
-**An open-source AI agent that lives in your terminal.**
+## ✨ 特性
 
-<a href="https://qwenlm.github.io/qwen-code-docs/zh/users/overview">中文</a> |
-<a href="https://qwenlm.github.io/qwen-code-docs/de/users/overview">Deutsch</a> |
-<a href="https://qwenlm.github.io/qwen-code-docs/fr/users/overview">français</a> |
-<a href="https://qwenlm.github.io/qwen-code-docs/ja/users/overview">日本語</a> |
-<a href="https://qwenlm.github.io/qwen-code-docs/ru/users/overview">Русский</a> |
-<a href="https://qwenlm.github.io/qwen-code-docs/pt-BR/users/overview">Português (Brasil)</a>
+- **行楷书法 banner** —— "洛书" 二字以 macOS 系统行楷字体栅格化为块字符，搭配薄荷绿 → 莫兰迪深蓝的辐射状渐变（左上角辐射），符合中式审美
+- **TUI 交互界面** —— 基于 Ink/React 的终端 UI，支持丰富的 slash 命令、文件操作、工具调用
+- **多 Provider 支持** —— OpenAI / Anthropic / OpenRouter / DeepSeek / MiniMax / Z.AI / ModelScope 等 OpenAI 兼容 API；也支持自定义 endpoint
+- **项目上下文** —— `LUOSHU.md` 文件作为项目级 system prompt（类似 `CLAUDE.md` / `GEMINI.md`）
+- **工具生态** —— 内置 read/write file、shell、git、code review、insight、subagent 等几十个工具
+- **协议开放** —— 提供 ACP (Agent Client Protocol) 和 HTTP daemon 接口，方便 GUI 客户端 / IDE 扩展接入
 
-</div>
+## 📦 安装
 
-## 🎉 News
-
-- **2026-04-15**: Qwen OAuth free tier has been discontinued. To continue using Qwen Code, switch to [Alibaba Cloud Coding Plan](https://modelstudio.console.alibabacloud.com/?tab=coding-plan#/efm/coding-plan-index), [OpenRouter](https://openrouter.ai), [Fireworks AI](https://app.fireworks.ai), or bring your own API key. Run `qwen auth` to configure.
-
-- **2026-04-13**: Qwen OAuth free tier policy update: daily quota adjusted to 100 requests/day (from 1,000).
-
-- **2026-04-02**: Qwen3.6-Plus is now live! Get an API key from [Alibaba Cloud ModelStudio](https://modelstudio.console.alibabacloud.com/ap-southeast-1?tab=doc#/doc/?type=model&url=2840914_2&modelId=qwen3.6-plus) to access it through the OpenAI-compatible API.
-
-- **2026-02-16**: Qwen3.5-Plus is now live!
-
-## Why Qwen Code?
-
-Qwen Code is an open-source AI agent for the terminal, optimized for Qwen series models. It helps you understand large codebases, automate tedious work, and ship faster.
-
-- **Multi-protocol, flexible providers**: use OpenAI / Anthropic / Gemini-compatible APIs, [Alibaba Cloud Coding Plan](https://modelstudio.console.alibabacloud.com/?tab=coding-plan#/efm/coding-plan-index), [OpenRouter](https://openrouter.ai), [Fireworks AI](https://app.fireworks.ai), or bring your own API key.
-- **Open-source, co-evolving**: both the framework and the Qwen3-Coder model are open-source—and they ship and evolve together.
-- **Agentic workflow, feature-rich**: rich built-in tools (Skills, SubAgents) for a full agentic workflow and a Claude Code-like experience.
-- **Terminal-first, IDE-friendly**: built for developers who live in the command line, with optional integration for VS Code, Zed, and JetBrains IDEs.
-
-![](https://gw.alicdn.com/imgextra/i1/O1CN01D2DviS1wwtEtMwIzJ_!!6000000006373-2-tps-1600-900.png)
-
-## Installation
-
-### Quick Install (Recommended)
-
-#### Linux / macOS
+### 从源码安装（当前推荐）
 
 ```bash
-bash -c "$(curl -fsSL https://qwen-code-assets.oss-cn-hangzhou.aliyuncs.com/installation/install-qwen.sh)"
+git clone https://github.com/Y-Bay/Luoshu-cli.git
+cd Luoshu-cli
+npm install
+npm run bundle
+npm link        # 全局注册 luoshu 命令
 ```
 
-#### Windows (Run as Administrator)
+> 需要 Node.js ≥ 22.0.0。
 
-Works in both Command Prompt and PowerShell:
-
-```cmd
-powershell -Command "Invoke-WebRequest 'https://qwen-code-assets.oss-cn-hangzhou.aliyuncs.com/installation/install-qwen.bat' -OutFile (Join-Path $env:TEMP 'install-qwen.bat'); & (Join-Path $env:TEMP 'install-qwen.bat')"
-```
-
-> **Note**: It's recommended to restart your terminal after installation to ensure environment variables take effect.
-
-### Manual Installation
-
-#### Prerequisites
-
-Make sure you have Node.js 22 or later installed. Download it from [nodejs.org](https://nodejs.org/en/download).
-
-#### NPM
+### 验证
 
 ```bash
-npm install -g @qwen-code/qwen-code@latest
+which luoshu               # → 应指向 ~/.nvm/.../bin/luoshu
+luoshu --version           # → 0.1.0
+luoshu --help | head -5    # → Usage: luoshu [options] [command]
 ```
 
-#### Homebrew (macOS, Linux)
+## 🚀 启动
+
+直接运行：
 
 ```bash
-brew install qwen-code
+luoshu
 ```
 
-## Quick Start
+首次启动会进入 **Provider 选择**界面，选择一个 OpenAI 兼容 endpoint（推荐 Custom Provider 接入洛书模型），配好 API key 即可开始对话。
+
+### SSH 场景下颜色问题
+
+SSH 默认不透传 `COLORTERM` 环境变量，会导致 banner 渐变退化为色块。任选一种修复：
 
 ```bash
-# Start Qwen Code (interactive)
-qwen
+# 方式 1：每次启动强制真彩
+FORCE_COLOR=3 luoshu
 
-# Then, in the session:
-/help
-/auth
+# 方式 2：在 ~/.zshrc 加 alias
+echo 'alias luoshu="FORCE_COLOR=3 luoshu"' >> ~/.zshrc && source ~/.zshrc
+
+# 方式 3：在远端 shell rc 设置
+echo 'export COLORTERM=truecolor' >> ~/.zshrc
 ```
 
-On first use, you'll be prompted to sign in. You can run `/auth` anytime to switch authentication methods.
-
-Example prompts:
-
-```text
-What does this project do?
-Explain the codebase structure.
-Help me refactor this function.
-Generate unit tests for this module.
-```
-
-<details>
-<summary>Click to watch a demo video</summary>
-
-<video src="https://cloud.video.taobao.com/vod/HLfyppnCHplRV9Qhz2xSqeazHeRzYtG-EYJnHAqtzkQ.mp4" controls>
-Your browser does not support the video tag.
-</video>
-
-</details>
-
-## 🦞 Use Qwen Code for Coding Tasks in Claw
-
-Copy the prompt below and paste it into your agent:
-
-```
-Use Qwen Code as a coding agent. First, fetch and read this skill reference:
-https://raw.githubusercontent.com/QwenLM/qwen-code/refs/heads/main/.qwen/skills/qwen-code-claw/SKILL.md
-Then follow the instructions inside to install, authenticate, and use Qwen Code via acpx for all coding tasks.
-```
-
-## Authentication
-
-Qwen Code supports the following authentication methods:
-
-- **API Key (recommended)**: use an API key from Alibaba Cloud Model Studio ([Beijing](https://bailian.console.aliyun.com/) / [intl](https://modelstudio.console.alibabacloud.com/)) or any supported provider (OpenAI, Anthropic, Google GenAI, and other compatible endpoints).
-- **Coding Plan**: subscribe to the Alibaba Cloud Coding Plan ([Beijing](https://bailian.console.aliyun.com/cn-beijing?tab=coding-plan#/efm/coding-plan-index) / [intl](https://modelstudio.console.alibabacloud.com/?tab=coding-plan#/efm/coding-plan-index)) for a fixed monthly fee with higher quotas.
-
-> ⚠️ **Qwen OAuth was discontinued on April 15, 2026.** If you were previously using Qwen OAuth, please switch to one of the methods above. Run `qwen` and then `/auth` to reconfigure.
-
-#### API Key (recommended)
-
-Use an API key to connect to Alibaba Cloud Model Studio or any supported provider. Supports multiple protocols:
-
-- **OpenAI-compatible**: Alibaba Cloud ModelStudio, ModelScope, OpenAI, OpenRouter, and other OpenAI-compatible providers
-- **Anthropic**: Claude models
-- **Google GenAI**: Gemini models
-
-The **recommended** way to configure models and providers is by editing `~/.qwen/settings.json` (create it if it doesn't exist). This file lets you define all available models, API keys, and default settings in one place.
-
-##### Quick Setup in 3 Steps
-
-**Step 1:** Create or edit `~/.qwen/settings.json`
-
-Here is a complete example:
-
-```json
-{
-  "modelProviders": {
-    "openai": [
-      {
-        "id": "qwen3.6-plus",
-        "name": "qwen3.6-plus",
-        "baseUrl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
-        "description": "Qwen3-Coder via Dashscope",
-        "envKey": "DASHSCOPE_API_KEY"
-      }
-    ]
-  },
-  "env": {
-    "DASHSCOPE_API_KEY": "sk-xxxxxxxxxxxxx"
-  },
-  "security": {
-    "auth": {
-      "selectedType": "openai"
-    }
-  },
-  "model": {
-    "name": "qwen3.6-plus"
-  }
-}
-```
-
-**Step 2:** Understand each field
-
-| Field                        | What it does                                                                                                                          |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `modelProviders`             | Declares which models are available and how to connect to them. Keys like `openai`, `anthropic`, `gemini` represent the API protocol. |
-| `modelProviders[].id`        | The model ID sent to the API (e.g. `qwen3.6-plus`, `gpt-4o`).                                                                         |
-| `modelProviders[].envKey`    | The name of the environment variable that holds your API key.                                                                         |
-| `modelProviders[].baseUrl`   | The API endpoint URL (required for non-default endpoints).                                                                            |
-| `env`                        | A fallback place to store API keys (lowest priority; prefer `.env` files or `export` for sensitive keys).                             |
-| `security.auth.selectedType` | The protocol to use on startup (`openai`, `anthropic`, `gemini`, `vertex-ai`).                                                        |
-| `model.name`                 | The default model to use when Qwen Code starts.                                                                                       |
-
-**Step 3:** Start Qwen Code — your configuration takes effect automatically:
+验证真彩是否工作：
 
 ```bash
-qwen
+printf '\x1b[38;2;255;100;0mTRUECOLOR\x1b[0m\n'   # 显示橙色 = 真彩支持
 ```
 
-Use the `/model` command at any time to switch between all configured models.
+## 🗂️ 关键文件与目录
 
-##### More Examples
+| 路径                              | 说明                                         |
+| --------------------------------- | -------------------------------------------- |
+| `~/.luoshu/settings.json`         | 用户级配置                                   |
+| `~/.luoshu/extensions/`           | 用户级扩展                                   |
+| `<project>/.luoshu/settings.json` | 项目级配置                                   |
+| `<project>/.luoshu/worktrees/`    | 工具创建的 git worktree                      |
+| `<project>/.luoshu/rules/`        | 项目级规则文件（用于 code review 等）        |
+| `<project>/LUOSHU.md`             | 项目级 system prompt（最重要）               |
+| `<project>/.luoshuignore`         | luoshu 工具忽略文件列表（类似 `.gitignore`） |
 
-<details>
-<summary>Coding Plan (Alibaba Cloud ModelStudio) — fixed monthly fee, higher quotas</summary>
+## ⚙️ 关键环境变量
 
-```json
-{
-  "modelProviders": {
-    "openai": [
-      {
-        "id": "qwen3.6-plus",
-        "name": "qwen3.6-plus (Coding Plan)",
-        "baseUrl": "https://coding.dashscope.aliyuncs.com/v1",
-        "description": "qwen3.6-plus from ModelStudio Coding Plan",
-        "envKey": "BAILIAN_CODING_PLAN_API_KEY"
-      },
-      {
-        "id": "qwen3.5-plus",
-        "name": "qwen3.5-plus (Coding Plan)",
-        "baseUrl": "https://coding.dashscope.aliyuncs.com/v1",
-        "description": "qwen3.5-plus with thinking enabled from ModelStudio Coding Plan",
-        "envKey": "BAILIAN_CODING_PLAN_API_KEY",
-        "generationConfig": {
-          "extra_body": {
-            "enable_thinking": true
-          }
-        }
-      },
-      {
-        "id": "glm-4.7",
-        "name": "glm-4.7 (Coding Plan)",
-        "baseUrl": "https://coding.dashscope.aliyuncs.com/v1",
-        "description": "glm-4.7 with thinking enabled from ModelStudio Coding Plan",
-        "envKey": "BAILIAN_CODING_PLAN_API_KEY",
-        "generationConfig": {
-          "extra_body": {
-            "enable_thinking": true
-          }
-        }
-      },
-      {
-        "id": "kimi-k2.5",
-        "name": "kimi-k2.5 (Coding Plan)",
-        "baseUrl": "https://coding.dashscope.aliyuncs.com/v1",
-        "description": "kimi-k2.5 with thinking enabled from ModelStudio Coding Plan",
-        "envKey": "BAILIAN_CODING_PLAN_API_KEY",
-        "generationConfig": {
-          "extra_body": {
-            "enable_thinking": true
-          }
-        }
-      }
-    ]
-  },
-  "env": {
-    "BAILIAN_CODING_PLAN_API_KEY": "sk-xxxxxxxxxxxxx"
-  },
-  "security": {
-    "auth": {
-      "selectedType": "openai"
-    }
-  },
-  "model": {
-    "name": "qwen3.6-plus"
-  }
-}
-```
+| 变量                          | 默认           | 说明                         |
+| ----------------------------- | -------------- | ---------------------------- |
+| `LUOSHU_HOME`                 | `~/.luoshu`    | 配置根目录                   |
+| `LUOSHU_RUNTIME_DIR`          | `$LUOSHU_HOME` | 运行时日志/状态目录          |
+| `LUOSHU_DEBUG`                | `0`            | 启用 debug 日志              |
+| `LUOSHU_LANG`                 | 系统语言       | UI 语言（zh / en / ja 等）   |
+| `LUOSHU_MODEL`                | provider 默认  | 强制指定主模型               |
+| `LUOSHU_EMBEDDING_MODEL`      | provider 默认  | 嵌入模型                     |
+| `LUOSHU_MAX_TOOL_CONCURRENCY` | 4              | 并发工具调用上限             |
+| `LUOSHU_IDE_SERVER_PORT`      | 自动分配       | IDE 集成端口                 |
+| `FORCE_COLOR=3`               | -              | 强制 24-bit 真彩（SSH 场景） |
+| `COLORTERM=truecolor`         | -              | 同上，受 ink 识别            |
 
-> Subscribe to the Coding Plan and get your API key at [Alibaba Cloud ModelStudio(Beijing)](https://bailian.console.aliyun.com/cn-beijing?tab=coding-plan#/efm/coding-plan-index) or [Alibaba Cloud ModelStudio(intl)](https://modelstudio.console.alibabacloud.com/?tab=coding-plan#/efm/coding-plan-index).
+完整 ~40 个 `LUOSHU_*` 变量可通过 `luoshu --help` 查询，或 grep 源码。
 
-</details>
+## 🔌 协议接口（用于第三方接入）
 
-<details>
-<summary>Multiple providers (OpenAI + Anthropic + Gemini)</summary>
+Luoshu CLI 不仅是 TUI，也是一个 agent runtime。可被 GUI 客户端、IDE 扩展、自动化脚本接入：
 
-```json
-{
-  "modelProviders": {
-    "openai": [
-      {
-        "id": "gpt-4o",
-        "name": "GPT-4o",
-        "envKey": "OPENAI_API_KEY",
-        "baseUrl": "https://api.openai.com/v1"
-      }
-    ],
-    "anthropic": [
-      {
-        "id": "claude-sonnet-4-20250514",
-        "name": "Claude Sonnet 4",
-        "envKey": "ANTHROPIC_API_KEY"
-      }
-    ],
-    "gemini": [
-      {
-        "id": "gemini-2.5-pro",
-        "name": "Gemini 2.5 Pro",
-        "envKey": "GEMINI_API_KEY"
-      }
-    ]
-  },
-  "env": {
-    "OPENAI_API_KEY": "sk-xxxxxxxxxxxxx",
-    "ANTHROPIC_API_KEY": "sk-ant-xxxxxxxxxxxxx",
-    "GEMINI_API_KEY": "AIzaxxxxxxxxxxxxx"
-  },
-  "security": {
-    "auth": {
-      "selectedType": "openai"
-    }
-  },
-  "model": {
-    "name": "gpt-4o"
-  }
-}
-```
+### 1. ACP (Agent Client Protocol)
 
-</details>
-
-<details>
-<summary>Enable thinking mode (for supported models like qwen3.5-plus)</summary>
-
-```json
-{
-  "modelProviders": {
-    "openai": [
-      {
-        "id": "qwen3.5-plus",
-        "name": "qwen3.5-plus (thinking)",
-        "envKey": "DASHSCOPE_API_KEY",
-        "baseUrl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
-        "generationConfig": {
-          "extra_body": {
-            "enable_thinking": true
-          }
-        }
-      }
-    ]
-  },
-  "env": {
-    "DASHSCOPE_API_KEY": "sk-xxxxxxxxxxxxx"
-  },
-  "security": {
-    "auth": {
-      "selectedType": "openai"
-    }
-  },
-  "model": {
-    "name": "qwen3.5-plus"
-  }
-}
-```
-
-</details>
-
-> **Tip:** You can also set API keys via `export` in your shell or `.env` files, which take higher priority than `settings.json` → `env`. See the [authentication guide](https://qwenlm.github.io/qwen-code-docs/en/users/configuration/auth/) for full details.
-
-> **Security note:** Never commit API keys to version control. The `~/.qwen/settings.json` file is in your home directory and should stay private.
-
-#### Local Model Setup (Ollama / vLLM)
-
-You can also run models locally — no API key or cloud account needed. This is not an authentication method; instead, configure your local model endpoint in `~/.qwen/settings.json` using the `modelProviders` field.
-
-Set `generationConfig.contextWindowSize` inside the matching provider entry
-and adjust it to the context length configured on your local server.
-
-<details>
-<summary>Ollama setup</summary>
-
-1. Install Ollama from [ollama.com](https://ollama.com/)
-2. Pull a model: `ollama pull qwen3:32b`
-3. Configure `~/.qwen/settings.json`:
-
-```json
-{
-  "modelProviders": {
-    "openai": [
-      {
-        "id": "qwen3:32b",
-        "name": "Qwen3 32B (Ollama)",
-        "baseUrl": "http://localhost:11434/v1",
-        "description": "Qwen3 32B running locally via Ollama",
-        "generationConfig": {
-          "contextWindowSize": 131072
-        }
-      }
-    ]
-  },
-  "security": {
-    "auth": {
-      "selectedType": "openai"
-    }
-  },
-  "model": {
-    "name": "qwen3:32b"
-  }
-}
-```
-
-</details>
-
-<details>
-<summary>vLLM setup</summary>
-
-1. Install vLLM: `pip install vllm`
-2. Start the server: `vllm serve Qwen/Qwen3-32B`
-3. Configure `~/.qwen/settings.json`:
-
-```json
-{
-  "modelProviders": {
-    "openai": [
-      {
-        "id": "Qwen/Qwen3-32B",
-        "name": "Qwen3 32B (vLLM)",
-        "baseUrl": "http://localhost:8000/v1",
-        "description": "Qwen3 32B running locally via vLLM",
-        "generationConfig": {
-          "contextWindowSize": 131072
-        }
-      }
-    ]
-  },
-  "security": {
-    "auth": {
-      "selectedType": "openai"
-    }
-  },
-  "model": {
-    "name": "Qwen/Qwen3-32B"
-  }
-}
-```
-
-</details>
-
-## Usage
-
-As an open-source terminal agent, you can use Qwen Code in five primary ways:
-
-1. Interactive mode (terminal UI)
-2. Headless mode (scripts, CI)
-3. IDE integration (VS Code, Zed)
-4. SDKs (TypeScript, Python, Java)
-5. Daemon mode — `qwen serve` exposes ACP over HTTP+SSE so multiple clients share one agent (experimental)
-
-#### Interactive mode
+stdio JSON-RPC 协议，已在 `packages/cli/src/acp-integration/` 实现。任意 ACP 兼容客户端都可调用：
 
 ```bash
-cd your-project/
-qwen
+luoshu --acp   # 启动 ACP server, stdin/stdout 走 JSON-RPC
 ```
 
-Run `qwen` in your project folder to launch the interactive terminal UI. Use `@` to reference local files (for example `@src/main.ts`).
-
-#### Headless mode
+### 2. HTTP Daemon (实验阶段)
 
 ```bash
-cd your-project/
-qwen -p "your question"
+luoshu serve --port 4170 --hostname 127.0.0.1
+# 提供 RESTful + SSE 接口
+# 默认 loopback 免鉴权；非 loopback 需要 --token 或 LUOSHU_SERVER_TOKEN
 ```
 
-Use `-p` to run Qwen Code without the interactive UI—ideal for scripts, automation, and CI/CD. Learn more: [Headless mode](https://qwenlm.github.io/qwen-code-docs/en/users/features/headless).
+详见 `packages/cli/src/serve/`。
 
-#### IDE integration
+### 3. IDE Companion
 
-Use Qwen Code inside your editor (VS Code, Zed, and JetBrains IDEs):
+VSCode 扩展位于 `packages/vscode-ide-companion/`（继承自 qwen-code，未深度改造，可作为 luoshu 接入参考）。
 
-- [Use in VS Code](https://qwenlm.github.io/qwen-code-docs/en/users/integration-vscode/)
-- [Use in Zed](https://qwenlm.github.io/qwen-code-docs/en/users/integration-zed/)
-- [Use in JetBrains IDEs](https://qwenlm.github.io/qwen-code-docs/en/users/integration-jetbrains/)
+## 📜 协议与署名
 
-#### Daemon mode (`qwen serve`, experimental)
+本项目以 Apache License 2.0 发布，详见 [`LICENSE`](./LICENSE)。
 
-```bash
-cd your-project/
-qwen serve
-# → qwen serve listening on http://127.0.0.1:4170 (mode=http-bridge)
-```
+继承关系与改动声明详见 [`LUOSHU_NOTICE.md`](./LUOSHU_NOTICE.md)：
 
-Run Qwen Code as a local HTTP daemon so IDE plugins, web UIs, CI scripts and custom CLIs all share **one** agent session over HTTP+SSE — instead of each spawning their own subprocess. Loopback bind has no auth by default (set `QWEN_SERVER_TOKEN` to enable bearer auth even on loopback); remote binds (`--hostname 0.0.0.0`) **require** a token — boot refuses without one. See:
+- **原作**：[google-gemini/gemini-cli](https://github.com/google-gemini/gemini-cli) (Apache 2.0)
+- **上游 fork**：[QwenLM/qwen-code](https://github.com/QwenLM/qwen-code) (Apache 2.0)
+- **当前 fork**：Luoshu CLI（Y-Bay/Luoshu-cli, Apache 2.0）
 
-- [Daemon mode user guide](https://qwenlm.github.io/qwen-code-docs/en/users/qwen-serve)
-- [HTTP protocol reference](https://qwenlm.github.io/qwen-code-docs/en/developers/qwen-serve-protocol)
-- [DaemonClient TypeScript quickstart](https://qwenlm.github.io/qwen-code-docs/en/developers/examples/daemon-client-quickstart)
+所有上游 `Copyright Google LLC` / `Copyright Qwen Team` 注释依法保留；本项目改动的文件追加了 `Modifications copyright 2026 Luoshu Team` 标注。
 
-#### SDKs
+## 🧭 项目状态
 
-Build on top of Qwen Code with the available SDKs:
+- ✅ 完整品牌化（命令名 / banner / 配置目录 / 环境变量）
+- ✅ Provider 选择菜单清理（移除 Alibaba ModelStudio 入口）
+- ✅ 行楷书法 banner + 莫兰迪辐射渐变
+- ✅ 中文 i18n 全量更新
+- ⏳ 洛书模型 API 对接（开发中）
+- ⏳ GUI 客户端协议对接（规划中）
+- ⏳ npm publish（待品牌定稿）
 
-- TypeScript: [Use the Qwen Code SDK](./packages/sdk-typescript/README.md)
-- Python: [Use the Python SDK](./packages/sdk-python/README.md)
-- Java: [Use the Java SDK](./packages/sdk-java/qwencode/README.md)
+## 🙏 致谢
 
-Python SDK example:
-
-```python
-import asyncio
-
-from qwen_code_sdk import is_sdk_result_message, query
-
-
-async def main() -> None:
-    result = query(
-        "Summarize the repository layout.",
-        {
-            "cwd": "/path/to/project",
-            "path_to_qwen_executable": "qwen",
-        },
-    )
-
-    async for message in result:
-        if is_sdk_result_message(message):
-            print(message["result"])
-
-
-asyncio.run(main())
-```
-
-## Commands & Shortcuts
-
-### Session Commands
-
-- `/help` - Display available commands
-- `/clear` - Clear conversation history
-- `/compress` - Compress history to save tokens
-- `/stats` - Show current session information
-- `/bug` - Submit a bug report
-- `/exit` or `/quit` - Exit Qwen Code
-
-### Keyboard Shortcuts
-
-- `Ctrl+C` - Cancel current operation
-- `Ctrl+D` - Exit (on empty line)
-- `Up/Down` - Navigate command history
-
-> Learn more about [Commands](https://qwenlm.github.io/qwen-code-docs/en/users/features/commands/)
->
-> **Tip**: In YOLO mode (`--yolo`), vision switching happens automatically without prompts when images are detected. Learn more about [Approval Mode](https://qwenlm.github.io/qwen-code-docs/en/users/features/approval-mode/)
-
-## Configuration
-
-Qwen Code can be configured via `settings.json`, environment variables, and CLI flags.
-
-| File                    | Scope         | Description                                                                             |
-| ----------------------- | ------------- | --------------------------------------------------------------------------------------- |
-| `~/.qwen/settings.json` | User (global) | Applies to all your Qwen Code sessions. **Recommended for `modelProviders` and `env`.** |
-| `.qwen/settings.json`   | Project       | Applies only when running Qwen Code in this project. Overrides user settings.           |
-
-The most commonly used top-level fields in `settings.json`:
-
-| Field                        | Description                                                                                          |
-| ---------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `modelProviders`             | Define available models per protocol (`openai`, `anthropic`, `gemini`, `vertex-ai`).                 |
-| `env`                        | Fallback environment variables (e.g. API keys). Lower priority than shell `export` and `.env` files. |
-| `security.auth.selectedType` | The protocol to use on startup (e.g. `openai`).                                                      |
-| `model.name`                 | The default model to use when Qwen Code starts.                                                      |
-
-> See the [Authentication](#api-key-flexible) section above for complete `settings.json` examples, and the [settings reference](https://qwenlm.github.io/qwen-code-docs/en/users/configuration/settings/) for all available options.
-
-## Benchmark Results
-
-### Terminal-Bench Performance
-
-| Agent     | Model              | Accuracy |
-| --------- | ------------------ | -------- |
-| Qwen Code | Qwen3-Coder-480A35 | 37.5%    |
-| Qwen Code | Qwen3-Coder-30BA3B | 31.3%    |
-
-## Ecosystem
-
-Looking for a graphical interface?
-
-- [**AionUi**](https://github.com/iOfficeAI/AionUi) A modern GUI for command-line AI tools including Qwen Code
-- [**Gemini CLI Desktop**](https://github.com/Piebald-AI/gemini-cli-desktop) A cross-platform desktop/web/mobile UI for Qwen Code
-
-## Troubleshooting
-
-If you encounter issues, check the [troubleshooting guide](https://qwenlm.github.io/qwen-code-docs/en/users/support/troubleshooting/).
-
-**Common issues:**
-
-- **`Qwen OAuth free tier was discontinued on 2026-04-15`**: Qwen OAuth is no longer available. Run `qwen` → `/auth` and switch to API Key or Coding Plan. See the [Authentication](#authentication) section above for setup instructions.
-
-To report a bug from within the CLI, run `/bug` and include a short title and repro steps.
-
-## Connect with Us
-
-- Discord: https://discord.gg/RN7tqZCeDK
-- Dingtalk: https://qr.dingtalk.com/action/joingroup?code=v1,k1,+FX6Gf/ZDlTahTIRi8AEQhIaBlqykA0j+eBKKdhLeAE=&_dt_no_comment=1&origin=1
-
-## Acknowledgments
-
-This project is based on [Google Gemini CLI](https://github.com/google-gemini/gemini-cli). We acknowledge and appreciate the excellent work of the Gemini CLI team. Our main contribution focuses on parser-level adaptations to better support Qwen-Coder models.
+感谢 Google Gemini CLI 团队与 Qwen Code 团队的开源工作。Luoshu CLI 站在他们的肩膀上。

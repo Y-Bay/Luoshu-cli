@@ -111,7 +111,7 @@ function classifyCi(checkRuns: CheckRun[], statuses: CommitStatus[]) {
 }
 
 function classifyExistingComments(
-  qwenComments: RawComment[],
+  luoshuComments: RawComment[],
   repliedToIds: Set<number>,
   newFindingKeys: Set<string>,
   commitSha: string,
@@ -121,7 +121,7 @@ function classifyExistingComments(
     CommentSummary[]
   > = { stale: [], resolved: [], overlap: [], noConflict: [] };
 
-  for (const c of qwenComments) {
+  for (const c of luoshuComments) {
     const summary: CommentSummary = {
       id: c.id,
       path: c.path ?? '',
@@ -188,8 +188,8 @@ async function runPresubmit(args: PresubmitArgs): Promise<void> {
   const allComments = ghApiAll(
     `repos/${owner}/${repo}/pulls/${prNumber}/comments`,
   ) as RawComment[];
-  const qwenComments = allComments.filter((c) =>
-    /via Qwen Code \/review/.test(c.body ?? ''),
+  const luoshuComments = allComments.filter((c) =>
+    /via Luoshu CLI \/review/.test(c.body ?? ''),
   );
 
   const repliedToIds = new Set<number>();
@@ -204,7 +204,7 @@ async function runPresubmit(args: PresubmitArgs): Promise<void> {
   const newFindingKeys = new Set(newFindings.map((f) => `${f.path}:${f.line}`));
 
   const buckets = classifyExistingComments(
-    qwenComments,
+    luoshuComments,
     repliedToIds,
     newFindingKeys,
     commitSha,
@@ -229,7 +229,7 @@ async function runPresubmit(args: PresubmitArgs): Promise<void> {
     isSelfPr,
     ciStatus,
     existingComments: {
-      total: qwenComments.length,
+      total: luoshuComments.length,
       byBucket: {
         stale: buckets.stale.length,
         resolved: buckets.resolved.length,

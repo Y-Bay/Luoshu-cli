@@ -20,9 +20,9 @@ describe('FileSearch', () => {
     vi.restoreAllMocks();
   });
 
-  it('should use .qwenignore rules', async () => {
+  it('should use .luoshuignore rules', async () => {
     tmpDir = await createTmpDir({
-      '.qwenignore': 'dist/',
+      '.luoshuignore': 'dist/',
       dist: ['ignored.js'],
       src: ['not-ignored.js'],
     });
@@ -41,13 +41,13 @@ describe('FileSearch', () => {
     await fileSearch.initialize();
     const results = await fileSearch.search('');
 
-    expect(results).toEqual(['src/', '.qwenignore', 'src/not-ignored.js']);
+    expect(results).toEqual(['src/', '.luoshuignore', 'src/not-ignored.js']);
   });
 
-  it('should combine .gitignore and .qwenignore rules', async () => {
+  it('should combine .gitignore and .luoshuignore rules', async () => {
     tmpDir = await createTmpDir({
       '.gitignore': 'dist/',
-      '.qwenignore': 'build/',
+      '.luoshuignore': 'build/',
       dist: ['ignored-by-git.js'],
       build: ['ignored-by-gemini.js'],
       src: ['not-ignored.js'],
@@ -70,7 +70,7 @@ describe('FileSearch', () => {
     expect(results).toEqual([
       'src/',
       '.gitignore',
-      '.qwenignore',
+      '.luoshuignore',
       'src/not-ignored.js',
     ]);
   });

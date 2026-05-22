@@ -211,7 +211,7 @@ ${escapeXml(cmd.description)}
     let skillDescriptions = '';
     if (allSkillEntries.length === 0) {
       skillDescriptions =
-        'No skills are currently configured. Skills can be created by adding directories with SKILL.md files to .qwen/skills/ or ~/.qwen/skills/.';
+        'No skills are currently configured. Skills can be created by adding directories with SKILL.md files to .luoshu/skills/ or ~/.luoshu/skills/.';
     } else {
       skillDescriptions = allSkillEntries.join('\n');
     }

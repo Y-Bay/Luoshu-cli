@@ -75,12 +75,12 @@ export function isTransientCapacityError(error: unknown): boolean {
 
 /**
  * Detects whether persistent retry mode is explicitly enabled.
- * Requires the user to opt in via QWEN_CODE_UNATTENDED_RETRY — we intentionally
+ * Requires the user to opt in via LUOSHU_UNATTENDED_RETRY — we intentionally
  * do NOT auto-activate on CI=true, because silently turning a fast-fail CI job
  * into an infinite-wait job would be surprising and dangerous.
  */
 export function isUnattendedMode(): boolean {
-  const val = process.env['QWEN_CODE_UNATTENDED_RETRY'];
+  const val = process.env['LUOSHU_UNATTENDED_RETRY'];
   return val === 'true' || val === '1';
 }
 

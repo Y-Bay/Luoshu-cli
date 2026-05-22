@@ -110,7 +110,7 @@ export interface RuntimeDiagnosticsCollectorOptions {
   now?: () => string;
 }
 
-const RUNTIME_PROFILE_ENV = 'QWEN_CODE_PROFILE_RUNTIME';
+const RUNTIME_PROFILE_ENV = 'LUOSHU_PROFILE_RUNTIME';
 
 export function isRuntimeDiagnosticsEnabled(
   env: NodeJS.ProcessEnv = process.env,

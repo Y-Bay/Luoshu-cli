@@ -168,7 +168,7 @@ describe('hasSuspiciousPathPattern', () => {
   it('accepts ordinary POSIX paths', () => {
     expect(hasSuspiciousPathPattern('src/index.ts')).toBe(false);
     expect(hasSuspiciousPathPattern('packages/cli/package.json')).toBe(false);
-    expect(hasSuspiciousPathPattern('.qwenignore')).toBe(false);
+    expect(hasSuspiciousPathPattern('.luoshuignore')).toBe(false);
     expect(hasSuspiciousPathPattern('a/b/c/d/e/f.txt')).toBe(false);
   });
 });

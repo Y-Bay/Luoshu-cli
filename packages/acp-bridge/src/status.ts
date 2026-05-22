@@ -315,7 +315,7 @@ export interface ServeWorkspaceMemoryFile {
   path: string;
   /**
    * 'workspace' for files under the bound workspace tree, 'global' for
-   * `~/.qwen/QWEN.md` style entries. Helps adapters render scope chips.
+   * `~/.luoshu/QWEN.md` style entries. Helps adapters render scope chips.
    */
   scope: ServeContextFileScope;
   /** Size in bytes of the file's serialized contents on disk. */
@@ -334,7 +334,7 @@ export interface ServeWorkspaceMemoryStatus {
    * Mirrors `LoadServerHierarchicalMemoryResponse.fileCount`.
    */
   fileCount: number;
-  /** Baseline path-rule count from `.qwen/rules/`. */
+  /** Baseline path-rule count from `.luoshu/rules/`. */
   ruleCount: number;
   errors?: ServeStatusCell[];
 }

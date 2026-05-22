@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const QWEN_CODE_SIMPLE_ENV_VAR = 'QWEN_CODE_SIMPLE';
+export const LUOSHU_SIMPLE_ENV_VAR = 'LUOSHU_SIMPLE';
 
 function isTruthy(value: string | undefined): boolean {
   if (!value) {
@@ -15,5 +15,5 @@ function isTruthy(value: string | undefined): boolean {
 }
 
 export function isBareMode(cliFlag?: boolean): boolean {
-  return cliFlag === true || isTruthy(process.env[QWEN_CODE_SIMPLE_ENV_VAR]);
+  return cliFlag === true || isTruthy(process.env[LUOSHU_SIMPLE_ENV_VAR]);
 }

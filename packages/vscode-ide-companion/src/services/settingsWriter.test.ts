@@ -44,7 +44,7 @@ describe('settingsWriter', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'qwen-vscode-settings-'));
-    settingsPath = path.join(tempDir, '.qwen', 'settings.json');
+    settingsPath = path.join(tempDir, '.luoshu', 'settings.json');
     mockGetGlobalSettingsPath.mockReturnValue(settingsPath);
   });
 

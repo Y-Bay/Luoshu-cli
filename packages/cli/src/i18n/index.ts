@@ -52,7 +52,7 @@ const getUserLocalesDir = (): string =>
 /**
  * Get the path to the user's custom locales directory.
  * Users can place custom language packs (e.g., es.js, fr.js) in this directory.
- * @returns The path to ~/.qwen/locales
+ * @returns The path to ~/.luoshu/locales
  */
 export function getUserLocalesDirectory(): string {
   return getUserLocalesDir();
@@ -68,7 +68,7 @@ const getLocalePath = (
 
 // Language detection
 export function detectSystemLanguage(): SupportedLanguage {
-  const envLang = process.env['QWEN_CODE_LANG'] || process.env['LANG'];
+  const envLang = process.env['LUOSHU_LANG'] || process.env['LANG'];
   if (envLang) {
     const resolved = resolveSupportedLanguage(envLang);
     if (resolved) {

@@ -65,7 +65,7 @@ export interface FsStat {
 export interface FsEntry {
   name: string;
   kind: 'file' | 'directory' | 'symlink' | 'other';
-  /** True iff the entry matched a `.gitignore`/`.qwenignore` rule. */
+  /** True iff the entry matched a `.gitignore`/`.luoshuignore` rule. */
   ignored: boolean;
 }
 
@@ -1050,7 +1050,7 @@ class WorkspaceFileSystemImpl implements WorkspaceFileSystem {
       });
       // Symmetric with `readText` / `writeText` — operators
       // monitoring `fs.access` need to see when an edit landed on
-      // a `.gitignore`d / `.qwenignore`d file (build artifacts,
+      // a `.gitignore`d / `.luoshuignore`d file (build artifacts,
       // logs, etc.) rather than only learning about
       // matchedIgnore for reads and writes.
       const editVerdict = shouldIgnore(

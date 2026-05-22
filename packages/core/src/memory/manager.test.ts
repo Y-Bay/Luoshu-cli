@@ -103,7 +103,7 @@ describe('MemoryManager', () => {
 
     beforeEach(async () => {
       vi.resetAllMocks();
-      process.env['QWEN_CODE_MEMORY_LOCAL'] = '1';
+      process.env['LUOSHU_MEMORY_LOCAL'] = '1';
       clearAutoMemoryRootCache();
       tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'mgr-extract-'));
       projectRoot = path.join(tempDir, 'project');
@@ -112,7 +112,7 @@ describe('MemoryManager', () => {
     });
 
     afterEach(async () => {
-      delete process.env['QWEN_CODE_MEMORY_LOCAL'];
+      delete process.env['LUOSHU_MEMORY_LOCAL'];
       clearAutoMemoryRootCache();
       await fs.rm(tempDir, { recursive: true, force: true });
     });
@@ -149,7 +149,7 @@ describe('MemoryManager', () => {
                 functionCall: {
                   name: 'write_file',
                   args: {
-                    file_path: `${projectRoot}/.qwen/memory/user/test.md`,
+                    file_path: `${projectRoot}/.luoshu/memory/user/test.md`,
                   },
                 },
               },
@@ -233,7 +233,7 @@ describe('MemoryManager', () => {
     beforeEach(() => {
       vi.resetAllMocks();
       vi.mocked(runSkillReviewByAgent).mockResolvedValue({
-        touchedSkillFiles: ['/project/.qwen/skills/test/SKILL.md'],
+        touchedSkillFiles: ['/project/.luoshu/skills/test/SKILL.md'],
       });
     });
 
@@ -466,7 +466,7 @@ describe('MemoryManager', () => {
 
     beforeEach(async () => {
       vi.resetAllMocks();
-      process.env['QWEN_CODE_MEMORY_LOCAL'] = '1';
+      process.env['LUOSHU_MEMORY_LOCAL'] = '1';
       clearAutoMemoryRootCache();
       tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'mgr-dream-'));
       projectRoot = path.join(tempDir, 'project');
@@ -483,7 +483,7 @@ describe('MemoryManager', () => {
     });
 
     afterEach(async () => {
-      delete process.env['QWEN_CODE_MEMORY_LOCAL'];
+      delete process.env['LUOSHU_MEMORY_LOCAL'];
       clearAutoMemoryRootCache();
       await fs.rm(tempDir, { recursive: true, force: true });
     });
@@ -719,7 +719,7 @@ describe('MemoryManager', () => {
 
     beforeEach(async () => {
       vi.resetAllMocks();
-      process.env['QWEN_CODE_MEMORY_LOCAL'] = '1';
+      process.env['LUOSHU_MEMORY_LOCAL'] = '1';
       clearAutoMemoryRootCache();
       tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'mgr-cancel-'));
       projectRoot = path.join(tempDir, 'project');
@@ -731,7 +731,7 @@ describe('MemoryManager', () => {
     });
 
     afterEach(async () => {
-      delete process.env['QWEN_CODE_MEMORY_LOCAL'];
+      delete process.env['LUOSHU_MEMORY_LOCAL'];
       clearAutoMemoryRootCache();
       await fs.rm(tempDir, { recursive: true, force: true });
     });

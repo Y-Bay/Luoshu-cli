@@ -20,7 +20,6 @@ import {
   findProviderById,
   findProviderByCredentials,
   customProvider,
-  ALIBABA_PROVIDERS,
   THIRD_PARTY_PROVIDERS,
   type ProviderConfig,
 } from '@qwen-code/qwen-code-core';
@@ -31,31 +30,15 @@ import { ProviderSetupSteps } from './ProviderSetupSteps.js';
 // Types
 // ---------------------------------------------------------------------------
 
-type ViewLevel =
-  | 'main'
-  | 'alibaba-select'
-  | 'thirdparty-select'
-  | 'provider-setup';
+type ViewLevel = 'main' | 'thirdparty-select' | 'provider-setup';
 
-type MainOption =
-  | 'ALIBABA_MODELSTUDIO'
-  | 'THIRD_PARTY_PROVIDERS'
-  | 'CUSTOM_PROVIDER';
+type MainOption = 'THIRD_PARTY_PROVIDERS' | 'CUSTOM_PROVIDER';
 
 // ---------------------------------------------------------------------------
 // Static data
 // ---------------------------------------------------------------------------
 
 const MAIN_ITEMS = [
-  {
-    key: 'ALIBABA_MODELSTUDIO',
-    title: t('Alibaba ModelStudio'),
-    label: t('Alibaba ModelStudio'),
-    description: t(
-      'Official recommended setup: Coding Plan, Token Plan, or Standard API Key',
-    ),
-    value: 'ALIBABA_MODELSTUDIO' as MainOption,
-  },
   {
     key: 'THIRD_PARTY_PROVIDERS',
     title: t('Third-party Providers'),
@@ -107,7 +90,6 @@ function getStepLabel(step: string | null, p: ProviderConfig): string {
 
 const VIEW_TITLES: Record<string, string> = {
   main: t('Connect a Provider'),
-  'alibaba-select': t('Alibaba ModelStudio · Access Method'),
   'thirdparty-select': t('Third-party Providers · Provider'),
 };
 
@@ -163,7 +145,6 @@ export function AuthDialog(): React.JSX.Element {
 
   // -- Sub-menu definitions (data-driven) -----------------------------------
 
-  const alibabaItems = useMemo(() => ALIBABA_PROVIDERS.map(providerToItem), []);
   const thirdPartyItems = useMemo(
     () => THIRD_PARTY_PROVIDERS.map(providerToItem),
     [],
@@ -186,10 +167,6 @@ export function AuthDialog(): React.JSX.Element {
       onSelect: (v: string) => void;
     }
   > = {
-    'alibaba-select': {
-      items: alibabaItems,
-      onSelect: handleProviderSelect,
-    },
     'thirdparty-select': {
       items: thirdPartyItems,
       onSelect: handleProviderSelect,
@@ -206,13 +183,9 @@ export function AuthDialog(): React.JSX.Element {
     contentGenConfig?.apiKeyEnvKey,
   );
 
-  // Land on the tab that matches the active provider's uiGroup so a DeepSeek
-  // / MiniMax / OpenRouter user opens Third-party Providers, not Alibaba.
-  // (resolveMetadataKey returns config.id for *any* provider with a static
-  // models[], so it can't be used to detect "Alibaba" specifically.)
+  // With Alibaba removed, third-party is index 0 (default) and custom is 1.
   const defaultMainIndex = useMemo(() => {
-    if (matchedProvider?.uiGroup === 'third-party') return 1;
-    if (matchedProvider?.uiGroup === 'custom') return 2;
+    if (matchedProvider?.uiGroup === 'custom') return 1;
     return 0;
   }, [matchedProvider]);
 
@@ -221,9 +194,6 @@ export function AuthDialog(): React.JSX.Element {
   const handleMainSelect = (value: MainOption) => {
     clearErrors();
     switch (value) {
-      case 'ALIBABA_MODELSTUDIO':
-        pushView('alibaba-select');
-        break;
       case 'THIRD_PARTY_PROVIDERS':
         pushView('thirdparty-select');
         break;
@@ -354,11 +324,11 @@ export function AuthDialog(): React.JSX.Element {
           </Box>
           <Box>
             <Link
-              url="https://qwenlm.github.io/qwen-code-docs/en/users/support/tos-privacy/"
+              url="https://github.com/luoshu-cli/luoshu-cli"
               fallback={false}
             >
               <Text color={theme.text.secondary} underline>
-                https://qwenlm.github.io/qwen-code-docs/en/users/support/tos-privacy/
+                https://github.com/luoshu-cli/luoshu-cli
               </Text>
             </Link>
           </Box>

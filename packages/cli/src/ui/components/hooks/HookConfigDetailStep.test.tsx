@@ -136,7 +136,7 @@ describe('HookConfigDetailStep', () => {
     const hookConfig = createMockHookConfig(
       HooksConfigSource.Extensions,
       'ralph-wiggum',
-      '/Users/test/.qwen/extensions/ralph-wiggum',
+      '/Users/test/.luoshu/extensions/ralph-wiggum',
     );
 
     const { lastFrame } = render(
@@ -144,7 +144,9 @@ describe('HookConfigDetailStep', () => {
     );
 
     expect(lastFrame()).toContain('Extensions');
-    expect(lastFrame()).toContain('/Users/test/.qwen/extensions/ralph-wiggum');
+    expect(lastFrame()).toContain(
+      '/Users/test/.luoshu/extensions/ralph-wiggum',
+    );
   });
 
   it('should render Extension field for extensions', () => {

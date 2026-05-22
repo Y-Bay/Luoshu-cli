@@ -67,7 +67,7 @@ vi.mock('@qwen-code/qwen-code-core', async (importOriginal) => {
       getGlobalQwenDir: vi.fn().mockReturnValue('/mock/.qwen'),
       getGlobalSettingsPath: vi
         .fn()
-        .mockReturnValue('/mock/.qwen/settings.json'),
+        .mockReturnValue('/mock/.luoshu/settings.json'),
     },
   };
 });

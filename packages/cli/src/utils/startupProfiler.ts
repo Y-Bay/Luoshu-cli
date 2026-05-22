@@ -7,9 +7,9 @@
 /**
  * Lightweight startup performance profiler.
  *
- * Activated by setting QWEN_CODE_PROFILE_STARTUP=1. When enabled, collects
+ * Activated by setting LUOSHU_PROFILE_STARTUP=1. When enabled, collects
  * high-resolution timestamps at key phases of CLI startup and writes a JSON
- * report to ~/.qwen/startup-perf/ on finalization.
+ * report to ~/.luoshu/startup-perf/ on finalization.
  *
  * Usage (already wired in index.ts / gemini.tsx):
  *   initStartupProfiler()        — call once at process start to record T0
@@ -18,7 +18,7 @@
  *   finalizeStartupProfile(id)   — call after last checkpoint to write report
  *
  * By default profiles only inside the sandbox child process to avoid duplicate
- * reports. Set QWEN_CODE_PROFILE_STARTUP_OUTER=1 to also profile the outer
+ * reports. Set LUOSHU_PROFILE_STARTUP_OUTER=1 to also profile the outer
  * (pre-sandbox) process; outer reports are written with an `outer-` filename
  * prefix to keep them separate from sandbox-child reports.
  *
@@ -135,12 +135,12 @@ export function initStartupProfiler(): void {
   // Reset any prior state so the function is idempotent.
   resetStartupProfiler();
 
-  if (process.env['QWEN_CODE_PROFILE_STARTUP'] !== '1') {
+  if (process.env['LUOSHU_PROFILE_STARTUP'] !== '1') {
     return;
   }
 
   const inSandboxChild = !!process.env['SANDBOX'];
-  const outerOptIn = process.env['QWEN_CODE_PROFILE_STARTUP_OUTER'] === '1';
+  const outerOptIn = process.env['LUOSHU_PROFILE_STARTUP_OUTER'] === '1';
 
   // Default behavior is unchanged: only the sandbox child collects.
   // Outer (pre-sandbox) collection requires an explicit opt-in to avoid
@@ -152,9 +152,9 @@ export function initStartupProfiler(): void {
   enabled = true;
   outerProcess = !inSandboxChild;
   // Default to capturing heap snapshots at every checkpoint.
-  // Disable with QWEN_CODE_PROFILE_STARTUP_NO_HEAP=1 when measuring the
+  // Disable with LUOSHU_PROFILE_STARTUP_NO_HEAP=1 when measuring the
   // Heisenberg overhead of the heap call itself.
-  captureHeap = process.env['QWEN_CODE_PROFILE_STARTUP_NO_HEAP'] !== '1';
+  captureHeap = process.env['LUOSHU_PROFILE_STARTUP_NO_HEAP'] !== '1';
   finalized = false;
   processUptimeAtT0Ms = Math.round(process.uptime() * 1000 * 100) / 100;
   t0 = performance.now();
@@ -333,7 +333,7 @@ export function finalizeStartupProfile(sessionId?: string): void {
   }
 
   try {
-    const dir = path.join(os.homedir(), '.qwen', 'startup-perf');
+    const dir = path.join(os.homedir(), '.luoshu', 'startup-perf');
     fs.mkdirSync(dir, { recursive: true });
 
     const prefix = report.outerProcess ? 'outer-' : '';

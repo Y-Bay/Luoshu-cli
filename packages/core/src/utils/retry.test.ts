@@ -506,20 +506,20 @@ describe('isUnattendedMode', () => {
 
   beforeEach(() => {
     process.env = { ...originalEnv };
-    delete process.env['QWEN_CODE_UNATTENDED_RETRY'];
+    delete process.env['LUOSHU_UNATTENDED_RETRY'];
   });
 
   afterAll(() => {
     process.env = originalEnv;
   });
 
-  it('should return true when QWEN_CODE_UNATTENDED_RETRY=1', () => {
-    process.env['QWEN_CODE_UNATTENDED_RETRY'] = '1';
+  it('should return true when LUOSHU_UNATTENDED_RETRY=1', () => {
+    process.env['LUOSHU_UNATTENDED_RETRY'] = '1';
     expect(isUnattendedMode()).toBe(true);
   });
 
-  it('should return true when QWEN_CODE_UNATTENDED_RETRY=true', () => {
-    process.env['QWEN_CODE_UNATTENDED_RETRY'] = 'true';
+  it('should return true when LUOSHU_UNATTENDED_RETRY=true', () => {
+    process.env['LUOSHU_UNATTENDED_RETRY'] = 'true';
     expect(isUnattendedMode()).toBe(true);
   });
 
@@ -533,21 +533,21 @@ describe('isUnattendedMode', () => {
   });
 
   it('should return false for non-matching values', () => {
-    process.env['QWEN_CODE_UNATTENDED_RETRY'] = '0';
+    process.env['LUOSHU_UNATTENDED_RETRY'] = '0';
     expect(isUnattendedMode()).toBe(false);
-    process.env['QWEN_CODE_UNATTENDED_RETRY'] = 'false';
+    process.env['LUOSHU_UNATTENDED_RETRY'] = 'false';
     expect(isUnattendedMode()).toBe(false);
-    process.env['QWEN_CODE_UNATTENDED_RETRY'] = '';
+    process.env['LUOSHU_UNATTENDED_RETRY'] = '';
     expect(isUnattendedMode()).toBe(false);
   });
 
   it('should use strict matching consistent with parseBooleanEnvFlag', () => {
     // Only 'true' and '1' are accepted — matches project convention
-    process.env['QWEN_CODE_UNATTENDED_RETRY'] = 'TRUE';
+    process.env['LUOSHU_UNATTENDED_RETRY'] = 'TRUE';
     expect(isUnattendedMode()).toBe(false); // strict: not 'true'
-    process.env['QWEN_CODE_UNATTENDED_RETRY'] = ' 1 ';
+    process.env['LUOSHU_UNATTENDED_RETRY'] = ' 1 ';
     expect(isUnattendedMode()).toBe(false); // strict: not '1'
-    process.env['QWEN_CODE_UNATTENDED_RETRY'] = 'yes';
+    process.env['LUOSHU_UNATTENDED_RETRY'] = 'yes';
     expect(isUnattendedMode()).toBe(false);
   });
 });

@@ -14,7 +14,7 @@ import {
   type ResolvedModelConfig,
   type AvailableModel,
 } from './types.js';
-import { DEFAULT_QWEN_MODEL } from '../config/models.js';
+import { DEFAULT_LUOSHU_MODEL } from '../config/models.js';
 import { QWEN_OAUTH_MODELS } from './constants.js';
 import { createDebugLogger } from '../utils/debugLogger.js';
 
@@ -191,7 +191,7 @@ export class ModelRegistry {
     authType: AuthType,
   ): ResolvedModelConfig | undefined {
     if (authType === AuthType.QWEN_OAUTH) {
-      return this.getModel(authType, DEFAULT_QWEN_MODEL);
+      return this.getModel(authType, DEFAULT_LUOSHU_MODEL);
     }
     const models = this.modelsByAuthType.get(authType);
     if (!models || models.size === 0) return undefined;

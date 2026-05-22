@@ -15,8 +15,8 @@ describe('createSlashCommandFromDefinition', () => {
 
   it('marks custom file commands with stable source detail', () => {
     const command = createSlashCommandFromDefinition(
-      '/workspace/.qwen/commands/review.toml',
-      '/workspace/.qwen/commands',
+      '/workspace/.luoshu/commands/review.toml',
+      '/workspace/.luoshu/commands',
       {
         prompt: 'Review the current changes',
       },
@@ -31,8 +31,8 @@ describe('createSlashCommandFromDefinition', () => {
 
   it('marks extension commands with stable source detail', () => {
     const command = createSlashCommandFromDefinition(
-      '/workspace/.qwen/extensions/demo/commands/review.md',
-      '/workspace/.qwen/extensions/demo/commands',
+      '/workspace/.luoshu/extensions/demo/commands/review.md',
+      '/workspace/.luoshu/extensions/demo/commands',
       {
         prompt: 'Review the current changes',
       },

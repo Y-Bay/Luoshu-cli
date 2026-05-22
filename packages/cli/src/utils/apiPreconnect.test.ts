@@ -58,7 +58,7 @@ describe('apiPreconnect', () => {
     delete process.env['https_proxy'];
     delete process.env['HTTP_PROXY'];
     delete process.env['http_proxy'];
-    delete process.env['QWEN_CODE_DISABLE_PRECONNECT'];
+    delete process.env['LUOSHU_DISABLE_PRECONNECT'];
     delete process.env['NODE_EXTRA_CA_CERTS'];
     delete process.env['SANDBOX'];
   });
@@ -332,8 +332,8 @@ describe('apiPreconnect', () => {
       );
     });
 
-    it('should skip when QWEN_CODE_DISABLE_PRECONNECT is set', () => {
-      process.env['QWEN_CODE_DISABLE_PRECONNECT'] = '1';
+    it('should skip when LUOSHU_DISABLE_PRECONNECT is set', () => {
+      process.env['LUOSHU_DISABLE_PRECONNECT'] = '1';
       preconnectApi('qwen-oauth', { proxy: 'http://proxy.example.com:8080' });
       expect(mockFetch).not.toHaveBeenCalled();
     });

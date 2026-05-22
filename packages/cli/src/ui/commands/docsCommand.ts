@@ -12,25 +12,25 @@ import {
   CommandKind,
 } from './types.js';
 import { MessageType } from '../types.js';
-import { t, getCurrentLanguage } from '../../i18n/index.js';
+import { t } from '../../i18n/index.js';
 
 export const docsCommand: SlashCommand = {
   name: 'docs',
   get description() {
-    return t('open full Qwen Code documentation in your browser');
+    return t('open full Luoshu CLI documentation in your browser');
   },
   kind: CommandKind.BUILT_IN,
   supportedModes: ['interactive', 'non_interactive', 'acp'] as const,
   action: async (context: CommandContext) => {
-    const langPath = getCurrentLanguage()?.startsWith('zh') ? 'zh' : 'en';
-    const docsUrl = `https://qwenlm.github.io/qwen-code-docs/${langPath}`;
+    // TODO(luoshu): point at Luoshu docs site once it exists; falls back to repo for now.
+    const docsUrl = `https://github.com/luoshu-cli/luoshu-cli`;
 
     // Non-interactive/ACP: return URL directly, no browser, no addItem
     if (context.executionMode !== 'interactive') {
       return {
         type: 'message' as const,
         messageType: 'info' as const,
-        content: `Qwen Code documentation: ${docsUrl}`,
+        content: `Luoshu CLI documentation: ${docsUrl}`,
       };
     }
 

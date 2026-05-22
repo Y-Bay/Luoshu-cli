@@ -327,8 +327,8 @@ class QwenAgent implements Agent {
     return {
       protocolVersion: PROTOCOL_VERSION,
       agentInfo: {
-        name: 'qwen-code',
-        title: 'Qwen Code',
+        name: 'luoshu-cli',
+        title: 'Luoshu CLI',
         version,
       },
       authMethods,
@@ -930,7 +930,7 @@ class QwenAgent implements Agent {
       kind: 'mcp_budget',
       // PR 14 v1: per-session, not per-workspace. Each ACP session has
       // its own `Config`/`McpClientManager` (via `newSessionConfig`)
-      // and reads `QWEN_SERVE_MCP_CLIENT_BUDGET` independently.
+      // and reads `LUOSHU_SERVE_MCP_CLIENT_BUDGET` independently.
       // Snapshot shows the bootstrap session's view. Wave 5 PR 23
       // shared MCP pool will graduate this to `'workspace'`.
       scope: 'session',
@@ -1851,7 +1851,7 @@ class QwenAgent implements Agent {
     // PR 14b fix #2 (codex review round 1): register the MCP guardrail
     // budget-event callback BEFORE `config.initialize()`. Pre-fix the
     // registration ran AFTER initialize, which (a) missed end-of-pass
-    // events under `QWEN_CODE_LEGACY_MCP_BLOCKING=1` (synchronous
+    // events under `LUOSHU_LEGACY_MCP_BLOCKING=1` (synchronous
     // discovery completes inside initialize, before our setter runs)
     // and (b) raced against background-discovery completion under the
     // default progressive mode. `Config.setMcpBudgetEventCallback`
@@ -1937,7 +1937,7 @@ class QwenAgent implements Agent {
     if (!selectedType) {
       throw RequestError.authRequired(
         { authMethods: this.pickAuthMethodsForAuthRequired() },
-        'Use Qwen Code CLI to authenticate first.',
+        'Use Luoshu CLI to authenticate first.',
       );
     }
 

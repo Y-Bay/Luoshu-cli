@@ -202,7 +202,7 @@ export interface QueryOptions {
 
   /**
    * The AI model to use for the query session.
-   * This takes precedence over the environment variables `OPENAI_MODEL` and `QWEN_MODEL`
+   * This takes precedence over the environment variables `OPENAI_MODEL` and `LUOSHU_MODEL`
    * @example 'qwen-max', 'qwen-plus', 'qwen-turbo'
    */
   model?: string;
