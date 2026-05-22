@@ -9,7 +9,6 @@ import { BaseMessageHandler } from './BaseMessageHandler.js';
 import { getErrorMessage } from '../../utils/errorMessage.js';
 import {
   ALL_PROVIDERS,
-  ALIBABA_PROVIDERS,
   AuthType,
   THIRD_PARTY_PROVIDERS,
   shouldShowStep,
@@ -193,7 +192,6 @@ export class AuthMessageHandler extends BaseMessageHandler {
         }
       };
 
-      addGroup('Alibaba Cloud', ALIBABA_PROVIDERS);
       addGroup('Third Party', THIRD_PARTY_PROVIDERS);
 
       // Custom provider is always last

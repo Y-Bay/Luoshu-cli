@@ -19,7 +19,7 @@
       "additionalProperties": true
     },
     "plansDirectory": {
-      "description": "Custom directory for approved Plan Mode files. Relative paths are resolved from the project root, and the resolved path must stay within the project root. Defaults to ~/.qwen/plans.",
+      "description": "Custom directory for approved Plan Mode files. Relative paths are resolved from the project root, and the resolved path must stay within the project root. Defaults to ~/.luoshu/plans.",
       "type": "string"
     },
     "env": {
@@ -103,7 +103,7 @@
           "default": false
         },
         "language": {
-          "description": "The language for the user interface. Use \"auto\" to detect from system settings. You can also use custom language codes (e.g., \"es\", \"fr\") by placing JS language files in ~/.qwen/locales/ (e.g., ~/.qwen/locales/es.js). Options: auto, en, zh-TW, zh, ru, de, ja, pt, fr, ca",
+          "description": "The language for the user interface. Use \"auto\" to detect from system settings. You can also use custom language codes (e.g., \"es\", \"fr\") by placing JS language files in ~/.luoshu/locales/ (e.g., ~/.luoshu/locales/es.js). Options: auto, en, zh-TW, zh, ru, de, ja, pt, fr, ca",
           "enum": [
             "auto",
             "en",
@@ -183,7 +183,7 @@
         "theme": {
           "description": "The color theme for the UI.",
           "type": "string",
-          "default": "Qwen Dark"
+          "default": "Luoshu Dark"
         },
         "autoModeAcknowledged": {
           "description": "True once the user has seen the first-time information message about the AUTO approval mode. Set automatically; not intended for manual configuration.",
@@ -585,7 +585,7 @@
               "default": true
             },
             "respectQwenIgnore": {
-              "description": "Respect .qwenignore files when searching",
+              "description": "Respect .luoshuignore files when searching",
               "type": "boolean",
               "default": true
             },
@@ -941,7 +941,7 @@
           "type": "object",
           "properties": {
             "worktreeBaseDir": {
-              "description": "Custom base directory for Arena worktrees. Defaults to ~/.qwen/arena.",
+              "description": "Custom base directory for Arena worktrees. Defaults to ~/.luoshu/arena.",
               "type": "string"
             },
             "preserveArtifacts": {
