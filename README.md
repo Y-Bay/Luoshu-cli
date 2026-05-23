@@ -37,7 +37,26 @@
 
 ## 📦 安装
 
-### 从源码安装（当前推荐）
+### 一键安装（推荐）
+
+```bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Y-Bay/Luoshu-cli/main/install.sh)"
+```
+
+脚本会：
+
+- 检查 Node.js ≥ 22.0.0 和 git
+- 克隆仓库到 `~/Luoshu-cli`（可用 `LUOSHU_INSTALL_DIR=/path` 自定义）
+- 安装依赖、打包、`npm link` 全局注册 `luoshu` 命令
+- 输出后续使用步骤
+
+如果已 clone 仓库，也可在仓库根目录直接跑：
+
+```bash
+bash install.sh
+```
+
+### 手动安装
 
 ```bash
 git clone https://github.com/Y-Bay/Luoshu-cli.git
@@ -47,7 +66,12 @@ npm run bundle
 npm link        # 全局注册 luoshu 命令
 ```
 
-> 需要 Node.js ≥ 22.0.0。
+> 需要 Node.js ≥ 22.0.0。如未安装 Node：
+>
+> ```bash
+> curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+> source ~/.nvm/nvm.sh && nvm install 22
+> ```
 
 ### 验证
 
