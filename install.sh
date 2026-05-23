@@ -72,14 +72,14 @@ clone_or_use_existing() {
   fi
 
   if [ -d "$DEFAULT_INSTALL_DIR/.git" ]; then
-    step "Updating existing checkout at $DEFAULT_INSTALL_DIR…"
+    step "Updating existing checkout at ${DEFAULT_INSTALL_DIR}…"
     cd "$DEFAULT_INSTALL_DIR"
     git pull --ff-only origin main || {
       err "git pull failed. Aborting to avoid corrupting local state."
       exit 1
     }
   else
-    step "Cloning to $DEFAULT_INSTALL_DIR…"
+    step "Cloning to ${DEFAULT_INSTALL_DIR}…"
     git clone "$REPO_URL" "$DEFAULT_INSTALL_DIR"
     cd "$DEFAULT_INSTALL_DIR"
   fi
