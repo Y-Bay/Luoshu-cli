@@ -80,7 +80,20 @@ clone_or_use_existing() {
     }
   else
     step "Cloning to ${DEFAULT_INSTALL_DIR}…"
-    git clone "$REPO_URL" "$DEFAULT_INSTALL_DIR"
+    # Use HTTP/1.1 + larger postBuffer + partial clone (blob:none).
+    # GitHub on flaky networks (esp. through proxies) often returns
+    # HTTP/2 stream CANCEL on big single-stream pulls; HTTP/1.1 is more
+    # tolerant, and --filter=blob:none defers blob download until
+    # checkout so the initial fetch is small (~5MB vs ~30MB+).
+    if ! git -c http.version=HTTP/1.1 -c http.postBuffer=524288000 \
+        clone --filter=blob:none "$REPO_URL" "$DEFAULT_INSTALL_DIR"; then
+      err "git clone failed. If a partial '$DEFAULT_INSTALL_DIR' was created, remove it:"
+      hint "  rm -rf '$DEFAULT_INSTALL_DIR'"
+      hint "Then retry. If still failing, set a proxy (e.g. clash):"
+      hint "  git config --global http.proxy http://127.0.0.1:7897"
+      hint "  git config --global https.proxy http://127.0.0.1:7897"
+      exit 1
+    fi
     cd "$DEFAULT_INSTALL_DIR"
   fi
   ok "Repo ready at $(pwd)"
