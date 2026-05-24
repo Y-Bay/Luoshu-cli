@@ -9,7 +9,10 @@ import { t, ta, getCurrentLanguage } from '../../i18n/index.js';
 
 export const WITTY_LOADING_PHRASES: string[] = ["I'm Feeling Lucky"];
 
-export const PHRASE_CHANGE_INTERVAL_MS = 15000;
+// Tuned down from 15000ms (upstream qwen-code default): with 35+ phrases in
+// the zh locale, 6s cadence ensures users see 4-5 different phrases during a
+// typical 30s response — feels lively without crossing into "flicker".
+export const PHRASE_CHANGE_INTERVAL_MS = 6000;
 
 /**
  * Custom hook to manage cycling through loading phrases.

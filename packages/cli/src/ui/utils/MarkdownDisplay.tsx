@@ -577,6 +577,23 @@ interface RenderCodeBlockProps {
   contentWidth: number;
 }
 
+/**
+ * Language badge rendered above a code block — `▍ python` style, accent color.
+ * Mirrors the ChatGPT / VS Code convention of labeling code fences with their
+ * language. Returns null when `lang` is empty so plain `\`\`\`` fences stay
+ * label-free.
+ */
+const CodeBlockBadge: React.FC<{ lang: string | null }> = ({ lang }) => {
+  if (!lang) return null;
+  return (
+    <Box paddingLeft={CODE_BLOCK_PREFIX_PADDING}>
+      <Text bold color={theme.text.accent}>
+        ▍ {lang.toLowerCase()}
+      </Text>
+    </Box>
+  );
+};
+
 const RenderCodeBlockInternal: React.FC<RenderCodeBlockProps> = ({
   content,
   lang,
@@ -642,9 +659,12 @@ const RenderCodeBlockInternal: React.FC<RenderCodeBlockProps> = ({
         settings,
       );
       return (
-        <Box paddingLeft={CODE_BLOCK_PREFIX_PADDING} flexDirection="column">
-          {colorizedTruncatedCode}
-          <Text color={theme.text.secondary}>... generating more ...</Text>
+        <Box flexDirection="column">
+          <CodeBlockBadge lang={lang} />
+          <Box paddingLeft={CODE_BLOCK_PREFIX_PADDING} flexDirection="column">
+            {colorizedTruncatedCode}
+            <Text color={theme.text.secondary}>... generating more ...</Text>
+          </Box>
         </Box>
       );
     }
@@ -660,13 +680,11 @@ const RenderCodeBlockInternal: React.FC<RenderCodeBlockProps> = ({
   );
 
   return (
-    <Box
-      paddingLeft={CODE_BLOCK_PREFIX_PADDING}
-      flexDirection="column"
-      width={contentWidth}
-      flexShrink={0}
-    >
-      {colorizedCode}
+    <Box flexDirection="column" width={contentWidth} flexShrink={0}>
+      <CodeBlockBadge lang={lang} />
+      <Box paddingLeft={CODE_BLOCK_PREFIX_PADDING} flexDirection="column">
+        {colorizedCode}
+      </Box>
     </Box>
   );
 };
@@ -784,8 +802,11 @@ const RenderBlockquoteInternal: React.FC<RenderBlockquoteProps> = ({
   textColor = theme.text.primary,
   enableInlineMath = true,
 }) => (
+  // Heavier left bar (▌ vs upstream's │) in accent color makes blockquotes
+  // visually distinct in the conversation history, where they otherwise
+  // dissolve into the surrounding prose.
   <Box paddingLeft={BLOCKQUOTE_PREFIX_PADDING} flexDirection="row">
-    <Text color={theme.text.secondary}>│ </Text>
+    <Text color={theme.text.accent}>▌ </Text>
     <Box flexGrow={LIST_ITEM_TEXT_FLEX_GROW}>
       <Text wrap="wrap" color={textColor} italic>
         <RenderInline
@@ -878,4 +899,51 @@ const RenderTableInternal: React.FC<RenderTableProps> = ({
 
 const RenderTable = React.memo(RenderTableInternal);
 
-export const MarkdownDisplay = React.memo(MarkdownDisplayInternal);
+/**
+ * Content-equality check for MarkdownSourceCopyIndexOffsets.
+ *
+ * The default React.memo shallow compare treats every prop swap as a re-render
+ * trigger, but `sourceCopyIndexOffsets` is rebuilt via cloneSourceCopyOffsets()
+ * on every MainContent re-derivation (see MainContent.tsx lines 241/247/271/277).
+ * That gives finalized history items a fresh object reference per streaming
+ * token even though their content is unchanged, defeating React.memo entirely.
+ *
+ * Comparing the Map contents directly keeps memoization effective during
+ * streaming, eliminating per-token re-render of stable messages.
+ */
+function areSourceCopyOffsetsEqual(
+  a?: MarkdownSourceCopyIndexOffsets,
+  b?: MarkdownSourceCopyIndexOffsets,
+): boolean {
+  if (a === b) return true;
+  if (!a || !b) return false;
+  if (a.mathBlockCount !== b.mathBlockCount) return false;
+  if (a.codeBlockLanguageCounts.size !== b.codeBlockLanguageCounts.size)
+    return false;
+  for (const [k, v] of a.codeBlockLanguageCounts) {
+    if (b.codeBlockLanguageCounts.get(k) !== v) return false;
+  }
+  return true;
+}
+
+function arePropsEqual(
+  prev: MarkdownDisplayProps,
+  next: MarkdownDisplayProps,
+): boolean {
+  return (
+    prev.text === next.text &&
+    prev.isPending === next.isPending &&
+    prev.availableTerminalHeight === next.availableTerminalHeight &&
+    prev.contentWidth === next.contentWidth &&
+    prev.textColor === next.textColor &&
+    areSourceCopyOffsetsEqual(
+      prev.sourceCopyIndexOffsets,
+      next.sourceCopyIndexOffsets,
+    )
+  );
+}
+
+export const MarkdownDisplay = React.memo(
+  MarkdownDisplayInternal,
+  arePropsEqual,
+);
