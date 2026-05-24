@@ -247,14 +247,59 @@ step_bundle() {
   fi
 }
 
+# ---------- step 4 helpers ----------
+
+# Ephemeral paths: anything the OS or the user is likely to wipe. Linking
+# from these leaves the global `luoshu` as a dangling symlink later.
+is_ephemeral_path() {
+  case "$1" in
+    /tmp/*|/private/tmp/*|/var/tmp/*|/var/folders/*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+# `npm link` does NOT clean up a pre-existing global symlink whose target
+# no longer exists. The resulting dangling link silently shadows future
+# installs — `which luoshu` returns "not found" with no hint why. Detect
+# and remove it before linking.
+cleanup_stale_global_link() {
+  local global_root link_path bin_path stale_target
+  global_root=$(npm root -g 2>/dev/null) || return 0
+  link_path="$global_root/luoshu-cli"
+  bin_path="$(npm prefix -g 2>/dev/null)/bin/luoshu"
+
+  # `-L` checks it's a symlink; `! -e` is true when the link target is gone.
+  if [ -L "$link_path" ] && [ ! -e "$link_path" ]; then
+    stale_target=$(readlink "$link_path" 2>/dev/null || echo "<unreadable>")
+    warn "Stale global symlink detected:"
+    hint "  luoshu-cli → $stale_target  (target missing)"
+    hint "  Cleaning up so the new link can take over..."
+    rm -f "$link_path" "$bin_path"
+    ok "Removed stale global registration."
+  fi
+}
+
 # ---------- step 4: npm link ----------
 step_link() {
   step_header 4 "Registering 'luoshu' command" "(global symlink via npm link)"
-  if ! run_with_spinner "npm link" npm link; then
+
+  cleanup_stale_global_link
+
+  if is_ephemeral_path "$(pwd)"; then
+    warn "Installing from an ephemeral path: $(pwd)"
+    hint "If this directory is later deleted, 'luoshu' will become a"
+    hint "dangling symlink and silently fail. Re-run with a stable path:"
+    hint "  LUOSHU_INSTALL_DIR=\$HOME/Luoshu-cli bash install.sh"
+  fi
+
+  # --ignore-scripts skips the package's `prepare` hook, which would
+  # otherwise re-run build+bundle (already done in step 3) and can fail
+  # with TS5055 on relinks when dist/ already contains generated .d.ts files.
+  if ! run_with_spinner "npm link" npm link --ignore-scripts; then
     echo
     fail "npm link failed."
     hint "Try with sudo if global path is root-owned:"
-    hint "  sudo npm link"
+    hint "  sudo npm link --ignore-scripts"
     exit 1
   fi
 
