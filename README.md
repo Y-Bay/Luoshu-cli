@@ -68,43 +68,7 @@ luoshu --help           # 完整命令与参数
 
 ## 配置
 
-| 路径                              | 用途                                 |
-| --------------------------------- | ------------------------------------ |
-| `~/.luoshu/settings.json`         | 用户级配置                           |
-| `~/.luoshu/extensions/`           | 用户级扩展                           |
-| `<project>/.luoshu/settings.json` | 项目级配置                           |
-| `<project>/.luoshu/rules/`        | 项目级规则（用于 code review 等）    |
-| `<project>/LUOSHU.md`             | 项目级 system prompt                 |
-| `<project>/.luoshuignore`         | luoshu 忽略文件（类似 `.gitignore`） |
-
-常用环境变量：
-
-| 变量                          | 默认          | 说明                       |
-| ----------------------------- | ------------- | -------------------------- |
-| `LUOSHU_HOME`                 | `~/.luoshu`   | 配置根目录                 |
-| `LUOSHU_DEBUG`                | `0`           | 启用 debug 日志            |
-| `LUOSHU_LANG`                 | 系统语言      | UI 语言（zh / en / ja）    |
-| `LUOSHU_MODEL`                | provider 默认 | 强制指定主模型             |
-| `LUOSHU_MAX_TOOL_CONCURRENCY` | `4`           | 并发工具调用上限           |
-| `FORCE_COLOR=3`               | -             | 强制 24-bit 真彩（SSH 用） |
-
-完整 `LUOSHU_*` 变量列表可 grep 源码或看 `luoshu --help`。
-
-## SSH 下颜色问题
-
-SSH 默认不透传 `COLORTERM`，banner 渐变会退化为色块。任一修复：
-
-```bash
-FORCE_COLOR=3 luoshu                                # 单次
-echo 'alias luoshu="FORCE_COLOR=3 luoshu"' >> ~/.zshrc  # 本地 alias
-echo 'export COLORTERM=truecolor' >> ~/.zshrc           # 远端 shell rc
-```
-
-验证真彩是否工作：
-
-```bash
-printf '\x1b[38;2;255;100;0mTRUECOLOR\x1b[0m\n'   # 显示橙色 = 支持
-```
+用户级配置在 `~/.luoshu/`，项目级配置在 `<project>/.luoshu/`，项目 system prompt 写在 `<project>/LUOSHU.md`。环境变量与全部 CLI 参数见 `luoshu --help`。
 
 ## 协议接入
 
