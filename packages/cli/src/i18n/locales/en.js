@@ -13,6 +13,17 @@ export default {
   // ============================================================================
   // Attachment hints
   '↑ to manage attachments': '↑ to manage attachments',
+  // Startup warnings
+  'You are running Hanhai CLI in your home directory. It is recommended to run in a project-specific directory.':
+    'You are running Hanhai CLI in your home directory. It is recommended to run in a project-specific directory.',
+  'Warning: You are running Hanhai CLI in the root directory. Your entire folder structure will be used for context. It is strongly recommended to run in a project-specific directory.':
+    'Warning: You are running Hanhai CLI in the root directory. Your entire folder structure will be used for context. It is strongly recommended to run in a project-specific directory.',
+  'Could not verify the current directory due to a file system error.':
+    'Could not verify the current directory due to a file system error.',
+  'Ripgrep not available: Please install ripgrep globally to enable faster file content search. Falling back to built-in grep.':
+    'Ripgrep not available: Please install ripgrep globally to enable faster file content search. Falling back to built-in grep.',
+  'Ripgrep not available: {{error}}. Falling back to built-in grep.':
+    'Ripgrep not available: {{error}}. Falling back to built-in grep.',
   '← → select, Delete to remove, ↓ to exit':
     '← → select, Delete to remove, ↓ to exit',
   'Attachments: ': 'Attachments: ',
