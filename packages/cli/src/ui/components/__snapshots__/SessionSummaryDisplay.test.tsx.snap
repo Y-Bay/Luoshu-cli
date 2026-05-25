@@ -1,7 +1,15 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`<SessionSummaryDisplay /> > renders the summary display with a title 1`] = `
-"╭──────────────────────────────────────────────────────────────────────────────────────────────────╮
+"
+  _  _   _   _  _ _  _   _   ___
+ | || | /_\\ | \\| | || | /_\\ |_ _|
+ | __ |/ _ \\| .\` | __ |/ _ \\ | |
+ |_||_/_/ \\_\\_|\\_|_||_/_/ \\_\\___|
+
+ 知识如瀚海，闻而行之
+
+╭──────────────────────────────────────────────────────────────────────────────────────────────────╮
 │                                                                                                  │
 │  Agent powering down. Goodbye!                                                                   │
 │                                                                                                  │
@@ -28,5 +36,6 @@ exports[`<SessionSummaryDisplay /> > renders the summary display with a title 1`
 │                                                                                                  │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
 
-To continue this session, run qwen --resume test-session-id-12345"
+To continue this session, run
+  hanhai --resume test-session-id-12345"
 `;
