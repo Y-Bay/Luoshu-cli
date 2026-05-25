@@ -3,8 +3,8 @@
  * Copyright 2025 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  *
- * Modifications copyright 2026 Luoshu Team.
- * Modified: default banner title changed to ">_ LUOSHU".
+ * Modifications copyright 2026 Hanhai Team.
+ * Modified: default banner title changed to ">_ HANHAI".
  */
 
 import type React from 'react';
@@ -55,7 +55,7 @@ interface HeaderProps {
    */
   customAsciiArt?: { small?: string; large?: string };
   /**
-   * Sanitized replacement for the bold ">_ Qwen Code" title in the info
+   * Sanitized replacement for the bold ">_ Hanhai CLI" title in the info
    * panel. The version suffix is always appended. When undefined or empty
    * the default title is used; the leading `>_` glyph is part of the
    * default brand and is dropped when a custom title is set.
@@ -203,10 +203,10 @@ export const Header: React.FC<HeaderProps> = ({
         width={showLogo ? availableInfoPanelWidth : undefined}
       >
         {/* Title line: customBannerTitle (already sanitized) or the default
-            ">_ Qwen Code" brand. Version suffix is always appended. */}
+            ">_ Hanhai CLI" brand. Version suffix is always appended. */}
         <Text>
           <Text bold color={theme.text.accent}>
-            {customBannerTitle ? customBannerTitle : '>_ LUOSHU'}
+            {customBannerTitle ? customBannerTitle : '>_ HANHAI'}
           </Text>
           <Text color={theme.text.secondary}> (v{version})</Text>
         </Text>
@@ -216,7 +216,7 @@ export const Header: React.FC<HeaderProps> = ({
         {customBannerSubtitle ? (
           <Text color={theme.text.secondary}>{customBannerSubtitle}</Text>
         ) : (
-          <Text> </Text>
+          <Text color={theme.text.secondary}>知识如瀚海，闻而行之</Text>
         )}
         {/* Auth and Model line */}
         <Text>
