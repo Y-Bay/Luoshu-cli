@@ -1,20 +1,20 @@
 export default {
-  'Contribute to Qwen Code': {
-    title: 'Contribute to Qwen Code',
+  'Contribute to Hanhai CLI': {
+    title: 'Contribute to Hanhai CLI',
     type: 'separator',
   },
   architecture: 'Architecture',
   roadmap: 'Roadmap',
   contributing: 'Contributing Guide',
-  'Qwen Code SDK': {
+  'Hanhai CLI SDK': {
     title: 'Agent SDK',
     type: 'separator',
   },
   'sdk-typescript': 'Typescript SDK',
   'sdk-python': 'Python SDK (alpha)',
   'sdk-java': 'Java SDK (alpha)',
-  'Dive Into Qwen Code': {
-    title: 'Dive Into Qwen Code',
+  'Dive Into Hanhai CLI': {
+    title: 'Dive Into Hanhai CLI',
     type: 'separator',
   },
 

@@ -30,18 +30,18 @@ export function resolvePath(dir: string): string {
 /**
  * Returns the global Qwen home directory (config, credentials, etc.).
  *
- * Priority: LUOSHU_HOME env var > ~/.qwen
+ * Priority: HANHAI_HOME env var > ~/.qwen
  *
  * This mirrors packages/core Storage.getGlobalQwenDir() without importing
  * from core to avoid cross-package dependencies.
  */
 export function getGlobalQwenDir(): string {
-  const envDir = process.env['LUOSHU_HOME'];
+  const envDir = process.env['HANHAI_HOME'];
   if (envDir) {
     return resolvePath(envDir);
   }
   const homeDir = os.homedir();
   return homeDir
-    ? path.join(homeDir, '.luoshu')
-    : path.join(os.tmpdir(), '.luoshu');
+    ? path.join(homeDir, '.hanhai')
+    : path.join(os.tmpdir(), '.hanhai');
 }

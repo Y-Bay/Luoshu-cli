@@ -1174,13 +1174,13 @@ describe('HookSystem', () => {
       );
 
       await hookSystem.fireNotificationEvent(
-        'Qwen Code is waiting for your input',
+        'Hanhai CLI is waiting for your input',
         NotificationType.IdlePrompt,
         'Waiting for input',
       );
 
       expect(mockHookEventHandler.fireNotificationEvent).toHaveBeenCalledWith(
-        'Qwen Code is waiting for your input',
+        'Hanhai CLI is waiting for your input',
         NotificationType.IdlePrompt,
         'Waiting for input',
         undefined,

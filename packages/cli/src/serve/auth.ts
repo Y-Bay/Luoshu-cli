@@ -278,13 +278,13 @@ export function createMutationGate(
     // paired-required-with-a-token at boot (`runQwenServe.ts` refuses
     // to start with the flag set but no token), so naming it as a
     // third standalone option here would loop the operator into a
-    // different boot error. Configuring a token via `LUOSHU_SERVER_TOKEN`
+    // different boot error. Configuring a token via `HANHAI_SERVER_TOKEN`
     // or `--token` IS the fix; the operator can decide separately
     // whether to also harden loopback with `--require-auth`.
     res.status(401).json({
       error:
         'This route requires the daemon to be configured with a bearer ' +
-        'token. Set LUOSHU_SERVER_TOKEN or pass --token to enable bearer ' +
+        'token. Set HANHAI_SERVER_TOKEN or pass --token to enable bearer ' +
         'auth.',
       code: 'token_required',
     });

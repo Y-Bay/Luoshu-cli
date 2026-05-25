@@ -1,10 +1,10 @@
-# Connect Qwen Code to tools via MCP
+# Connect Hanhai CLI to tools via MCP
 
-Qwen Code can connect to external tools and data sources through the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction). MCP servers give Qwen Code access to your tools, databases, and APIs.
+Hanhai CLI can connect to external tools and data sources through the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction). MCP servers give Hanhai CLI access to your tools, databases, and APIs.
 
 ## What you can do with MCP
 
-With MCP servers connected, you can ask Qwen Code to:
+With MCP servers connected, you can ask Hanhai CLI to:
 
 - Work with files and repos (read/search/write, depending on the tools you enable)
 - Query databases (schema inspection, queries, reporting)
@@ -17,7 +17,7 @@ With MCP servers connected, you can ask Qwen Code to:
 
 ## Quick start
 
-Qwen Code loads MCP servers from `mcpServers` in your `settings.json`. You can configure servers either:
+Hanhai CLI loads MCP servers from `mcpServers` in your `settings.json`. You can configure servers either:
 
 - By editing `settings.json` directly
 - By using `qwen mcp` commands (see [CLI reference](#qwen-mcp-cli))
@@ -36,7 +36,7 @@ qwen mcp add --transport http my-server http://localhost:3000/mcp
 qwen mcp
 ```
 
-3. Restart Qwen Code in the same project (or start it if it wasn’t running yet), then ask the model to use tools from that server.
+3. Restart Hanhai CLI in the same project (or start it if it wasn’t running yet), then ask the model to use tools from that server.
 
 ## Where configuration is stored (scopes)
 
@@ -149,7 +149,7 @@ qwen mcp add --transport sse sseServer http://localhost:8080/sse --timeout 30000
 
 ## Progressive availability and discovery timeouts
 
-Qwen Code discovers MCP servers in the background after the UI is already
+Hanhai CLI discovers MCP servers in the background after the UI is already
 interactive. You see the cli's first prompt within a few hundred
 milliseconds even when one of your MCP servers takes several seconds
 (or never responds), and the model's tool list updates within roughly
@@ -211,11 +211,11 @@ environment. This is kept as an escape hatch for at least one release.
 
 ### OAuth authentication
 
-Qwen Code supports OAuth 2.0 authentication for MCP servers. This is useful when accessing remote servers that require authentication.
+Hanhai CLI supports OAuth 2.0 authentication for MCP servers. This is useful when accessing remote servers that require authentication.
 
 #### Basic usage
 
-When you add an MCP server with OAuth credentials, Qwen Code will automatically handle the authentication flow:
+When you add an MCP server with OAuth credentials, Hanhai CLI will automatically handle the authentication flow:
 
 ```bash
 qwen mcp add --transport sse oauth-server https://api.example.com/sse/ \
@@ -229,9 +229,9 @@ qwen mcp add --transport sse oauth-server https://api.example.com/sse/ \
 
 The OAuth flow requires a redirect URI where the authorization provider sends the authentication code.
 
-- **Local development**: By default, Qwen Code uses `http://localhost:7777/oauth/callback`. This works when running Qwen Code on your local machine with a local browser.
+- **Local development**: By default, Hanhai CLI uses `http://localhost:7777/oauth/callback`. This works when running Hanhai CLI on your local machine with a local browser.
 
-- **Remote/cloud deployments**: When running Qwen Code on remote servers, cloud IDEs, or web terminals, the default `localhost` redirect will NOT work. You MUST configure `--oauth-redirect-uri` to point to a publicly accessible URL that can receive the OAuth callback.
+- **Remote/cloud deployments**: When running Hanhai CLI on remote servers, cloud IDEs, or web terminals, the default `localhost` redirect will NOT work. You MUST configure `--oauth-redirect-uri` to point to a publicly accessible URL that can receive the OAuth callback.
 
 Example for remote servers:
 
@@ -285,11 +285,11 @@ OAuth tokens are automatically:
 - **Refreshed** when expired (if refresh tokens are available)
 - **Validated** before each connection attempt
 
-Use the `/mcp auth` command within Qwen Code to manage OAuth authentication interactively.
+Use the `/mcp auth` command within Hanhai CLI to manage OAuth authentication interactively.
 
 ### Tool filtering (allow/deny tools per server)
 
-Use `includeTools` / `excludeTools` to restrict tools exposed by a server (from Qwen Code’s perspective).
+Use `includeTools` / `excludeTools` to restrict tools exposed by a server (from Hanhai CLI’s perspective).
 
 Example: include only a few tools:
 
@@ -328,7 +328,7 @@ Example:
 
 - **Server shows “Disconnected” in `qwen mcp list`**: verify the URL/command is correct, then increase `timeout`.
 - **Stdio server fails to start**: use an absolute `command` path, and double-check `cwd`/`env`.
-- **Environment variables in JSON don’t resolve**: ensure they exist in the environment where Qwen Code runs (shell vs GUI app environments can differ).
+- **Environment variables in JSON don’t resolve**: ensure they exist in the environment where Hanhai CLI runs (shell vs GUI app environments can differ).
 
 ## Reference
 

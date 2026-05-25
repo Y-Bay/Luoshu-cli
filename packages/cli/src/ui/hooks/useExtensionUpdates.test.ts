@@ -16,7 +16,7 @@ import {
   usePluginChoiceRequests,
 } from './useExtensionUpdates.js';
 import {
-  LUOSHU_DIR,
+  HANHAI_DIR,
   type ExtensionManager,
   type Extension,
   type ExtensionUpdateInfo,
@@ -279,7 +279,7 @@ describe('useExtensionUpdates', () => {
   beforeEach(() => {
     tempHomeDir = fs.mkdtempSync(path.join(os.tmpdir(), 'qwen-cli-test-home-'));
     vi.mocked(os.homedir).mockReturnValue(tempHomeDir);
-    userExtensionsDir = path.join(tempHomeDir, LUOSHU_DIR, 'extensions');
+    userExtensionsDir = path.join(tempHomeDir, HANHAI_DIR, 'extensions');
     fs.mkdirSync(userExtensionsDir, { recursive: true });
   });
 

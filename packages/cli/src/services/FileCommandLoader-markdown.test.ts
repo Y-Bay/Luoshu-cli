@@ -15,7 +15,7 @@ describe('FileCommandLoader - Markdown support', () => {
 
   beforeAll(async () => {
     // Create a temporary directory for test commands
-    tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'luoshu-md-test-'));
+    tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'hanhai-md-test-'));
   });
 
   afterAll(async () => {

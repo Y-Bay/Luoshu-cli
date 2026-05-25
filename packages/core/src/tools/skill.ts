@@ -211,7 +211,7 @@ ${escapeXml(cmd.description)}
     let skillDescriptions = '';
     if (allSkillEntries.length === 0) {
       skillDescriptions =
-        'No skills are currently configured. Skills can be created by adding directories with SKILL.md files to .luoshu/skills/ or ~/.luoshu/skills/.';
+        'No skills are currently configured. Skills can be created by adding directories with SKILL.md files to .hanhai/skills/ or ~/.hanhai/skills/.';
     } else {
       skillDescriptions = allSkillEntries.join('\n');
     }

@@ -14,7 +14,7 @@ import { Storage } from '@qwen-code/qwen-code-core';
 describe('FileCommandLoader - Extension Commands Support', () => {
   const projectRoot = '/test/project';
   const userCommandsDir = Storage.getUserCommandsDir();
-  const projectCommandsDir = path.join(projectRoot, '.luoshu', 'commands');
+  const projectCommandsDir = path.join(projectRoot, '.hanhai', 'commands');
 
   afterEach(() => {
     mock.restore();
@@ -23,7 +23,7 @@ describe('FileCommandLoader - Extension Commands Support', () => {
   it('should load commands from extension with config.commands path', async () => {
     const extensionDir = path.join(
       projectRoot,
-      '.luoshu',
+      '.hanhai',
       'extensions',
       'test-ext',
     );
@@ -80,7 +80,7 @@ describe('FileCommandLoader - Extension Commands Support', () => {
   it('should load commands from extension with multiple commands paths', async () => {
     const extensionDir = path.join(
       projectRoot,
-      '.luoshu',
+      '.hanhai',
       'extensions',
       'multi-ext',
     );
@@ -135,7 +135,7 @@ describe('FileCommandLoader - Extension Commands Support', () => {
   it('should fallback to default "commands" directory when config.commands not specified', async () => {
     const extensionDir = path.join(
       projectRoot,
-      '.luoshu',
+      '.hanhai',
       'extensions',
       'default-ext',
     );
@@ -185,7 +185,7 @@ describe('FileCommandLoader - Extension Commands Support', () => {
   it('should handle extension without commands directory gracefully', async () => {
     const extensionDir = path.join(
       projectRoot,
-      '.luoshu',
+      '.hanhai',
       'extensions',
       'no-cmds-ext',
     );
@@ -232,7 +232,7 @@ describe('FileCommandLoader - Extension Commands Support', () => {
   it('should set extensionName property for extension commands', async () => {
     const extensionDir = path.join(
       projectRoot,
-      '.luoshu',
+      '.hanhai',
       'extensions',
       'prefix-ext',
     );
@@ -281,8 +281,8 @@ describe('FileCommandLoader - Extension Commands Support', () => {
   });
 
   it('should load commands from multiple extensions in alphabetical order', async () => {
-    const ext1Dir = path.join(projectRoot, '.luoshu', 'extensions', 'ext-b');
-    const ext2Dir = path.join(projectRoot, '.luoshu', 'extensions', 'ext-a');
+    const ext1Dir = path.join(projectRoot, '.hanhai', 'extensions', 'ext-b');
+    const ext2Dir = path.join(projectRoot, '.hanhai', 'extensions', 'ext-a');
 
     mock({
       [userCommandsDir]: {},

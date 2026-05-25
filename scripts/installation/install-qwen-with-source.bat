@@ -1,6 +1,6 @@
 @echo off
-REM Qwen Code Installation Script
-REM Installs Qwen Code from a standalone archive when available, with npm fallback.
+REM Hanhai CLI Installation Script
+REM Installs Hanhai CLI from a standalone archive when available, with npm fallback.
 REM This script intentionally does not install Node.js or change npm config.
 
 setlocal enabledelayedexpansion
@@ -125,7 +125,7 @@ call :ValidateOptions
 if %ERRORLEVEL% NEQ 0 exit /b 1
 
 echo ===========================================
-echo Qwen Code Installation Script
+echo Hanhai CLI Installation Script
 echo ===========================================
 echo.
 echo INFO: Install method: !METHOD!
@@ -192,7 +192,7 @@ call :PrintUsage
 exit /b 1
 
 :PrintUsage
-echo Qwen Code Installer
+echo Hanhai CLI Installer
 echo.
 echo Usage: install-qwen-with-source.bat [OPTIONS]
 echo.
@@ -623,7 +623,7 @@ set "PATH=!INSTALL_BIN_DIR!;!PATH!"
 call :CreateSourceJson
 if exist "!TEMP_DIR!" rmdir /S /Q "!TEMP_DIR!" >nul 2>&1
 
-echo SUCCESS: Qwen Code standalone archive installed successfully.
+echo SUCCESS: Hanhai CLI standalone archive installed successfully.
 echo INFO: Installed to !INSTALL_DIR!
 exit /b 0
 
@@ -660,7 +660,7 @@ set "MANAGED_DIR=%~1"
 if not exist "!MANAGED_DIR!" exit /b 0
 if exist "!MANAGED_DIR!\manifest.json" exit /b 0
 
-echo ERROR: !MANAGED_DIR! exists but is not a Qwen Code standalone install.
+echo ERROR: !MANAGED_DIR! exists but is not a Hanhai CLI standalone install.
 echo ERROR: Refusing to overwrite it. Move or remove it manually, then rerun the installer.
 exit /b 1
 
@@ -669,7 +669,7 @@ where node >nul 2>&1
 if %ERRORLEVEL% NEQ 0 (
     echo ERROR: Node.js was not found.
     echo.
-    echo Node.js 20 or newer is required before installing Qwen Code with npm.
+    echo Node.js 20 or newer is required before installing Hanhai CLI with npm.
     echo Please install Node.js from https://nodejs.org/ and rerun this installer.
     exit /b 1
 )
@@ -677,7 +677,7 @@ if %ERRORLEVEL% NEQ 0 (
 for /f "delims=" %%i in ('node -p "process.versions.node" 2^>nul') do set "NODE_VERSION=%%i"
 if "%NODE_VERSION%"=="" (
     echo ERROR: Unable to determine Node.js version.
-    echo Node.js 20 or newer is required before installing Qwen Code with npm.
+    echo Node.js 20 or newer is required before installing Hanhai CLI with npm.
     exit /b 1
 )
 
@@ -685,7 +685,7 @@ for /f "tokens=1 delims=." %%a in ("%NODE_VERSION%") do set "MAJOR_VERSION=%%a"
 set /a NODE_MAJOR_NUM=%MAJOR_VERSION% >nul 2>&1
 if %ERRORLEVEL% NEQ 0 (
     echo ERROR: Unable to determine Node.js version.
-    echo Node.js 20 or newer is required before installing Qwen Code with npm.
+    echo Node.js 20 or newer is required before installing Hanhai CLI with npm.
     exit /b 1
 )
 
@@ -720,14 +720,14 @@ if %ERRORLEVEL% NEQ 0 exit /b 1
 where qwen >nul 2>&1
 if %ERRORLEVEL% EQU 0 (
     for /f "delims=" %%i in ('qwen --version 2^>nul') do set "QWEN_VERSION=%%i"
-    echo INFO: Existing Qwen Code detected: !QWEN_VERSION!
+    echo INFO: Existing Hanhai CLI detected: !QWEN_VERSION!
     echo INFO: Upgrading to the latest version.
 )
 
 echo INFO: Running: npm install -g @qwen-code/qwen-code@latest --registry !NPM_REGISTRY!
 call npm install -g @qwen-code/qwen-code@latest --registry "!NPM_REGISTRY!"
 if %ERRORLEVEL% NEQ 0 (
-    echo ERROR: Failed to install Qwen Code.
+    echo ERROR: Failed to install Hanhai CLI.
     echo.
     echo This installer does not change your npm prefix or PATH.
     echo If the failure is a permission error, fix your npm global package directory, then run:
@@ -735,7 +735,7 @@ if %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 
-echo SUCCESS: Qwen Code installed successfully.
+echo SUCCESS: Hanhai CLI installed successfully.
 call :CreateSourceJson
 exit /b 0
 
@@ -767,7 +767,7 @@ echo.
 where qwen >nul 2>&1
 if %ERRORLEVEL% EQU 0 (
     for /f "delims=" %%i in ('qwen --version 2^>nul') do set "QWEN_VERSION=%%i"
-    echo SUCCESS: Qwen Code is ready to use: !QWEN_VERSION!
+    echo SUCCESS: Hanhai CLI is ready to use: !QWEN_VERSION!
     echo.
     echo You can now run: qwen
     echo.
@@ -775,7 +775,7 @@ if %ERRORLEVEL% EQU 0 (
     exit /b 0
 )
 
-echo WARNING: Qwen Code was installed, but qwen is not on PATH in this prompt.
+echo WARNING: Hanhai CLI was installed, but qwen is not on PATH in this prompt.
 echo.
 echo Restart your command prompt, then run: qwen
 if not "!EXTRA_BIN!"=="" (

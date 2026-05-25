@@ -86,7 +86,7 @@ export const FolderTrustDialog: React.FC<FolderTrustDialogProps> = ({
             Do you trust this folder?
           </Text>
           <Text color={theme.text.primary}>
-            Trusting a folder allows Luoshu CLI to execute commands it suggests.
+            Trusting a folder allows Hanhai CLI to execute commands it suggests.
             This is a security feature to prevent accidental execution in
             untrusted directories.
           </Text>
@@ -101,7 +101,7 @@ export const FolderTrustDialog: React.FC<FolderTrustDialogProps> = ({
       {isRestarting && (
         <Box marginLeft={1} marginTop={1}>
           <Text color={theme.status.warning}>
-            Luoshu CLI is restarting to apply the trust changes...
+            Hanhai CLI is restarting to apply the trust changes...
           </Text>
         </Box>
       )}

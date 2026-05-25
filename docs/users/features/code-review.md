@@ -154,7 +154,7 @@ Or, after running `/review 123`, type `post comments` to publish findings withou
 - High-confidence Critical and Suggestion findings as inline comments on specific lines
 - For Approve/Request changes verdicts: a review summary with the verdict
 - For Comment verdict with all inline comments posted: no separate summary (inline comments are sufficient)
-- Model attribution footer on each comment (e.g., _— qwen3-coder via Qwen Code /review_)
+- Model attribution footer on each comment (e.g., _— qwen3-coder via Hanhai CLI /review_)
 
 **What stays terminal-only:**
 
@@ -163,7 +163,7 @@ Or, after running `/review 123`, type `post comments` to publish findings withou
 
 **Self-authored PRs:** GitHub does not allow you to submit `APPROVE` or `REQUEST_CHANGES` reviews on your own pull request — both fail with HTTP 422. When `/review` detects that the PR author matches the current authenticated user, it automatically downgrades the API event to `COMMENT` regardless of verdict, so the submission still succeeds. The terminal still shows the honest verdict ("Approve" / "Request changes" / "Comment") — only the GitHub-side review event is neutralized. The actual findings still appear as inline comments on specific lines, so substantive feedback is unchanged.
 
-**Re-reviewing a PR with prior Qwen Code comments:** when `/review` runs on a PR that already has previous Qwen Code review comments, it classifies them before posting new ones. Only **same-line overlap** (an existing comment on the same `(path, line)` as a new finding) prompts you to confirm — that's the case where you'd see a visual duplicate on the same code line. Comments from older commits, replied-to comments (treated as resolved), and comments that simply don't overlap with any new finding are silently skipped, with a terminal log line so you know what was filtered.
+**Re-reviewing a PR with prior Hanhai CLI comments:** when `/review` runs on a PR that already has previous Hanhai CLI review comments, it classifies them before posting new ones. Only **same-line overlap** (an existing comment on the same `(path, line)` as a new finding) prompts you to confirm — that's the case where you'd see a visual duplicate on the same code line. Comments from older commits, replied-to comments (treated as resolved), and comments that simply don't overlap with any new finding are silently skipped, with a terminal log line so you know what was filtered.
 
 **CI / build status check before APPROVE:** if the verdict is "Approve", `/review` queries the PR's check-runs and commit statuses before submitting. If any check has failed (or all checks are still pending), the API event is automatically downgraded from `APPROVE` to `COMMENT`, with the review body explaining why. Rationale: the LLM review reads code statically and cannot see runtime test failures; approving while CI is red would be misleading. The inline findings are still posted unchanged. If you want to approve anyway (e.g., a known-flaky CI failure), submit the GitHub approval manually after verifying.
 
@@ -184,7 +184,7 @@ Note: `fix these issues` is only available for local reviews. For PR reviews, us
 
 You can customize review criteria per project. `/review` reads rules from these files (in order):
 
-1. `.qwen/review-rules.md` (Qwen Code native)
+1. `.qwen/review-rules.md` (Hanhai CLI native)
 2. `.github/copilot-instructions.md` (preferred) or `copilot-instructions.md` (fallback — only one is loaded, not both)
 3. `AGENTS.md` — `## Code Review` section
 4. `QWEN.md` — `## Code Review` section

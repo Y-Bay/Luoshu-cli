@@ -55,7 +55,7 @@ export function NavToc() {
   return (
     <nav className="nav-toc">
       <a href="#section-work">What You Work On</a>
-      <a href="#section-usage">How You Use Luoshu CLI</a>
+      <a href="#section-usage">How You Use Hanhai CLI</a>
       <a href="#section-wins">Impressive Things</a>
       <a href="#section-friction">Where Things Go Wrong</a>
       <a href="#section-features">Features to Try</a>
@@ -151,7 +151,7 @@ export function InteractionStyle({
         id="section-usage"
         className="text-xl font-semibold text-slate-900 mt-8 mb-4"
       >
-        How You Use Luoshu CLI
+        How You Use Hanhai CLI
       </h2>
       <div className="narrative">
         <p>
@@ -521,13 +521,13 @@ function QwenMdAdditionsSection({
   const checkedCount = checkedState.filter(Boolean).length;
 
   return (
-    <div className="luoshu-md-section">
-      <h3>Suggested LUOSHU.md Additions</h3>
+    <div className="hanhai-md-section">
+      <h3>Suggested HANHAI.md Additions</h3>
       <p className="text-xs text-slate-500 mb-3">
-        Just copy this into Luoshu CLI to add it to your LUOSHU.md.
+        Just copy this into Hanhai CLI to add it to your HANHAI.md.
       </p>
 
-      <div className="luoshu-md-actions" style={{ marginBottom: '12px' }}>
+      <div className="hanhai-md-actions" style={{ marginBottom: '12px' }}>
         <button
           className={`copy-all-btn ${copiedAll ? 'copied' : ''}`}
           onClick={handleCopyAll}
@@ -538,7 +538,7 @@ function QwenMdAdditionsSection({
       </div>
 
       {additions.map((item, idx) => (
-        <div key={idx} className="luoshu-md-item">
+        <div key={idx} className="hanhai-md-item">
           <input
             type="checkbox"
             checked={checkedState[idx]}
@@ -572,17 +572,17 @@ export function Improvements({
         id="section-features"
         className="text-xl font-semibold text-slate-900 mt-8 mb-4"
       >
-        Existing Luoshu CLI Features to Try
+        Existing Hanhai CLI Features to Try
       </h2>
 
-      {/* LUOSHU.md Additions */}
+      {/* HANHAI.md Additions */}
       {Array.isArray(improvements.Qwen_md_additions) &&
         improvements.Qwen_md_additions.length > 0 && (
           <QwenMdAdditionsSection additions={improvements.Qwen_md_additions} />
         )}
 
       <p className="text-xs text-slate-500 mb-3">
-        Just copy this into Luoshu CLI and it&apos;ll set it up for you.
+        Just copy this into Hanhai CLI and it&apos;ll set it up for you.
       </p>
 
       {/* Features to Try */}
@@ -614,10 +614,10 @@ export function Improvements({
         id="section-patterns"
         className="text-xl font-semibold text-slate-900 mt-8 mb-4"
       >
-        New Ways to Use Luoshu CLI
+        New Ways to Use Hanhai CLI
       </h2>
       <p className="text-xs text-slate-500 mb-3">
-        Just copy this into Luoshu CLI and it&apos;ll walk you through it.
+        Just copy this into Hanhai CLI and it&apos;ll walk you through it.
       </p>
 
       <div className="patterns-section">
@@ -632,7 +632,7 @@ export function Improvements({
                 <MarkdownText>{pat.detail}</MarkdownText>
               </div>
               <div className="copyable-prompt-section">
-                <div className="prompt-label">Paste into Luoshu CLI:</div>
+                <div className="prompt-label">Paste into Hanhai CLI:</div>
                 <div className="copyable-prompt-row">
                   <code className="copyable-prompt">{pat.copyable_prompt}</code>
                   <CopyButton text={pat.copyable_prompt} />
@@ -680,7 +680,7 @@ export function FutureOpportunities({
                 <MarkdownText>{opp.how_to_try}</MarkdownText>
               </div>
               <div className="pattern-prompt">
-                <div className="prompt-label">Paste into Luoshu CLI:</div>
+                <div className="prompt-label">Paste into Hanhai CLI:</div>
                 <div
                   style={{
                     display: 'flex',

@@ -1679,11 +1679,11 @@ export class Session implements SessionContext {
 
     // Bounded-concurrency runner: matches core's `runConcurrently`
     // behaviour (`coreToolScheduler.ts:1506`), capped by
-    // `LUOSHU_MAX_TOOL_CONCURRENCY` (default 10). Results are returned
+    // `HANHAI_MAX_TOOL_CONCURRENCY` (default 10). Results are returned
     // in input order regardless of resolution order.
     const runBounded = async (calls: FunctionCall[]): Promise<Part[][]> => {
       const parsed = parseInt(
-        process.env['LUOSHU_MAX_TOOL_CONCURRENCY'] || '',
+        process.env['HANHAI_MAX_TOOL_CONCURRENCY'] || '',
         10,
       );
       const maxConcurrency =
@@ -1844,7 +1844,7 @@ export class Session implements SessionContext {
     if (pm && !(await pm.isToolEnabled(fc.name as string))) {
       return earlyErrorResponse(
         new Error(
-          `Luoshu CLI requires permission to use "${fc.name}", but that permission was declined.`,
+          `Hanhai CLI requires permission to use "${fc.name}", but that permission was declined.`,
         ),
         fc.name,
       );
@@ -2085,7 +2085,7 @@ export class Session implements SessionContext {
           if (hooksEnabled && messageBus) {
             void fireNotificationHook(
               messageBus,
-              `Luoshu CLI needs your permission to use ${fc.name}`,
+              `Hanhai CLI needs your permission to use ${fc.name}`,
               NotificationType.PermissionPrompt,
               'Permission needed',
             );

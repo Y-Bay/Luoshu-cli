@@ -175,7 +175,7 @@ describe('Session.pendingWorktreeNotice', () => {
     );
 
     const notice =
-      '[Resumed] Active worktree: "feat" at /repo/.luoshu/worktrees/feat ' +
+      '[Resumed] Active worktree: "feat" at /repo/.hanhai/worktrees/feat ' +
       '(branch: worktree-feat). Continue using this path for all file operations.';
     session.pendingWorktreeNotice = notice;
 

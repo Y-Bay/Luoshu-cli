@@ -1,6 +1,6 @@
 # Dual Output
 
-Dual Output is a sidecar mode for the interactive TUI: while Qwen Code keeps
+Dual Output is a sidecar mode for the interactive TUI: while Hanhai CLI keeps
 rendering normally on `stdout`, it concurrently emits a structured JSON event
 stream to a separate channel so an external program — an IDE extension, a web
 frontend, a CI pipeline, an automation script — can observe and steer the
@@ -33,7 +33,7 @@ stream:
 
 ### IDE extensions (VS Code / JetBrains / Cursor / Neovim)
 
-Embed Qwen Code inside the IDE. The TUI runs in the editor's integrated
+Embed Hanhai CLI inside the IDE. The TUI runs in the editor's integrated
 terminal panel for users who want it, while the extension consumes
 `--json-fd` / `--json-file` events to drive:
 
@@ -53,7 +53,7 @@ via `--input-file`. No ANSI parsing on either side.
 
 ### CI / automation observers
 
-A CI job runs Qwen Code with a task prompt. The human sees the TUI in the
+A CI job runs Hanhai CLI with a task prompt. The human sees the TUI in the
 job log; the CI system tails `--json-file` to:
 
 - Fail the job if a `result` event reports an error.
@@ -84,7 +84,7 @@ as first-class metrics in Grafana. No need for log-parsing regex.
 
 ### Testing and QA
 
-Integration tests spawn Qwen Code headlessly, drive it with `--input-file`
+Integration tests spawn Hanhai CLI headlessly, drive it with `--input-file`
 scripts, and assert on `--json-file` events. Unlike parsing stdout ANSI,
 assertions are stable across UI refactors.
 
@@ -101,7 +101,7 @@ rejected to prevent corrupting the TUI's own output.
 
 ## Why two output flags? (`--json-fd` vs `--json-file`)
 
-At first glance `--json-fd` looks sufficient — the caller spawns Qwen Code
+At first glance `--json-fd` looks sufficient — the caller spawns Hanhai CLI
 with an extra file descriptor, the TUI writes events to it, done. In
 practice, fd passing breaks down under the most important embedding
 scenario: running the TUI inside a pseudo-terminal (PTY). That is why
@@ -199,7 +199,7 @@ wrappers that throw away stdout anyway.
 
 ## Quick start
 
-Run Qwen Code with all three channels enabled:
+Run Hanhai CLI with all three channels enabled:
 
 ```bash
 mkfifo /tmp/qwen-events.jsonl /tmp/qwen-input.jsonl
@@ -331,7 +331,7 @@ polling — events are written synchronously as the TUI emits them.
 
 ## Spawn example
 
-A typical embedding parent process spawns Qwen Code with both channels:
+A typical embedding parent process spawns Hanhai CLI with both channels:
 
 ```ts
 import { spawn } from 'node:child_process';
@@ -376,7 +376,7 @@ Precedence rules:
   (identical to today's default).
 
 The `requiresRestart: true` flag means changes only take effect on the
-next Qwen Code launch, since the bridge is constructed once during
+next Hanhai CLI launch, since the bridge is constructed once during
 startup.
 
 ## Runnable demos
@@ -460,7 +460,7 @@ consumer can log it or retry:
 
 ### POC 4 — Node embedder (IDE-like)
 
-The most realistic shape: a parent process spawns Qwen Code, tails
+The most realistic shape: a parent process spawns Hanhai CLI, tails
 events, and injects prompts on its own schedule.
 
 ```ts
@@ -525,13 +525,13 @@ Run with:
 
 ```bash
 npx tsx demo-embedder.ts
-# Qwen Code TUI opens in the current terminal; the embedder logs
+# Hanhai CLI TUI opens in the current terminal; the embedder logs
 # handshake + turn-end + session_end events to the parent's stdout.
 ```
 
 ### POC 5 — capability handshake feature detection
 
-Older Qwen Code versions won't emit `protocol_version`. Treat the field
+Older Hanhai CLI versions won't emit `protocol_version`. Treat the field
 as optional and feature-detect:
 
 ```ts

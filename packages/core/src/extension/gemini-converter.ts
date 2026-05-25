@@ -5,7 +5,7 @@
  */
 
 /**
- * Converter for Gemini extensions to Qwen Code format.
+ * Converter for Gemini extensions to Hanhai CLI format.
  */
 
 import * as fs from 'node:fs';
@@ -28,7 +28,7 @@ export interface GeminiExtensionConfig {
 }
 
 /**
- * Converts a Gemini extension config to Qwen Code format.
+ * Converts a Gemini extension config to Hanhai CLI format.
  * @param extensionDir Path to the Gemini extension directory
  * @returns Qwen ExtensionConfig
  */
@@ -58,7 +58,7 @@ export function convertGeminiToQwenConfig(
 }
 
 /**
- * Converts a complete Gemini extension package to Qwen Code format.
+ * Converts a complete Gemini extension package to Hanhai CLI format.
  * Creates a new temporary directory with:
  * 1. Converted qwen-extension.json
  * 2. Commands converted from TOML to MD

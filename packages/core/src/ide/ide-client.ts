@@ -149,7 +149,7 @@ export class IdeClient {
     if (!this.currentIde) {
       this.setState(
         IDEConnectionStatus.Disconnected,
-        `IDE integration is not supported in your current environment. To use this feature, run Luoshu CLI in one of these supported IDEs: VS Code or VS Code forks`,
+        `IDE integration is not supported in your current environment. To use this feature, run Hanhai CLI in one of these supported IDEs: VS Code or VS Code forks`,
         false,
       );
       return;
@@ -163,7 +163,7 @@ export class IdeClient {
     }
     const workspacePath =
       this.connectionConfig?.workspacePath ??
-      process.env['LUOSHU_IDE_WORKSPACE_PATH'];
+      process.env['HANHAI_IDE_WORKSPACE_PATH'];
 
     const { isValid, error } = IdeClient.validateWorkspacePath(
       workspacePath,
@@ -539,7 +539,7 @@ export class IdeClient {
     if (!isWithinWorkspace) {
       return {
         isValid: false,
-        error: `Directory mismatch. Luoshu CLI is running in a different location than the open workspace in the IDE. Please run the CLI from one of the following directories: ${ideWorkspacePaths.join(
+        error: `Directory mismatch. Hanhai CLI is running in a different location than the open workspace in the IDE. Please run the CLI from one of the following directories: ${ideWorkspacePaths.join(
           ', ',
         )}`,
       };
@@ -548,7 +548,7 @@ export class IdeClient {
   }
 
   private getPortFromEnv(): string | undefined {
-    const port = process.env['LUOSHU_IDE_SERVER_PORT'];
+    const port = process.env['HANHAI_IDE_SERVER_PORT'];
     if (!port) {
       return undefined;
     }
@@ -556,12 +556,12 @@ export class IdeClient {
   }
 
   private getStdioConfigFromEnv(): StdioConfig | undefined {
-    const command = process.env['LUOSHU_IDE_SERVER_STDIO_COMMAND'];
+    const command = process.env['HANHAI_IDE_SERVER_STDIO_COMMAND'];
     if (!command) {
       return undefined;
     }
 
-    const argsStr = process.env['LUOSHU_IDE_SERVER_STDIO_ARGS'];
+    const argsStr = process.env['HANHAI_IDE_SERVER_STDIO_ARGS'];
     let args: string[] = [];
     if (argsStr) {
       try {
@@ -570,11 +570,11 @@ export class IdeClient {
           args = parsedArgs;
         } else {
           debugLogger.error(
-            'LUOSHU_IDE_SERVER_STDIO_ARGS must be a JSON array string.',
+            'HANHAI_IDE_SERVER_STDIO_ARGS must be a JSON array string.',
           );
         }
       } catch (e) {
-        debugLogger.error('Failed to parse LUOSHU_IDE_SERVER_STDIO_ARGS:', e);
+        debugLogger.error('Failed to parse HANHAI_IDE_SERVER_STDIO_ARGS:', e);
       }
     }
 

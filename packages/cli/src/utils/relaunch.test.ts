@@ -107,7 +107,7 @@ describe('relaunchAppInChildProcess', () => {
     vi.clearAllMocks();
 
     process.env = { ...originalEnv };
-    delete process.env['LUOSHU_NO_RELAUNCH'];
+    delete process.env['HANHAI_NO_RELAUNCH'];
 
     process.execArgv = [...originalExecArgv];
     process.argv = [...originalArgv];
@@ -135,9 +135,9 @@ describe('relaunchAppInChildProcess', () => {
     stdinResumeSpy.mockRestore();
   });
 
-  describe('when LUOSHU_NO_RELAUNCH is set', () => {
+  describe('when HANHAI_NO_RELAUNCH is set', () => {
     it('should return early without spawning a child process', async () => {
-      process.env['LUOSHU_NO_RELAUNCH'] = 'true';
+      process.env['HANHAI_NO_RELAUNCH'] = 'true';
 
       await relaunchAppInChildProcess(['--test'], ['--verbose']);
 
@@ -146,9 +146,9 @@ describe('relaunchAppInChildProcess', () => {
     });
   });
 
-  describe('when LUOSHU_NO_RELAUNCH is not set', () => {
+  describe('when HANHAI_NO_RELAUNCH is not set', () => {
     beforeEach(() => {
-      delete process.env['LUOSHU_NO_RELAUNCH'];
+      delete process.env['HANHAI_NO_RELAUNCH'];
     });
 
     it('should construct correct node arguments from execArgv, additionalNodeArgs, script, additionalScriptArgs, and argv', () => {

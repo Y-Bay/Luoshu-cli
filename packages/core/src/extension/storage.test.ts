@@ -39,11 +39,11 @@ describe('ExtensionStorage', () => {
       () =>
         ({
           getExtensionsDir: () =>
-            path.join(mockHomeDir, '.luoshu', 'extensions'),
+            path.join(mockHomeDir, '.hanhai', 'extensions'),
         }) as any, // eslint-disable-line @typescript-eslint/no-explicit-any
     );
     vi.mocked(Storage.getUserExtensionsDir).mockReturnValue(
-      path.join(mockHomeDir, '.luoshu', 'extensions'),
+      path.join(mockHomeDir, '.hanhai', 'extensions'),
     );
     storage = new ExtensionStorage(extensionName);
   });
@@ -55,7 +55,7 @@ describe('ExtensionStorage', () => {
   it('should return the correct extension directory', () => {
     const expectedDir = path.join(
       mockHomeDir,
-      '.luoshu',
+      '.hanhai',
       'extensions',
       extensionName,
     );
@@ -65,7 +65,7 @@ describe('ExtensionStorage', () => {
   it('should return the correct config path', () => {
     const expectedPath = path.join(
       mockHomeDir,
-      '.luoshu',
+      '.hanhai',
       'extensions',
       extensionName,
       EXTENSIONS_CONFIG_FILENAME, // EXTENSIONS_CONFIG_FILENAME
@@ -76,7 +76,7 @@ describe('ExtensionStorage', () => {
   it('should return the correct env file path', () => {
     const expectedPath = path.join(
       mockHomeDir,
-      '.luoshu',
+      '.hanhai',
       'extensions',
       extensionName,
       EXTENSION_SETTINGS_FILENAME, // EXTENSION_SETTINGS_FILENAME
@@ -85,7 +85,7 @@ describe('ExtensionStorage', () => {
   });
 
   it('should return the correct user extensions directory', () => {
-    const expectedDir = path.join(mockHomeDir, '.luoshu', 'extensions');
+    const expectedDir = path.join(mockHomeDir, '.hanhai', 'extensions');
     expect(ExtensionStorage.getUserExtensionsDir()).toBe(expectedDir);
   });
 

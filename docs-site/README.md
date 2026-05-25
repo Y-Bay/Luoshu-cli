@@ -1,6 +1,6 @@
-# Qwen Code Docs Site
+# Hanhai CLI Docs Site
 
-A documentation website for Qwen Code built with [Next.js](https://nextjs.org/) and [Nextra](https://nextra.site/).
+A documentation website for Hanhai CLI built with [Next.js](https://nextjs.org/) and [Nextra](https://nextra.site/).
 
 ## Getting Started
 

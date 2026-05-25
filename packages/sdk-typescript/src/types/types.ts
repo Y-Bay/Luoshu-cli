@@ -202,7 +202,7 @@ export interface QueryOptions {
 
   /**
    * The AI model to use for the query session.
-   * This takes precedence over the environment variables `OPENAI_MODEL` and `LUOSHU_MODEL`
+   * This takes precedence over the environment variables `OPENAI_MODEL` and `HANHAI_MODEL`
    * @example 'qwen-max', 'qwen-plus', 'qwen-turbo'
    */
   model?: string;
@@ -241,7 +241,7 @@ export interface QueryOptions {
    *
    * - `string`: fully overrides the main session system prompt
    * - `{ type: 'preset', preset: 'qwen_code', append?: string }`:
-   *   uses Qwen Code's built-in prompt as the base and optionally appends extra
+   *   uses Hanhai CLI's built-in prompt as the base and optionally appends extra
    *   instructions for the main session
    */
   systemPrompt?: QuerySystemPrompt;

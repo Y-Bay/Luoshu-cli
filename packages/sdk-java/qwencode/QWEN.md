@@ -1,8 +1,8 @@
-# Qwen Code Java SDK
+# Hanhai CLI Java SDK
 
 ## Project Overview
 
-The Qwen Code Java SDK is a minimum experimental SDK for programmatic access to Qwen Code functionality. It provides a Java interface to interact with the Qwen Code CLI, allowing developers to integrate Qwen Code capabilities into their Java applications.
+The Hanhai CLI Java SDK is a minimum experimental SDK for programmatic access to Hanhai CLI functionality. It provides a Java interface to interact with the Hanhai CLI, allowing developers to integrate Hanhai CLI capabilities into their Java applications.
 
 **Context Information:**
 
@@ -24,7 +24,7 @@ The Qwen Code Java SDK is a minimum experimental SDK for programmatic access to 
 The SDK follows a layered architecture:
 
 - **API Layer**: Provides the main entry points through `QwenCodeCli` class with simple static methods for basic usage
-- **Session Layer**: Manages communication sessions with the Qwen Code CLI through the `Session` class
+- **Session Layer**: Manages communication sessions with the Hanhai CLI through the `Session` class
 - **Transport Layer**: Handles the communication mechanism between the SDK and CLI process (currently using process transport via `ProcessTransport`)
 - **Protocol Layer**: Defines data structures for communication based on the CLI protocol
 - **Utils**: Common utilities for concurrent execution, timeout handling, and error management
@@ -79,7 +79,7 @@ mvn javadoc:javadoc
 
 ### Testing
 
-The project includes basic unit tests using JUnit 5. The main test class `QwenCodeCliTest` demonstrates how to use the SDK to make simple queries to the Qwen Code CLI.
+The project includes basic unit tests using JUnit 5. The main test class `QwenCodeCliTest` demonstrates how to use the SDK to make simple queries to the Hanhai CLI.
 
 ### Code Quality
 
@@ -140,9 +140,9 @@ The SDK supports different permission modes for controlling tool execution:
 
 ### Transport Options
 
-The `TransportOptions` class allows configuration of how the SDK communicates with the Qwen Code CLI:
+The `TransportOptions` class allows configuration of how the SDK communicates with the Hanhai CLI:
 
-- `pathToQwenExecutable`: Path to the Qwen Code CLI executable
+- `pathToQwenExecutable`: Path to the Hanhai CLI executable
 - `cwd`: Working directory for the CLI process
 - `model`: AI model to use for the session
 - `permissionMode`: Permission mode that controls tool execution

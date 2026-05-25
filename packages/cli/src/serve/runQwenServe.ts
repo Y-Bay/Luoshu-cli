@@ -25,7 +25,7 @@ import {
   type WorkspaceFileSystemFactory,
 } from './fs/index.js';
 
-const LUOSHU_SERVER_TOKEN_ENV = 'LUOSHU_SERVER_TOKEN';
+const HANHAI_SERVER_TOKEN_ENV = 'HANHAI_SERVER_TOKEN';
 const SHUTDOWN_FORCE_CLOSE_MS = 5_000;
 
 /**
@@ -134,7 +134,7 @@ export interface RunQwenServeDeps {
  *
  * Token resolution order:
  *   1. explicit `opts.token`
- *   2. `LUOSHU_SERVER_TOKEN` env var
+ *   2. `HANHAI_SERVER_TOKEN` env var
  *
  * Boot refuses to start when bound beyond loopback without a token; this is a
  * hard rule, not a warning, per the threat model in the design issue.
@@ -143,13 +143,13 @@ export async function runQwenServe(
   optsIn: Omit<ServeOptions, 'token'> & { token?: string },
   deps: RunQwenServeDeps = {},
 ): Promise<RunHandle> {
-  // Trim both sources. Common gotcha: `export LUOSHU_SERVER_TOKEN=$(cat
+  // Trim both sources. Common gotcha: `export HANHAI_SERVER_TOKEN=$(cat
   // token.txt)` keeps the file's trailing `\n` in the env value, so the
   // hashed-then-compared token never matches what well-behaved clients
   // send. Every request returns the generic 401 with no breadcrumb
   // pointing at the whitespace, and operators chase ghosts. Trim once
   // at boot so the comparison is over what humans intended to set.
-  const rawToken = optsIn.token ?? process.env[LUOSHU_SERVER_TOKEN_ENV];
+  const rawToken = optsIn.token ?? process.env[HANHAI_SERVER_TOKEN_ENV];
   const token =
     typeof rawToken === 'string' && rawToken.trim().length > 0
       ? rawToken.trim()
@@ -175,7 +175,7 @@ export async function runQwenServe(
   if (!isLoopbackBind(opts.hostname) && !token) {
     throw new Error(
       `Refusing to bind ${opts.hostname}:${opts.port} without a bearer token. ` +
-        `Set ${LUOSHU_SERVER_TOKEN_ENV} or pass --token, or rebind to loopback ` +
+        `Set ${HANHAI_SERVER_TOKEN_ENV} or pass --token, or rebind to loopback ` +
         `(127.0.0.1, localhost, ::1, or [::1]).`,
     );
   }
@@ -188,7 +188,7 @@ export async function runQwenServe(
   if (opts.requireAuth && !token) {
     throw new Error(
       `Refusing to start with --require-auth set but no bearer token ` +
-        `configured. Set ${LUOSHU_SERVER_TOKEN_ENV} or pass --token, or omit ` +
+        `configured. Set ${HANHAI_SERVER_TOKEN_ENV} or pass --token, or omit ` +
         `--require-auth to keep the loopback developer default.`,
     );
   }
@@ -298,7 +298,7 @@ export async function runQwenServe(
   // child's MCP budget env is fully determined by this handle's
   // options, with no inheritance from process.env's current state.
   const childEnvOverrides: Record<string, string | undefined> = {
-    LUOSHU_SERVE_MCP_CLIENT_BUDGET:
+    HANHAI_SERVE_MCP_CLIENT_BUDGET:
       opts.mcpClientBudget !== undefined
         ? String(opts.mcpClientBudget)
         : undefined,
@@ -531,7 +531,7 @@ export async function runQwenServe(
       );
       if (!token) {
         writeStderrLine(
-          `qwen serve: bearer auth disabled (loopback default). Set ${LUOSHU_SERVER_TOKEN_ENV} to enable.`,
+          `qwen serve: bearer auth disabled (loopback default). Set ${HANHAI_SERVER_TOKEN_ENV} to enable.`,
         );
       } else if (opts.requireAuth) {
         // The boot check above guarantees `token` is set whenever

@@ -508,13 +508,13 @@ describe('GlobTool', () => {
       expect(result.llmContent).not.toContain('a.ignored.txt');
     });
 
-    it('should respect .luoshuignore files by default', async () => {
+    it('should respect .hanhaiignore files by default', async () => {
       await fs.writeFile(
-        path.join(tempRootDir, '.luoshuignore'),
-        '*.luoshuignored.txt',
+        path.join(tempRootDir, '.hanhaiignore'),
+        '*.hanhaiignored.txt',
       );
       await fs.writeFile(
-        path.join(tempRootDir, 'a.luoshuignored.txt'),
+        path.join(tempRootDir, 'a.hanhaiignored.txt'),
         'ignored content',
       );
       await fs.writeFile(
@@ -522,7 +522,7 @@ describe('GlobTool', () => {
         'not ignored content',
       );
 
-      // Recreate the tool to pick up the new .luoshuignore file
+      // Recreate the tool to pick up the new .hanhaiignore file
       globTool = new GlobTool(mockConfig);
 
       const params: GlobToolParams = { pattern: '*.txt' };
@@ -530,7 +530,7 @@ describe('GlobTool', () => {
       const result = await invocation.execute(abortSignal);
 
       expect(result.llmContent).toContain('Found 3 file(s)'); // fileA.txt, FileB.TXT, b.notignored.txt
-      expect(result.llmContent).not.toContain('a.luoshuignored.txt');
+      expect(result.llmContent).not.toContain('a.hanhaiignored.txt');
     });
 
     it('should respect .gitignore when searching a subdirectory (path option)', async () => {
@@ -553,15 +553,15 @@ describe('GlobTool', () => {
       expect(result.llmContent).not.toContain('hidden.secret');
     });
 
-    it('should respect .luoshuignore when searching a subdirectory (path option)', async () => {
-      await fs.writeFile(path.join(tempRootDir, '.luoshuignore'), '*.secret');
+    it('should respect .hanhaiignore when searching a subdirectory (path option)', async () => {
+      await fs.writeFile(path.join(tempRootDir, '.hanhaiignore'), '*.secret');
       await fs.writeFile(path.join(tempRootDir, 'sub', 'visible.txt'), 'ok');
       await fs.writeFile(
         path.join(tempRootDir, 'sub', 'hidden.secret'),
         'should be ignored',
       );
 
-      // Recreate to pick up .luoshuignore
+      // Recreate to pick up .hanhaiignore
       const subDirTool = new GlobTool(mockConfig);
       const params: GlobToolParams = { pattern: '*', path: 'sub' };
       const invocation = subDirTool.build(params);

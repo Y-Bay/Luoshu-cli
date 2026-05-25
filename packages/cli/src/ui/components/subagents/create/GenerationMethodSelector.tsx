@@ -17,7 +17,7 @@ interface GenerationOption {
 const generationOptions: GenerationOption[] = [
   {
     get label() {
-      return t('Generate with Luoshu CLI (Recommended)');
+      return t('Generate with Hanhai CLI (Recommended)');
     },
     value: 'qwen',
   },

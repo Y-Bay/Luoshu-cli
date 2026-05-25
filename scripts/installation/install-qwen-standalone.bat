@@ -1,6 +1,6 @@
 @echo off
-REM Qwen Code Installation Script
-REM Installs Qwen Code from a standalone archive when available, with npm fallback.
+REM Hanhai CLI Installation Script
+REM Installs Hanhai CLI from a standalone archive when available, with npm fallback.
 REM This script intentionally does not install Node.js or change npm config.
 
 setlocal enabledelayedexpansion
@@ -291,7 +291,7 @@ call :PrintUsage
 exit /b 1
 
 :PrintUsage
-echo Qwen Code Installer
+echo Hanhai CLI Installer
 echo.
 echo Usage: install-qwen-standalone.bat [OPTIONS]
 echo.
@@ -317,7 +317,7 @@ set "DISPLAY_VERSION=!VERSION!"
 if /i not "!DISPLAY_VERSION!"=="latest" (
     if /i "!DISPLAY_VERSION:~0,1!"=="v" set "DISPLAY_VERSION=!DISPLAY_VERSION:~1!"
 )
-echo Installing Qwen Code version: !DISPLAY_VERSION!
+echo Installing Hanhai CLI version: !DISPLAY_VERSION!
 exit /b 0
 
 :ValidateRawEnvironmentOptions
@@ -1002,7 +1002,7 @@ set "PATH=!INSTALL_BIN_DIR!;!PATH!"
 call :CreateSourceJson
 if exist "!TEMP_DIR!" rmdir /S /Q "!TEMP_DIR!" >nul 2>&1
 
-echo SUCCESS: Qwen Code standalone archive installed successfully.
+echo SUCCESS: Hanhai CLI standalone archive installed successfully.
 echo INFO: Installed to !INSTALL_DIR!
 exit /b 0
 
@@ -1113,7 +1113,7 @@ rem Back it up so the user doesn't lose data, then proceed.
 for /f "delims=" %%t in ('powershell -NoProfile -Command "Get-Date -Format yyyyMMddTHHmmss"') do set "BACKUP_TIMESTAMP=%%t"
 set "BACKUP_DIR=!MANAGED_DIR!.backup.!BACKUP_TIMESTAMP!"
 if "!BACKUP_TIMESTAMP!"=="" set "BACKUP_DIR=!MANAGED_DIR!.backup"
-echo WARNING: !MANAGED_DIR! exists but is not a Qwen Code standalone install.
+echo WARNING: !MANAGED_DIR! exists but is not a Hanhai CLI standalone install.
 echo WARNING: Backing up to !BACKUP_DIR!
 move /Y "!MANAGED_DIR!" "!BACKUP_DIR!" >nul
 if !ERRORLEVEL! NEQ 0 (
@@ -1127,7 +1127,7 @@ where node >nul 2>&1
 if %ERRORLEVEL% NEQ 0 (
     echo ERROR: Node.js was not found.
     echo.
-    echo Node.js 22 or newer is required before installing Qwen Code with npm.
+    echo Node.js 22 or newer is required before installing Hanhai CLI with npm.
     echo Please install Node.js from https://nodejs.org/ and rerun this installer.
     exit /b 1
 )
@@ -1135,7 +1135,7 @@ if %ERRORLEVEL% NEQ 0 (
 for /f "delims=" %%i in ('node -p "process.versions.node" 2^>nul') do set "NODE_VERSION=%%i"
 if "%NODE_VERSION%"=="" (
     echo ERROR: Unable to determine Node.js version.
-    echo Node.js 22 or newer is required before installing Qwen Code with npm.
+    echo Node.js 22 or newer is required before installing Hanhai CLI with npm.
     exit /b 1
 )
 
@@ -1143,7 +1143,7 @@ for /f "tokens=1 delims=." %%a in ("%NODE_VERSION%") do set "MAJOR_VERSION=%%a"
 set /a NODE_MAJOR_NUM=%MAJOR_VERSION% >nul 2>&1
 if %ERRORLEVEL% NEQ 0 (
     echo ERROR: Unable to determine Node.js version.
-    echo Node.js 22 or newer is required before installing Qwen Code with npm.
+    echo Node.js 22 or newer is required before installing Hanhai CLI with npm.
     exit /b 1
 )
 
@@ -1188,7 +1188,7 @@ call :NpmPackageSpec
 where qwen >nul 2>&1
 if %ERRORLEVEL% EQU 0 (
     for /f "delims=" %%i in ('qwen --version 2^>nul') do set "QWEN_VERSION=%%i"
-    echo INFO: Existing Qwen Code detected: !QWEN_VERSION!
+    echo INFO: Existing Hanhai CLI detected: !QWEN_VERSION!
     if /i "!VERSION!"=="latest" (
         echo INFO: Upgrading to the latest version.
     ) else (
@@ -1199,7 +1199,7 @@ if %ERRORLEVEL% EQU 0 (
 echo INFO: Running: npm install -g !NPM_PACKAGE_SPEC! --registry !NPM_REGISTRY!
 call npm install -g !NPM_PACKAGE_SPEC! --registry "!NPM_REGISTRY!"
 if %ERRORLEVEL% NEQ 0 (
-    echo ERROR: Failed to install Qwen Code.
+    echo ERROR: Failed to install Hanhai CLI.
     echo.
     echo This installer does not change your npm prefix or PATH.
     echo If the failure is a permission error, fix your npm global package directory, then run:
@@ -1207,7 +1207,7 @@ if %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 
-echo SUCCESS: Qwen Code installed successfully.
+echo SUCCESS: Hanhai CLI installed successfully.
 call :CreateSourceJson
 exit /b 0
 
@@ -1249,7 +1249,7 @@ if not "!INSTALLED_BIN!"=="" if exist "!INSTALLED_BIN!" (
 
 echo QWEN CODE
 echo.
-echo Qwen Code !INSTALLED_VERSION! installed successfully.
+echo Hanhai CLI !INSTALLED_VERSION! installed successfully.
 echo.
 echo To start:
 echo   cd ^<project^>

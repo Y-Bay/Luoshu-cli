@@ -21,8 +21,8 @@ if (process.env['QWEN_DEBUG_LOG_FILE'] === undefined) {
 setSimulate429(false);
 
 // Keep managed auto-memory test fixtures under per-test temp project roots.
-if (process.env['LUOSHU_MEMORY_LOCAL'] === undefined) {
-  process.env['LUOSHU_MEMORY_LOCAL'] = '1';
+if (process.env['HANHAI_MEMORY_LOCAL'] === undefined) {
+  process.env['HANHAI_MEMORY_LOCAL'] = '1';
 }
 
 // Some dependencies (e.g., undici) expect a global File constructor in Node.

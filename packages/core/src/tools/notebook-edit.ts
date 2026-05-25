@@ -794,7 +794,7 @@ export class NotebookEditTool
 
     const fileService = this.config.getFileService();
     if (fileService.shouldQwenIgnoreFile(params.notebook_path)) {
-      return `File path '${params.notebook_path}' is ignored by .luoshuignore pattern(s).`;
+      return `File path '${params.notebook_path}' is ignored by .hanhaiignore pattern(s).`;
     }
 
     return null;

@@ -205,7 +205,7 @@ export function HookConfigDetailStep({
       <Box marginTop={1}>
         <Text color={theme.text.secondary}>
           {t(
-            'To modify or remove this hook, edit settings.json directly or ask Qwen to help.',
+            'To modify or remove this hook, edit settings.json directly or ask Hanhai to help.',
           )}
         </Text>
       </Box>

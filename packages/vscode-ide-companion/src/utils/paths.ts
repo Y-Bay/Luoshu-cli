@@ -38,7 +38,7 @@ function resolvePath(dir: string): string {
 let envBootstrapped = false;
 
 /**
- * Pre-resolves LUOSHU_HOME / LUOSHU_RUNTIME_DIR from `<homedir>/.luoshu/.env` and
+ * Pre-resolves HANHAI_HOME / HANHAI_RUNTIME_DIR from `<homedir>/.hanhai/.env` and
  * `<homedir>/.env`. Mirrors the CLI's `preResolveHomeEnvOverrides` so the
  * companion's lock-file location agrees with the CLI even when these vars
  * are only configured via `.env`. Idempotent.
@@ -49,7 +49,7 @@ function bootstrapHomeEnvOverrides(): void {
   }
   envBootstrapped = true;
 
-  if (process.env['LUOSHU_HOME'] && process.env['LUOSHU_RUNTIME_DIR']) {
+  if (process.env['HANHAI_HOME'] && process.env['HANHAI_RUNTIME_DIR']) {
     return;
   }
 
@@ -58,12 +58,12 @@ function bootstrapHomeEnvOverrides(): void {
     return;
   }
 
-  const initialQwenHome = process.env['LUOSHU_HOME'];
+  const initialQwenHome = process.env['HANHAI_HOME'];
   const currentQwenDir = initialQwenHome
     ? resolvePath(initialQwenHome)
-    : path.join(homeDir, '.luoshu');
+    : path.join(homeDir, '.hanhai');
 
-  const KEYS = ['LUOSHU_HOME', 'LUOSHU_RUNTIME_DIR'] as const;
+  const KEYS = ['HANHAI_HOME', 'HANHAI_RUNTIME_DIR'] as const;
   const readInto = (file: string) => {
     try {
       const parsed = dotenv.parse(fs.readFileSync(file, 'utf-8'));
@@ -82,10 +82,10 @@ function bootstrapHomeEnvOverrides(): void {
     readInto(path.join(homeDir, '.env'));
   }
 
-  // If LUOSHU_HOME was just discovered, also read <new LUOSHU_HOME>/.env so
-  // LUOSHU_RUNTIME_DIR can be sourced from there — otherwise the companion
+  // If HANHAI_HOME was just discovered, also read <new HANHAI_HOME>/.env so
+  // HANHAI_RUNTIME_DIR can be sourced from there — otherwise the companion
   // would write lock files into a different runtime dir than the CLI reads.
-  const discoveredQwenHome = process.env['LUOSHU_HOME'];
+  const discoveredQwenHome = process.env['HANHAI_HOME'];
   if (discoveredQwenHome && discoveredQwenHome !== initialQwenHome) {
     const discoveredDir = resolvePath(discoveredQwenHome);
     if (discoveredDir !== currentQwenDir) {
@@ -102,32 +102,32 @@ export function resetEnvBootstrapForTesting(): void {
 /**
  * Returns the global Qwen home directory (config, credentials, etc.).
  *
- * Priority: LUOSHU_HOME env var > ~/.qwen
+ * Priority: HANHAI_HOME env var > ~/.qwen
  */
 export function getGlobalQwenDir(): string {
   bootstrapHomeEnvOverrides();
-  const envDir = process.env['LUOSHU_HOME'];
+  const envDir = process.env['HANHAI_HOME'];
   if (envDir) {
     return resolvePath(envDir);
   }
   const homeDir = os.homedir();
   return homeDir
-    ? path.join(homeDir, '.luoshu')
-    : path.join(os.tmpdir(), '.luoshu');
+    ? path.join(homeDir, '.hanhai')
+    : path.join(os.tmpdir(), '.hanhai');
 }
 
 /**
  * Returns the runtime base directory for ephemeral data (tmp, debug, IDE
  * lock files, sessions, etc.).
  *
- * Priority: LUOSHU_RUNTIME_DIR env var > LUOSHU_HOME env var > ~/.qwen
+ * Priority: HANHAI_RUNTIME_DIR env var > HANHAI_HOME env var > ~/.qwen
  *
  * This mirrors the fallback chain in packages/core Storage.getRuntimeBaseDir()
  * without importing from core to avoid cross-package dependencies.
  */
 export function getRuntimeBaseDir(): string {
   bootstrapHomeEnvOverrides();
-  const runtimeDir = process.env['LUOSHU_RUNTIME_DIR'];
+  const runtimeDir = process.env['HANHAI_RUNTIME_DIR'];
   if (runtimeDir) {
     return resolvePath(runtimeDir);
   }

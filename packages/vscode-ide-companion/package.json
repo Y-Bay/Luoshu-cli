@@ -1,7 +1,7 @@
 {
   "name": "qwen-code-vscode-ide-companion",
-  "displayName": "Qwen Code Companion",
-  "description": "Enable Qwen Code with direct access to your VS Code workspace.",
+  "displayName": "Hanhai CLI Companion",
+  "description": "Enable Hanhai CLI with direct access to your VS Code workspace.",
   "version": "0.1.0",
   "publisher": "qwenlm",
   "icon": "assets/icon.png",
@@ -47,7 +47,7 @@
       "activitybar": [
         {
           "id": "qwen-code-sidebar",
-          "title": "Qwen Code",
+          "title": "Hanhai CLI",
           "icon": "assets/sidebar-icon.svg",
           "when": "!qwen-code:supportsSecondarySidebar"
         }
@@ -55,7 +55,7 @@
       "secondarySidebar": [
         {
           "id": "qwen-code-secondary",
-          "title": "Qwen Code",
+          "title": "Hanhai CLI",
           "icon": "assets/sidebar-icon.svg",
           "when": "qwen-code:supportsSecondarySidebar"
         }
@@ -66,7 +66,7 @@
         {
           "type": "webview",
           "id": "qwen-code.chatView.sidebar",
-          "name": "Qwen Code",
+          "name": "Hanhai CLI",
           "icon": "assets/sidebar-icon.svg",
           "when": "!qwen-code:supportsSecondarySidebar"
         }
@@ -75,7 +75,7 @@
         {
           "type": "webview",
           "id": "qwen-code.chatView.secondary",
-          "name": "Qwen Code",
+          "name": "Hanhai CLI",
           "icon": "assets/sidebar-icon.svg",
           "when": "qwen-code:supportsSecondarySidebar"
         }
@@ -89,42 +89,42 @@
     "commands": [
       {
         "command": "qwen.diff.accept",
-        "title": "Qwen Code: Accept Current Diff",
+        "title": "Hanhai CLI: Accept Current Diff",
         "icon": "$(check)"
       },
       {
         "command": "qwen.diff.cancel",
-        "title": "Qwen Code: Close Diff Editor",
+        "title": "Hanhai CLI: Close Diff Editor",
         "icon": "$(close)"
       },
       {
         "command": "qwen-code.runQwenCode",
-        "title": "Qwen Code: Run"
+        "title": "Hanhai CLI: Run"
       },
       {
         "command": "qwen-code.showNotices",
-        "title": "Qwen Code: View Third-Party Notices"
+        "title": "Hanhai CLI: View Third-Party Notices"
       },
       {
         "command": "qwen-code.openChat",
-        "title": "Qwen Code: Open",
+        "title": "Hanhai CLI: Open",
         "icon": "./assets/icon.png"
       },
       {
         "command": "qwen-code.auth",
-        "title": "Qwen Code: Auth"
+        "title": "Hanhai CLI: Auth"
       },
       {
         "command": "qwen-code.focusChat",
-        "title": "Qwen Code: Focus Chat View"
+        "title": "Hanhai CLI: Focus Chat View"
       },
       {
         "command": "qwen-code.newConversation",
-        "title": "Qwen Code: New Conversation"
+        "title": "Hanhai CLI: New Conversation"
       },
       {
         "command": "qwen-code.showLogs",
-        "title": "Qwen Code: Show Logs"
+        "title": "Hanhai CLI: Show Logs"
       },
       {
         "command": "qwen-code.copyMessage",
@@ -200,7 +200,7 @@
       ]
     },
     "configuration": {
-      "title": "Qwen Code",
+      "title": "Hanhai CLI",
       "properties": {
         "qwen-code.provider": {
           "order": 0,
@@ -211,16 +211,16 @@
           ],
           "enumDescriptions": [
             "Alibaba Cloud Coding Plan — configurable from VS Code Settings",
-            "Configured via Qwen Code: Auth or the onboarding button"
+            "Configured via Hanhai CLI: Auth or the onboarding button"
           ],
           "default": "coding-plan",
-          "markdownDescription": "**Coding Plan**: enter API Key + Region here to sync `~/.qwen/settings.json`.\n\n**API Key**: use **Qwen Code: Auth** or the onboarding button to configure ModelStudio or custom OpenAI-compatible providers."
+          "markdownDescription": "**Coding Plan**: enter API Key + Region here to sync `~/.qwen/settings.json`.\n\n**API Key**: use **Hanhai CLI: Auth** or the onboarding button to configure ModelStudio or custom OpenAI-compatible providers."
         },
         "qwen-code.apiKey": {
           "order": 1,
           "type": "string",
           "default": "",
-          "markdownDescription": "API key used for **Coding Plan** settings sync. For **API Key** providers, configure the full provider details through **Qwen Code: Auth**."
+          "markdownDescription": "API key used for **Coding Plan** settings sync. For **API Key** providers, configure the full provider details through **Hanhai CLI: Auth**."
         },
         "qwen-code.codingPlanRegion": {
           "order": 2,
@@ -246,7 +246,7 @@
           "order": 4,
           "type": "boolean",
           "default": true,
-          "description": "Show notifications with sound when a task completes (at least 20 seconds) or needs your attention, while you are not actively viewing the Qwen Code panel."
+          "description": "Show notifications with sound when a task completes (at least 20 seconds) or needs your attention, while you are not actively viewing the Hanhai CLI panel."
         }
       }
     },

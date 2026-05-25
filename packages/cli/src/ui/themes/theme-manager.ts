@@ -15,8 +15,8 @@ import { DefaultLight } from './default-light.js';
 import { DefaultDark } from './default.js';
 import { ShadesOfPurple } from './shades-of-purple.js';
 import { XCode } from './xcode.js';
-import { LuoshuLight } from './luoshu-light.js';
-import { LuoshuDark } from './luoshu-dark.js';
+import { HanhaiLight } from './hanhai-light.js';
+import { HanhaiDark } from './hanhai-dark.js';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
@@ -41,7 +41,7 @@ export interface ThemeDisplay {
   isCustom?: boolean;
 }
 
-export const DEFAULT_THEME: Theme = LuoshuDark;
+export const DEFAULT_THEME: Theme = HanhaiDark;
 export const AUTO_THEME_NAME = 'auto';
 
 class ThemeManager {
@@ -60,8 +60,8 @@ class ThemeManager {
       GitHubDark,
       GitHubLight,
       GoogleCode,
-      LuoshuLight,
-      LuoshuDark,
+      HanhaiLight,
+      HanhaiDark,
       ShadesOfPurple,
       XCode,
       ANSI,
@@ -154,7 +154,7 @@ class ThemeManager {
    */
   private resolveAutoTheme(): Theme {
     const detected = this.cachedAutoDetection ?? detectTerminalTheme();
-    return detected === 'light' ? LuoshuLight : LuoshuDark;
+    return detected === 'light' ? HanhaiLight : HanhaiDark;
   }
 
   /**
@@ -166,7 +166,7 @@ class ThemeManager {
   async resolveAutoThemeAsync(): Promise<void> {
     const detected = await detectTerminalThemeAsync();
     this.cachedAutoDetection = detected;
-    this.activeTheme = detected === 'light' ? LuoshuLight : LuoshuDark;
+    this.activeTheme = detected === 'light' ? HanhaiLight : HanhaiDark;
     debugLogger.info(`Auto-detected theme (async): ${this.activeTheme.name}`);
   }
 
@@ -241,13 +241,13 @@ class ThemeManager {
     );
 
     // Separate Qwen themes
-    const luoshuThemes = builtInThemes.filter(
+    const hanhaiThemes = builtInThemes.filter(
       (theme) =>
-        theme.name === LuoshuLight.name || theme.name === LuoshuDark.name,
+        theme.name === HanhaiLight.name || theme.name === HanhaiDark.name,
     );
     const otherBuiltInThemes = builtInThemes.filter(
       (theme) =>
-        theme.name !== LuoshuLight.name && theme.name !== LuoshuDark.name,
+        theme.name !== HanhaiLight.name && theme.name !== HanhaiDark.name,
     );
 
     // Sort other themes by type and then name
@@ -277,7 +277,7 @@ class ThemeManager {
     );
 
     // Combine Qwen themes first, then sorted others
-    return [...luoshuThemes, ...sortedOtherThemes];
+    return [...hanhaiThemes, ...sortedOtherThemes];
   }
 
   /**

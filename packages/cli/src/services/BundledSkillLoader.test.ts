@@ -180,7 +180,7 @@ describe('BundledSkillLoader', () => {
 
   it('should resolve {{model}} template variable in skill body', async () => {
     const skill = makeSkill({
-      body: 'Review by {{model}} via Qwen Code',
+      body: 'Review by {{model}} via Hanhai CLI',
     });
     mockSkillManager.listSkills.mockResolvedValue([skill]);
     (mockConfig.getModel as ReturnType<typeof vi.fn>).mockReturnValue(
@@ -199,7 +199,7 @@ describe('BundledSkillLoader', () => {
       content: [
         {
           text: makeSkillPrompt(
-            'YOUR_MODEL_ID="qwen3-coder"\n\nReview by qwen3-coder via Qwen Code',
+            'YOUR_MODEL_ID="qwen3-coder"\n\nReview by qwen3-coder via Hanhai CLI',
           ),
         },
       ],

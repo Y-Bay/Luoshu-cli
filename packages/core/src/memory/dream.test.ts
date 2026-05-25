@@ -56,8 +56,8 @@ describe('managed auto-memory dream', () => {
       status: 'completed',
       finalText: 'Merged duplicate user memories.',
       filesTouched: [
-        path.join(projectRoot, '.luoshu', 'memory', 'user', 'prefs.md'),
-        path.join(projectRoot, '.luoshu', 'memory', 'reference', 'dash.md'),
+        path.join(projectRoot, '.hanhai', 'memory', 'user', 'prefs.md'),
+        path.join(projectRoot, '.hanhai', 'memory', 'reference', 'dash.md'),
       ],
     });
 

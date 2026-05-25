@@ -1,8 +1,8 @@
-# Qwen Code Hooks
+# Hanhai CLI Hooks
 
 ## Overview
 
-Qwen Code hooks provide a powerful mechanism for extending and customizing the behavior of the Qwen Code application. Hooks allow users to execute custom scripts or programs at specific points in the application lifecycle, such as before tool execution, after tool execution, at session start/end, and during other key events.
+Hanhai CLI hooks provide a powerful mechanism for extending and customizing the behavior of the Hanhai CLI application. Hooks allow users to execute custom scripts or programs at specific points in the application lifecycle, such as before tool execution, after tool execution, at session start/end, and during other key events.
 
 Hooks are enabled by default. You can temporarily disable all hooks by setting `disableAllHooks` to `true` in your settings file (at the top level, alongside `hooks`):
 
@@ -19,7 +19,7 @@ This disables all hooks without deleting their configurations.
 
 ## What are Hooks?
 
-Hooks are user-defined scripts or programs that are automatically executed by Qwen Code at predefined points in the application flow. They allow users to:
+Hooks are user-defined scripts or programs that are automatically executed by Hanhai CLI at predefined points in the application flow. They allow users to:
 
 - Monitor and audit tool usage
 - Enforce security policies
@@ -30,7 +30,7 @@ Hooks are user-defined scripts or programs that are automatically executed by Qw
 
 ## Hook Types
 
-Qwen Code supports four hook executor types:
+Hanhai CLI supports four hook executor types:
 
 | Type       | Description                                                                                    |
 | :--------- | :--------------------------------------------------------------------------------------------- |
@@ -144,7 +144,7 @@ Prompt hooks use an LLM to evaluate hook input and return a decision. This is us
 1. The hook input JSON is injected into your prompt using the `$ARGUMENTS` placeholder
 2. The prompt is sent to an LLM (default: your current model)
 3. The LLM returns a JSON response with the decision
-4. Qwen Code processes the decision and continues or blocks execution accordingly
+4. Hanhai CLI processes the decision and continues or blocks execution accordingly
 
 **Configuration:**
 
@@ -196,7 +196,7 @@ Prompt hooks can be used with most hook events, including:
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "You are evaluating whether Qwen Code should stop working. Context: $ARGUMENTS\n\nAnalyze the conversation and determine if:\n1. All user-requested tasks are complete\n2. Any errors need to be addressed\n3. Follow-up work is needed\n\nRespond with JSON: {\"ok\": true} to allow stopping, or {\"ok\": false, \"reason\": \"your explanation\"} to continue working.",
+            "prompt": "You are evaluating whether Hanhai CLI should stop working. Context: $ARGUMENTS\n\nAnalyze the conversation and determine if:\n1. All user-requested tasks are complete\n2. Any errors need to be addressed\n3. Follow-up work is needed\n\nRespond with JSON: {\"ok\": true} to allow stopping, or {\"ok\": false, \"reason\": \"your explanation\"} to continue working.",
             "timeout": 30
           }
         ]
@@ -206,7 +206,7 @@ Prompt hooks can be used with most hook events, including:
 }
 ```
 
-When `ok` is `false`, Qwen Code will continue working and use the `reason` as context for the next response.
+When `ok` is `false`, Hanhai CLI will continue working and use the `reason` as context for the next response.
 
 **Example: PreToolUse Hook**
 
@@ -233,7 +233,7 @@ When `ok` is `false`, Qwen Code will continue working and use the `reason` as co
 
 ## Hook Events
 
-Hooks fire at specific points during a Qwen Code session. Different events support different matchers to filter trigger conditions.
+Hooks fire at specific points during a Hanhai CLI session. Different events support different matchers to filter trigger conditions.
 
 | Event                | Triggered When                            | Matcher Target                                            |
 | :------------------- | :---------------------------------------- | :-------------------------------------------------------- |
@@ -582,7 +582,7 @@ Hook output supports three categories of fields:
 ```json
 {
   "decision": "block",
-  "reason": "Must be provided when Qwen Code is blocked from stopping"
+  "reason": "Must be provided when Hanhai CLI is blocked from stopping"
 }
 ```
 
@@ -696,7 +696,7 @@ Hook output supports three categories of fields:
 ```json
 {
   "decision": "block",
-  "reason": "Must be provided when Qwen Code is blocked from stopping"
+  "reason": "Must be provided when Hanhai CLI is blocked from stopping"
 }
 ```
 
@@ -1054,7 +1054,7 @@ exit 0
 
 ## Hook Configuration
 
-Hooks are configured in Qwen Code settings, typically in `.qwen/settings.json` or user configuration files:
+Hooks are configured in Hanhai CLI settings, typically in `.qwen/settings.json` or user configuration files:
 
 ```json
 {

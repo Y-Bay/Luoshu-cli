@@ -64,7 +64,7 @@ export interface IgnoreVerdict {
  * Check whether `absolute` is matched by the workspace's ignore
  * rules. The check is computed against the workspace-relative
  * form of the path, matching the convention of `.gitignore` /
- * `.luoshuignore` patterns.
+ * `.hanhaiignore` patterns.
  *
  * Returns `{ ignored: false }` when:
  *   - the path equals `boundWorkspace` (the workspace root itself

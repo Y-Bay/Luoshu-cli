@@ -8,7 +8,7 @@ import {
   ApprovalMode,
   AuthType,
   Config,
-  DEFAULT_LUOSHU_EMBEDDING_MODEL,
+  DEFAULT_HANHAI_EMBEDDING_MODEL,
   FileDiscoveryService,
   getAllGeminiMdFilenames,
   loadServerHierarchicalMemory,
@@ -510,9 +510,9 @@ export async function parseArguments(): Promise<CliArgs> {
 
   const yargsInstance = yargs(rawArgv)
     .locale('en')
-    .scriptName('luoshu')
+    .scriptName('hanhai')
     .usage(
-      'Usage: luoshu [options] [command]\n\nLuoshu CLI - Launch an interactive CLI, use -p/--prompt for non-interactive mode',
+      'Usage: hanhai [options] [command]\n\nHanhai CLI - Launch an interactive CLI, use -p/--prompt for non-interactive mode',
     )
     .option('telemetry', {
       type: 'boolean',
@@ -584,7 +584,7 @@ export async function parseArguments(): Promise<CliArgs> {
     .option('proxy', {
       type: 'string',
       description:
-        'Proxy for Luoshu CLI, like schema://user:password@host:port',
+        'Proxy for Hanhai CLI, like schema://user:password@host:port',
     })
     .deprecateOption(
       'proxy',
@@ -595,7 +595,7 @@ export async function parseArguments(): Promise<CliArgs> {
       description:
         'Enable chat recording to disk. If false, chat history is not saved and --continue/--resume will not work.',
     })
-    .command('$0 [query..]', 'Launch Luoshu CLI', (yargsInstance: Argv) =>
+    .command('$0 [query..]', 'Launch Hanhai CLI', (yargsInstance: Argv) =>
       yargsInstance
         .positional('query', {
           description:
@@ -849,7 +849,7 @@ export async function parseArguments(): Promise<CliArgs> {
           description:
             'Slash command names to hide/disable (comma-separated or ' +
             'repeated). Merged with the `slashCommands.disabled` setting ' +
-            'and LUOSHU_DISABLED_SLASH_COMMANDS. Matched case-insensitively ' +
+            'and HANHAI_DISABLED_SLASH_COMMANDS. Matched case-insensitively ' +
             'against the final command name.',
           coerce: (names: string[]) =>
             names.flatMap((n) => n.split(',').map((t) => t.trim())),
@@ -1221,9 +1221,9 @@ export async function loadCliConfig(
   const debugMode = isDebugMode(argv);
   const bareMode = isBareMode(argv.bare);
 
-  // Set runtime output directory from settings (env var LUOSHU_RUNTIME_DIR
+  // Set runtime output directory from settings (env var HANHAI_RUNTIME_DIR
   // is auto-detected inside getRuntimeBaseDir() at each call site).
-  // Pass cwd so that relative paths like ".luoshu" resolve per-project.
+  // Pass cwd so that relative paths like ".hanhai" resolve per-project.
   Storage.setRuntimeBaseDir(settings.advanced?.runtimeOutputDir, cwd);
 
   const ideMode = settings.ide?.enabled ?? false;
@@ -1418,7 +1418,7 @@ export async function loadCliConfig(
   for (const name of settings.slashCommands?.disabled ?? []) addDisabled(name);
   for (const name of argv.disabledSlashCommands ?? []) addDisabled(name);
   for (const name of (
-    process.env['LUOSHU_DISABLED_SLASH_COMMANDS'] ?? ''
+    process.env['HANHAI_DISABLED_SLASH_COMMANDS'] ?? ''
   ).split(',')) {
     addDisabled(name);
   }
@@ -1595,7 +1595,7 @@ export async function loadCliConfig(
       sessionId = argv.resume;
       sessionData = await sessionService.loadSession(argv.resume);
       if (!sessionData) {
-        const message = `No saved session found with ID ${argv.resume}. Run \`qwen --resume\` without an ID to choose from existing sessions.`;
+        const message = `No saved session found with ID ${argv.resume}. Run \`hanhai --resume\` without an ID to choose from existing sessions.`;
         writeStderrLine(message);
         process.exit(1);
       }
@@ -1643,7 +1643,7 @@ export async function loadCliConfig(
   const configParams: ConfigParameters = {
     sessionId,
     sessionData,
-    embeddingModel: DEFAULT_LUOSHU_EMBEDDING_MODEL,
+    embeddingModel: DEFAULT_HANHAI_EMBEDDING_MODEL,
     sandbox: sandboxConfig,
     targetDir: cwd,
     includeDirectories,

@@ -78,7 +78,7 @@ const createUIState = (overrides: Partial<UIState> = {}): UIState =>
       isAuthenticating: false,
       pendingAuthType: undefined,
       externalAuthState: null,
-      luoshuAuthState: {
+      hanhaiAuthState: {
         deviceAuth: null,
         authStatus: 'idle',
         authMessage: null,

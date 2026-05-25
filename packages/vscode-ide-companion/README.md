@@ -1,11 +1,11 @@
-# Qwen Code Companion
+# Hanhai CLI Companion
 
 [![Version](https://img.shields.io/visual-studio-marketplace/v/qwenlm.qwen-code-vscode-ide-companion)](https://marketplace.visualstudio.com/items?itemName=qwenlm.qwen-code-vscode-ide-companion)
 [![VS Code Installs](https://img.shields.io/visual-studio-marketplace/i/qwenlm.qwen-code-vscode-ide-companion)](https://marketplace.visualstudio.com/items?itemName=qwenlm.qwen-code-vscode-ide-companion)
 [![Open VSX Downloads](https://img.shields.io/open-vsx/dt/qwenlm/qwen-code-vscode-ide-companion)](https://open-vsx.org/extension/qwenlm/qwen-code-vscode-ide-companion)
 [![Rating](https://img.shields.io/visual-studio-marketplace/r/qwenlm.qwen-code-vscode-ide-companion)](https://marketplace.visualstudio.com/items?itemName=qwenlm.qwen-code-vscode-ide-companion)
 
-Seamlessly integrate [Qwen Code](https://github.com/QwenLM/qwen-code) into Visual Studio Code with native IDE features and an intuitive chat interface. This extension bundles everything you need — no additional installation required.
+Seamlessly integrate [Hanhai CLI](https://github.com/QwenLM/qwen-code) into Visual Studio Code with native IDE features and an intuitive chat interface. This extension bundles everything you need — no additional installation required.
 
 ## Demo
 
@@ -16,7 +16,7 @@ Seamlessly integrate [Qwen Code](https://github.com/QwenLM/qwen-code) into Visua
 
 ## Features
 
-- **Native IDE experience**: Dedicated Qwen Code Chat panel accessed via the Qwen icon in the editor title bar
+- **Native IDE experience**: Dedicated Hanhai CLI Chat panel accessed via the Qwen icon in the editor title bar
 - **Native diffing**: Review, edit, and accept changes in VS Code's diff view
 - **Auto-accept edits mode**: Automatically apply Qwen's changes as they're made
 - **File management**: @-mention files or attach files and images using the system file picker
@@ -33,18 +33,18 @@ Seamlessly integrate [Qwen Code](https://github.com/QwenLM/qwen-code) into Visua
 
 2. **Open the Chat panel** using one of these methods:
    - Click the **Qwen icon** in the top-right corner of the editor
-   - Run `Qwen Code: Open` from the Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`)
+   - Run `Hanhai CLI: Open` from the Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`)
 
 3. **Start chatting** — Ask Qwen to help with coding tasks, explain code, fix bugs, or write new features
 
 ## Commands
 
-| Command                          | Description                                            |
-| -------------------------------- | ------------------------------------------------------ |
-| `Qwen Code: Open`                | Open the Qwen Code Chat panel                          |
-| `Qwen Code: Run`                 | Launch a classic terminal session with the bundled CLI |
-| `Qwen Code: Accept Current Diff` | Accept the currently displayed diff                    |
-| `Qwen Code: Close Diff Editor`   | Close/reject the current diff                          |
+| Command                           | Description                                            |
+| --------------------------------- | ------------------------------------------------------ |
+| `Hanhai CLI: Open`                | Open the Hanhai CLI Chat panel                         |
+| `Hanhai CLI: Run`                 | Launch a classic terminal session with the bundled CLI |
+| `Hanhai CLI: Accept Current Diff` | Accept the currently displayed diff                    |
+| `Hanhai CLI: Close Diff Editor`   | Close/reject the current diff                          |
 
 ## Feedback & Issues
 

@@ -12,7 +12,7 @@ import { DescriptiveRadioButtonSelect } from './shared/DescriptiveRadioButtonSel
 import { ConfigContext } from '../contexts/ConfigContext.js';
 import { SettingsContext } from '../contexts/SettingsContext.js';
 import type { Config } from '@qwen-code/qwen-code-core';
-import { AuthType, DEFAULT_LUOSHU_MODEL } from '@qwen-code/qwen-code-core';
+import { AuthType, DEFAULT_HANHAI_MODEL } from '@qwen-code/qwen-code-core';
 import type { LoadedSettings } from '../../config/settings.js';
 import { SettingScope } from '../../config/settings.js';
 import { getFilteredQwenModels } from '../models/availableModels.js';
@@ -58,7 +58,7 @@ const renderComponent = (
 
   const mockConfig = {
     // --- Functions used by ModelDialog ---
-    getModel: vi.fn(() => DEFAULT_LUOSHU_MODEL),
+    getModel: vi.fn(() => DEFAULT_HANHAI_MODEL),
     setModel: vi.fn().mockResolvedValue(undefined),
     switchModel: vi.fn().mockResolvedValue(undefined),
     getAuthType: vi.fn(() => 'qwen-oauth'),
@@ -81,7 +81,7 @@ const renderComponent = (
     getDebugMode: vi.fn(() => false),
     getContentGeneratorConfig: vi.fn(() => ({
       authType: AuthType.QWEN_OAUTH,
-      model: DEFAULT_LUOSHU_MODEL,
+      model: DEFAULT_HANHAI_MODEL,
     })),
     getUseModelRouter: vi.fn(() => false),
     getProxy: vi.fn(() => undefined),
@@ -131,13 +131,13 @@ describe('<ModelDialog />', () => {
     expect(props.items).toHaveLength(getFilteredQwenModels().length);
     // coder-model is the only model and it has vision capability
     expect(props.items[0].value).toBe(
-      `${AuthType.QWEN_OAUTH}::${DEFAULT_LUOSHU_MODEL}`,
+      `${AuthType.QWEN_OAUTH}::${DEFAULT_HANHAI_MODEL}`,
     );
     expect(props.showNumbers).toBe(true);
   });
 
   it('initializes with the model from ConfigContext', () => {
-    const mockGetModel = vi.fn(() => DEFAULT_LUOSHU_MODEL);
+    const mockGetModel = vi.fn(() => DEFAULT_HANHAI_MODEL);
     renderComponent(
       {},
       {
@@ -151,7 +151,7 @@ describe('<ModelDialog />', () => {
     // Calculate expected index dynamically based on model list
     const qwenModels = getFilteredQwenModels();
     const expectedIndex = qwenModels.findIndex(
-      (m) => m.id === DEFAULT_LUOSHU_MODEL,
+      (m) => m.id === DEFAULT_HANHAI_MODEL,
     );
     expect(mockedSelect).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -185,7 +185,7 @@ describe('<ModelDialog />', () => {
 
     expect(mockGetModel).toHaveBeenCalled();
 
-    // When getModel returns undefined, preferredModel falls back to DEFAULT_LUOSHU_MODEL
+    // When getModel returns undefined, preferredModel falls back to DEFAULT_HANHAI_MODEL
     // which has index 0, so initialIndex should be 0
     expect(mockedSelect).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -216,7 +216,7 @@ describe('<ModelDialog />', () => {
     const childOnSelect = mockedSelect.mock.calls[0][0].onSelect;
     expect(childOnSelect).toBeDefined();
 
-    await childOnSelect(`${AuthType.QWEN_OAUTH}::${DEFAULT_LUOSHU_MODEL}`);
+    await childOnSelect(`${AuthType.QWEN_OAUTH}::${DEFAULT_HANHAI_MODEL}`);
 
     // qwen-oauth is discontinued — switchModel should NOT be called
     expect(mockConfig?.switchModel).not.toHaveBeenCalled();
@@ -424,7 +424,7 @@ describe('<ModelDialog />', () => {
     );
 
     const childOnSelect = mockedSelect.mock.calls[0][0].onSelect;
-    await childOnSelect(`${AuthType.QWEN_OAUTH}::${DEFAULT_LUOSHU_MODEL}`);
+    await childOnSelect(`${AuthType.QWEN_OAUTH}::${DEFAULT_HANHAI_MODEL}`);
 
     // qwen-oauth is discontinued — switchModel should NOT be called
     expect(switchModel).not.toHaveBeenCalled();
@@ -472,7 +472,7 @@ describe('<ModelDialog />', () => {
   });
 
   it('updates initialIndex when config context changes', () => {
-    const mockGetModel = vi.fn(() => DEFAULT_LUOSHU_MODEL);
+    const mockGetModel = vi.fn(() => DEFAULT_HANHAI_MODEL);
     const mockGetAuthType = vi.fn(() => 'qwen-oauth');
     const mockGetModelsConfig = vi.fn(() => ({
       getGenerationConfig: vi.fn(() => ({ baseUrl: undefined })),
@@ -511,10 +511,10 @@ describe('<ModelDialog />', () => {
       </SettingsContext.Provider>,
     );
 
-    // DEFAULT_LUOSHU_MODEL (coder-model) is at index 0
+    // DEFAULT_HANHAI_MODEL (coder-model) is at index 0
     expect(mockedSelect.mock.calls[0][0].initialIndex).toBe(0);
 
-    mockGetModel.mockReturnValue(DEFAULT_LUOSHU_MODEL);
+    mockGetModel.mockReturnValue(DEFAULT_HANHAI_MODEL);
     const newMockConfig = {
       getModel: mockGetModel,
       getAuthType: mockGetAuthType,
@@ -541,10 +541,10 @@ describe('<ModelDialog />', () => {
 
     // Should be called at least twice: initial render + re-render after context change
     expect(mockedSelect).toHaveBeenCalledTimes(2);
-    // Calculate expected index for DEFAULT_LUOSHU_MODEL dynamically
+    // Calculate expected index for DEFAULT_HANHAI_MODEL dynamically
     const qwenModels = getFilteredQwenModels();
     const expectedCoderIndex = qwenModels.findIndex(
-      (m) => m.id === DEFAULT_LUOSHU_MODEL,
+      (m) => m.id === DEFAULT_HANHAI_MODEL,
     );
     expect(mockedSelect.mock.calls[1][0].initialIndex).toBe(expectedCoderIndex);
   });

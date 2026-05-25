@@ -431,7 +431,7 @@ describe('convertClaudePluginPackage', () => {
       'crlf-agents-plugin',
     );
 
-    // Verify: agent file was properly parsed and converted into .luoshu/agents folder structure
+    // Verify: agent file was properly parsed and converted into .hanhai/agents folder structure
     const convertedAgentsDir = path.join(result.convertedDir, 'agents');
     expect(fs.existsSync(convertedAgentsDir)).toBe(true);
 
@@ -553,9 +553,9 @@ describe('performVariableReplacement for Claude extensions', () => {
     performVariableReplacement(extDir);
 
     const result = fs.readFileSync(path.join(extDir, 'setup.sh'), 'utf-8');
-    expect(result).toContain('$HOME/.luoshu/config');
-    expect(result).toContain('~/.luoshu/cache');
-    expect(result).toContain('./.luoshu/local');
+    expect(result).toContain('$HOME/.hanhai/config');
+    expect(result).toContain('~/.hanhai/cache');
+    expect(result).toContain('./.hanhai/local');
     expect(result).not.toContain('.claude');
   });
 

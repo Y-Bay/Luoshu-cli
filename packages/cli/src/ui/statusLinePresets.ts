@@ -132,7 +132,7 @@ export const STATUS_LINE_PRESET_ITEMS: readonly StatusLinePresetItem[] = [
   {
     id: 'qwen-version',
     label: 'qwen-version',
-    description: 'Luoshu CLI application version',
+    description: 'Hanhai CLI application version',
   },
   {
     id: 'context-window-size',

@@ -500,7 +500,7 @@ describe('ModelsConfig', () => {
     // Fresh user: authType not selected yet (currentAuthType undefined).
     const modelsConfig = new ModelsConfig();
 
-    // Config.refreshAuth passes modelId from modelsConfig.getModel(), which falls back to DEFAULT_LUOSHU_MODEL.
+    // Config.refreshAuth passes modelId from modelsConfig.getModel(), which falls back to DEFAULT_HANHAI_MODEL.
     modelsConfig.syncAfterAuthRefresh(
       AuthType.QWEN_OAUTH,
       modelsConfig.getModel(),
@@ -1271,7 +1271,7 @@ describe('ModelsConfig', () => {
       modelProvidersConfig,
       generationConfig: {},
     });
-    expect(config3.getModel()).toBe('coder-model'); // Falls back to DEFAULT_LUOSHU_MODEL
+    expect(config3.getModel()).toBe('coder-model'); // Falls back to DEFAULT_HANHAI_MODEL
     expect(config3.getGenerationConfig().model).toBeUndefined();
   });
 

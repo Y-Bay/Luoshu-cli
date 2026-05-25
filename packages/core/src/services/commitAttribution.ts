@@ -292,11 +292,11 @@ function sanitiseAttribution(v: unknown): FileAttribution {
 /**
  * Surface label embedded in the git-notes payload. Defaults to `'cli'`
  * for the qwen-code CLI; embedders (IDE extensions, SDK consumers) can
- * override by setting `LUOSHU_ENTRYPOINT` before construction so the
+ * override by setting `HANHAI_ENTRYPOINT` before construction so the
  * note records where the contribution was authored.
  */
 export function getClientSurface(): string {
-  return process.env['LUOSHU_ENTRYPOINT'] ?? 'cli';
+  return process.env['HANHAI_ENTRYPOINT'] ?? 'cli';
 }
 
 // ---------------------------------------------------------------------------

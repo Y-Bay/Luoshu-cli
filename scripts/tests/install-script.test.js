@@ -69,10 +69,10 @@ describe('installation scripts', () => {
     expect(script).toContain('Node.js 22 or newer is required');
     expect(script).toContain('npm_package_spec()');
     expect(script).toContain('@qwen-code/qwen-code@latest');
-    expect(script).toContain('Installing Qwen Code version:');
+    expect(script).toContain('Installing Hanhai CLI version:');
     expect(script).toContain('QWEN CODE');
     expect(script).toContain(
-      'Qwen Code ${installed_version} installed successfully.',
+      'Hanhai CLI ${installed_version} installed successfully.',
     );
     expect(script).toContain('To start:');
     expect(script).toContain('Installed to:');
@@ -127,7 +127,7 @@ describe('installation scripts', () => {
     expect(script).toContain('validate_https_url "${NPM_REGISTRY}"');
     expect(script).toContain('qwen-code/node/bin/node');
     expect(script).toContain('Archive contains symlinks; refusing to install');
-    expect(script).toContain('not a Qwen Code standalone install');
+    expect(script).toContain('not a Hanhai CLI standalone install');
     expect(script).toContain(
       'Return 2 only when a standalone archive is unavailable',
     );
@@ -168,8 +168,8 @@ describe('installation scripts', () => {
     expect(script).toContain('set -gx PATH ${quoted_install_bin_dir} \\$PATH');
     expect(script).toContain('export PATH=${quoted_install_bin_dir}:\\$PATH');
     expect(script).toContain('Unsupported shell for automatic PATH update');
-    expect(script).toContain('# Qwen Code PATH block begin');
-    expect(script).toContain('# Qwen Code PATH block end');
+    expect(script).toContain('# Hanhai CLI PATH block begin');
+    expect(script).toContain('# Hanhai CLI PATH block end');
     expect(script).toContain('probe_url_available()');
     expect(script).toContain('/latest/VERSION');
     expect(script).toContain('resolve_aliyun_version_path()');
@@ -216,10 +216,10 @@ describe('installation scripts', () => {
     expect(script).toContain('Please install Node.js');
     expect(script).toContain(':NpmPackageSpec');
     expect(script).toContain('@qwen-code/qwen-code@latest');
-    expect(script).toContain('Installing Qwen Code version:');
+    expect(script).toContain('Installing Hanhai CLI version:');
     expect(script).toContain('QWEN CODE');
     expect(script).toContain(
-      'Qwen Code !INSTALLED_VERSION! installed successfully.',
+      'Hanhai CLI !INSTALLED_VERSION! installed successfully.',
     );
     expect(script).toContain('To start:');
     expect(script).toContain('Installed to:');
@@ -825,7 +825,9 @@ describe('standalone release packaging', () => {
     expect(installPowerShellSource).toContain('Save-CurrentCmdPathShim');
     expect(installPowerShellSource).toContain('current-cmd-shim.txt');
     expect(installPowerShellSource).toContain('Test-WritableDirectory');
-    expect(installPowerShellSource).toContain('Qwen Code current-session shim');
+    expect(installPowerShellSource).toContain(
+      'Hanhai CLI current-session shim',
+    );
     expect(installPowerShellSource).toContain(
       'TEMP environment variable is not set',
     );
@@ -1842,7 +1844,7 @@ describe('standalone release packaging', () => {
     );
     expect(uninstallPowerShellSource).toContain('current-cmd-shim.txt');
     expect(uninstallPowerShellSource).toContain(
-      'Qwen Code current-session shim',
+      'Hanhai CLI current-session shim',
     );
     expect(uninstallPowerShellSource).toContain('QWEN_UNINSTALL_PURGE');
     expect(uninstallPowerShellSource).toContain('Preserving');
@@ -1887,10 +1889,10 @@ describe('Linux/macOS installer end-to-end', { timeout: 15000 }, () => {
           .toString()
           .trim();
         expect(version).toBe('0.0.0-smoke');
-        expect(output).toContain('Installing Qwen Code version: latest');
+        expect(output).toContain('Installing Hanhai CLI version: latest');
         expect(output).toContain('QWEN CODE');
         expect(output).toContain(
-          'Qwen Code 0.0.0-smoke installed successfully.',
+          'Hanhai CLI 0.0.0-smoke installed successfully.',
         );
         expect(output).toContain('To start:\n  cd <project>\n  qwen');
         expect(output).toContain(
@@ -2160,9 +2162,9 @@ describe('Linux/macOS installer end-to-end', { timeout: 15000 }, () => {
         rcFile,
         [
           'before',
-          '# Qwen Code PATH block begin',
+          '# Hanhai CLI PATH block begin',
           `export PATH='${installRoot}/bin':$PATH`,
-          '# Qwen Code PATH block end',
+          '# Hanhai CLI PATH block end',
           'after',
         ].join('\n') + '\n',
       );
@@ -2246,10 +2248,10 @@ describe('Linux/macOS installer end-to-end', { timeout: 15000 }, () => {
           rcFile,
           [
             'before',
-            '# Qwen Code PATH block begin',
+            '# Hanhai CLI PATH block begin',
             '# inserted by another tool',
             `export PATH='${installRoot}/bin':$PATH`,
-            '# Qwen Code PATH block end',
+            '# Hanhai CLI PATH block end',
             'after',
           ].join('\n') + '\n',
         );
@@ -2281,7 +2283,7 @@ describe('Linux/macOS installer end-to-end', { timeout: 15000 }, () => {
           rcFile,
           [
             'before',
-            '# Qwen Code PATH block begin',
+            '# Hanhai CLI PATH block begin',
             `export PATH='${installRoot}/bin':$PATH`,
             'user content that must stay',
             'after',
@@ -2293,7 +2295,7 @@ describe('Linux/macOS installer end-to-end', { timeout: 15000 }, () => {
         expect(readScript(rcFile)).toBe(
           [
             'before',
-            '# Qwen Code PATH block begin',
+            '# Hanhai CLI PATH block begin',
             `export PATH='${installRoot}/bin':$PATH`,
             'user content that must stay',
             'after',
@@ -2668,7 +2670,7 @@ describe('Linux/macOS installer end-to-end', { timeout: 15000 }, () => {
         path.join(tmpDir, 'home'),
       ).toString();
 
-      expect(output).toContain('not a Qwen Code standalone install');
+      expect(output).toContain('not a Hanhai CLI standalone install');
       expect(output).toContain('Backing up to');
 
       // Original directory should be backed up, not destroyed

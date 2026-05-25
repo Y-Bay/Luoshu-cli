@@ -44,22 +44,22 @@ describe('auto-memory storage scaffold', () => {
 
   it('builds stable auto-memory paths under project .qwen directory', () => {
     expect(getAutoMemoryRoot(projectRoot)).toBe(
-      path.join(projectRoot, '.luoshu', 'memory'),
+      path.join(projectRoot, '.hanhai', 'memory'),
     );
     expect(getAutoMemoryIndexPath(projectRoot)).toBe(
-      path.join(projectRoot, '.luoshu', 'memory', 'MEMORY.md'),
+      path.join(projectRoot, '.hanhai', 'memory', 'MEMORY.md'),
     );
     expect(getAutoMemoryMetadataPath(projectRoot)).toBe(
-      path.join(projectRoot, '.luoshu', 'meta.json'),
+      path.join(projectRoot, '.hanhai', 'meta.json'),
     );
     expect(getAutoMemoryExtractCursorPath(projectRoot)).toBe(
-      path.join(projectRoot, '.luoshu', 'extract-cursor.json'),
+      path.join(projectRoot, '.hanhai', 'extract-cursor.json'),
     );
     expect(getAutoMemoryConsolidationLockPath(projectRoot)).toBe(
-      path.join(projectRoot, '.luoshu', 'consolidation.lock'),
+      path.join(projectRoot, '.hanhai', 'consolidation.lock'),
     );
     expect(getAutoMemoryTopicPath(projectRoot, 'feedback')).toBe(
-      path.join(projectRoot, '.luoshu', 'memory', 'feedback.md'),
+      path.join(projectRoot, '.hanhai', 'memory', 'feedback.md'),
     );
   });
 

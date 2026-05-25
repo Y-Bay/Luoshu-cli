@@ -81,7 +81,7 @@ export const tipRegistry: ContextualTip[] = [
   {
     id: 'new-user-qwenmd',
     content:
-      'Add a LUOSHU.md file to give Luoshu CLI persistent project context.',
+      'Add a HANHAI.md file to give Hanhai CLI persistent project context.',
     trigger: 'startup',
     isRelevant: (ctx) => ctx.sessionCount < 10,
     cooldownPrompts: 0,
@@ -90,7 +90,7 @@ export const tipRegistry: ContextualTip[] = [
   {
     id: 'new-user-resume',
     content:
-      'You can resume a previous conversation by running luoshu --continue or luoshu --resume.',
+      'You can resume a previous conversation by running hanhai --continue or hanhai --resume.',
     trigger: 'startup',
     isRelevant: (ctx) => ctx.sessionCount < 10,
     cooldownPrompts: 0,
@@ -99,7 +99,7 @@ export const tipRegistry: ContextualTip[] = [
   {
     id: 'shell-commands',
     content:
-      'You can run any shell commands from Luoshu CLI using ! (e.g. !ls).',
+      'You can run any shell commands from Hanhai CLI using ! (e.g. !ls).',
     trigger: 'startup',
     isRelevant: (ctx) => ctx.sessionCount < 15,
     cooldownPrompts: 0,

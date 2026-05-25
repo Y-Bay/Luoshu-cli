@@ -937,7 +937,7 @@ describe('McpClientManager', () => {
 describe('McpClientManager — PR 14 guardrails', () => {
   afterEach(() => {
     vi.restoreAllMocks();
-    delete process.env['LUOSHU_SERVE_MCP_CLIENT_BUDGET'];
+    delete process.env['HANHAI_SERVE_MCP_CLIENT_BUDGET'];
     delete process.env['QWEN_SERVE_MCP_BUDGET_MODE'];
   });
 
@@ -1206,7 +1206,7 @@ describe('McpClientManager — PR 14 guardrails', () => {
   });
 
   it('env var fallback resolves budget + mode when constructor omits opts', async () => {
-    process.env['LUOSHU_SERVE_MCP_CLIENT_BUDGET'] = '7';
+    process.env['HANHAI_SERVE_MCP_CLIENT_BUDGET'] = '7';
     process.env['QWEN_SERVE_MCP_BUDGET_MODE'] = 'enforce';
     const config = configWithServers({});
     const manager = new McpClientManager(config, {} as ToolRegistry);
@@ -1215,7 +1215,7 @@ describe('McpClientManager — PR 14 guardrails', () => {
   });
 
   it('env var fallback defaults mode to warn when only budget is set', async () => {
-    process.env['LUOSHU_SERVE_MCP_CLIENT_BUDGET'] = '5';
+    process.env['HANHAI_SERVE_MCP_CLIENT_BUDGET'] = '5';
     // No mode env var. Resolved mode is `warn` (the safe default).
     const config = configWithServers({});
     const manager = new McpClientManager(config, {} as ToolRegistry);
@@ -1224,7 +1224,7 @@ describe('McpClientManager — PR 14 guardrails', () => {
   });
 
   it('env var fallback rejects non-positive budgets silently', async () => {
-    process.env['LUOSHU_SERVE_MCP_CLIENT_BUDGET'] = '-3';
+    process.env['HANHAI_SERVE_MCP_CLIENT_BUDGET'] = '-3';
     const config = configWithServers({});
     const manager = new McpClientManager(config, {} as ToolRegistry);
     // Invalid values fall through to `undefined` budget + `off` mode —
@@ -1501,7 +1501,7 @@ describe('McpClientManager — PR 14 guardrails', () => {
 
   it('readBudgetFromEnv downgrades enforce-without-budget to off (wenshao S4)', async () => {
     process.env['QWEN_SERVE_MCP_BUDGET_MODE'] = 'enforce';
-    // No LUOSHU_SERVE_MCP_CLIENT_BUDGET — silently fail-open pre-fix:
+    // No HANHAI_SERVE_MCP_CLIENT_BUDGET — silently fail-open pre-fix:
     // `tryReserveSlot` returns 'reserved' when `clientBudget === undefined`,
     // so an "enforce" daemon would let unlimited servers through.
     const config = configWithServers({});
@@ -1814,7 +1814,7 @@ describe('McpClientManager — PR 14 guardrails', () => {
 
   it('readBudgetFromEnv emits stderr warning on invalid budget value (wenshao R7 #6 line 191)', async () => {
     const writeSpy = vi.spyOn(process.stderr, 'write').mockReturnValue(true);
-    process.env['LUOSHU_SERVE_MCP_CLIENT_BUDGET'] = 'abc';
+    process.env['HANHAI_SERVE_MCP_CLIENT_BUDGET'] = 'abc';
     try {
       const config = configWithServers({});
       const manager = new McpClientManager(config, {} as ToolRegistry);
@@ -1824,7 +1824,7 @@ describe('McpClientManager — PR 14 guardrails', () => {
       expect(
         calls.some(
           (s) =>
-            s.includes('ignoring invalid LUOSHU_SERVE_MCP_CLIENT_BUDGET') &&
+            s.includes('ignoring invalid HANHAI_SERVE_MCP_CLIENT_BUDGET') &&
             s.includes("'abc'"),
         ),
       ).toBe(true);
@@ -2038,7 +2038,7 @@ describe('McpClientManager — PR 14 guardrails', () => {
 describe('McpClientManager — PR 14b push events + hysteresis', () => {
   afterEach(() => {
     vi.restoreAllMocks();
-    delete process.env['LUOSHU_SERVE_MCP_CLIENT_BUDGET'];
+    delete process.env['HANHAI_SERVE_MCP_CLIENT_BUDGET'];
     delete process.env['QWEN_SERVE_MCP_BUDGET_MODE'];
   });
 

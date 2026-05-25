@@ -166,7 +166,7 @@ const TAIL_READ_SIZE = 64 * 1024;
  * - Removing sessions
  *
  * Sessions are stored as JSONL files, one per session.
- * File location: ~/.luoshu/tmp/<project_id>/chats/
+ * File location: ~/.hanhai/tmp/<project_id>/chats/
  */
 export class SessionService {
   private readonly storage: Storage;

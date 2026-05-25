@@ -47,12 +47,12 @@ export const rememberCommand: SlashCommand = {
       };
     }
 
-    // Managed auto-memory is disabled: ask the agent to save to LUOSHU.md
+    // Managed auto-memory is disabled: ask the agent to save to HANHAI.md
     // using its native file tools. We do not call save_memory because that
     // tool was removed.
     return {
       type: 'submit_prompt',
-      content: `Please save the following fact to memory (e.g. append to LUOSHU.md in the project root):\n\n${fact}`,
+      content: `Please save the following fact to memory (e.g. append to HANHAI.md in the project root):\n\n${fact}`,
     };
   },
 };

@@ -24,7 +24,7 @@ export class QwenIgnoreParser implements QwenIgnoreFilter {
   }
 
   private loadPatterns(): void {
-    const patternsFilePath = path.join(this.projectRoot, '.luoshuignore');
+    const patternsFilePath = path.join(this.projectRoot, '.hanhaiignore');
     let content: string;
     try {
       content = fs.readFileSync(patternsFilePath, 'utf-8');

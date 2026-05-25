@@ -44,7 +44,7 @@ export function getHookExitCodes(eventName: string): HookExitCode[] {
       { code: 'Other', description: t('show stderr to user only') },
     ],
     [HookEventName.UserPromptSubmit]: [
-      { code: 0, description: t('stdout shown to Qwen') },
+      { code: 0, description: t('stdout shown to Hanhai') },
       {
         code: 2,
         description: t(
@@ -54,7 +54,7 @@ export function getHookExitCodes(eventName: string): HookExitCode[] {
       { code: 'Other', description: t('show stderr to user only') },
     ],
     [HookEventName.SessionStart]: [
-      { code: 0, description: t('stdout shown to Qwen') },
+      { code: 0, description: t('stdout shown to Hanhai') },
       {
         code: 'Other',
         description: t('show stderr to user only (blocking errors ignored)'),
@@ -125,7 +125,7 @@ export function getHookShortDescription(eventName: string): string {
     [HookEventName.Notification]: t('When notifications are sent'),
     [HookEventName.UserPromptSubmit]: t('When the user submits a prompt'),
     [HookEventName.SessionStart]: t('When a new session is started'),
-    [HookEventName.Stop]: t('Right before Luoshu CLI concludes its response'),
+    [HookEventName.Stop]: t('Right before Hanhai CLI concludes its response'),
     [HookEventName.SubagentStart]: t(
       'When a subagent (Agent tool call) is started',
     ),

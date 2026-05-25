@@ -1,6 +1,6 @@
 # Web Search
 
-Qwen Code supports web search capabilities through **MCP (Model Context Protocol)** integrations. Rather than a built-in search tool, web search is provided by connecting to external MCP servers, giving you full flexibility to choose the search service that best fits your needs.
+Hanhai CLI supports web search capabilities through **MCP (Model Context Protocol)** integrations. Rather than a built-in search tool, web search is provided by connecting to external MCP servers, giving you full flexibility to choose the search service that best fits your needs.
 
 ## ⚠️ Breaking Change: Built-in `web_search` Tool Removed
 
@@ -109,7 +109,7 @@ qwen mcp add WebSearch \
 }
 ```
 
-Replace `${DASHSCOPE_API_KEY}` with your actual API key, or set it as an environment variable so Qwen Code picks it up automatically.
+Replace `${DASHSCOPE_API_KEY}` with your actual API key, or set it as an environment variable so Hanhai CLI picks it up automatically.
 
 ---
 

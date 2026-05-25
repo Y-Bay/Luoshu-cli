@@ -41,7 +41,7 @@ vi.mock('../../semantic-colors.js', () => ({
 describe('HookConfigDetailStep', () => {
   const createMockHookEvent = (): HookEventDisplayInfo => ({
     event: HookEventName.Stop,
-    shortDescription: 'Right before Qwen Code concludes its response',
+    shortDescription: 'Right before Hanhai CLI concludes its response',
     description: '',
     exitCodes: [
       { code: 0, description: 'stdout/stderr not shown' },
@@ -136,7 +136,7 @@ describe('HookConfigDetailStep', () => {
     const hookConfig = createMockHookConfig(
       HooksConfigSource.Extensions,
       'ralph-wiggum',
-      '/Users/test/.luoshu/extensions/ralph-wiggum',
+      '/Users/test/.hanhai/extensions/ralph-wiggum',
     );
 
     const { lastFrame } = render(
@@ -145,7 +145,7 @@ describe('HookConfigDetailStep', () => {
 
     expect(lastFrame()).toContain('Extensions');
     expect(lastFrame()).toContain(
-      '/Users/test/.luoshu/extensions/ralph-wiggum',
+      '/Users/test/.hanhai/extensions/ralph-wiggum',
     );
   });
 

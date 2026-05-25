@@ -22,7 +22,7 @@ describe('bundled locale fallback', () => {
 
   it('loads bundled builtin translations when locale files are absent on disk', async () => {
     const qwenLocalePathPattern =
-      /([\\/]\.luoshu|[\\/]i18n)[\\/]locales([\\/]|$)/;
+      /([\\/]\.hanhai|[\\/]i18n)[\\/]locales([\\/]|$)/;
 
     vi.doMock('node:fs', async (importOriginal) => {
       const actualFs = await importOriginal<typeof import('node:fs')>();

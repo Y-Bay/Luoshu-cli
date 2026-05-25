@@ -92,9 +92,9 @@ describe('loadIgnoreRules', () => {
     expect(fileFilter('test.txt')).toBe(false);
   });
 
-  it('should load rules from .luoshuignore', async () => {
+  it('should load rules from .hanhaiignore', async () => {
     tmpDir = await createTmpDir({
-      '.luoshuignore': '*.log',
+      '.hanhaiignore': '*.log',
     });
     const ignore = loadIgnoreRules({
       projectRoot: tmpDir,
@@ -107,10 +107,10 @@ describe('loadIgnoreRules', () => {
     expect(fileFilter('test.txt')).toBe(false);
   });
 
-  it('should combine rules from .gitignore and .luoshuignore', async () => {
+  it('should combine rules from .gitignore and .hanhaiignore', async () => {
     tmpDir = await createTmpDir({
       '.gitignore': '*.log',
-      '.luoshuignore': '*.txt',
+      '.hanhaiignore': '*.txt',
     });
     const ignore = loadIgnoreRules({
       projectRoot: tmpDir,

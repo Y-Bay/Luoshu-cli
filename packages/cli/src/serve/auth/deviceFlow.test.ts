@@ -747,7 +747,7 @@ describe('DeviceFlowRegistry — authoritative timeouts (fold-in 7)', () => {
       if (auditHint !== undefined) {
         expect(auditHint).not.toContain('provider.poll() threw (raw)');
       }
-      // PR #4291 follow-up review (Qwen Code review summary):
+      // PR #4291 follow-up review (Hanhai CLI review summary):
       // poll-tick must NOT reschedule itself after a timeout-driven
       // upstream_error (the entry has already transitioned to error
       // state; another poll would be a `entry.status !== 'pending'`

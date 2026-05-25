@@ -589,7 +589,7 @@ export class AnthropicContentGenerator implements ContentGenerator {
         : userMaxTokens;
     } else {
       // No explicit user config — check env var, then use capped default.
-      const envVal = process.env['LUOSHU_MAX_OUTPUT_TOKENS'];
+      const envVal = process.env['HANHAI_MAX_OUTPUT_TOKENS'];
       const envMaxTokens = envVal ? parseInt(envVal, 10) : NaN;
       if (!isNaN(envMaxTokens) && envMaxTokens > 0) {
         maxTokens = isKnownModel

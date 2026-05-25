@@ -38,7 +38,7 @@ import {
 const originalKill = process.kill;
 
 function getPidFilePath() {
-  return join(homedir(), '.luoshu', 'channels', 'service.pid');
+  return join(homedir(), '.hanhai', 'channels', 'service.pid');
 }
 
 beforeEach(() => {

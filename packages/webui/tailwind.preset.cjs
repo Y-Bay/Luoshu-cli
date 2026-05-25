@@ -7,7 +7,7 @@
 /**
  * @qwen-code/webui Tailwind CSS Preset
  *
- * This preset provides shared theme configuration for all Qwen Code products.
+ * This preset provides shared theme configuration for all Hanhai CLI products.
  * Consumers should include this preset in their tailwind.config.js:
  *
  * @example

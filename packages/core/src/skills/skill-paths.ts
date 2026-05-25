@@ -7,7 +7,7 @@
 import * as path from 'node:path';
 import * as fs from 'node:fs/promises';
 
-export const PROJECT_SKILLS_RELATIVE_DIR = path.join('.luoshu', 'skills');
+export const PROJECT_SKILLS_RELATIVE_DIR = path.join('.hanhai', 'skills');
 export const SKILL_FILE_NAME = 'SKILL.md';
 
 export function getProjectSkillsRoot(projectRoot: string): string {

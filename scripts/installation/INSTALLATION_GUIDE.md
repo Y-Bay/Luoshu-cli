@@ -1,6 +1,6 @@
-# Installation Guide for Qwen Code with Source Tracking
+# Installation Guide for Hanhai CLI with Source Tracking
 
-This guide describes the source-tracking installation scripts for Qwen Code.
+This guide describes the source-tracking installation scripts for Hanhai CLI.
 The scripts prefer standalone release archives and can fall back to npm when a
 standalone archive is not available.
 
@@ -140,9 +140,9 @@ install-qwen-standalone.bat --method npm
 
 ## Optional Native Modules
 
-The standalone archives bundle Qwen Code and a private Node.js runtime. They do
+The standalone archives bundle Hanhai CLI and a private Node.js runtime. They do
 not currently install npm optional native modules such as `node-pty` and
-`@teddyzhu/clipboard`. Qwen Code is designed to degrade when these optional
+`@teddyzhu/clipboard`. Hanhai CLI is designed to degrade when these optional
 modules are absent, but terminal pty behavior and clipboard image support may
 not be identical to an npm installation.
 
@@ -298,7 +298,7 @@ If source tracking is not needed and Node.js 22 or newer is already available:
 npm install -g @qwen-code/qwen-code@latest
 ```
 
-Homebrew users can also install Qwen Code with:
+Homebrew users can also install Hanhai CLI with:
 
 ```bash
 brew install qwen-code

@@ -201,7 +201,7 @@ export function resetConversationState({
   // Reset the VS Code tab title to default label
   vscode.postMessage({
     type: 'updatePanelTitle',
-    data: { title: 'Qwen Code' },
+    data: { title: 'Hanhai CLI' },
   });
 }
 

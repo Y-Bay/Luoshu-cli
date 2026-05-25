@@ -1,6 +1,6 @@
 # WeChat (Weixin)
 
-This guide covers setting up a Qwen Code channel on WeChat via the official iLink Bot API.
+This guide covers setting up a Hanhai CLI channel on WeChat via the official iLink Bot API.
 
 ## Prerequisites
 

@@ -18,7 +18,7 @@ import { sendNotification } from '../../services/notificationService.js';
 
 export const LONG_TASK_NOTIFICATION_THRESHOLD_SECONDS = 20;
 
-const NOTIFICATION_TITLE = 'Luoshu CLI';
+const NOTIFICATION_TITLE = 'Hanhai CLI';
 
 interface UseAttentionNotificationsOptions {
   isFocused: boolean;
@@ -63,8 +63,8 @@ export const useAttentionNotifications = ({
       terminalBellEnabled
     ) {
       const message = awaitingToolName
-        ? `Luoshu CLI needs your permission to use ${awaitingToolName}`
-        : 'Luoshu CLI is waiting for your input';
+        ? `Hanhai CLI needs your permission to use ${awaitingToolName}`
+        : 'Hanhai CLI is waiting for your input';
 
       sendNotification(
         { message, title: NOTIFICATION_TITLE },
@@ -99,7 +99,7 @@ export const useAttentionNotifications = ({
       if (wasLongTask && !isFocused && terminalBellEnabled) {
         sendNotification(
           {
-            message: 'Luoshu CLI is waiting for your input',
+            message: 'Hanhai CLI is waiting for your input',
             title: NOTIFICATION_TITLE,
           },
           terminal,
@@ -115,7 +115,7 @@ export const useAttentionNotifications = ({
         if (hooksEnabled && messageBus) {
           fireNotificationHook(
             messageBus,
-            'Luoshu CLI is waiting for your input',
+            'Hanhai CLI is waiting for your input',
             NotificationType.IdlePrompt,
             'Waiting for input',
           ).catch(() => {

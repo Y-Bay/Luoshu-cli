@@ -1,6 +1,6 @@
 # Observability with OpenTelemetry
 
-Learn how to enable and setup OpenTelemetry for Qwen Code.
+Learn how to enable and setup OpenTelemetry for Hanhai CLI.
 
 - [Observability with OpenTelemetry](#observability-with-opentelemetry)
   - [Key Benefits](#key-benefits)
@@ -31,7 +31,7 @@ Learn how to enable and setup OpenTelemetry for Qwen Code.
 ## OpenTelemetry Integration
 
 Built on **[OpenTelemetry]** — the vendor-neutral, industry-standard
-observability framework — Qwen Code's observability system provides:
+observability framework — Hanhai CLI's observability system provides:
 
 - **Universal Compatibility**: Export to any OpenTelemetry backend (Aliyun,
   Jaeger, Prometheus, Datadog, etc.)
@@ -112,7 +112,7 @@ OTel logs, UI telemetry, and chat recording may receive response text
 independently of this setting. QwenLogger does not include `response_text`.
 
 **HTTP OTLP signal routing:** When using HTTP protocol (`otlpProtocol: "http"`),
-Qwen Code automatically appends signal-specific paths (`/v1/traces`, `/v1/logs`,
+Hanhai CLI automatically appends signal-specific paths (`/v1/traces`, `/v1/logs`,
 `/v1/metrics`) to the base `otlpEndpoint`. For example, `http://collector:4318`
 becomes `http://collector:4318/v1/traces` for traces. If the URL already ends
 with a signal path, it is used as-is. Per-signal endpoint overrides
@@ -221,7 +221,7 @@ high-cardinality field like `session.id` to a metric causes time-series fan-out
 proportional to the number of sessions, which quickly exhausts metric backend
 storage.
 
-To prevent this, Qwen Code keeps high-cardinality attributes off metric data
+To prevent this, Hanhai CLI keeps high-cardinality attributes off metric data
 points by default. Spans and logs are per-event and unaffected, so they
 continue to carry `session.id` for trace and log correlation.
 
@@ -266,12 +266,12 @@ cardinality pressure.
 
 ### Manual OTLP Export
 
-To view Qwen Code telemetry in Alibaba Cloud Managed Service for
-OpenTelemetry, configure Qwen Code to export to the OTLP endpoint
+To view Hanhai CLI telemetry in Alibaba Cloud Managed Service for
+OpenTelemetry, configure Hanhai CLI to export to the OTLP endpoint
 provided by ARMS.
 
 Setting `"target": "gcp"` alone does not configure the export
-destination. If `otlpEndpoint` is not set, Qwen Code still defaults to
+destination. If `otlpEndpoint` is not set, Hanhai CLI still defaults to
 `http://localhost:4317`. If `outfile` is set, it overrides
 `otlpEndpoint` and telemetry is written to the file instead of being
 sent to Alibaba Cloud.
@@ -309,7 +309,7 @@ sent to Alibaba Cloud.
    ```
 
    > **Note:** When using HTTP protocol with only `otlpEndpoint` (no
-   > per-signal overrides), Qwen Code appends standard OTLP paths
+   > per-signal overrides), Hanhai CLI appends standard OTLP paths
    > (`/v1/traces`, `/v1/logs`, `/v1/metrics`) to the base URL. If your
    > backend uses different paths, use per-signal endpoint overrides as
    > shown in Option B.
@@ -319,7 +319,7 @@ sent to Alibaba Cloud.
    `OTEL_EXPORTER_OTLP_HEADERS` (or the signal-specific variants). Qwen
    Code does not currently expose OTLP auth headers directly in
    `.qwen/settings.json`.
-3. Run Qwen Code and send prompts.
+3. Run Hanhai CLI and send prompts.
 4. View telemetry in Managed Service for OpenTelemetry:
    - Product overview:
      [What is Managed Service for OpenTelemetry?][aliyun-opentelemetry-overview]
@@ -361,7 +361,7 @@ For local development and debugging, you can capture telemetry data locally:
    > The `target` and `otlpEndpoint` settings are not needed for file-only
    > output and can be safely omitted from your config.
 
-2. Run Qwen Code and send prompts.
+2. Run Hanhai CLI and send prompts.
 3. View logs and metrics in the specified file (e.g., `.qwen/telemetry.log`).
 
 ### Collector-Based Export (Advanced)
@@ -376,20 +376,20 @@ For local development and debugging, you can capture telemetry data locally:
    - Provide a Jaeger UI at http://localhost:16686
    - Save logs/metrics to `~/.qwen/tmp/<projectHash>/otel/collector.log`
    - Stop collector on exit (e.g. `Ctrl+C`)
-2. Run Qwen Code and send prompts.
+2. Run Hanhai CLI and send prompts.
 3. View traces at http://localhost:16686 and logs/metrics in the collector log
    file.
 
 ## Logs and Metrics
 
 The following section describes the structure of logs and metrics generated for
-Qwen Code.
+Hanhai CLI.
 
 - A `sessionId` is included as a common attribute on all logs and metrics.
 
 ### Logs
 
-Logs are timestamped records of specific events. The following events are logged for Qwen Code:
+Logs are timestamped records of specific events. The following events are logged for Hanhai CLI:
 
 - `qwen-code.config`: This event occurs once at startup with the CLI's configuration.
   - **Attributes**:
@@ -482,7 +482,7 @@ Logs are timestamped records of specific events. The following events are logged
   - **Attributes**:
     - `model`
 
-- `qwen-code.flash_fallback`: This event occurs when Qwen Code switches to flash as fallback.
+- `qwen-code.flash_fallback`: This event occurs when Hanhai CLI switches to flash as fallback.
   - **Attributes**:
     - `auth_type`
 
@@ -502,7 +502,7 @@ Logs are timestamped records of specific events. The following events are logged
 
 ### Metrics
 
-Metrics are numerical measurements of behavior over time. The following metrics are collected for Qwen Code (metric names remain `qwen-code.*` for compatibility):
+Metrics are numerical measurements of behavior over time. The following metrics are collected for Hanhai CLI (metric names remain `qwen-code.*` for compatibility):
 
 - `qwen-code.session.count` (Counter, Int): Incremented once per CLI startup.
 

@@ -83,7 +83,7 @@ const getPortFromMock = (
 ) => {
   const port = vi
     .mocked(replaceMock)
-    .mock.calls.find((call) => call[0] === 'LUOSHU_IDE_SERVER_PORT')?.[1];
+    .mock.calls.find((call) => call[0] === 'HANHAI_IDE_SERVER_PORT')?.[1];
 
   if (port === undefined) {
     expect.fail('Port was not set');
@@ -125,7 +125,7 @@ describe('IDEServer', () => {
 
     expect(replaceMock).toHaveBeenNthCalledWith(
       1,
-      'LUOSHU_IDE_SERVER_PORT',
+      'HANHAI_IDE_SERVER_PORT',
       expect.any(String), // port is a number as a string
     );
 
@@ -136,14 +136,14 @@ describe('IDEServer', () => {
 
     expect(replaceMock).toHaveBeenNthCalledWith(
       2,
-      'LUOSHU_IDE_WORKSPACE_PATH',
+      'HANHAI_IDE_WORKSPACE_PATH',
       expectedWorkspacePaths,
     );
 
     const port = getPortFromMock(replaceMock);
     const expectedLockFile = path.join(
       '/home/test',
-      '.luoshu',
+      '.hanhai',
       'ide',
       `${port}.lock`,
     );
@@ -168,14 +168,14 @@ describe('IDEServer', () => {
     const replaceMock = mockContext.environmentVariableCollection.replace;
 
     expect(replaceMock).toHaveBeenCalledWith(
-      'LUOSHU_IDE_WORKSPACE_PATH',
+      'HANHAI_IDE_WORKSPACE_PATH',
       '/foo/bar',
     );
 
     const port = getPortFromMock(replaceMock);
     const expectedLockFile = path.join(
       '/home/test',
-      '.luoshu',
+      '.hanhai',
       'ide',
       `${port}.lock`,
     );
@@ -199,12 +199,12 @@ describe('IDEServer', () => {
     await ideServer.start(mockContext);
     const replaceMock = mockContext.environmentVariableCollection.replace;
 
-    expect(replaceMock).toHaveBeenCalledWith('LUOSHU_IDE_WORKSPACE_PATH', '');
+    expect(replaceMock).toHaveBeenCalledWith('HANHAI_IDE_WORKSPACE_PATH', '');
 
     const port = getPortFromMock(replaceMock);
     const expectedLockFile = path.join(
       '/home/test',
-      '.luoshu',
+      '.hanhai',
       'ide',
       `${port}.lock`,
     );
@@ -228,7 +228,7 @@ describe('IDEServer', () => {
     const replaceMock = mockContext.environmentVariableCollection.replace;
 
     expect(replaceMock).toHaveBeenCalledWith(
-      'LUOSHU_IDE_WORKSPACE_PATH',
+      'HANHAI_IDE_WORKSPACE_PATH',
       '/foo/bar',
     );
 
@@ -243,14 +243,14 @@ describe('IDEServer', () => {
       path.delimiter,
     );
     expect(replaceMock).toHaveBeenCalledWith(
-      'LUOSHU_IDE_WORKSPACE_PATH',
+      'HANHAI_IDE_WORKSPACE_PATH',
       expectedWorkspacePaths,
     );
 
     const port = getPortFromMock(replaceMock);
     const expectedLockFile = path.join(
       '/home/test',
-      '.luoshu',
+      '.hanhai',
       'ide',
       `${port}.lock`,
     );
@@ -272,7 +272,7 @@ describe('IDEServer', () => {
     await ideServer.syncEnvVars();
 
     expect(replaceMock).toHaveBeenCalledWith(
-      'LUOSHU_IDE_WORKSPACE_PATH',
+      'HANHAI_IDE_WORKSPACE_PATH',
       '/baz/qux',
     );
     const expectedContent2 = JSON.stringify({
@@ -293,7 +293,7 @@ describe('IDEServer', () => {
     await ideServer.start(mockContext);
     const replaceMock = mockContext.environmentVariableCollection.replace;
     const port = getPortFromMock(replaceMock);
-    const lockFile = path.join('/home/test', '.luoshu', 'ide', `${port}.lock`);
+    const lockFile = path.join('/home/test', '.hanhai', 'ide', `${port}.lock`);
     expect(fs.writeFile).toHaveBeenCalledWith(lockFile, expect.any(String));
 
     await ideServer.stop();
@@ -315,14 +315,14 @@ describe('IDEServer', () => {
       const expectedWorkspacePaths = 'c:\\foo\\bar;d:\\baz\\qux';
 
       expect(replaceMock).toHaveBeenCalledWith(
-        'LUOSHU_IDE_WORKSPACE_PATH',
+        'HANHAI_IDE_WORKSPACE_PATH',
         expectedWorkspacePaths,
       );
 
       const port = getPortFromMock(replaceMock);
       const expectedLockFile = path.join(
         '/home/test',
-        '.luoshu',
+        '.hanhai',
         'ide',
         `${port}.lock`,
       );

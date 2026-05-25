@@ -28,7 +28,7 @@ package-lock.json
 CLAUDE.md
 .codex
 
-# Qwen Code Configs
+# Hanhai CLI Configs
 .qwen/*
 !.qwen/commands/
 !.qwen/commands/**

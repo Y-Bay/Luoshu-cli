@@ -21,14 +21,14 @@ describe('skill project paths', () => {
 
   it('resolves the project skills root', () => {
     expect(getProjectSkillsRoot(projectRoot)).toBe(
-      path.join(projectRoot, '.luoshu', 'skills'),
+      path.join(projectRoot, '.hanhai', 'skills'),
     );
   });
 
-  it('allows paths inside project .luoshu/skills', () => {
+  it('allows paths inside project .hanhai/skills', () => {
     const skillPath = path.join(
       projectRoot,
-      '.luoshu',
+      '.hanhai',
       'skills',
       'my-skill',
       'SKILL.md',
@@ -40,7 +40,7 @@ describe('skill project paths', () => {
   it('rejects sibling paths that merely share the prefix', () => {
     const sibling = path.join(
       projectRoot,
-      '.luoshu',
+      '.hanhai',
       'skills-evil',
       'SKILL.md',
     );
@@ -64,7 +64,7 @@ describe('assertRealProjectSkillPath – symlink traversal', () => {
   beforeEach(async () => {
     tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'skill-symlink-'));
     projectRoot = path.join(tmpDir, 'project');
-    skillsDir = path.join(projectRoot, '.luoshu', 'skills');
+    skillsDir = path.join(projectRoot, '.hanhai', 'skills');
     outsideDir = path.join(tmpDir, 'outside');
     await fs.mkdir(skillsDir, { recursive: true });
     await fs.mkdir(outsideDir, { recursive: true });
@@ -82,7 +82,7 @@ describe('assertRealProjectSkillPath – symlink traversal', () => {
   });
 
   it('rejects a path whose parent is a symlink pointing outside skills dir', async () => {
-    // Create a symlink: .luoshu/skills/escape -> ../../outside
+    // Create a symlink: .hanhai/skills/escape -> ../../outside
     const symlinkPath = path.join(skillsDir, 'escape');
     await fs.symlink(outsideDir, symlinkPath);
 
@@ -94,7 +94,7 @@ describe('assertRealProjectSkillPath – symlink traversal', () => {
 
   it('accepts a path where skills root itself is a symlink to a safe dir', async () => {
     // skills dir → realSkills (still inside project)
-    const realSkills = path.join(projectRoot, '.luoshu', 'real-skills');
+    const realSkills = path.join(projectRoot, '.hanhai', 'real-skills');
     await fs.mkdir(realSkills, { recursive: true });
     await fs.rm(skillsDir, { recursive: true });
     await fs.symlink(realSkills, skillsDir);

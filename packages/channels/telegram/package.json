@@ -1,7 +1,7 @@
 {
   "name": "@qwen-code/channel-telegram",
   "version": "0.1.0",
-  "description": "Telegram channel adapter for Qwen Code",
+  "description": "Telegram channel adapter for Hanhai CLI",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

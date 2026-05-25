@@ -37,9 +37,9 @@ describe('projectSummary', () => {
   });
 
   it('includes a summary fingerprint when a project summary exists', async () => {
-    await fs.mkdir(path.join(testDir, '.luoshu'), { recursive: true });
+    await fs.mkdir(path.join(testDir, '.hanhai'), { recursive: true });
     await fs.writeFile(
-      path.join(testDir, '.luoshu', 'PROJECT_SUMMARY.md'),
+      path.join(testDir, '.hanhai', 'PROJECT_SUMMARY.md'),
       [
         '## Overall Goal',
         'Ship the fix.',

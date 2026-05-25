@@ -29,7 +29,7 @@ export function getSystemInfoFields(
 ): SystemInfoDisplayField[] {
   const fields: SystemInfoDisplayField[] = [];
 
-  addField(fields, t('Luoshu CLI'), formatCliVersion(info));
+  addField(fields, t('Hanhai CLI'), formatCliVersion(info));
   addField(fields, t('Runtime'), formatRuntime(info));
   addField(fields, t('IDE Client'), info.ideClient);
   addField(fields, 'LSP', info.lspStatus ?? '');

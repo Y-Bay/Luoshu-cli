@@ -223,7 +223,7 @@ export async function start_sandbox(
 
     // Canonicalize via realpathSync so seatbelt's `subpath` matcher sees the
     // same path the kernel will. mkdirSync first because realpathSync throws
-    // on missing dirs and a custom LUOSHU_HOME / LUOSHU_RUNTIME_DIR may not exist
+    // on missing dirs and a custom HANHAI_HOME / HANHAI_RUNTIME_DIR may not exist
     // yet on first run.
     const qwenDir = Storage.getGlobalQwenDir();
     const runtimeDir = Storage.getRuntimeBaseDir();
@@ -240,7 +240,7 @@ export async function start_sandbox(
       '-D',
       `CACHE_DIR=${fs.realpathSync(execSync(`getconf DARWIN_USER_CACHE_DIR`).toString().trim())}`,
       '-D',
-      `LUOSHU_DIR=${fs.realpathSync(qwenDir)}`,
+      `HANHAI_DIR=${fs.realpathSync(qwenDir)}`,
       '-D',
       `RUNTIME_DIR=${fs.realpathSync(runtimeDir)}`,
     ];
@@ -287,8 +287,8 @@ export async function start_sandbox(
         ...finalArgv.map((arg) => quote([arg])),
       ].join(' '),
     );
-    // start and set up proxy if LUOSHU_SANDBOX_PROXY_COMMAND is set
-    const proxyCommand = process.env['LUOSHU_SANDBOX_PROXY_COMMAND'];
+    // start and set up proxy if HANHAI_SANDBOX_PROXY_COMMAND is set
+    const proxyCommand = process.env['HANHAI_SANDBOX_PROXY_COMMAND'];
     let proxyProcess: ChildProcess | undefined = undefined;
     let sandboxProcess: ChildProcess | undefined = undefined;
     const sandboxEnv = { ...process.env };
@@ -379,12 +379,12 @@ export async function start_sandbox(
   // note this can only be done with binary linked from qwen-code repo
   if (process.env['BUILD_SANDBOX']) {
     if (
-      !gcPath.includes('Luoshu-cli/packages/') &&
-      !gcPath.includes('luoshu-cli/packages/')
+      !gcPath.includes('Hanhai-cli/packages/') &&
+      !gcPath.includes('hanhai-cli/packages/')
     ) {
       throw new FatalSandboxError(
-        'Cannot build sandbox using installed Luoshu CLI binary; ' +
-          'run `npm link ./packages/cli` under Luoshu-cli repo to switch to linked binary.',
+        'Cannot build sandbox using installed Hanhai CLI binary; ' +
+          'run `npm link ./packages/cli` under Hanhai-cli repo to switch to linked binary.',
       );
     } else {
       writeStderrLine('building sandbox ...');
@@ -405,7 +405,7 @@ export async function start_sandbox(
           stdio: 'inherit',
           env: {
             ...process.env,
-            LUOSHU_SANDBOX: config.command, // in case sandbox is enabled via flags (see config.ts under cli package)
+            HANHAI_SANDBOX: config.command, // in case sandbox is enabled via flags (see config.ts under cli package)
           },
         },
       );
@@ -447,7 +447,7 @@ export async function start_sandbox(
   args.push('--volume', `${workdir}:${containerWorkdir}`);
 
   // Mount user settings at /home/node/.qwen and at the canonical host path
-  // used by LUOSHU_HOME, unless that host path is already covered by a broader
+  // used by HANHAI_HOME, unless that host path is already covered by a broader
   // runtime-dir mount below.
   const userSettingsDirOnHost = getUserSettingsDir();
   const runtimeBaseDirOnHost = Storage.getRuntimeBaseDir();
@@ -488,12 +488,12 @@ export async function start_sandbox(
     );
   }
 
-  // Pass LUOSHU_HOME so the sandboxed CLI resolves the global qwen dir to the
+  // Pass HANHAI_HOME so the sandboxed CLI resolves the global qwen dir to the
   // same path the host did, instead of relying on the /home/node/.qwen mount
   // being the default fallback.
-  args.push('--env', `LUOSHU_HOME=${userSettingsDirContainerPath}`);
+  args.push('--env', `HANHAI_HOME=${userSettingsDirContainerPath}`);
 
-  // Mount the runtime base dir and pass LUOSHU_RUNTIME_DIR when it diverges
+  // Mount the runtime base dir and pass HANHAI_RUNTIME_DIR when it diverges
   // from the global qwen dir; otherwise the existing user-settings mount
   // already covers it.
   if (!runtimeCoveredByUserSettings) {
@@ -503,7 +503,7 @@ export async function start_sandbox(
     );
   }
   if (!runtimeSameAsUserSettings) {
-    args.push('--env', `LUOSHU_RUNTIME_DIR=${runtimeBaseDirContainerPath}`);
+    args.push('--env', `HANHAI_RUNTIME_DIR=${runtimeBaseDirContainerPath}`);
   }
 
   // mount os.tmpdir() as os.tmpdir() inside container
@@ -568,8 +568,8 @@ export async function start_sandbox(
 
   // copy proxy environment variables, replacing localhost with SANDBOX_PROXY_NAME
   // copy as both upper-case and lower-case as is required by some utilities
-  // LUOSHU_SANDBOX_PROXY_COMMAND implies HTTPS_PROXY unless HTTP_PROXY is set
-  const proxyCommand = process.env['LUOSHU_SANDBOX_PROXY_COMMAND'];
+  // HANHAI_SANDBOX_PROXY_COMMAND implies HTTPS_PROXY unless HTTP_PROXY is set
+  const proxyCommand = process.env['HANHAI_SANDBOX_PROXY_COMMAND'];
 
   if (proxyCommand) {
     let proxy =
@@ -610,7 +610,7 @@ export async function start_sandbox(
 
   // name container after image, plus random suffix to avoid conflicts
   const imageName = parseImageName(image);
-  const isIntegrationTest = process.env['LUOSHU_INTEGRATION_TEST'] === 'true';
+  const isIntegrationTest = process.env['HANHAI_INTEGRATION_TEST'] === 'true';
   let containerName;
   if (isIntegrationTest) {
     containerName = `qwen-code-integration-test-${randomBytes(4).toString(
@@ -632,9 +632,9 @@ export async function start_sandbox(
   }
   args.push('--name', containerName, '--hostname', containerName);
 
-  // copy LUOSHU_TEST_VAR for integration tests
-  if (process.env['LUOSHU_TEST_VAR']) {
-    args.push('--env', `LUOSHU_TEST_VAR=${process.env['LUOSHU_TEST_VAR']}`);
+  // copy HANHAI_TEST_VAR for integration tests
+  if (process.env['HANHAI_TEST_VAR']) {
+    args.push('--env', `HANHAI_TEST_VAR=${process.env['HANHAI_TEST_VAR']}`);
   }
 
   // copy GEMINI_API_KEY(s)
@@ -703,8 +703,8 @@ export async function start_sandbox(
 
   // Pass through IDE mode environment variables
   for (const envVar of [
-    'LUOSHU_IDE_SERVER_PORT',
-    'LUOSHU_IDE_WORKSPACE_PATH',
+    'HANHAI_IDE_SERVER_PORT',
+    'HANHAI_IDE_WORKSPACE_PATH',
     'TERM_PROGRAM',
   ]) {
     if (process.env[envVar]) {
@@ -835,7 +835,7 @@ export async function start_sandbox(
   // push container entrypoint (including args)
   args.push(...finalEntrypoint);
 
-  // start and set up proxy if LUOSHU_SANDBOX_PROXY_COMMAND is set
+  // start and set up proxy if HANHAI_SANDBOX_PROXY_COMMAND is set
   let proxyProcess: ChildProcess | undefined = undefined;
   let sandboxProcess: ChildProcess | undefined = undefined;
 

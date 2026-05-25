@@ -21,7 +21,7 @@ interface ArenaStartDialogProps {
 }
 
 const MODEL_PROVIDERS_DOCUMENTATION_URL =
-  'https://github.com/luoshu-cli/luoshu-cli';
+  'https://github.com/hanhai-cli/hanhai-cli';
 
 export function ArenaStartDialog({
   onClose,

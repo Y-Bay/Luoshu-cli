@@ -77,8 +77,8 @@ describe('initializeApp', () => {
     expect(mockInitializeI18n).toHaveBeenCalledWith('en');
   });
 
-  it('should initialize i18n with LUOSHU_LANG env var if set', async () => {
-    vi.stubEnv('LUOSHU_LANG', 'zh');
+  it('should initialize i18n with HANHAI_LANG env var if set', async () => {
+    vi.stubEnv('HANHAI_LANG', 'zh');
 
     await initializeApp(mockConfig as never, mockSettings as never);
     expect(mockInitializeI18n).toHaveBeenCalledWith('zh');

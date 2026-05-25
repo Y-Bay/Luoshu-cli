@@ -558,7 +558,7 @@ describe('FileCommandLoader', () => {
       ).getProjectCommandsDir();
       const extensionDir = path.join(
         process.cwd(),
-        '.luoshu/extensions/test-ext',
+        '.hanhai/extensions/test-ext',
       );
 
       mock({
@@ -611,7 +611,7 @@ describe('FileCommandLoader', () => {
       ).getProjectCommandsDir();
       const extensionDir = path.join(
         process.cwd(),
-        '.luoshu/extensions/test-ext',
+        '.hanhai/extensions/test-ext',
       );
 
       mock({
@@ -707,11 +707,11 @@ describe('FileCommandLoader', () => {
     it('only loads commands from active extensions', async () => {
       const extensionDir1 = path.join(
         process.cwd(),
-        '.luoshu/extensions/active-ext',
+        '.hanhai/extensions/active-ext',
       );
       const extensionDir2 = path.join(
         process.cwd(),
-        '.luoshu/extensions/inactive-ext',
+        '.hanhai/extensions/inactive-ext',
       );
 
       mock({
@@ -766,7 +766,7 @@ describe('FileCommandLoader', () => {
     it('handles missing extension commands directory gracefully', async () => {
       const extensionDir = path.join(
         process.cwd(),
-        '.luoshu/extensions/no-commands',
+        '.hanhai/extensions/no-commands',
       );
 
       mock({
@@ -798,7 +798,7 @@ describe('FileCommandLoader', () => {
     });
 
     it('handles nested command structure in extensions', async () => {
-      const extensionDir = path.join(process.cwd(), '.luoshu/extensions/a');
+      const extensionDir = path.join(process.cwd(), '.hanhai/extensions/a');
 
       mock({
         [extensionDir]: {

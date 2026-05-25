@@ -18,7 +18,7 @@ import {
 
 const sample: WorktreeSession = {
   slug: 'my-feature',
-  worktreePath: '/repo/.luoshu/worktrees/my-feature',
+  worktreePath: '/repo/.hanhai/worktrees/my-feature',
   worktreeBranch: 'worktree-my-feature',
   originalCwd: '/repo',
   originalBranch: 'main',
@@ -117,12 +117,12 @@ describe('restoreWorktreeContext', () => {
 
   it('returns context message + session when worktree dir is alive', async () => {
     // Build a sidecar where worktreePath sits under the structural
-    // invariant `<originalCwd>/.luoshu/worktrees/<slug>` enforced by
+    // invariant `<originalCwd>/.hanhai/worktrees/<slug>` enforced by
     // restoreWorktreeContext (Phase C review #3256839787).
     const liveCwd = path.join(tmpDir, 'repo');
     const liveWorktree = path.join(
       liveCwd,
-      '.luoshu',
+      '.hanhai',
       'worktrees',
       'my-feature',
     );
@@ -145,12 +145,12 @@ describe('restoreWorktreeContext', () => {
 
   it('rejects and clears a sidecar whose worktreePath escapes the managed subtree', async () => {
     // A tampered sidecar pointing at /tmp itself (a real dir) but not
-    // under `<originalCwd>/.luoshu/worktrees/` must be treated as
+    // under `<originalCwd>/.hanhai/worktrees/` must be treated as
     // untrusted, regardless of fs.stat success.
     const escape: WorktreeSession = {
       ...sample,
       originalCwd: tmpDir,
-      worktreePath: tmpDir, // outside .luoshu/worktrees/
+      worktreePath: tmpDir, // outside .hanhai/worktrees/
     };
     await writeWorktreeSession(filePath, escape);
     const warnings: unknown[] = [];
@@ -166,7 +166,7 @@ describe('restoreWorktreeContext', () => {
   });
 
   it('cleans up stale sidecar when worktree dir is gone', async () => {
-    // sample.worktreePath points at /repo/.luoshu/... which does not exist.
+    // sample.worktreePath points at /repo/.hanhai/... which does not exist.
     await writeWorktreeSession(filePath, sample);
     expect(await readWorktreeSession(filePath)).toEqual(sample);
 

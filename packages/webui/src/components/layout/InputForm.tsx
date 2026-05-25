@@ -196,7 +196,7 @@ export const InputForm: FC<InputFormProps> = ({
   onCompletionClose,
   onPaste,
   extraContent,
-  placeholder = 'Ask Qwen Code …',
+  placeholder = 'Ask Hanhai CLI …',
   canSubmit,
   followupState,
   onAcceptFollowup,

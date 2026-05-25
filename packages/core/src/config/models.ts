@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const DEFAULT_LUOSHU_MODEL = 'coder-model';
+export const DEFAULT_HANHAI_MODEL = 'coder-model';
 export const DEFAULT_QWEN_FLASH_MODEL = 'coder-model';
-export const DEFAULT_LUOSHU_EMBEDDING_MODEL = 'text-embedding-v4';
+export const DEFAULT_HANHAI_EMBEDDING_MODEL = 'text-embedding-v4';
 export const MAINLINE_CODER_MODEL = 'qwen3.5-plus';

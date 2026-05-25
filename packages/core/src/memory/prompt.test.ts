@@ -13,21 +13,21 @@ import {
 
 describe('managed auto-memory prompt helpers', () => {
   it('builds the memory mechanics prompt even when MEMORY.md is empty', () => {
-    const prompt = buildManagedAutoMemoryPrompt('/tmp/project/.luoshu/memory');
+    const prompt = buildManagedAutoMemoryPrompt('/tmp/project/.hanhai/memory');
 
     expect(prompt).toContain('# auto memory');
     expect(prompt).toContain('persistent, file-based memory system');
-    expect(prompt).toContain('/tmp/project/.luoshu/memory');
+    expect(prompt).toContain('/tmp/project/.hanhai/memory');
     expect(prompt).toContain('Your MEMORY.md is currently empty');
   });
 
   it('embeds the current MEMORY.md index content', () => {
     const prompt = buildManagedAutoMemoryPrompt(
-      '/tmp/project/.luoshu/memory',
+      '/tmp/project/.hanhai/memory',
       '- [User Memory](user/terse.md) — User prefers terse responses.',
     );
 
-    expect(prompt).toContain('## /tmp/project/.luoshu/memory/MEMORY.md');
+    expect(prompt).toContain('## /tmp/project/.hanhai/memory/MEMORY.md');
     expect(prompt).toContain('[User Memory](user/terse.md)');
     expect(prompt).toContain('User prefers terse responses.');
   });
@@ -35,7 +35,7 @@ describe('managed auto-memory prompt helpers', () => {
   it('appends managed auto-memory after existing hierarchical memory', () => {
     const result = appendManagedAutoMemoryToUserMemory(
       '--- Context from: QWEN.md ---\nProject rules',
-      '/tmp/project/.luoshu/memory',
+      '/tmp/project/.hanhai/memory',
       '- [Project Memory](project/release-freeze.md) — Release freeze starts Friday.',
     );
 
@@ -47,7 +47,7 @@ describe('managed auto-memory prompt helpers', () => {
   it('returns only managed auto-memory when hierarchical memory is empty', () => {
     const result = appendManagedAutoMemoryToUserMemory(
       '   ',
-      '/tmp/project/.luoshu/memory',
+      '/tmp/project/.hanhai/memory',
       '- [Reference](reference/grafana.md) — Grafana dashboard link.',
     );
 
@@ -61,7 +61,7 @@ describe('managed auto-memory prompt helpers', () => {
       (_, index) => `- [Memory ${index}](memory-${index}.md) — hook ${index}`,
     ).join('\n');
     const result = buildManagedAutoMemoryPrompt(
-      '/tmp/project/.luoshu/memory',
+      '/tmp/project/.hanhai/memory',
       oversizedIndex,
     );
 

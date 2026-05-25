@@ -64,7 +64,7 @@ describe('StaticInsightGenerator', () => {
     const projectsDir = path.resolve(
       'workspace',
       'project-a',
-      '.luoshu',
+      '.hanhai',
       'projects',
     );
     const outputDir = path.join(Storage.getRuntimeBaseDir(), 'insights');

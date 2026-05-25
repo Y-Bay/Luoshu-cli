@@ -470,7 +470,7 @@ export class ReadFileTool extends BaseDeclarativeTool<
 
     const fileService = this.config.getFileService();
     if (fileService.shouldQwenIgnoreFile(params.file_path)) {
-      return `File path '${filePath}' is ignored by .luoshuignore pattern(s).`;
+      return `File path '${filePath}' is ignored by .hanhaiignore pattern(s).`;
     }
 
     return null;

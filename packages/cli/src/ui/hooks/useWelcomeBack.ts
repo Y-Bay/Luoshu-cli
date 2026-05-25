@@ -99,7 +99,7 @@ export function useWelcomeBack(
 
       if (choice === 'continue' && welcomeBackInfo?.content) {
         // Create the context message to fill in the input box
-        const contextMessage = `@.luoshu/PROJECT_SUMMARY.md, Based on our previous conversation,Let's continue?`;
+        const contextMessage = `@.hanhai/PROJECT_SUMMARY.md, Based on our previous conversation,Let's continue?`;
 
         // Set the input fill state instead of directly submitting
         setInputFillText(contextMessage);

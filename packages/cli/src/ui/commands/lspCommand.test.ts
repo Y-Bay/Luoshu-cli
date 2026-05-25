@@ -78,7 +78,7 @@ describe('lspCommand', () => {
     expect(result).toMatchObject({
       type: 'message',
       messageType: 'info',
-      content: expect.stringContaining('LUOSHU_RUNTIME_DIR'),
+      content: expect.stringContaining('HANHAI_RUNTIME_DIR'),
     });
     expect(context.ui.addItem).not.toHaveBeenCalled();
   });

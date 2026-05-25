@@ -6,7 +6,7 @@
 
 // Path-based context rule injection.
 //
-// Discovers .luoshu/rules/ files (recursively) with optional YAML frontmatter.
+// Discovers .hanhai/rules/ files (recursively) with optional YAML frontmatter.
 // Rules declare applicable file paths via glob patterns in `paths:`.
 //
 // - Rules WITHOUT `paths:` always load at session start (baseline rules).
@@ -19,7 +19,7 @@ import * as path from 'node:path';
 import picomatch from 'picomatch';
 import { parse as parseYaml } from './yaml-parser.js';
 import { normalizeContent } from './textUtils.js';
-import { LUOSHU_DIR } from './paths.js';
+import { HANHAI_DIR } from './paths.js';
 import { Storage } from '../config/storage.js';
 import { createDebugLogger } from './debugLogger.js';
 import { resolveProjectRelativePath } from './projectPath.js';
@@ -142,7 +142,7 @@ async function collectMdFiles(dir: string): Promise<string[]> {
 }
 
 /**
- * Discover and load rule files from a single `.luoshu/rules/` directory.
+ * Discover and load rule files from a single `.hanhai/rules/` directory.
  * Scans recursively; files are sorted alphabetically for deterministic ordering.
  *
  * @param excludes - Glob patterns to skip (matched against absolute paths).
@@ -203,7 +203,7 @@ export function formatRules(rules: RuleFile[], projectRoot: string): string {
       // Normalize to forward slashes for cross-platform consistency in the
       // system prompt. Glob patterns in `paths:` use forward slashes, so
       // display paths should match — otherwise Windows shows `.qwen\rules\foo.md`
-      // and Linux shows `.luoshu/rules/foo.md`, which is confusing in diffs/tests.
+      // and Linux shows `.hanhai/rules/foo.md`, which is confusing in diffs/tests.
       const displayPath = rawDisplayPath.replace(/\\/g, '/');
       return (
         `--- Rule from: ${displayPath} ---\n` +
@@ -300,8 +300,8 @@ export class ConditionalRulesRegistry {
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * Load rules from both global (`~/.luoshu/rules/`) and project-level
- * (`.luoshu/rules/`) directories.
+ * Load rules from both global (`~/.hanhai/rules/`) and project-level
+ * (`.hanhai/rules/`) directories.
  *
  * Baseline rules (no `paths:`) are returned in `content` for immediate
  * injection into the system prompt. Conditional rules (with `paths:`) are
@@ -320,16 +320,16 @@ export async function loadRules(
 
   const allRules: RuleFile[] = [];
 
-  // 1. Global rules: <LUOSHU_HOME or ~/.qwen>/rules/
+  // 1. Global rules: <HANHAI_HOME or ~/.qwen>/rules/
   const globalRulesDir = path.join(Storage.getGlobalQwenDir(), 'rules');
   const globalRules = await loadRulesFromDir(globalRulesDir, excludes);
   allRules.push(...globalRules);
   logger.debug(`Loaded ${globalRules.length} global rule(s)`);
 
-  // 2. Project-level rules: <projectRoot>/.luoshu/rules/  (trusted only)
+  // 2. Project-level rules: <projectRoot>/.hanhai/rules/  (trusted only)
   //    Skip if it resolves to the same directory as global rules.
   if (folderTrust) {
-    const projectRulesDir = path.join(projectRoot, LUOSHU_DIR, 'rules');
+    const projectRulesDir = path.join(projectRoot, HANHAI_DIR, 'rules');
     if (path.resolve(projectRulesDir) !== path.resolve(globalRulesDir)) {
       const projectRules = await loadRulesFromDir(projectRulesDir, excludes);
       allRules.push(...projectRules);

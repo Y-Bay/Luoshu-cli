@@ -36,7 +36,7 @@ export async function initializeApp(
 ): Promise<InitializationResult> {
   // Initialize i18n system
   const languageSetting =
-    process.env['LUOSHU_LANG'] ||
+    process.env['HANHAI_LANG'] ||
     (settings.merged.general?.language as string) ||
     'auto';
   await initializeI18n(languageSetting as SupportedLanguage | 'auto');

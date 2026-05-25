@@ -476,7 +476,7 @@ describe('getCommandRoots', () => {
   it('should skip leading env var assignments', async () => {
     expect(
       getCommandRoots(
-        'PYTHONPATH=/Users/jinjing/.luoshu/skills/scripts python3 -c "print(1)"',
+        'PYTHONPATH=/Users/jinjing/.hanhai/skills/scripts python3 -c "print(1)"',
       ),
     ).toEqual(['python3']);
   });

@@ -174,7 +174,7 @@ export interface AgentParams {
   run_in_background?: boolean;
   /**
    * When set to `'worktree'`, spins up a temporary git worktree under
-   * `<projectRoot>/.luoshu/worktrees/agent-<7hex>` and instructs the agent to
+   * `<projectRoot>/.hanhai/worktrees/agent-<7hex>` and instructs the agent to
    * confine all file operations to that path. After the agent completes:
    * - if no changes were made, the worktree is auto-removed;
    * - if changes were made, the worktree is preserved and its path/branch
@@ -455,7 +455,7 @@ export class AgentTool extends BaseDeclarativeTool<AgentParams, ToolResult> {
           type: 'string',
           enum: ['worktree'],
           description:
-            "Isolation mode. 'worktree' creates a temporary git worktree under <projectRoot>/.luoshu/worktrees/agent-<7hex> so the agent works on an isolated copy of the repo. The worktree is auto-removed if the agent makes no changes; otherwise the worktree path and branch are returned in the result.",
+            "Isolation mode. 'worktree' creates a temporary git worktree under <projectRoot>/.hanhai/worktrees/agent-<7hex> so the agent works on an isolated copy of the repo. The worktree is auto-removed if the agent makes no changes; otherwise the worktree path and branch are returned in the result.",
         },
       },
       required: ['description', 'prompt'],
@@ -1468,12 +1468,12 @@ class AgentToolInvocation extends BaseToolInvocation<AgentParams, ToolResult> {
       if (this.params.isolation === 'worktree') {
         const cwd = this.config.getTargetDir();
         // Refuse nested isolation. If the parent itself is already
-        // running inside a worktree (cwd contains `.luoshu/worktrees/`),
+        // running inside a worktree (cwd contains `.hanhai/worktrees/`),
         // creating a sibling isolation worktree at the repo root
         // would leave the model's mental map pointing at the outer
         // worktree while the override aimed it at the inner one.
         // Same guard `enter_worktree` uses.
-        if (/\.luoshu[\\/]worktrees[\\/]/.test(cwd)) {
+        if (/\.hanhai[\\/]worktrees[\\/]/.test(cwd)) {
           return failWorktreeProvisioning(
             `Failed to set up worktree isolation: parent is already inside ` +
               `a worktree (${cwd}). Nested isolation worktrees are not ` +
@@ -1494,7 +1494,7 @@ class AgentToolInvocation extends BaseToolInvocation<AgentParams, ToolResult> {
           );
         }
         // Anchor the worktree at the repo top-level so monorepo subdir
-        // launches still gather worktrees under `<repoRoot>/.luoshu/...`,
+        // launches still gather worktrees under `<repoRoot>/.hanhai/...`,
         // which is also the path the startup sweep scans.
         const projectRoot = (await probe.getRepoTopLevel()) ?? cwd;
         const wtService =

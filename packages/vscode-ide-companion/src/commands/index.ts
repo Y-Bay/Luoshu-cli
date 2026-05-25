@@ -25,7 +25,7 @@ export const newConversationCommand = 'qwen-code.newConversation';
 export const showLogsCommand = 'qwen-code.showLogs';
 
 /**
- * Register all Qwen Code chat-related commands.
+ * Register all Hanhai CLI chat-related commands.
  *
  * `openChat` and `newConversation` always open an editor tab, while
  * `focusChat` focuses the secondary sidebar (preferred) or primary sidebar.
@@ -140,7 +140,7 @@ export function registerNewCommands(
         outputChannel.show(true);
       } else {
         vscode.window.showWarningMessage(
-          'Qwen Code Companion log channel is not available.',
+          'Hanhai CLI Companion log channel is not available.',
         );
       }
     }),

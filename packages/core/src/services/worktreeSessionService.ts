@@ -29,7 +29,7 @@ export interface WorktreeSession {
    * by earlier Phase C builds; semantically this is the value to pass
    * back to `new GitWorktreeService(...)` for any subsequent cleanup
    * (e.g. `handleWorktreeExit`'s remove path), because the worktree
-   * always lives under `<repoTopLevel>/.luoshu/worktrees/`. When the
+   * always lives under `<repoTopLevel>/.hanhai/worktrees/`. When the
    * CLI is launched from a monorepo subdirectory, `process.cwd()` and
    * `getRepoTopLevel()` differ — this field stores the latter.
    *
@@ -197,14 +197,14 @@ export async function restoreWorktreeContext(
   }
 
   // Structural sanity check: the worktreePath MUST live under
-  // `<originalCwd>/.luoshu/worktrees/`. Schema validation (readWorktreeSession)
+  // `<originalCwd>/.hanhai/worktrees/`. Schema validation (readWorktreeSession)
   // already ensures the fields are strings, but a manually-edited or
   // copy-pasted sidecar could still point worktreePath at an arbitrary
   // existing directory — the model would then be directed to operate
   // there. Restrict to the Qwen-managed worktrees subtree so a
   // tampered sidecar can't redirect file operations to /etc, ~/, etc.
   // (PR #4174 review #3256839787.)
-  const expectedParent = path.join(session.originalCwd, '.luoshu', 'worktrees');
+  const expectedParent = path.join(session.originalCwd, '.hanhai', 'worktrees');
   const resolvedWorktree = path.resolve(session.worktreePath);
   if (
     !resolvedWorktree.startsWith(expectedParent + path.sep) &&

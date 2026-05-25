@@ -34,7 +34,7 @@ export const useQwenAuth = (
   pendingAuthType: AuthType | undefined,
   isAuthenticating: boolean,
 ) => {
-  const [luoshuAuthState, setQwenAuthState] = useState<QwenAuthState>({
+  const [hanhaiAuthState, setQwenAuthState] = useState<QwenAuthState>({
     deviceAuth: null,
     authStatus: 'idle',
     authMessage: null,
@@ -108,7 +108,7 @@ export const useQwenAuth = (
   }, []);
 
   return {
-    luoshuAuthState,
+    hanhaiAuthState,
     cancelQwenAuth,
   };
 };

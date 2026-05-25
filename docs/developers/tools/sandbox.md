@@ -16,7 +16,7 @@ If you need extra tools inside the container (e.g., `git`, `python`, `rg`), crea
 # 1. First, install the dependencies of the project
 npm install
 
-# 2. Build the Qwen Code project
+# 2. Build the Hanhai CLI project
 npm run build
 
 # 3. Verify that the dist directory has been generated

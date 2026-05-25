@@ -56,7 +56,7 @@ import { getContextLengthExceededInfo } from '../utils/contextLengthError.js';
 import type { SessionStartSource } from '../hooks/types.js';
 import { getCustomSystemPrompt } from './prompts.js';
 
-const debugLogger = createDebugLogger('LUOSHU_CHAT');
+const debugLogger = createDebugLogger('HANHAI_CHAT');
 
 /**
  * Replaces the args on a `structured_output` `functionCall` with the
@@ -1500,7 +1500,7 @@ export class GeminiChat {
         const hasUserMaxTokensOverride =
           (cgConfig?.samplingParams?.max_tokens !== undefined &&
             cgConfig?.samplingParams?.max_tokens !== null) ||
-          !!process.env['LUOSHU_MAX_OUTPUT_TOKENS'];
+          !!process.env['HANHAI_MAX_OUTPUT_TOKENS'];
 
         let lastFinishReason: string | undefined;
 

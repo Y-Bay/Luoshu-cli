@@ -46,7 +46,7 @@ const TAB_DEFS: Array<{ tab: HelpTab; labelKey: string }> = [
   { tab: 'commands', labelKey: 'commands' },
   { tab: 'custom-commands', labelKey: 'custom-commands' },
 ];
-const DOCS_URL = 'https://github.com/luoshu-cli/luoshu-cli';
+const DOCS_URL = 'https://github.com/hanhai-cli/hanhai-cli';
 
 export const Help: React.FC<HelpProps> = ({
   commands,
@@ -133,7 +133,7 @@ export const Help: React.FC<HelpProps> = ({
 const HelpTabs: React.FC<{ activeTab: HelpTab }> = ({ activeTab }) => (
   <Box flexDirection="row">
     <Text bold color={theme.text.accent}>
-      Luoshu CLI
+      Hanhai CLI
     </Text>
     <Text color={theme.text.secondary}> </Text>
     {TAB_DEFS.map(({ tab, labelKey }) => {
@@ -180,7 +180,7 @@ const GeneralHelp: React.FC<{ width: number }> = ({ width }) => {
       <Box marginBottom={1}>
         <Text color={theme.text.primary}>
           {t(
-            'Luoshu CLI understands your codebase, makes edits with your permission, and executes commands right from your terminal.',
+            'Hanhai CLI understands your codebase, makes edits with your permission, and executes commands right from your terminal.',
           )}
         </Text>
       </Box>

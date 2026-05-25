@@ -155,7 +155,7 @@ export function extensionConsentString(
   if (originSource !== 'QwenCode') {
     output.push(
       t(
-        'You are installing an extension from {{originSource}}. Some features may not work perfectly with Luoshu CLI.',
+        'You are installing an extension from {{originSource}}. Some features may not work perfectly with Hanhai CLI.',
         { originSource },
       ),
     );
@@ -195,7 +195,7 @@ export function extensionConsentString(
       : extensionConfig.contextFileName;
     output.push(
       t(
-        'This extension will append info to your LUOSHU.md context using {{fileName}}',
+        'This extension will append info to your HANHAI.md context using {{fileName}}',
         { fileName },
       ),
     );

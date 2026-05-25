@@ -11,7 +11,7 @@ import type {
   Part,
 } from '@google/genai';
 import type { Config } from '../config/config.js';
-import { DEFAULT_LUOSHU_MODEL } from '../config/models.js';
+import { DEFAULT_HANHAI_MODEL } from '../config/models.js';
 import { SchemaValidator } from './schemaValidator.js';
 
 export interface SideQueryJsonOptions<TResponse> {
@@ -20,7 +20,7 @@ export interface SideQueryJsonOptions<TResponse> {
   abortSignal: AbortSignal;
   /**
    * Override the model used for this query. Defaults to
-   * `config.getFastModel?.() ?? config.getModel() ?? DEFAULT_LUOSHU_MODEL`
+   * `config.getFastModel?.() ?? config.getModel() ?? DEFAULT_HANHAI_MODEL`
    * — side queries run on the fast model when one is configured, including
    * fast models registered under a different authType than the main session.
    * Pass an explicit value to pin to the main model (e.g. long-form
@@ -63,7 +63,7 @@ export interface SideQueryTextOptions {
   abortSignal: AbortSignal;
   /**
    * Override the model used for this query. Defaults to
-   * `config.getFastModel?.() ?? config.getModel() ?? DEFAULT_LUOSHU_MODEL`
+   * `config.getFastModel?.() ?? config.getModel() ?? DEFAULT_HANHAI_MODEL`
    * — side queries run on the fast model when one is configured, including
    * fast models registered under a different authType than the main session.
    * Pass an explicit value to pin to the main model (e.g. long-form
@@ -107,7 +107,7 @@ function resolveDefaultModel(config: Config, override?: string): string {
     override ??
     config.getFastModel?.() ??
     config.getModel() ??
-    DEFAULT_LUOSHU_MODEL
+    DEFAULT_HANHAI_MODEL
   );
 }
 

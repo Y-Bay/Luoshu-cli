@@ -1,6 +1,6 @@
 # @qwen-code/channel-base
 
-Base infrastructure for building Qwen Code channel adapters. Provides the abstract base class, access control, session routing, and the ACP bridge that communicates with the agent.
+Base infrastructure for building Hanhai CLI channel adapters. Provides the abstract base class, access control, session routing, and the ACP bridge that communicates with the agent.
 
 If you're building a channel plugin, this is your only dependency.
 

@@ -6,7 +6,7 @@
 
 /**
  * Configuration for ACP message rewriting.
- * Loaded from .luoshu/settings.json under "messageRewrite" key.
+ * Loaded from .hanhai/settings.json under "messageRewrite" key.
  */
 export interface MessageRewriteConfig {
   /** Whether message rewriting is enabled */

@@ -3,7 +3,7 @@
  * Copyright 2026 Qwen Team
  * SPDX-License-Identifier: Apache-2.0
  *
- * Modifications copyright 2026 Luoshu Team.
+ * Modifications copyright 2026 Hanhai Team.
  * Modified: removed Alibaba ModelStudio presets and the ALIBABA_PROVIDERS export.
  *
  * Provider registry — imports all provider definitions and assembles the

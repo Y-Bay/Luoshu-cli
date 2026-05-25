@@ -116,7 +116,7 @@ describe('activate', () => {
     } as vscode.Extension<unknown>);
     await activate(context);
     expect(showInformationMessageMock).toHaveBeenCalledWith(
-      'Qwen Code Companion extension successfully installed.',
+      'Hanhai CLI Companion extension successfully installed.',
     );
   });
 
@@ -150,17 +150,17 @@ describe('activate', () => {
     expect(viewIds).toContain('qwen-code.chatView.secondary');
   });
 
-  it('should launch the Qwen Code when the user clicks the button', async () => {
+  it('should launch the Hanhai CLI when the user clicks the button', async () => {
     const showInformationMessageMock = vi
       .mocked(vscode.window.showInformationMessage)
-      .mockResolvedValue('Run Qwen Code' as never);
+      .mockResolvedValue('Run Hanhai CLI' as never);
     vi.mocked(context.globalState.get).mockReturnValue(undefined);
     vi.mocked(vscode.extensions.getExtension).mockReturnValue({
       packageJSON: { version: '1.1.0' },
     } as vscode.Extension<unknown>);
     await activate(context);
     expect(showInformationMessageMock).toHaveBeenCalledWith(
-      'Qwen Code Companion extension successfully installed.',
+      'Hanhai CLI Companion extension successfully installed.',
     );
   });
 
@@ -193,7 +193,7 @@ describe('activate', () => {
       await activate(context);
 
       expect(showInformationMessageMock).toHaveBeenCalledWith(
-        'A new version (1.2.0) of the Qwen Code Companion extension is available.',
+        'A new version (1.2.0) of the Hanhai CLI Companion extension is available.',
         'Update to latest version',
       );
     });

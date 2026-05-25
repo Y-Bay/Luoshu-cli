@@ -44,7 +44,7 @@ describe('ReadFileTool', () => {
       storage: {
         getProjectTempDir: () => path.join(tempRootDir, '.temp'),
         getProjectDir: () => path.join(tempRootDir, '.project'),
-        getUserSkillsDirs: () => [path.join(os.homedir(), '.luoshu', 'skills')],
+        getUserSkillsDirs: () => [path.join(os.homedir(), '.hanhai', 'skills')],
       },
       getTruncateToolOutputThreshold: () => 2500,
       getTruncateToolOutputLines: () => 500,
@@ -852,10 +852,10 @@ describe('ReadFileTool', () => {
         // re-emitted) but they MUST still be recorded in the cache
         // — otherwise the prior-read enforcement on Edit / WriteFile
         // would refuse to mutate a file the model legitimately just
-        // read. Put a file under .luoshu/<auto-memory>/ via
-        // LUOSHU_MEMORY_LOCAL=1 and assert recordRead happened.
-        const previousLocal = process.env['LUOSHU_MEMORY_LOCAL'];
-        process.env['LUOSHU_MEMORY_LOCAL'] = '1';
+        // read. Put a file under .hanhai/<auto-memory>/ via
+        // HANHAI_MEMORY_LOCAL=1 and assert recordRead happened.
+        const previousLocal = process.env['HANHAI_MEMORY_LOCAL'];
+        process.env['HANHAI_MEMORY_LOCAL'] = '1';
         try {
           const { getAutoMemoryRoot, clearAutoMemoryRootCache } = await import(
             '../memory/paths.js'
@@ -887,9 +887,9 @@ describe('ReadFileTool', () => {
           }
         } finally {
           if (previousLocal === undefined) {
-            delete process.env['LUOSHU_MEMORY_LOCAL'];
+            delete process.env['HANHAI_MEMORY_LOCAL'];
           } else {
-            process.env['LUOSHU_MEMORY_LOCAL'] = previousLocal;
+            process.env['HANHAI_MEMORY_LOCAL'] = previousLocal;
           }
         }
       });
@@ -1050,7 +1050,7 @@ describe('ReadFileTool', () => {
             getProjectTempDir: () => path.join(tempRootDir, '.temp'),
             getProjectDir: () => path.join(tempRootDir, '.project'),
             getUserSkillsDirs: () => [
-              path.join(os.homedir(), '.luoshu', 'skills'),
+              path.join(os.homedir(), '.hanhai', 'skills'),
             ],
           },
           getTruncateToolOutputThreshold: () => 2500,
@@ -1076,21 +1076,21 @@ describe('ReadFileTool', () => {
       });
     });
 
-    describe('with .luoshuignore', () => {
+    describe('with .hanhaiignore', () => {
       beforeEach(async () => {
         await fsp.writeFile(
-          path.join(tempRootDir, '.luoshuignore'),
+          path.join(tempRootDir, '.hanhaiignore'),
           ['foo.*', 'ignored/'].join('\n'),
         );
       });
 
-      it('should throw error if path is ignored by a .luoshuignore pattern', async () => {
+      it('should throw error if path is ignored by a .hanhaiignore pattern', async () => {
         const ignoredFilePath = path.join(tempRootDir, 'foo.bar');
         await fsp.writeFile(ignoredFilePath, 'content', 'utf-8');
         const params: ReadFileToolParams = {
           file_path: ignoredFilePath,
         };
-        const expectedError = `File path '${ignoredFilePath}' is ignored by .luoshuignore pattern(s).`;
+        const expectedError = `File path '${ignoredFilePath}' is ignored by .hanhaiignore pattern(s).`;
         expect(() => tool.build(params)).toThrow(expectedError);
       });
 
@@ -1102,7 +1102,7 @@ describe('ReadFileTool', () => {
         const params: ReadFileToolParams = {
           file_path: ignoredFilePath,
         };
-        const expectedError = `File path '${ignoredFilePath}' is ignored by .luoshuignore pattern(s).`;
+        const expectedError = `File path '${ignoredFilePath}' is ignored by .hanhaiignore pattern(s).`;
         expect(() => tool.build(params)).toThrow(expectedError);
       });
 

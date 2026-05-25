@@ -22,7 +22,7 @@ const createMockExtension = (
     id: name,
     name,
     version,
-    path: `/home/user/.luoshu/extensions/${name}`,
+    path: `/home/user/.hanhai/extensions/${name}`,
     isActive,
     installMetadata: {
       type: 'git',

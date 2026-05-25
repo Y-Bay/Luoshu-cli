@@ -4,12 +4,23 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// Traditional Chinese (zh-TW) translations for Luoshu CLI CLI
+// Traditional Chinese (zh-TW) translations for Hanhai CLI
 // Bootstrapped from en.js structure with opencc(zh.js s2t),
 // then extensively hand-corrected for Taiwan vocabulary conventions.
 // This file is the authoritative source — do not overwrite with auto-generated output.
 export default {
   '↑ to manage attachments': '↑ 管理附件',
+  // 啟動警告
+  'You are running Hanhai CLI in your home directory. It is recommended to run in a project-specific directory.':
+    '你正在 home 目錄下執行 Hanhai CLI，建議在具體的專案目錄中執行。',
+  'Warning: You are running Hanhai CLI in the root directory. Your entire folder structure will be used for context. It is strongly recommended to run in a project-specific directory.':
+    '警告：你正在根目錄下執行 Hanhai CLI，整個目錄結構都會被用作上下文。強烈建議在具體的專案目錄中執行。',
+  'Could not verify the current directory due to a file system error.':
+    '由於檔案系統錯誤，無法確認目前目錄。',
+  'Ripgrep not available: Please install ripgrep globally to enable faster file content search. Falling back to built-in grep.':
+    'ripgrep 不可用：請全域安裝 ripgrep 以啟用更快的檔案內容搜尋，目前回退到內建 grep。',
+  'Ripgrep not available: {{error}}. Falling back to built-in grep.':
+    'ripgrep 不可用：{{error}}。目前回退到內建 grep。',
   '← → select, Delete to remove, ↓ to exit': '← → 選擇，Delete 刪除，↓ 退出',
   'Attachments: ': '附件：',
   'Basics:': '基礎功能：',
@@ -76,12 +87,12 @@ export default {
   'For a full list of shortcuts, see {{docPath}}':
     '完整快捷鍵列表，請參閱 {{docPath}}',
   'docs/keyboard-shortcuts.md': 'docs/keyboard-shortcuts.md',
-  'for help on Luoshu CLI': '獲取 Luoshu CLI 幫助',
+  'for help on Hanhai CLI': '獲取 Hanhai CLI 幫助',
   'show version info': '顯示版本信息',
   'show paths for current session files and logs': '顯示目前會話檔案和日誌路徑',
   'submit a bug report': '提交錯誤報告',
   Status: '狀態',
-  'Luoshu CLI': 'Luoshu CLI',
+  'Hanhai CLI': 'Hanhai CLI',
   Runtime: '運行環境',
   OS: '操作系統',
   Auth: '認證',
@@ -93,12 +104,12 @@ export default {
   Proxy: '代理',
   'Memory Usage': '內存使用',
   'IDE Client': 'IDE 客戶端',
-  'Analyzes the project and creates a tailored LUOSHU.md file.':
-    '分析項目並創建定製的 LUOSHU.md 檔案',
-  'List available Luoshu CLI tools. Usage: /tools [desc]':
-    '列出可用的 Luoshu CLI 工具。用法：/tools [desc]',
+  'Analyzes the project and creates a tailored HANHAI.md file.':
+    '分析項目並創建定製的 HANHAI.md 檔案',
+  'List available Hanhai CLI tools. Usage: /tools [desc]':
+    '列出可用的 Hanhai CLI 工具。用法：/tools [desc]',
   'List available skills.': '列出可用技能。',
-  'Available Luoshu CLI CLI tools:': '可用的 Luoshu CLI CLI 工具：',
+  'Available Hanhai CLI tools:': '可用的 Hanhai CLI 工具：',
   'No tools available': '沒有可用工具',
   'View or change the approval mode for tool usage':
     '查看或更改工具使用的審批模式',
@@ -169,8 +180,8 @@ export default {
   'Clear conversation history and free up context': '清除對話歷史並釋放上下文',
   'Compresses the context by replacing it with a summary.':
     '通過摘要替換來壓縮上下文',
-  'open full Luoshu CLI documentation in your browser':
-    '在瀏覽器中打開完整的 Luoshu CLI 文檔',
+  'open full Hanhai CLI documentation in your browser':
+    '在瀏覽器中打開完整的 Hanhai CLI 文檔',
   'Configuration not available.': '配置不可用',
   'Connect an LLM provider': '連接 LLM 提供商',
   'Copy the last result or code snippet to clipboard':
@@ -264,7 +275,7 @@ export default {
     '系統提示超過 {{length}} 個字符',
   'Step {{n}}: Choose Location': '步驟 {{n}}: 選擇位置',
   'Step {{n}}: Choose Generation Method': '步驟 {{n}}: 選擇生成方式',
-  'Generate with Luoshu CLI (Recommended)': '使用 Luoshu CLI 生成（推薦）',
+  'Generate with Hanhai CLI (Recommended)': '使用 Hanhai CLI 生成（推薦）',
   'Manual Creation': '手動創建',
   'Describe what this subagent should do and when it should be used. (Be comprehensive for best results)':
     '描述此子智能體應該做什麼以及何時使用它。（為了獲得最佳效果，請全面描述）',
@@ -358,10 +369,10 @@ export default {
   'checking...': '檢查中...',
   'not updatable': '不可更新',
   error: '錯誤',
-  'View and edit Luoshu CLI settings': '查看和編輯 Luoshu CLI 設置',
+  'View and edit Hanhai CLI settings': '查看和編輯 Hanhai CLI 設置',
   Settings: '設置',
-  'To see changes, Luoshu CLI must be restarted. Press r to exit and apply changes now.':
-    '要查看更改，必須重啟 Luoshu CLI。按 r 退出並立即應用更改。',
+  'To see changes, Hanhai CLI must be restarted. Press r to exit and apply changes now.':
+    '要查看更改，必須重啟 Hanhai CLI。按 r 退出並立即應用更改。',
   'Vim Mode': 'Vim 模式',
   'Attribution: commit': '署名：提交',
   'Terminal Bell Notification': '終端響鈴通知',
@@ -381,7 +392,7 @@ export default {
   'Custom Witty Phrases': '自定義詼諧短語',
   'Show Welcome Back Dialog': '顯示歡迎回來對話框',
   'Enable User Feedback': '啟用用戶反饋',
-  'How is Qwen doing this session? (optional)': 'Qwen 這次表現如何？（可選）',
+  'How is Hanhai doing this session? (optional)': '瀚海 這次表現如何？（可選）',
   Bad: '不滿意',
   Fine: '還行',
   Good: '滿意',
@@ -460,14 +471,14 @@ export default {
   remote: '遠程',
   'This extension will add the following commands: {{commands}}.':
     '此擴展將添加以下命令：{{commands}}。',
-  'This extension will append info to your LUOSHU.md context using {{fileName}}':
-    '此擴展將使用 {{fileName}} 向您的 LUOSHU.md 上下文追加信息',
+  'This extension will append info to your HANHAI.md context using {{fileName}}':
+    '此擴展將使用 {{fileName}} 向您的 HANHAI.md 上下文追加信息',
   'This extension will install the following skills:': '此擴展將安裝以下技能：',
   'This extension will install the following subagents:':
     '此擴展將安裝以下子智能體：',
   'Installation cancelled for "{{name}}".': '已取消安裝 "{{name}}"。',
-  'You are installing an extension from {{originSource}}. Some features may not work perfectly with Luoshu CLI.':
-    '您正在安裝來自 {{originSource}} 的擴展。某些功能可能無法完美兼容 Luoshu CLI。',
+  'You are installing an extension from {{originSource}}. Some features may not work perfectly with Hanhai CLI.':
+    '您正在安裝來自 {{originSource}} 的擴展。某些功能可能無法完美兼容 Hanhai CLI。',
   '--ref and --auto-update are not applicable for marketplace extensions.':
     '--ref 和 --auto-update 不適用於市場擴展。',
   'Extension "{{name}}" installed successfully and enabled.':
@@ -565,8 +576,8 @@ export default {
     '安裝 {{ideName}} 所需的 IDE 配套工具',
   'enable IDE integration': '啟用 IDE 集成',
   'disable IDE integration': '禁用 IDE 集成',
-  'IDE integration is not supported in your current environment. To use this feature, run Luoshu CLI in one of these supported IDEs: VS Code or VS Code forks.':
-    '您當前環境不支持 IDE 集成。要使用此功能，請在以下支持的 IDE 之一中運行 Luoshu CLI：VS Code 或 VS Code 分支版本。',
+  'IDE integration is not supported in your current environment. To use this feature, run Hanhai CLI in one of these supported IDEs: VS Code or VS Code forks.':
+    '您當前環境不支持 IDE 集成。要使用此功能，請在以下支持的 IDE 之一中運行 Hanhai CLI：VS Code 或 VS Code 分支版本。',
   'Set up GitHub Actions': '設置 GitHub Actions',
   'Configure terminal keybindings for multiline input (VS Code, Cursor, Windsurf, Trae)':
     '配置終端按鍵綁定以支持多行輸入（VS Code、Cursor、Windsurf、Trae）',
@@ -595,7 +606,7 @@ export default {
   'Failed to configure {{terminalName}}.': '配置 {{terminalName}} 失敗。',
   'Your terminal is already configured for an optimal experience with multiline input (Shift+Enter and Ctrl+Enter).':
     '您的終端已配置為支持多行輸入（Shift+Enter 和 Ctrl+Enter）的最佳體驗。',
-  'Manage Luoshu CLI hooks': '管理 Luoshu CLI Hook',
+  'Manage Hanhai CLI hooks': '管理 Hanhai CLI Hook',
   'List all configured hooks': '列出所有已配置的 Hook',
   Hooks: 'Hook',
   'Loading hooks...': '正在加載 Hook...',
@@ -608,22 +619,22 @@ export default {
   'No hook events found.': '未找到 Hook 事件。',
   '{{count}} hook configured': '{{count}} 個 Hook 已配置',
   '{{count}} hooks configured': '{{count}} 個 Hook 已配置',
-  'This menu is read-only. To add or modify hooks, edit settings.json directly or ask Luoshu CLI.':
-    '此選單為只讀。要添加或修改 Hook，請直接編輯 settings.json 或詢問 Luoshu CLI。',
+  'This menu is read-only. To add or modify hooks, edit settings.json directly or ask Hanhai CLI.':
+    '此選單為只讀。要添加或修改 Hook，請直接編輯 settings.json 或詢問 Hanhai CLI。',
   'Enter to select · Esc to cancel': 'Enter 選擇 · Esc 取消',
   'Exit codes:': '退出碼：',
   'Configured hooks:': '已配置的 Hook：',
   'No hooks configured for this event.': '此事件未配置 Hook。',
-  'To add hooks, edit settings.json directly or ask Qwen.':
-    '要添加 Hook，請直接編輯 settings.json 或詢問 Qwen。',
+  'To add hooks, edit settings.json directly or ask Hanhai.':
+    '要添加 Hook，請直接編輯 settings.json 或詢問 瀚海。',
   'Enter to select · Esc to go back': 'Enter 選擇 · Esc 返回',
   'Hook details': 'Hook 詳情',
   'Event:': '事件：',
   'Extension:': '擴展：',
   'Desc:': '描述：',
   'No hook config selected': '未選擇 Hook 配置',
-  'To modify or remove this hook, edit settings.json directly or ask Qwen to help.':
-    '要修改或刪除此 Hook，請直接編輯 settings.json 或詢問 Qwen。',
+  'To modify or remove this hook, edit settings.json directly or ask Hanhai to help.':
+    '要修改或刪除此 Hook，請直接編輯 settings.json 或詢問 瀚海。',
   'Hook Configuration - Disabled': 'Hook 配置 - 已禁用',
   'All hooks are currently disabled. You have {{count}} that are not running.':
     '所有 Hook 當前已禁用。您有 {{count}} 未運行。',
@@ -634,8 +645,8 @@ export default {
   'StatusLine will not be displayed': '不會顯示狀態欄',
   'Tool operations will proceed without hook validation':
     '工具操作將在沒有 Hook 驗證的情況下繼續',
-  'To re-enable hooks, remove "disableAllHooks" from settings.json or ask Luoshu CLI.':
-    '要重新啟用 Hook，請從 settings.json 中刪除 "disableAllHooks" 或詢問 Luoshu CLI。',
+  'To re-enable hooks, remove "disableAllHooks" from settings.json or ask Hanhai CLI.':
+    '要重新啟用 Hook，請從 settings.json 中刪除 "disableAllHooks" 或詢問 Hanhai CLI。',
   Project: '項目',
   User: '用戶',
   Skill: '技能',
@@ -652,7 +663,7 @@ export default {
   'When notifications are sent': '發送通知時',
   'When the user submits a prompt': '用戶提交提示時',
   'When a new session is started': '新會話開始時',
-  'Right before Luoshu CLI concludes its response': 'Luoshu CLI 結束響應之前',
+  'Right before Hanhai CLI concludes its response': 'Hanhai CLI 結束響應之前',
   'When a subagent (Agent tool call) is started':
     '子智能體（Agent 工具調用）啟動時',
   'Right before a subagent concludes its response': '子智能體結束響應之前',
@@ -691,7 +702,7 @@ export default {
     '僅向用戶顯示 stderr 但繼續工具調用',
   'block processing, erase original prompt, and show stderr to user only':
     '阻止處理，擦除原始提示，僅向用戶顯示 stderr',
-  'stdout shown to Qwen': '向 Qwen 顯示 stdout',
+  'stdout shown to Hanhai': '向 瀚海 顯示 stdout',
   'show stderr to user only (blocking errors ignored)':
     '僅向用戶顯示 stderr（忽略阻塞錯誤）',
   'command completes successfully': '命令成功完成',
@@ -913,8 +924,8 @@ export default {
   'The /directory add command is not supported in restrictive sandbox profiles. Please use --include-directories when starting the session instead.':
     '/directory add 命令在限制性沙箱配置檔案中不受支持。請改為在啟動會話時使用 --include-directories。',
   "Error adding '{{path}}': {{error}}": "添加 '{{path}}' 時出錯：{{error}}",
-  'Successfully added LUOSHU.md files from the following directories if there are:\n- {{directories}}':
-    '如果存在，已成功從以下目錄添加 LUOSHU.md 檔案：\n- {{directories}}',
+  'Successfully added HANHAI.md files from the following directories if there are:\n- {{directories}}':
+    '如果存在，已成功從以下目錄添加 HANHAI.md 檔案：\n- {{directories}}',
   'Error refreshing memory: {{error}}': '刷新內存時出錯：{{error}}',
   'Successfully added directories:\n- {{directories}}':
     '成功添加目錄：\n- {{directories}}',
@@ -1031,8 +1042,8 @@ export default {
   'Failed to authenticate. Message: {{message}}': '認證失敗。消息：{{message}}',
   'Authenticated successfully with {{authType}} credentials.':
     '使用 {{authType}} 憑據成功認證。',
-  'Invalid LUOSHU_DEFAULT_AUTH_TYPE value: "{{value}}". Valid values are: {{validValues}}':
-    '無效的 LUOSHU_DEFAULT_AUTH_TYPE 值："{{value}}"。有效值為：{{validValues}}',
+  'Invalid HANHAI_DEFAULT_AUTH_TYPE value: "{{value}}". Valid values are: {{validValues}}':
+    '無效的 HANHAI_DEFAULT_AUTH_TYPE 值："{{value}}"。有效值為：{{validValues}}',
   'Select Model': '選擇模型',
   'API Key': 'API Key',
   '(default)': '(默認)',
@@ -1054,12 +1065,12 @@ export default {
   Ask: '詢問',
   Deny: '拒絕',
   Workspace: '工作區',
-  "Luoshu CLI won't ask before using allowed tools.":
-    'Luoshu CLI 使用已允許的工具前不會詢問。',
-  'Luoshu CLI will ask before using these tools.':
-    'Luoshu CLI 使用這些工具前會先詢問。',
-  'Luoshu CLI is not allowed to use denied tools.':
-    'Luoshu CLI 不允許使用被拒絕的工具。',
+  "Hanhai CLI won't ask before using allowed tools.":
+    'Hanhai CLI 使用已允許的工具前不會詢問。',
+  'Hanhai CLI will ask before using these tools.':
+    'Hanhai CLI 使用這些工具前會先詢問。',
+  'Hanhai CLI is not allowed to use denied tools.':
+    'Hanhai CLI 不允許使用被拒絕的工具。',
   'Manage trusted directories for this workspace.':
     '管理此工作區的受信任目錄。',
   'Any use of the {{tool}} tool': '{{tool}} 工具的任何使用',
@@ -1092,10 +1103,10 @@ export default {
   'Search…': '搜索…',
   'Add directory…': '添加目錄…',
   'Add directory to workspace': '添加工作區目錄',
-  'Luoshu CLI can read files in the workspace, and make edits when auto-accept edits is on.':
-    'Luoshu CLI 可以讀取工作區中的檔案，並在自動接受編輯模式開啟時進行編輯。',
-  'Luoshu CLI will be able to read files in this directory and make edits when auto-accept edits is on.':
-    'Luoshu CLI 將能夠讀取此目錄中的檔案，並在自動接受編輯模式開啟時進行編輯。',
+  'Hanhai CLI can read files in the workspace, and make edits when auto-accept edits is on.':
+    'Hanhai CLI 可以讀取工作區中的檔案，並在自動接受編輯模式開啟時進行編輯。',
+  'Hanhai CLI will be able to read files in this directory and make edits when auto-accept edits is on.':
+    'Hanhai CLI 將能夠讀取此目錄中的檔案，並在自動接受編輯模式開啟時進行編輯。',
   'Enter the path to the directory:': '輸入目錄路徑：',
   'Enter directory path…': '輸入目錄路徑…',
   'Tab to complete · Enter to add · Esc to cancel':
@@ -1167,8 +1178,8 @@ export default {
   'Use /bug to submit issues to the maintainers when something goes off.':
     '遇到問題時，用 /bug 將問題提交給維護者。',
   'Switch auth type quickly with /auth.': '用 /auth 快速切換認證方式。',
-  'You can run any shell commands from Luoshu CLI using ! (e.g. !ls).':
-    '在 Luoshu CLI 中使用 ! 可運行任意 shell 命令（例如 !ls）。',
+  'You can run any shell commands from Hanhai CLI using ! (e.g. !ls).':
+    '在 Hanhai CLI 中使用 ! 可運行任意 shell 命令（例如 !ls）。',
   'Type / to open the command popup; Tab autocompletes slash commands and saved prompts.':
     '輸入 / 打開命令彈窗；按 Tab 自動補全斜槓命令和保存的提示詞。',
   'You can resume a previous conversation by running qwen --continue or qwen --resume.':
@@ -1181,8 +1192,8 @@ export default {
     '試試 /insight，從聊天記錄中生成個性化洞察。',
   'Press Ctrl+O to toggle compact mode — hide tool output and thinking for a cleaner view.':
     '按 Ctrl+O 切換緊湊模式 ── 隱藏工具輸出和思考過程，界面更簡潔。',
-  'Add a LUOSHU.md file to give Luoshu CLI persistent project context.':
-    '添加 LUOSHU.md 檔案，為 Luoshu CLI 提供持久的項目上下文。',
+  'Add a HANHAI.md file to give Hanhai CLI persistent project context.':
+    '添加 HANHAI.md 檔案，為 Hanhai CLI 提供持久的項目上下文。',
   'Use /btw to ask a quick side question without disrupting the conversation.':
     '用 /btw 快速問一個小問題，不會打斷當前對話。',
   'Context is almost full! Run /compress now or start /new to continue.':
@@ -1191,7 +1202,7 @@ export default {
     '上下文空間不足，用 /compress 釋放空間。',
   'Long conversation? /compress summarizes history to free context.':
     '對話太長？用 /compress 總結歷史，釋放上下文。',
-  'Agent powering down. Goodbye!': 'Luoshu CLI 正在關閉，再見！',
+  'Agent powering down. Goodbye!': 'Hanhai CLI 正在關閉，再見！',
   'To continue this session, run': '要繼續此會話，請運行',
   'Interaction Summary': '交互摘要',
   'Session ID:': '會話 ID：',
@@ -1255,7 +1266,7 @@ export default {
     '（將創建備份，原始檔案將保留）',
   'Waiting for user confirmation...': '等待用戶確認...',
   WITTY_LOADING_PHRASES: [
-    // --- 洛書 · 古風系列（Luoshu CLI 限定彩蛋）---
+    // --- 洛書 · 古風系列（Hanhai CLI 限定彩蛋）---
     '正在推演洛書九宮...',
     '算珠撥動中，請稍候...',
     '演算未竟，少安毋躁...',
@@ -1478,7 +1489,7 @@ export default {
     '已處於計劃模式。使用 "/plan exit" 退出計劃模式。',
   'Not in plan mode. Use "/plan" to enter plan mode first.':
     '未處於計劃模式。請先使用 "/plan" 進入計劃模式。',
-  "Set up Luoshu CLI's status line UI": '配置 Luoshu CLI 的狀態欄',
+  "Set up Hanhai CLI's status line UI": '配置 Hanhai CLI 的狀態欄',
   'When a new todo item is created': '建立新待辦事項時',
   'When a todo item is marked as completed': '待辦事項標記為完成時',
   'Input to command is JSON with todo_id, todo_content, todo_status, all_todos, and phase. In validation, output JSON with decision (allow/block/deny) and reason. In postWrite, block/deny is ignored.':

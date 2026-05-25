@@ -28,10 +28,10 @@ describe('QwenIgnoreParser', () => {
     vi.restoreAllMocks();
   });
 
-  describe('when .luoshuignore exists', () => {
+  describe('when .hanhaiignore exists', () => {
     beforeEach(async () => {
       await createTestFile(
-        '.luoshuignore',
+        '.hanhaiignore',
         'ignored.txt\n# A comment\n/ignored_dir/\n',
       );
       await createTestFile('ignored.txt', 'ignored');
@@ -46,7 +46,7 @@ describe('QwenIgnoreParser', () => {
       );
     });
 
-    it('should ignore files specified in .luoshuignore', () => {
+    it('should ignore files specified in .hanhaiignore', () => {
       const parser = new QwenIgnoreParser(projectRoot);
       expect(parser.getPatterns()).toEqual(['ignored.txt', '/ignored_dir/']);
       expect(parser.isIgnored('ignored.txt')).toBe(true);
@@ -58,7 +58,7 @@ describe('QwenIgnoreParser', () => {
     });
   });
 
-  describe('when .luoshuignore does not exist', () => {
+  describe('when .hanhaiignore does not exist', () => {
     it('should not load any patterns and not ignore any files', () => {
       const parser = new QwenIgnoreParser(projectRoot);
       expect(parser.getPatterns()).toEqual([]);

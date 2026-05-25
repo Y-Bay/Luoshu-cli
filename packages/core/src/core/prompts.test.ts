@@ -17,7 +17,7 @@ import { isGitRepository } from '../utils/gitUtils.js';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { LUOSHU_DIR } from '../config/storage.js';
+import { HANHAI_DIR } from '../config/storage.js';
 
 // Mock tool names if they are dynamically generated or complex
 vi.mock('../tools/ls', () => ({ LSTool: { Name: 'list_directory' } }));
@@ -50,7 +50,7 @@ describe('Core System Prompt (prompts.ts)', () => {
     vi.stubEnv('SANDBOX', undefined);
     const prompt = getCoreSystemPrompt();
     expect(prompt).not.toContain('---\n\n'); // Separator should not be present
-    expect(prompt).toContain('You are Qwen Code, an interactive CLI agent'); // Check for core content
+    expect(prompt).toContain('You are Hanhai CLI, an interactive CLI agent'); // Check for core content
     expect(prompt).toContain('# Executing actions with care');
     expect(prompt).toMatchSnapshot(); // Use snapshot for base prompt structure
   });
@@ -59,7 +59,7 @@ describe('Core System Prompt (prompts.ts)', () => {
     vi.stubEnv('SANDBOX', undefined);
     const prompt = getCoreSystemPrompt('');
     expect(prompt).not.toContain('---\n\n');
-    expect(prompt).toContain('You are Qwen Code, an interactive CLI agent');
+    expect(prompt).toContain('You are Hanhai CLI, an interactive CLI agent');
     expect(prompt).toMatchSnapshot();
   });
 
@@ -67,7 +67,7 @@ describe('Core System Prompt (prompts.ts)', () => {
     vi.stubEnv('SANDBOX', undefined);
     const prompt = getCoreSystemPrompt('   \n  \t ');
     expect(prompt).not.toContain('---\n\n');
-    expect(prompt).toContain('You are Qwen Code, an interactive CLI agent');
+    expect(prompt).toContain('You are Hanhai CLI, an interactive CLI agent');
     expect(prompt).toMatchSnapshot();
   });
 
@@ -78,7 +78,7 @@ describe('Core System Prompt (prompts.ts)', () => {
     const prompt = getCoreSystemPrompt(memory);
 
     expect(prompt.endsWith(expectedSuffix)).toBe(true);
-    expect(prompt).toContain('You are Qwen Code, an interactive CLI agent'); // Ensure base prompt follows
+    expect(prompt).toContain('You are Hanhai CLI, an interactive CLI agent'); // Ensure base prompt follows
     expect(prompt).toMatchSnapshot(); // Snapshot the combined prompt
   });
 
@@ -179,7 +179,7 @@ describe('Core System Prompt (prompts.ts)', () => {
     });
 
     it('should read from default path when QWEN_SYSTEM_MD is "true"', () => {
-      const defaultPath = path.resolve(path.join(LUOSHU_DIR, 'system.md'));
+      const defaultPath = path.resolve(path.join(HANHAI_DIR, 'system.md'));
       vi.stubEnv('QWEN_SYSTEM_MD', 'true');
       vi.mocked(fs.existsSync).mockReturnValue(true);
       vi.mocked(fs.readFileSync).mockReturnValue('custom system prompt');
@@ -190,7 +190,7 @@ describe('Core System Prompt (prompts.ts)', () => {
     });
 
     it('should read from default path when QWEN_SYSTEM_MD is "1"', () => {
-      const defaultPath = path.resolve(path.join(LUOSHU_DIR, 'system.md'));
+      const defaultPath = path.resolve(path.join(HANHAI_DIR, 'system.md'));
       vi.stubEnv('QWEN_SYSTEM_MD', '1');
       vi.mocked(fs.existsSync).mockReturnValue(true);
       vi.mocked(fs.readFileSync).mockReturnValue('custom system prompt');
@@ -243,7 +243,7 @@ describe('Core System Prompt (prompts.ts)', () => {
     });
 
     it('should write to default path when QWEN_WRITE_SYSTEM_MD is "true"', () => {
-      const defaultPath = path.resolve(path.join(LUOSHU_DIR, 'system.md'));
+      const defaultPath = path.resolve(path.join(HANHAI_DIR, 'system.md'));
       vi.stubEnv('QWEN_WRITE_SYSTEM_MD', 'true');
       getCoreSystemPrompt();
       expect(fs.writeFileSync).toHaveBeenCalledWith(
@@ -253,7 +253,7 @@ describe('Core System Prompt (prompts.ts)', () => {
     });
 
     it('should write to default path when QWEN_WRITE_SYSTEM_MD is "1"', () => {
-      const defaultPath = path.resolve(path.join(LUOSHU_DIR, 'system.md'));
+      const defaultPath = path.resolve(path.join(HANHAI_DIR, 'system.md'));
       vi.stubEnv('QWEN_WRITE_SYSTEM_MD', '1');
       getCoreSystemPrompt();
       expect(fs.writeFileSync).toHaveBeenCalledWith(

@@ -11,7 +11,7 @@ import { t } from '../../i18n/index.js';
 export const settingsCommand: SlashCommand = {
   name: 'settings',
   get description() {
-    return t('View and edit Luoshu CLI settings');
+    return t('View and edit Hanhai CLI settings');
   },
   kind: CommandKind.BUILT_IN,
   supportedModes: ['interactive'] as const,

@@ -1,8 +1,8 @@
 /**
- * Copyright 2026 Luoshu Team.
+ * Copyright 2026 Hanhai Team.
  * SPDX-License-Identifier: Apache-2.0
  *
- * Per-character radial gradient renderer for the LUOSHU startup banner.
+ * Per-character radial gradient renderer for the HANHAI startup banner.
  *
  * - `colors` may be 2+ hex stops; interpolation is piecewise-linear in sRGB.
  * - `origin` controls where t=0 lives (default `'top-left'`). t=1 lives at

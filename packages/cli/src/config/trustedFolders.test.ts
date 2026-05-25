@@ -158,9 +158,9 @@ describe('Trusted Folders Loading', () => {
     expect(errors[0].message).toContain('Unexpected token');
   });
 
-  it('should use LUOSHU_TRUSTED_FOLDERS_PATH env var if set', () => {
+  it('should use HANHAI_TRUSTED_FOLDERS_PATH env var if set', () => {
     const customPath = '/custom/path/to/trusted_folders.json';
-    process.env['LUOSHU_TRUSTED_FOLDERS_PATH'] = customPath;
+    process.env['HANHAI_TRUSTED_FOLDERS_PATH'] = customPath;
 
     (mockFsExistsSync as Mock).mockImplementation((p) => p === customPath);
     const userContent = {
@@ -180,7 +180,7 @@ describe('Trusted Folders Loading', () => {
     ]);
     expect(errors).toEqual([]);
 
-    delete process.env['LUOSHU_TRUSTED_FOLDERS_PATH'];
+    delete process.env['HANHAI_TRUSTED_FOLDERS_PATH'];
   });
 
   it('setValue should update the user config and save it', () => {

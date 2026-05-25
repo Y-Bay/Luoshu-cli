@@ -75,12 +75,12 @@ export function isTransientCapacityError(error: unknown): boolean {
 
 /**
  * Detects whether persistent retry mode is explicitly enabled.
- * Requires the user to opt in via LUOSHU_UNATTENDED_RETRY — we intentionally
+ * Requires the user to opt in via HANHAI_UNATTENDED_RETRY — we intentionally
  * do NOT auto-activate on CI=true, because silently turning a fast-fail CI job
  * into an infinite-wait job would be surprising and dangerous.
  */
 export function isUnattendedMode(): boolean {
-  const val = process.env['LUOSHU_UNATTENDED_RETRY'];
+  const val = process.env['HANHAI_UNATTENDED_RETRY'];
   return val === 'true' || val === '1';
 }
 
@@ -200,7 +200,7 @@ export async function retryWithBackoff<T>(
       if (authType === AuthType.QWEN_OAUTH && isQwenQuotaExceededError(error)) {
         throw new Error(
           `Qwen OAuth free tier has been discontinued as of 2026-04-15.\n\n` +
-            `To continue using Qwen Code, try one of these alternatives:\n` +
+            `To continue using Hanhai CLI, try one of these alternatives:\n` +
             `  - OpenRouter:    https://openrouter.ai/docs/quickstart\n` +
             `  - Fireworks AI:  https://docs.fireworks.ai/api-reference/introduction\n` +
             `  - ModelStudio:   https://help.aliyun.com/zh/model-studio/coding-plan\n\n` +

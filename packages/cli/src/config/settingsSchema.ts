@@ -307,7 +307,7 @@ const SETTINGS_SCHEMA = {
     requiresRestart: true,
     default: undefined as string | undefined,
     description:
-      'Custom directory for approved Plan Mode files. Relative paths are resolved from the project root, and the resolved path must stay within the project root. Defaults to ~/.luoshu/plans.',
+      'Custom directory for approved Plan Mode files. Relative paths are resolved from the project root, and the resolved path must stay within the project root. Defaults to ~/.hanhai/plans.',
     showInDialog: false,
   },
 
@@ -407,7 +407,7 @@ const SETTINGS_SCHEMA = {
         // editor-surfaced defaults.
         default: { commit: true, pr: true },
         description:
-          'Attribution added to git commits and pull requests created through Qwen Code.',
+          'Attribution added to git commits and pull requests created through Hanhai CLI.',
         showInDialog: false,
         // Pre-V4 settings stored this as a single boolean. The V3→V4
         // migration rewrites those on first launch, but the IDE schema
@@ -424,7 +424,7 @@ const SETTINGS_SCHEMA = {
             requiresRestart: false,
             default: true,
             description:
-              'Add a Co-authored-by trailer to git commit messages AND attach a per-file AI-attribution git note (`refs/notes/ai-attribution`) for commits made through Qwen Code. Disabling skips both.',
+              'Add a Co-authored-by trailer to git commit messages AND attach a per-file AI-attribution git note (`refs/notes/ai-attribution`) for commits made through Hanhai CLI. Disabling skips both.',
             showInDialog: true,
           },
           pr: {
@@ -434,7 +434,7 @@ const SETTINGS_SCHEMA = {
             requiresRestart: false,
             default: true,
             description:
-              'Append a Qwen Code attribution line to PR descriptions when running `gh pr create`.',
+              'Append a Hanhai CLI attribution line to PR descriptions when running `gh pr create`.',
             showInDialog: true,
           },
         },
@@ -477,7 +477,7 @@ const SETTINGS_SCHEMA = {
         description:
           'The language for the user interface. Use "auto" to detect from system settings. ' +
           'You can also use custom language codes (e.g., "es", "fr") by placing JS language files ' +
-          'in ~/.luoshu/locales/ (e.g., ~/.luoshu/locales/es.js).',
+          'in ~/.hanhai/locales/ (e.g., ~/.hanhai/locales/es.js).',
         showInDialog: true,
         options: [] as readonly SettingEnumOption[],
       },
@@ -616,7 +616,7 @@ const SETTINGS_SCHEMA = {
         label: 'Theme',
         category: 'UI',
         requiresRestart: false,
-        default: 'Luoshu Dark' as string,
+        default: 'Hanhai Dark' as string,
         description: 'The color theme for the UI.',
         showInDialog: true,
       },
@@ -688,7 +688,7 @@ const SETTINGS_SCHEMA = {
         requiresRestart: false,
         default: false,
         description:
-          'Show Qwen Code status and thoughts in the terminal window title',
+          'Show Hanhai CLI status and thoughts in the terminal window title',
         showInDialog: false,
       },
       hideTips: {
@@ -866,7 +866,7 @@ const SETTINGS_SCHEMA = {
         requiresRestart: false,
         default: '' as string,
         description:
-          'Replace the default ">_ Qwen Code" title shown in the banner info panel. The version suffix is always appended.',
+          'Replace the default ">_ Hanhai CLI" title shown in the banner info panel. The version suffix is always appended.',
         showInDialog: false,
       },
       customBannerSubtitle: {
@@ -1213,7 +1213,7 @@ const SETTINGS_SCHEMA = {
             requiresRestart: false,
             default: undefined,
             description:
-              "Overrides the default context window size for the selected model. Use this setting when a provider's effective context limit differs from Qwen Code's default. This value defines the model's assumed maximum context capacity, not a per-request token limit.",
+              "Overrides the default context window size for the selected model. Use this setting when a provider's effective context limit differs from Hanhai CLI's default. This value defines the model's assumed maximum context capacity, not a per-request token limit.",
             parentKey: 'generationConfig',
             showInDialog: false,
           },
@@ -1340,11 +1340,11 @@ const SETTINGS_SCHEMA = {
           },
           respectQwenIgnore: {
             type: 'boolean',
-            label: 'Respect .luoshuignore',
+            label: 'Respect .hanhaiignore',
             category: 'Context',
             requiresRestart: true,
             default: true,
-            description: 'Respect .luoshuignore files when searching',
+            description: 'Respect .hanhaiignore files when searching',
             showInDialog: true,
           },
           enableRecursiveFileSearch: {
@@ -1573,7 +1573,7 @@ const SETTINGS_SCHEMA = {
         requiresRestart: true,
         default: undefined as string | undefined,
         description:
-          'Sandbox image URI used by Docker/Podman when --sandbox-image and LUOSHU_SANDBOX_IMAGE are not set.',
+          'Sandbox image URI used by Docker/Podman when --sandbox-image and HANHAI_SANDBOX_IMAGE are not set.',
         showInDialog: false,
       },
       toolSearch: {
@@ -1962,7 +1962,7 @@ const SETTINGS_SCHEMA = {
         default: undefined as string | undefined,
         description:
           'Custom directory for runtime output (temp files, debug logs, session data, todos, etc.). ' +
-          'Config files remain at ~/.qwen (or LUOSHU_HOME if set). Env var LUOSHU_RUNTIME_DIR takes priority.',
+          'Config files remain at ~/.qwen (or HANHAI_HOME if set). Env var HANHAI_RUNTIME_DIR takes priority.',
         showInDialog: false,
       },
     },
@@ -2009,7 +2009,7 @@ const SETTINGS_SCHEMA = {
             requiresRestart: true,
             default: undefined as string | undefined,
             description:
-              'Custom base directory for Arena worktrees. Defaults to ~/.luoshu/arena.',
+              'Custom base directory for Arena worktrees. Defaults to ~/.hanhai/arena.',
             showInDialog: false,
           },
           preserveArtifacts: {
@@ -2085,7 +2085,7 @@ const SETTINGS_SCHEMA = {
     requiresRestart: true,
     default: DEFAULT_STOP_HOOK_BLOCK_CAP,
     description:
-      'Maximum consecutive blocking Stop/SubagentStop hook decisions before Qwen Code overrides the hook loop and ends the turn. Can be overridden by LUOSHU_STOP_HOOK_BLOCK_CAP.',
+      'Maximum consecutive blocking Stop/SubagentStop hook decisions before Hanhai CLI overrides the hook loop and ends the turn. Can be overridden by HANHAI_STOP_HOOK_BLOCK_CAP.',
     // This is an advanced safety valve for runaway hook loops, not a common
     // interactive preference.
     showInDialog: false,
@@ -2257,7 +2257,7 @@ const SETTINGS_SCHEMA = {
         requiresRestart: true,
         default: false,
         description:
-          'Enable in-session cron/loop tools (experimental). When enabled, the model can create recurring prompts using cron_create, cron_list, and cron_delete tools. Can also be enabled via LUOSHU_ENABLE_CRON=1 environment variable.',
+          'Enable in-session cron/loop tools (experimental). When enabled, the model can create recurring prompts using cron_create, cron_list, and cron_delete tools. Can also be enabled via HANHAI_ENABLE_CRON=1 environment variable.',
         showInDialog: true,
       },
       emitToolUseSummaries: {
@@ -2267,7 +2267,7 @@ const SETTINGS_SCHEMA = {
         requiresRestart: false,
         default: true,
         description:
-          'Generate a short LLM-based label after each tool batch completes. In compact mode the label replaces the generic `Tool × N` header; in full mode it appears as a dim `● <label>` line below the tool group. Requires a fast model to be configured; runs in parallel with the next API call so latency is hidden. Currently affects interactive CLI rendering only — SDK / non-interactive emission of the `tool_use_summary` message is not yet wired (the message factory is exported for a follow-up PR). Can be overridden with LUOSHU_EMIT_TOOL_USE_SUMMARIES=0 or =1.',
+          'Generate a short LLM-based label after each tool batch completes. In compact mode the label replaces the generic `Tool × N` header; in full mode it appears as a dim `● <label>` line below the tool group. Requires a fast model to be configured; runs in parallel with the next API call so latency is hidden. Currently affects interactive CLI rendering only — SDK / non-interactive emission of the `tool_use_summary` message is not yet wired (the message factory is exported for a follow-up PR). Can be overridden with HANHAI_EMIT_TOOL_USE_SUMMARIES=0 or =1.',
         showInDialog: true,
       },
     },

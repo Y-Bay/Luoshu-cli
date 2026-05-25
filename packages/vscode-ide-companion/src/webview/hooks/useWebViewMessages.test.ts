@@ -64,7 +64,7 @@ describe('resetConversationState', () => {
     expect(setCurrentSessionTitle).toHaveBeenCalledWith('Past Conversations');
     expect(postMessage).toHaveBeenCalledWith({
       type: 'updatePanelTitle',
-      data: { title: 'Qwen Code' },
+      data: { title: 'Hanhai CLI' },
     });
   });
 });

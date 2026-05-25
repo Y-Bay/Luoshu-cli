@@ -648,7 +648,7 @@ describe('CoreToolScheduler', () => {
         ToolErrorType.EXECUTION_DENIED,
       );
       expect(completedCall.response.error?.message).toBe(
-        'Qwen Code requires permission to use edit, but that permission was declined.',
+        'Hanhai CLI requires permission to use edit, but that permission was declined.',
       );
     }
     expect(execute).not.toHaveBeenCalled();
@@ -1254,7 +1254,7 @@ describe('CoreToolScheduler', () => {
       if (completedCall.status === 'error') {
         const errorMessage = completedCall.response.error?.message;
         expect(errorMessage).toBe(
-          'Qwen Code requires permission to use write_file, but that permission was declined.',
+          'Hanhai CLI requires permission to use write_file, but that permission was declined.',
         );
         // Should NOT contain "not found in registry"
         expect(errorMessage).not.toContain('not found in registry');
@@ -5928,15 +5928,15 @@ describe('Fire hook functions integration', () => {
 
   describe('Concurrent tool execution', () => {
     // Ensure tests are deterministic regardless of environment.
-    const origEnv = process.env['LUOSHU_MAX_TOOL_CONCURRENCY'];
+    const origEnv = process.env['HANHAI_MAX_TOOL_CONCURRENCY'];
     beforeEach(() => {
-      delete process.env['LUOSHU_MAX_TOOL_CONCURRENCY'];
+      delete process.env['HANHAI_MAX_TOOL_CONCURRENCY'];
     });
     afterEach(() => {
       if (origEnv !== undefined) {
-        process.env['LUOSHU_MAX_TOOL_CONCURRENCY'] = origEnv;
+        process.env['HANHAI_MAX_TOOL_CONCURRENCY'] = origEnv;
       } else {
-        delete process.env['LUOSHU_MAX_TOOL_CONCURRENCY'];
+        delete process.env['HANHAI_MAX_TOOL_CONCURRENCY'];
       }
     });
 

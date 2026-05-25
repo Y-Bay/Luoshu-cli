@@ -120,7 +120,7 @@ export const useMessageSubmit = ({
           data: {},
         });
         try {
-          messageHandling.setWaitingForResponse('Authenticating Qwen Code...');
+          messageHandling.setWaitingForResponse('Authenticating Hanhai CLI...');
         } catch (_err) {
           // Best-effort UI hint; ignore if hook not available
         }

@@ -3442,12 +3442,12 @@ describe('runNonInteractive', () => {
       );
       const realTmpDir = await fs.realpath(tmpDir);
       // restoreWorktreeContext enforces a structural invariant:
-      // worktreePath MUST live under `<originalCwd>/.luoshu/worktrees/`
+      // worktreePath MUST live under `<originalCwd>/.hanhai/worktrees/`
       // (PR #4174 review #3256839787). The test fixture mirrors that
       // shape so the restore path isn't rejected as tampered.
       const worktreeDir = path.join(
         realTmpDir,
-        '.luoshu',
+        '.hanhai',
         'worktrees',
         'worktree-real',
       );

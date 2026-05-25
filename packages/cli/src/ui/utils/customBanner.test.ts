@@ -50,13 +50,13 @@ function makeSettings(opts: {
     user: opts.userUi
       ? file(
           { ui: opts.userUi },
-          opts.userPath ?? '/home/u/.luoshu/settings.json',
+          opts.userPath ?? '/home/u/.hanhai/settings.json',
         )
       : empty,
     workspace: opts.workspaceUi
       ? file(
           { ui: opts.workspaceUi },
-          opts.workspacePath ?? '/repo/.luoshu/settings.json',
+          opts.workspacePath ?? '/repo/.hanhai/settings.json',
         )
       : empty,
     isTrusted: opts.isTrusted ?? true,
@@ -314,7 +314,7 @@ describe('resolveCustomBanner', () => {
             small: 'should-be-rejected',
           } as unknown as CustomAsciiArtSetting,
         },
-        userPath: '/home/u/.luoshu/settings.json',
+        userPath: '/home/u/.hanhai/settings.json',
       }),
     );
     // The resolver must NOT silently let `path` win — both forms are

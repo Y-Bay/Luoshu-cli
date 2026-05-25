@@ -22,7 +22,7 @@ export const summaryCommand: SlashCommand = {
   name: 'summary',
   get description() {
     return t(
-      'Generate a project summary and save it to .luoshu/PROJECT_SUMMARY.md',
+      'Generate a project summary and save it to .hanhai/PROJECT_SUMMARY.md',
     );
   },
   kind: CommandKind.BUILT_IN,
@@ -141,7 +141,7 @@ export const summaryCommand: SlashCommand = {
     }> => {
       // Ensure .qwen directory exists
       const projectRoot = config.getProjectRoot();
-      const qwenDir = path.join(projectRoot, '.luoshu');
+      const qwenDir = path.join(projectRoot, '.hanhai');
       try {
         await fsPromises.mkdir(qwenDir, { recursive: true });
       } catch (_err) {
@@ -161,7 +161,7 @@ export const summaryCommand: SlashCommand = {
       await fsPromises.writeFile(summaryPath, summaryContent, 'utf8');
 
       return {
-        filePathForDisplay: '.luoshu/PROJECT_SUMMARY.md',
+        filePathForDisplay: '.hanhai/PROJECT_SUMMARY.md',
         fullPath: summaryPath,
       };
     };

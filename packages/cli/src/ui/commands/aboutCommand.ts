@@ -27,7 +27,7 @@ export const aboutCommand: SlashCommand = {
 
     if (context.executionMode !== 'interactive') {
       const lines = [
-        `Luoshu CLI v${systemInfo.cliVersion}`,
+        `Hanhai CLI v${systemInfo.cliVersion}`,
         `Model: ${systemInfo.modelVersion}`,
         `Fast Model: ${systemInfo.fastModel ?? 'not set'}`,
         `Auth: ${systemInfo.selectedAuthType}`,

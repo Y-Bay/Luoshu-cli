@@ -189,7 +189,7 @@ export abstract class ChannelBase {
 
       const agentCommands = this.bridge.availableCommands;
       if (agentCommands.length > 0) {
-        lines.push('', 'Agent commands (forwarded to Qwen Code):');
+        lines.push('', 'Agent commands (forwarded to Hanhai CLI):');
         for (const cmd of agentCommands) {
           lines.push(`/${cmd.name} — ${cmd.description}`);
         }

@@ -17,7 +17,7 @@ import { settingsCommand } from './extensions/settings.js';
 
 export const extensionsCommand: CommandModule = {
   command: 'extensions <command>',
-  describe: 'Manage Luoshu CLI extensions.',
+  describe: 'Manage Hanhai CLI extensions.',
   builder: (yargs) =>
     yargs
       .command(installCommand)

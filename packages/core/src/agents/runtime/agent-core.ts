@@ -73,7 +73,7 @@ import { AgentEventEmitter, AgentEventType } from './agent-events.js';
 import { AgentStatistics, type AgentStatsSummary } from './agent-statistics.js';
 import { matchesMcpPattern } from '../../permissions/rule-parser.js';
 import { ToolNames } from '../../tools/tool-names.js';
-import { DEFAULT_LUOSHU_MODEL } from '../../config/models.js';
+import { DEFAULT_HANHAI_MODEL } from '../../config/models.js';
 import { type ContextState, templateString } from './agent-headless.js';
 
 /**
@@ -614,7 +614,7 @@ export class AgentCore {
       const responseStream = await chat.sendMessageStream(
         this.modelConfig.model ||
           this.runtimeContext.getModel() ||
-          DEFAULT_LUOSHU_MODEL,
+          DEFAULT_HANHAI_MODEL,
         messageParams,
         promptId,
       );

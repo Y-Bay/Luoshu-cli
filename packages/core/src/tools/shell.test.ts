@@ -76,7 +76,7 @@ describe('ShellTool', () => {
       storage: {
         getUserSkillsDirs: vi
           .fn()
-          .mockReturnValue(['/test/dir/.luoshu/skills']),
+          .mockReturnValue(['/test/dir/.hanhai/skills']),
         getProjectTempDir: vi.fn().mockReturnValue('/tmp/qwen-temp'),
         getProjectDir: vi.fn().mockReturnValue('/test/proj'),
       },
@@ -191,7 +191,7 @@ describe('ShellTool', () => {
       expect(() =>
         shellTool.build({
           command: 'ls',
-          directory: '/test/dir/.luoshu/skills/my-skill',
+          directory: '/test/dir/.hanhai/skills/my-skill',
           is_background: false,
         }),
       ).toThrow(
@@ -203,7 +203,7 @@ describe('ShellTool', () => {
       expect(() =>
         shellTool.build({
           command: 'ls',
-          directory: '/test/dir/.luoshu/skills',
+          directory: '/test/dir/.hanhai/skills',
           is_background: false,
         }),
       ).toThrow(
@@ -215,7 +215,7 @@ describe('ShellTool', () => {
       expect(() =>
         shellTool.build({
           command: 'ls',
-          directory: '/test/dir/.luoshu/skills/../skills/my-skill',
+          directory: '/test/dir/.hanhai/skills/../skills/my-skill',
           is_background: false,
         }),
       ).toThrow(
@@ -3069,7 +3069,7 @@ describe('ShellTool', () => {
 
           const observed = mockShellExecutionService.mock.calls[0][0] as string;
           expect(observed).toBe(command);
-          expect(observed).not.toContain('Generated with Qwen Code');
+          expect(observed).not.toContain('Generated with Hanhai CLI');
         },
       );
 
@@ -3094,7 +3094,7 @@ describe('ShellTool', () => {
         await promise;
 
         expect(mockShellExecutionService).toHaveBeenCalledWith(
-          expect.stringContaining('Generated with Qwen Code'),
+          expect.stringContaining('Generated with Hanhai CLI'),
           expect.any(String),
           expect.any(Function),
           expect.any(AbortSignal),
@@ -3128,7 +3128,7 @@ describe('ShellTool', () => {
 
         const observed = mockShellExecutionService.mock.calls[0][0];
         expect(observed).toBe(command);
-        expect(observed).not.toContain('Generated with Qwen Code');
+        expect(observed).not.toContain('Generated with Hanhai CLI');
       });
 
       // `-b` is gh's documented short alias for `--body`. Without
@@ -3161,7 +3161,7 @@ describe('ShellTool', () => {
         expect(observed).toContain('curl -b "session=abc"');
         // The trailer should land in gh's --body, not in curl's -b.
         expect(observed).toMatch(
-          /gh pr create --title "x" --body "summary[\s\S]*Generated with Qwen Code"/,
+          /gh pr create --title "x" --body "summary[\s\S]*Generated with Hanhai CLI"/,
         );
       });
 
@@ -3184,7 +3184,7 @@ describe('ShellTool', () => {
         await promise;
 
         expect(mockShellExecutionService).toHaveBeenCalledWith(
-          expect.stringContaining('Generated with Qwen Code'),
+          expect.stringContaining('Generated with Hanhai CLI'),
           expect.any(String),
           expect.any(Function),
           expect.any(AbortSignal),
@@ -3221,10 +3221,10 @@ describe('ShellTool', () => {
         // The trailer must appear AFTER the closing `"` of the outer
         // body, not between `flag` and `here`.
         expect(cmd).toMatch(
-          /--body "docs mention -b 'flag' here[\s\S]*Generated with Qwen Code"/,
+          /--body "docs mention -b 'flag' here[\s\S]*Generated with Hanhai CLI"/,
         );
         expect(cmd).not.toMatch(
-          /-b 'flag[\s\S]*Generated with Qwen Code[\s\S]*' here"/,
+          /-b 'flag[\s\S]*Generated with Hanhai CLI[\s\S]*' here"/,
         );
       });
 
@@ -3247,7 +3247,7 @@ describe('ShellTool', () => {
         await promise;
 
         expect(mockShellExecutionService).toHaveBeenCalledWith(
-          expect.stringContaining('Generated with Qwen Code'),
+          expect.stringContaining('Generated with Hanhai CLI'),
           expect.any(String),
           expect.any(Function),
           expect.any(AbortSignal),
@@ -3282,11 +3282,11 @@ describe('ShellTool', () => {
         const calls = mockShellExecutionService.mock.calls;
         const cmd = calls[calls.length - 1]?.[0] as string;
         expect(cmd).toMatch(
-          /--body "ignored" --body "real summary[\s\S]*Generated with Qwen Code/,
+          /--body "ignored" --body "real summary[\s\S]*Generated with Hanhai CLI/,
         );
         // The trailer must NOT be inside the first --body.
         expect(cmd).not.toMatch(
-          /--body "ignored[\s\S]*Generated with Qwen Code[\s\S]*" --body/,
+          /--body "ignored[\s\S]*Generated with Hanhai CLI[\s\S]*" --body/,
         );
       });
 
@@ -3313,7 +3313,7 @@ describe('ShellTool', () => {
         await promise;
 
         expect(mockShellExecutionService).toHaveBeenCalledWith(
-          expect.stringContaining('Generated with Qwen Code'),
+          expect.stringContaining('Generated with Hanhai CLI'),
           expect.any(String),
           expect.any(Function),
           expect.any(AbortSignal),
@@ -3345,7 +3345,7 @@ describe('ShellTool', () => {
         await promise;
 
         expect(mockShellExecutionService).toHaveBeenCalledWith(
-          expect.stringContaining('Generated with Qwen Code'),
+          expect.stringContaining('Generated with Hanhai CLI'),
           expect.any(String),
           expect.any(Function),
           expect.any(AbortSignal),
@@ -3376,7 +3376,7 @@ describe('ShellTool', () => {
         await promise;
 
         expect(mockShellExecutionService).toHaveBeenCalledWith(
-          expect.not.stringContaining('Generated with Qwen Code'),
+          expect.not.stringContaining('Generated with Hanhai CLI'),
           expect.any(String),
           expect.any(Function),
           expect.any(AbortSignal),
@@ -3414,7 +3414,7 @@ describe('ShellTool', () => {
         await promise;
 
         expect(mockShellExecutionService).toHaveBeenCalledWith(
-          expect.not.stringContaining('Generated with Qwen Code'),
+          expect.not.stringContaining('Generated with Hanhai CLI'),
           expect.any(String),
           expect.any(Function),
           expect.any(AbortSignal),
@@ -3527,7 +3527,7 @@ describe('ShellTool', () => {
         // The attribution lands AFTER the original body, not in the
         // middle of it.
         expect(observed).toMatch(
-          /don'\\''t break me[\s\S]*Generated with Qwen Code/,
+          /don'\\''t break me[\s\S]*Generated with Hanhai CLI/,
         );
       });
     });

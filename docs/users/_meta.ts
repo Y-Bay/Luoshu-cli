@@ -15,9 +15,9 @@ export default {
   'integration-jetbrains': 'JetBrains IDEs',
   'integration-github-action': 'GitHub Actions',
   'qwen-serve': 'Daemon mode (qwen serve)',
-  'Code with Qwen Code': {
+  'Code with Hanhai CLI': {
     type: 'separator',
-    title: 'Code with Qwen Code', // Title is optional
+    title: 'Code with Hanhai CLI', // Title is optional
   },
   features: 'Features',
   configuration: 'Configuration',

@@ -38,12 +38,12 @@ export class SdkLogger {
       return 'debug';
     }
 
-    const envLevel = process.env['DEBUG_LUOSHU_SDK_LEVEL'];
+    const envLevel = process.env['DEBUG_HANHAI_SDK_LEVEL'];
     if (envLevel && this.isValidLogLevel(envLevel)) {
       return envLevel as LogLevel;
     }
 
-    if (process.env['DEBUG_LUOSHU_SDK']) {
+    if (process.env['DEBUG_HANHAI_SDK']) {
       return 'debug';
     }
 

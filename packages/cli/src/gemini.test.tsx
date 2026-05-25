@@ -119,12 +119,12 @@ describe('gemini.tsx main function', () => {
 
   beforeEach(() => {
     // Store and clear sandbox-related env variables to ensure a consistent test environment
-    originalEnvGeminiSandbox = process.env['LUOSHU_SANDBOX'];
+    originalEnvGeminiSandbox = process.env['HANHAI_SANDBOX'];
     originalEnvSandbox = process.env['SANDBOX'];
-    originalEnvQwenCodeSimple = process.env['LUOSHU_SIMPLE'];
-    delete process.env['LUOSHU_SANDBOX'];
+    originalEnvQwenCodeSimple = process.env['HANHAI_SIMPLE'];
+    delete process.env['HANHAI_SANDBOX'];
     delete process.env['SANDBOX'];
-    delete process.env['LUOSHU_SIMPLE'];
+    delete process.env['HANHAI_SIMPLE'];
 
     initialUnhandledRejectionListeners =
       process.listeners('unhandledRejection');
@@ -133,9 +133,9 @@ describe('gemini.tsx main function', () => {
   afterEach(() => {
     // Restore original env variables
     if (originalEnvGeminiSandbox !== undefined) {
-      process.env['LUOSHU_SANDBOX'] = originalEnvGeminiSandbox;
+      process.env['HANHAI_SANDBOX'] = originalEnvGeminiSandbox;
     } else {
-      delete process.env['LUOSHU_SANDBOX'];
+      delete process.env['HANHAI_SANDBOX'];
     }
     if (originalEnvSandbox !== undefined) {
       process.env['SANDBOX'] = originalEnvSandbox;
@@ -143,9 +143,9 @@ describe('gemini.tsx main function', () => {
       delete process.env['SANDBOX'];
     }
     if (originalEnvQwenCodeSimple !== undefined) {
-      process.env['LUOSHU_SIMPLE'] = originalEnvQwenCodeSimple;
+      process.env['HANHAI_SIMPLE'] = originalEnvQwenCodeSimple;
     } else {
-      delete process.env['LUOSHU_SIMPLE'];
+      delete process.env['HANHAI_SIMPLE'];
     }
 
     const currentListeners = process.listeners('unhandledRejection');
@@ -643,8 +643,8 @@ describe('gemini.tsx main function kitty protocol', () => {
 
   beforeEach(() => {
     // Set no relaunch in tests since process spawning causing issues in tests
-    originalEnvNoRelaunch = process.env['LUOSHU_NO_RELAUNCH'];
-    process.env['LUOSHU_NO_RELAUNCH'] = 'true';
+    originalEnvNoRelaunch = process.env['HANHAI_NO_RELAUNCH'];
+    process.env['HANHAI_NO_RELAUNCH'] = 'true';
     initialSigintListeners = process.listeners(
       'SIGINT',
     ) as NodeJS.SignalsListener[];
@@ -683,9 +683,9 @@ describe('gemini.tsx main function kitty protocol', () => {
 
     // Restore original env variables
     if (originalEnvNoRelaunch !== undefined) {
-      process.env['LUOSHU_NO_RELAUNCH'] = originalEnvNoRelaunch;
+      process.env['HANHAI_NO_RELAUNCH'] = originalEnvNoRelaunch;
     } else {
-      delete process.env['LUOSHU_NO_RELAUNCH'];
+      delete process.env['HANHAI_NO_RELAUNCH'];
     }
     vi.restoreAllMocks();
   });

@@ -17,13 +17,13 @@ interface LocationOption {
 const locationOptions: LocationOption[] = [
   {
     get label() {
-      return t('Project Level (.luoshu/agents/)');
+      return t('Project Level (.hanhai/agents/)');
     },
     value: 'project',
   },
   {
     get label() {
-      return t('User Level (~/.luoshu/agents/)');
+      return t('User Level (~/.hanhai/agents/)');
     },
     value: 'user',
   },

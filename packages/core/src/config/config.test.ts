@@ -642,9 +642,9 @@ describe('Server Config (config.ts)', () => {
       expect(ToolRegistry.prototype.discoverAllTools).not.toHaveBeenCalled();
     });
 
-    it('honors LUOSHU_LEGACY_MCP_BLOCKING=1 by running MCP discovery inline', async () => {
-      const originalLegacy = process.env['LUOSHU_LEGACY_MCP_BLOCKING'];
-      process.env['LUOSHU_LEGACY_MCP_BLOCKING'] = '1';
+    it('honors HANHAI_LEGACY_MCP_BLOCKING=1 by running MCP discovery inline', async () => {
+      const originalLegacy = process.env['HANHAI_LEGACY_MCP_BLOCKING'];
+      process.env['HANHAI_LEGACY_MCP_BLOCKING'] = '1';
       try {
         const config = new Config({ ...baseParams, checkpointing: false });
         await config.initialize();
@@ -656,9 +656,9 @@ describe('Server Config (config.ts)', () => {
         );
       } finally {
         if (originalLegacy === undefined) {
-          delete process.env['LUOSHU_LEGACY_MCP_BLOCKING'];
+          delete process.env['HANHAI_LEGACY_MCP_BLOCKING'];
         } else {
-          process.env['LUOSHU_LEGACY_MCP_BLOCKING'] = originalLegacy;
+          process.env['HANHAI_LEGACY_MCP_BLOCKING'] = originalLegacy;
         }
       }
     });

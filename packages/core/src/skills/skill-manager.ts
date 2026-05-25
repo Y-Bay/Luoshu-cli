@@ -36,7 +36,7 @@ import {
 import { createDebugLogger } from '../utils/debugLogger.js';
 import { normalizeContent } from '../utils/textUtils.js';
 import {
-  LUOSHU_DIR,
+  HANHAI_DIR,
   SKILL_PROVIDER_CONFIG_DIRS,
   Storage,
 } from '../config/storage.js';
@@ -855,7 +855,7 @@ export class SkillManager {
         );
       case 'user':
         return SKILL_PROVIDER_CONFIG_DIRS.map((v) =>
-          v === LUOSHU_DIR
+          v === HANHAI_DIR
             ? path.join(Storage.getGlobalQwenDir(), SKILLS_CONFIG_DIR)
             : path.join(os.homedir(), v, SKILLS_CONFIG_DIR),
         );

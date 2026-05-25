@@ -527,7 +527,7 @@ describe('handleAtCommand', () => {
   describe('qwen-ignore filtering', () => {
     it('should skip qwen-ignored files in @ commands', async () => {
       await createTestFile(
-        path.join(testRootDir, '.luoshuignore'),
+        path.join(testRootDir, '.hanhaiignore'),
         'build/output.js',
       );
       const qwenIgnoredFile = await createTestFile(
@@ -556,9 +556,9 @@ describe('handleAtCommand', () => {
       );
     });
   });
-  it('should process non-ignored files when .luoshuignore is present', async () => {
+  it('should process non-ignored files when .hanhaiignore is present', async () => {
     await createTestFile(
-      path.join(testRootDir, '.luoshuignore'),
+      path.join(testRootDir, '.hanhaiignore'),
       'build/output.js',
     );
     const validFile = await createTestFile(
@@ -589,7 +589,7 @@ describe('handleAtCommand', () => {
 
   it('should handle mixed qwen-ignored and valid files', async () => {
     await createTestFile(
-      path.join(testRootDir, '.luoshuignore'),
+      path.join(testRootDir, '.hanhaiignore'),
       'dist/bundle.js',
     );
     const validFile = await createTestFile(

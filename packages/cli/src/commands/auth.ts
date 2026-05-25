@@ -19,13 +19,13 @@ const yellow = (value: string) => color(value, '33');
 export const buildRemovalNotice = (): string =>
   [
     '',
-    yellow(t('⚠  luoshu auth has been removed.')),
+    yellow(t('⚠  hanhai auth has been removed.')),
     '',
-    `  ${cyan(t('Interactive'))}   →  ${t('run luoshu and use /auth to configure providers')}`,
+    `  ${cyan(t('Interactive'))}   →  ${t('run hanhai and use /auth to configure providers')}`,
     `  ${cyan(t('CI / Headless'))} →  ${t('set provider environment variables, for example OPENAI_API_KEY + OPENAI_BASE_URL + OPENAI_MODEL')}`,
     `                     ${t('or pass --openai-api-key, --openai-base-url, --model')}`,
     `  ${cyan(t('OpenRouter'))}    →  ${t('set OPENROUTER_API_KEY and OPENAI_BASE_URL=https://openrouter.ai/api/v1')}`,
-    `  ${cyan(t('Scripted'))}      →  ${t('edit ~/.luoshu/settings.json, or run luoshu interactively once')}`,
+    `  ${cyan(t('Scripted'))}      →  ${t('edit ~/.hanhai/settings.json, or run hanhai interactively once')}`,
     '',
     `  ${t('Check auth status')} → ${cyan('/doctor')}`,
     '',

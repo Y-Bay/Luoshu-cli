@@ -3,15 +3,15 @@
  * Copyright 2025 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  *
- * Modifications copyright 2026 Luoshu Team.
- * Modified: renamed from Qwen Dark to Luoshu Dark; banner gradient
+ * Modifications copyright 2026 Hanhai Team.
+ * Modified: renamed from Qwen Dark to Hanhai Dark; banner gradient
  * switched to light-blue → dark-blue.
  */
 
 import { type ColorsTheme, Theme } from './theme.js';
 import { darkSemanticColors } from './semantic-tokens.js';
 
-const luoshuDarkColors: ColorsTheme = {
+const hanhaiDarkColors: ColorsTheme = {
   type: 'dark',
   Background: '#0b0e14',
   Foreground: '#bfbdb6',
@@ -31,78 +31,78 @@ const luoshuDarkColors: ColorsTheme = {
   GradientColors: ['#7DD3FC', '#1E3A8A'],
 };
 
-export const LuoshuDark: Theme = new Theme(
-  'Luoshu Dark',
+export const HanhaiDark: Theme = new Theme(
+  'Hanhai Dark',
   'dark',
   {
     hljs: {
       display: 'block',
       overflowX: 'auto',
       padding: '0.5em',
-      background: luoshuDarkColors.Background,
-      color: luoshuDarkColors.Foreground,
+      background: hanhaiDarkColors.Background,
+      color: hanhaiDarkColors.Foreground,
     },
     'hljs-keyword': {
-      color: luoshuDarkColors.AccentYellow,
+      color: hanhaiDarkColors.AccentYellow,
     },
     'hljs-literal': {
-      color: luoshuDarkColors.AccentPurple,
+      color: hanhaiDarkColors.AccentPurple,
     },
     'hljs-symbol': {
-      color: luoshuDarkColors.AccentCyan,
+      color: hanhaiDarkColors.AccentCyan,
     },
     'hljs-name': {
-      color: luoshuDarkColors.LightBlue,
+      color: hanhaiDarkColors.LightBlue,
     },
     'hljs-link': {
-      color: luoshuDarkColors.AccentBlue,
+      color: hanhaiDarkColors.AccentBlue,
     },
     'hljs-function .hljs-keyword': {
-      color: luoshuDarkColors.AccentYellow,
+      color: hanhaiDarkColors.AccentYellow,
     },
     'hljs-subst': {
-      color: luoshuDarkColors.Foreground,
+      color: hanhaiDarkColors.Foreground,
     },
     'hljs-string': {
-      color: luoshuDarkColors.AccentGreen,
+      color: hanhaiDarkColors.AccentGreen,
     },
     'hljs-title': {
-      color: luoshuDarkColors.AccentYellow,
+      color: hanhaiDarkColors.AccentYellow,
     },
     'hljs-type': {
-      color: luoshuDarkColors.AccentBlue,
+      color: hanhaiDarkColors.AccentBlue,
     },
     'hljs-attribute': {
-      color: luoshuDarkColors.AccentYellow,
+      color: hanhaiDarkColors.AccentYellow,
     },
     'hljs-bullet': {
-      color: luoshuDarkColors.AccentYellow,
+      color: hanhaiDarkColors.AccentYellow,
     },
     'hljs-addition': {
-      color: luoshuDarkColors.AccentGreen,
+      color: hanhaiDarkColors.AccentGreen,
     },
     'hljs-variable': {
-      color: luoshuDarkColors.Foreground,
+      color: hanhaiDarkColors.Foreground,
     },
     'hljs-template-tag': {
-      color: luoshuDarkColors.AccentYellow,
+      color: hanhaiDarkColors.AccentYellow,
     },
     'hljs-template-variable': {
-      color: luoshuDarkColors.AccentYellow,
+      color: hanhaiDarkColors.AccentYellow,
     },
     'hljs-comment': {
-      color: luoshuDarkColors.Comment,
+      color: hanhaiDarkColors.Comment,
       fontStyle: 'italic',
     },
     'hljs-quote': {
-      color: luoshuDarkColors.AccentCyan,
+      color: hanhaiDarkColors.AccentCyan,
       fontStyle: 'italic',
     },
     'hljs-deletion': {
-      color: luoshuDarkColors.AccentRed,
+      color: hanhaiDarkColors.AccentRed,
     },
     'hljs-meta': {
-      color: luoshuDarkColors.AccentYellow,
+      color: hanhaiDarkColors.AccentYellow,
     },
     'hljs-doctag': {
       fontWeight: 'bold',
@@ -114,6 +114,6 @@ export const LuoshuDark: Theme = new Theme(
       fontStyle: 'italic',
     },
   },
-  luoshuDarkColors,
+  hanhaiDarkColors,
   darkSemanticColors,
 );

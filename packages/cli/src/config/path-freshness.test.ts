@@ -10,10 +10,10 @@ import { homedir } from 'node:os';
 import { getUserSettingsDir, getUserSettingsPath } from './settings.js';
 import { getTrustedFoldersPath } from './trustedFolders.js';
 
-// Regression guard: `LUOSHU_HOME` is resolved by `preResolveHomeEnvOverrides()`
+// Regression guard: `HANHAI_HOME` is resolved by `preResolveHomeEnvOverrides()`
 // AFTER any module that imports a settings/trustedFolders path has loaded.
 // A top-level `const` would freeze the pre-bootstrap value and split state
-// across callers. Each test mutates `process.env.LUOSHU_HOME` post-load and
+// across callers. Each test mutates `process.env.HANHAI_HOME` post-load and
 // asserts the exported path getters reflect the new value.
 
 describe('settings/trustedFolders path getters are lazy', () => {
@@ -21,43 +21,43 @@ describe('settings/trustedFolders path getters are lazy', () => {
   let originalTrustedPath: string | undefined;
 
   beforeEach(() => {
-    originalQwenHome = process.env['LUOSHU_HOME'];
-    originalTrustedPath = process.env['LUOSHU_TRUSTED_FOLDERS_PATH'];
-    delete process.env['LUOSHU_HOME'];
-    delete process.env['LUOSHU_TRUSTED_FOLDERS_PATH'];
+    originalQwenHome = process.env['HANHAI_HOME'];
+    originalTrustedPath = process.env['HANHAI_TRUSTED_FOLDERS_PATH'];
+    delete process.env['HANHAI_HOME'];
+    delete process.env['HANHAI_TRUSTED_FOLDERS_PATH'];
   });
 
   afterEach(() => {
-    if (originalQwenHome === undefined) delete process.env['LUOSHU_HOME'];
-    else process.env['LUOSHU_HOME'] = originalQwenHome;
+    if (originalQwenHome === undefined) delete process.env['HANHAI_HOME'];
+    else process.env['HANHAI_HOME'] = originalQwenHome;
     if (originalTrustedPath === undefined)
-      delete process.env['LUOSHU_TRUSTED_FOLDERS_PATH'];
-    else process.env['LUOSHU_TRUSTED_FOLDERS_PATH'] = originalTrustedPath;
+      delete process.env['HANHAI_TRUSTED_FOLDERS_PATH'];
+    else process.env['HANHAI_TRUSTED_FOLDERS_PATH'] = originalTrustedPath;
   });
 
-  it('getUserSettingsPath() reflects LUOSHU_HOME set after module load', () => {
+  it('getUserSettingsPath() reflects HANHAI_HOME set after module load', () => {
     const defaultPath = getUserSettingsPath();
-    expect(defaultPath).toBe(path.join(homedir(), '.luoshu', 'settings.json'));
+    expect(defaultPath).toBe(path.join(homedir(), '.hanhai', 'settings.json'));
 
-    process.env['LUOSHU_HOME'] = '/tmp/qwen-lazy-test';
+    process.env['HANHAI_HOME'] = '/tmp/qwen-lazy-test';
     expect(getUserSettingsPath()).toBe(
       path.join('/tmp/qwen-lazy-test', 'settings.json'),
     );
   });
 
-  it('getUserSettingsDir() reflects LUOSHU_HOME set after module load', () => {
-    expect(getUserSettingsDir()).toBe(path.join(homedir(), '.luoshu'));
+  it('getUserSettingsDir() reflects HANHAI_HOME set after module load', () => {
+    expect(getUserSettingsDir()).toBe(path.join(homedir(), '.hanhai'));
 
-    process.env['LUOSHU_HOME'] = '/tmp/qwen-lazy-test';
+    process.env['HANHAI_HOME'] = '/tmp/qwen-lazy-test';
     expect(getUserSettingsDir()).toBe(path.normalize('/tmp/qwen-lazy-test'));
   });
 
-  it('getTrustedFoldersPath() reflects LUOSHU_HOME set after module load', () => {
+  it('getTrustedFoldersPath() reflects HANHAI_HOME set after module load', () => {
     expect(getTrustedFoldersPath()).toBe(
-      path.join(homedir(), '.luoshu', 'trustedFolders.json'),
+      path.join(homedir(), '.hanhai', 'trustedFolders.json'),
     );
 
-    process.env['LUOSHU_HOME'] = '/tmp/qwen-lazy-test';
+    process.env['HANHAI_HOME'] = '/tmp/qwen-lazy-test';
     expect(getTrustedFoldersPath()).toBe(
       path.join('/tmp/qwen-lazy-test', 'trustedFolders.json'),
     );

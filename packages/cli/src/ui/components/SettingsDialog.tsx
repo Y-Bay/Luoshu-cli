@@ -949,7 +949,7 @@ export function SettingsDialog({
       {showRestartPrompt && (
         <Text color={theme.status.warning}>
           {t(
-            'To see changes, Luoshu CLI must be restarted. Press r to exit and apply changes now.',
+            'To see changes, Hanhai CLI must be restarted. Press r to exit and apply changes now.',
           )}
         </Text>
       )}

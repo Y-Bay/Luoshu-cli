@@ -20,8 +20,8 @@ import { writeStderrLine } from '../utils/stdioHelpers.js';
 export const TRUSTED_FOLDERS_FILENAME = 'trustedFolders.json';
 
 export function getTrustedFoldersPath(): string {
-  if (process.env['LUOSHU_TRUSTED_FOLDERS_PATH']) {
-    return process.env['LUOSHU_TRUSTED_FOLDERS_PATH'];
+  if (process.env['HANHAI_TRUSTED_FOLDERS_PATH']) {
+    return process.env['HANHAI_TRUSTED_FOLDERS_PATH'];
   }
   // Resolve lazily on every call: see settings.ts:getUserSettingsPath for why
   // a top-level const would be stale after `preResolveHomeEnvOverrides()`.

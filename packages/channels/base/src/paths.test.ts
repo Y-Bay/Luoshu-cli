@@ -4,44 +4,44 @@ import * as os from 'node:os';
 import { getGlobalQwenDir, resolvePath } from './paths.js';
 
 describe('channels/base paths – getGlobalQwenDir', () => {
-  const originalEnv = process.env['LUOSHU_HOME'];
+  const originalEnv = process.env['HANHAI_HOME'];
 
   afterEach(() => {
     if (originalEnv !== undefined) {
-      process.env['LUOSHU_HOME'] = originalEnv;
+      process.env['HANHAI_HOME'] = originalEnv;
     } else {
-      delete process.env['LUOSHU_HOME'];
+      delete process.env['HANHAI_HOME'];
     }
   });
 
-  it('defaults to ~/.qwen when LUOSHU_HOME is not set', () => {
-    delete process.env['LUOSHU_HOME'];
-    expect(getGlobalQwenDir()).toBe(path.join(os.homedir(), '.luoshu'));
+  it('defaults to ~/.qwen when HANHAI_HOME is not set', () => {
+    delete process.env['HANHAI_HOME'];
+    expect(getGlobalQwenDir()).toBe(path.join(os.homedir(), '.hanhai'));
   });
 
-  it('uses LUOSHU_HOME when set to absolute path', () => {
+  it('uses HANHAI_HOME when set to absolute path', () => {
     const configDir = path.resolve('/tmp/custom-qwen');
-    process.env['LUOSHU_HOME'] = configDir;
+    process.env['HANHAI_HOME'] = configDir;
     expect(getGlobalQwenDir()).toBe(configDir);
   });
 
-  it('resolves relative LUOSHU_HOME against process.cwd', () => {
-    process.env['LUOSHU_HOME'] = 'relative/config';
+  it('resolves relative HANHAI_HOME against process.cwd', () => {
+    process.env['HANHAI_HOME'] = 'relative/config';
     expect(getGlobalQwenDir()).toBe(path.resolve('relative/config'));
   });
 
-  it('expands tilde (~/x) in LUOSHU_HOME', () => {
-    process.env['LUOSHU_HOME'] = '~/custom-qwen';
+  it('expands tilde (~/x) in HANHAI_HOME', () => {
+    process.env['HANHAI_HOME'] = '~/custom-qwen';
     expect(getGlobalQwenDir()).toBe(path.join(os.homedir(), 'custom-qwen'));
   });
 
-  it('expands Windows-style tilde (~\\x) in LUOSHU_HOME', () => {
-    process.env['LUOSHU_HOME'] = '~\\custom-qwen';
+  it('expands Windows-style tilde (~\\x) in HANHAI_HOME', () => {
+    process.env['HANHAI_HOME'] = '~\\custom-qwen';
     expect(getGlobalQwenDir()).toBe(path.join(os.homedir(), 'custom-qwen'));
   });
 
   it('treats bare tilde (~) as home directory', () => {
-    process.env['LUOSHU_HOME'] = '~';
+    process.env['HANHAI_HOME'] = '~';
     expect(getGlobalQwenDir()).toBe(os.homedir());
   });
 });

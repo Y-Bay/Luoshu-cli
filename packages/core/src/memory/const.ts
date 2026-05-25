@@ -3,16 +3,16 @@
  * Copyright 2025 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  *
- * Modifications copyright 2026 Luoshu Team.
- * Modified: default context filename QWEN.md → LUOSHU.md; memory header brand renamed.
+ * Modifications copyright 2026 Hanhai Team.
+ * Modified: default context filename QWEN.md → HANHAI.md; memory header brand renamed.
  */
 
-export const DEFAULT_CONTEXT_FILENAME = 'LUOSHU.md';
+export const DEFAULT_CONTEXT_FILENAME = 'HANHAI.md';
 export const AGENT_CONTEXT_FILENAME = 'AGENTS.md';
-export const MEMORY_SECTION_HEADER = '## Luoshu Added Memories';
+export const MEMORY_SECTION_HEADER = '## Hanhai Added Memories';
 
-// Defaults to LUOSHU.md and AGENTS.md but can be overridden via setGeminiMdFilename.
-// LUOSHU.md is first to keep the /init command's generated file consistent with branding.
+// Defaults to HANHAI.md and AGENTS.md but can be overridden via setGeminiMdFilename.
+// HANHAI.md is first to keep the /init command's generated file consistent with branding.
 let currentGeminiMdFilename: string | string[] = [
   DEFAULT_CONTEXT_FILENAME,
   AGENT_CONTEXT_FILENAME,

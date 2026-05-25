@@ -53,8 +53,8 @@ describe('FileDiscoveryService', () => {
       expect(service.shouldGitIgnoreFile('node_modules/foo.js')).toBe(false);
     });
 
-    it('should load .luoshuignore patterns even when not in a git repo', async () => {
-      await createTestFile('.luoshuignore', 'secrets.txt');
+    it('should load .hanhaiignore patterns even when not in a git repo', async () => {
+      await createTestFile('.hanhaiignore', 'secrets.txt');
       const service = new FileDiscoveryService(projectRoot);
 
       expect(service.shouldQwenIgnoreFile('secrets.txt')).toBe(true);
@@ -66,7 +66,7 @@ describe('FileDiscoveryService', () => {
     beforeEach(async () => {
       await fs.mkdir(path.join(projectRoot, '.git'));
       await createTestFile('.gitignore', 'node_modules/\n.git/\ndist');
-      await createTestFile('.luoshuignore', 'logs/');
+      await createTestFile('.hanhaiignore', 'logs/');
     });
 
     it('should filter out git-ignored and qwen-ignored files by default', () => {
@@ -140,7 +140,7 @@ describe('FileDiscoveryService', () => {
     beforeEach(async () => {
       await fs.mkdir(path.join(projectRoot, '.git'));
       await createTestFile('.gitignore', 'node_modules/');
-      await createTestFile('.luoshuignore', '*.log');
+      await createTestFile('.hanhaiignore', '*.log');
     });
 
     it('should return true for git-ignored files', () => {

@@ -1,6 +1,6 @@
-# MCP servers with Qwen Code
+# MCP servers with Hanhai CLI
 
-This document provides a guide to configuring and using Model Context Protocol (MCP) servers with Qwen Code.
+This document provides a guide to configuring and using Model Context Protocol (MCP) servers with Hanhai CLI.
 
 ## What is an MCP server?
 
@@ -16,7 +16,7 @@ With an MCP server, you can extend the CLI's capabilities to perform actions bey
 
 ## Core Integration Architecture
 
-Qwen Code integrates with MCP servers through a sophisticated discovery and execution system built into the core package (`packages/core/src/tools/`):
+Hanhai CLI integrates with MCP servers through a sophisticated discovery and execution system built into the core package (`packages/core/src/tools/`):
 
 ### Discovery Layer (`mcp-client.ts`)
 
@@ -47,7 +47,7 @@ The CLI supports three MCP transport types:
 
 ## How to set up your MCP server
 
-Qwen Code uses the `mcpServers` configuration in your `settings.json` file to locate and connect to MCP servers. This configuration supports multiple servers with different transport mechanisms.
+Hanhai CLI uses the `mcpServers` configuration in your `settings.json` file to locate and connect to MCP servers. This configuration supports multiple servers with different transport mechanisms.
 
 ### Configure the MCP server in settings.json
 
@@ -122,7 +122,7 @@ Each server configuration supports the following properties:
 
 ### OAuth Support for Remote MCP Servers
 
-Qwen Code supports OAuth 2.0 authentication for remote MCP servers using SSE or HTTP transports. This enables secure access to MCP servers that require authentication.
+Hanhai CLI supports OAuth 2.0 authentication for remote MCP servers using SSE or HTTP transports. This enables secure access to MCP servers that require authentication.
 
 #### Automatic OAuth Discovery
 
@@ -204,7 +204,7 @@ Use the `/mcp auth` command to manage OAuth authentication:
 - **`authorizationUrl`** (string): OAuth authorization endpoint (auto-discovered if omitted)
 - **`tokenUrl`** (string): OAuth token endpoint (auto-discovered if omitted)
 - **`scopes`** (string[]): Required OAuth scopes
-- **`redirectUri`** (string): Custom redirect URI. **Critical for remote deployments**: Defaults to `http://localhost:7777/oauth/callback`. When running Qwen Code on remote/cloud servers, set this to a publicly accessible URL (e.g., `https://your-server.com/oauth/callback`). Can be configured via `qwen mcp add --oauth-redirect-uri` or directly in settings.json.
+- **`redirectUri`** (string): Custom redirect URI. **Critical for remote deployments**: Defaults to `http://localhost:7777/oauth/callback`. When running Hanhai CLI on remote/cloud servers, set this to a publicly accessible URL (e.g., `https://your-server.com/oauth/callback`). Can be configured via `qwen mcp add --oauth-redirect-uri` or directly in settings.json.
 - **`tokenParamName`** (string): Query parameter name for tokens in SSE URLs
 - **`audiences`** (string[]): Audiences the token is valid for
 
@@ -385,7 +385,7 @@ The CLI will use your local Application Default Credentials (ADC) to generate an
 
 ## Discovery Process Deep Dive
 
-When Qwen Code starts, it performs MCP server discovery through the following detailed process:
+When Hanhai CLI starts, it performs MCP server discovery through the following detailed process:
 
 ### 1. Server Iteration and Connection
 
@@ -692,7 +692,7 @@ Here is an example of a valid JSON response from an MCP tool that returns both a
 }
 ```
 
-When Qwen Code receives this response, it will:
+When Hanhai CLI receives this response, it will:
 
 1.  Extract all the text and combine it into a single `functionResponse` part for the model.
 2.  Present the image data as a separate `inlineData` part.
@@ -702,7 +702,7 @@ This enables you to build sophisticated tools that can provide rich, multi-modal
 
 ## MCP Prompts as Slash Commands
 
-In addition to tools, MCP servers can expose predefined prompts that can be executed as slash commands within Qwen Code. This allows you to create shortcuts for common or complex queries that can be easily invoked by name.
+In addition to tools, MCP servers can expose predefined prompts that can be executed as slash commands within Hanhai CLI. This allows you to create shortcuts for common or complex queries that can be easily invoked by name.
 
 ### Defining Prompts on the Server
 
@@ -760,13 +760,13 @@ This can be included in `settings.json` under `mcpServers` with:
 Once a prompt is discovered, you can invoke it using its name as a slash command. The CLI will automatically handle parsing arguments.
 
 ```bash
-/poem-writer --title="Qwen Code" --mood="reverent"
+/poem-writer --title="Hanhai CLI" --mood="reverent"
 ```
 
 or, using positional arguments:
 
 ```bash
-/poem-writer "Qwen Code" reverent
+/poem-writer "Hanhai CLI" reverent
 ```
 
 When you run this command, the CLI executes the `prompts/get` method on the MCP server with the provided arguments. The server is responsible for substituting the arguments into the prompt template and returning the final prompt text. The CLI then sends this prompt to the model for execution. This provides a convenient way to automate and share common workflows.
@@ -802,7 +802,7 @@ qwen mcp add [options] <name> <commandOrUrl> [args...]
 - `--exclude-tools`: A comma-separated list of tools to exclude.
 - `--oauth-client-id`: OAuth client ID for MCP server authentication.
 - `--oauth-client-secret`: OAuth client secret for MCP server authentication.
-- `--oauth-redirect-uri`: OAuth redirect URI (e.g., `https://your-server.com/oauth/callback`). Defaults to `http://localhost:7777/oauth/callback` for local setups. **Important for remote deployments**: When running Qwen Code on remote/cloud servers, set this to a publicly accessible URL.
+- `--oauth-redirect-uri`: OAuth redirect URI (e.g., `https://your-server.com/oauth/callback`). Defaults to `http://localhost:7777/oauth/callback` for local setups. **Important for remote deployments**: When running Hanhai CLI on remote/cloud servers, set this to a publicly accessible URL.
 - `--oauth-authorization-url`: OAuth authorization URL.
 - `--oauth-token-url`: OAuth token URL.
 - `--oauth-scopes`: OAuth scopes (comma-separated).

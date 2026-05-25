@@ -432,9 +432,9 @@ describe('RipGrepTool', () => {
       expect(result.returnDisplay).toBe('Found 1 match');
     });
 
-    it('should pass .luoshuignore to ripgrep when respected', async () => {
+    it('should pass .hanhaiignore to ripgrep when respected', async () => {
       await fs.writeFile(
-        path.join(tempRootDir, '.luoshuignore'),
+        path.join(tempRootDir, '.hanhaiignore'),
         'ignored.txt\n',
       );
       (runRipgrep as Mock).mockResolvedValue({
@@ -452,8 +452,8 @@ describe('RipGrepTool', () => {
       expect(result.returnDisplay).toBe('No matches found');
     });
 
-    it('should include .luoshuignore matches when disabled in config', async () => {
-      await fs.writeFile(path.join(tempRootDir, '.luoshuignore'), 'kept.txt\n');
+    it('should include .hanhaiignore matches when disabled in config', async () => {
+      await fs.writeFile(path.join(tempRootDir, '.hanhaiignore'), 'kept.txt\n');
       await fs.writeFile(path.join(tempRootDir, 'kept.txt'), 'keep me');
       Object.assign(mockConfig, {
         getFileFilteringOptions: () => ({
@@ -699,16 +699,16 @@ describe('RipGrepTool', () => {
       await fs.rm(secondDir, { recursive: true, force: true });
     });
 
-    it('should load .luoshuignore from each workspace directory', async () => {
+    it('should load .hanhaiignore from each workspace directory', async () => {
       const secondDir = await fs.mkdtemp(
         path.join(os.tmpdir(), 'grep-tool-second-'),
       );
       await fs.writeFile(
-        path.join(secondDir, '.luoshuignore'),
+        path.join(secondDir, '.hanhaiignore'),
         'ignored.txt\n',
       );
       await fs.writeFile(
-        path.join(tempRootDir, '.luoshuignore'),
+        path.join(tempRootDir, '.hanhaiignore'),
         'other-ignored.txt\n',
       );
 
@@ -730,13 +730,13 @@ describe('RipGrepTool', () => {
       const invocation = multiDirGrepTool.build(params);
       await invocation.execute(abortSignal);
 
-      // Verify both .luoshuignore files were passed
+      // Verify both .hanhaiignore files were passed
       const rgArgs = (runRipgrep as Mock).mock.calls[0][0] as string[];
       const ignoreFileArgs = rgArgs.filter(
         (a: string, i: number) => i > 0 && rgArgs[i - 1] === '--ignore-file',
       );
-      expect(ignoreFileArgs).toContain(path.join(tempRootDir, '.luoshuignore'));
-      expect(ignoreFileArgs).toContain(path.join(secondDir, '.luoshuignore'));
+      expect(ignoreFileArgs).toContain(path.join(tempRootDir, '.hanhaiignore'));
+      expect(ignoreFileArgs).toContain(path.join(secondDir, '.hanhaiignore'));
 
       await fs.rm(secondDir, { recursive: true, force: true });
     });

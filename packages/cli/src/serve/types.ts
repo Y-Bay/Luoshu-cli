@@ -111,7 +111,7 @@ export interface ServeOptions {
   /**
    * Issue #4175 PR 14. Cap on live MCP clients spawned inside the
    * ACP child for the bound workspace. When set, the daemon
-   * forwards `LUOSHU_SERVE_MCP_CLIENT_BUDGET` to the child's env so
+   * forwards `HANHAI_SERVE_MCP_CLIENT_BUDGET` to the child's env so
    * core's `McpClientManager` picks it up. Combined with
    * `mcpBudgetMode`:
    *   - `warn` (default when budget set): no refusal, snapshot

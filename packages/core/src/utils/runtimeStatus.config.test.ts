@@ -26,15 +26,15 @@ let prevRuntimeEnv: string | undefined;
 beforeEach(async () => {
   tmpDir = await mkdtemp(path.join(os.tmpdir(), 'qwen-rt-cfg-'));
   runtimeDir = path.join(tmpDir, 'runtime');
-  prevRuntimeEnv = process.env['LUOSHU_RUNTIME_DIR'];
-  process.env['LUOSHU_RUNTIME_DIR'] = runtimeDir;
+  prevRuntimeEnv = process.env['HANHAI_RUNTIME_DIR'];
+  process.env['HANHAI_RUNTIME_DIR'] = runtimeDir;
 });
 
 afterEach(async () => {
   if (prevRuntimeEnv === undefined) {
-    delete process.env['LUOSHU_RUNTIME_DIR'];
+    delete process.env['HANHAI_RUNTIME_DIR'];
   } else {
-    process.env['LUOSHU_RUNTIME_DIR'] = prevRuntimeEnv;
+    process.env['HANHAI_RUNTIME_DIR'] = prevRuntimeEnv;
   }
   await rm(tmpDir, { recursive: true, force: true });
 });

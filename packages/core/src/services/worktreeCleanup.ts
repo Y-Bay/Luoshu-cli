@@ -44,7 +44,7 @@ function isEphemeralSlug(slug: string): boolean {
 }
 
 /**
- * Removes stale ephemeral worktrees under `<projectRoot>/.luoshu/worktrees/`.
+ * Removes stale ephemeral worktrees under `<projectRoot>/.hanhai/worktrees/`.
  *
  * Safety guarantees (fail-closed):
  * - Only touches slugs matching {@link EPHEMERAL_WORKTREE_PATTERNS}.

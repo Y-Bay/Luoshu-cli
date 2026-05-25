@@ -1,7 +1,7 @@
 {
   "name": "@qwen-code/channel-weixin",
   "version": "0.1.0",
-  "description": "WeChat (Weixin) channel adapter for Qwen Code",
+  "description": "WeChat (Weixin) channel adapter for Hanhai CLI",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

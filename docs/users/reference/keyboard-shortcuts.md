@@ -1,6 +1,6 @@
-# Qwen Code Keyboard Shortcuts
+# Hanhai CLI Keyboard Shortcuts
 
-This document lists the available keyboard shortcuts in Qwen Code.
+This document lists the available keyboard shortcuts in Hanhai CLI.
 
 ## General
 

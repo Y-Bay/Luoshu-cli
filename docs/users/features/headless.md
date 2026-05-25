@@ -1,12 +1,12 @@
 # Headless Mode
 
-Headless mode allows you to run Qwen Code programmatically from command line
+Headless mode allows you to run Hanhai CLI programmatically from command line
 scripts and automation tools without any interactive UI. This is ideal for
 scripting, automation, CI/CD pipelines, and building AI-powered tools.
 
 ## Overview
 
-The headless mode provides a headless interface to Qwen Code that:
+The headless mode provides a headless interface to Hanhai CLI that:
 
 - Accepts prompts via command line arguments or stdin
 - Returns structured output (text or JSON)
@@ -27,7 +27,7 @@ qwen --prompt "What is machine learning?"
 
 ### Stdin Input
 
-Pipe input to Qwen Code from your terminal:
+Pipe input to Hanhai CLI from your terminal:
 
 ```bash
 echo "Explain this code" | qwen
@@ -35,7 +35,7 @@ echo "Explain this code" | qwen
 
 ### Combining with File Input
 
-Read from files and process with Qwen Code:
+Read from files and process with Hanhai CLI:
 
 ```bash
 cat README.md | qwen --prompt "Summarize this documentation"
@@ -64,7 +64,7 @@ You can change the main session system prompt for a single CLI run without editi
 
 ### Override the Built-in System Prompt
 
-Use `--system-prompt` to replace Qwen Code's built-in main-session prompt for the current run:
+Use `--system-prompt` to replace Hanhai CLI's built-in main-session prompt for the current run:
 
 ```bash
 qwen -p "Review this patch" --system-prompt "You are a terse release reviewer. Report only blocking issues."
@@ -94,7 +94,7 @@ qwen -p "Summarize this repository" \
 
 ## Output Formats
 
-Qwen Code supports multiple output formats for different use cases:
+Hanhai CLI supports multiple output formats for different use cases:
 
 ### Text Output (Default)
 
@@ -190,7 +190,7 @@ qwen -p "Write a Python script" --output-format stream-json --include-partial-me
 
 ### Input Format
 
-The `--input-format` parameter controls how Qwen Code consumes input from standard input:
+The `--input-format` parameter controls how Hanhai CLI consumes input from standard input:
 
 - **`text`** (default): Standard text input from stdin or command-line arguments
 - **`stream-json`**: JSON message protocol via stdin for bidirectional communication
@@ -312,7 +312,7 @@ tail -5 usage.log
 
 ## Persistent Retry Mode
 
-When Qwen Code runs in CI/CD pipelines or as a background daemon, a brief API outage (rate limiting or overload) should not kill a multi-hour task. **Persistent retry mode** makes Qwen Code retry transient API errors indefinitely until the service recovers.
+When Hanhai CLI runs in CI/CD pipelines or as a background daemon, a brief API outage (rate limiting or overload) should not kill a multi-hour task. **Persistent retry mode** makes Hanhai CLI retry transient API errors indefinitely until the service recovers.
 
 ### How it works
 

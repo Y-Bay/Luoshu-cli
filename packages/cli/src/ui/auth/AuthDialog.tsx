@@ -324,11 +324,11 @@ export function AuthDialog(): React.JSX.Element {
           </Box>
           <Box>
             <Link
-              url="https://github.com/luoshu-cli/luoshu-cli"
+              url="https://github.com/hanhai-cli/hanhai-cli"
               fallback={false}
             >
               <Text color={theme.text.secondary} underline>
-                https://github.com/luoshu-cli/luoshu-cli
+                https://github.com/hanhai-cli/hanhai-cli
               </Text>
             </Link>
           </Box>

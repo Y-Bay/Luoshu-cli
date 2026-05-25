@@ -1,7 +1,7 @@
 {
   "name": "@qwen-code/channel-base",
   "version": "0.1.0",
-  "description": "Base channel infrastructure for Qwen Code",
+  "description": "Base channel infrastructure for Hanhai CLI",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

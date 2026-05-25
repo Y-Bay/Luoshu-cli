@@ -9,7 +9,7 @@ import process from 'node:process';
 import { AuthType } from '../core/contentGenerator.js';
 import type { ContentGeneratorConfig } from '../core/contentGenerator.js';
 import type { ContentGeneratorConfigSources } from '../core/contentGenerator.js';
-import { DEFAULT_LUOSHU_MODEL } from '../config/models.js';
+import { DEFAULT_HANHAI_MODEL } from '../config/models.js';
 import { tokenLimit } from '../core/tokenLimits.js';
 import { defaultModalities } from '../core/modalityDefaults.js';
 
@@ -212,7 +212,7 @@ export class ModelsConfig {
    * Get current model ID
    */
   getModel(): string {
-    return this._generationConfig.model || DEFAULT_LUOSHU_MODEL;
+    return this._generationConfig.model || DEFAULT_HANHAI_MODEL;
   }
 
   /**
@@ -324,7 +324,7 @@ export class ModelsConfig {
     // coder-model supports vision capabilities and can be hot-updated
     if (
       this.currentAuthType === AuthType.QWEN_OAUTH &&
-      newModel === DEFAULT_LUOSHU_MODEL
+      newModel === DEFAULT_HANHAI_MODEL
     ) {
       this.strictModelProviderSelection = false;
       this._generationConfig.model = newModel;

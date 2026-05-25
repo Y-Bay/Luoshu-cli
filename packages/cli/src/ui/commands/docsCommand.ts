@@ -17,20 +17,20 @@ import { t } from '../../i18n/index.js';
 export const docsCommand: SlashCommand = {
   name: 'docs',
   get description() {
-    return t('open full Luoshu CLI documentation in your browser');
+    return t('open full Hanhai CLI documentation in your browser');
   },
   kind: CommandKind.BUILT_IN,
   supportedModes: ['interactive', 'non_interactive', 'acp'] as const,
   action: async (context: CommandContext) => {
-    // TODO(luoshu): point at Luoshu docs site once it exists; falls back to repo for now.
-    const docsUrl = `https://github.com/luoshu-cli/luoshu-cli`;
+    // TODO(hanhai): point at Hanhai docs site once it exists; falls back to repo for now.
+    const docsUrl = `https://github.com/hanhai-cli/hanhai-cli`;
 
     // Non-interactive/ACP: return URL directly, no browser, no addItem
     if (context.executionMode !== 'interactive') {
       return {
         type: 'message' as const,
         messageType: 'info' as const,
-        content: `Luoshu CLI documentation: ${docsUrl}`,
+        content: `Hanhai CLI documentation: ${docsUrl}`,
       };
     }
 

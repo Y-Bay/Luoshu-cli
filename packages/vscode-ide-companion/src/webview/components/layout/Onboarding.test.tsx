@@ -46,7 +46,7 @@ describe('Onboarding', () => {
       root?.render(<Onboarding />);
     });
 
-    const logo = container?.querySelector('img[alt="Qwen Code"]');
+    const logo = container?.querySelector('img[alt="Hanhai CLI"]');
 
     expect(logo).toBeTruthy();
     expect(logo?.getAttribute('src')).toBeTruthy();

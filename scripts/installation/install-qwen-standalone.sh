@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Qwen Code Installation Script
-# Installs Qwen Code from a standalone archive when available, with npm fallback.
+# Hanhai CLI Installation Script
+# Installs Hanhai CLI from a standalone archive when available, with npm fallback.
 # This script intentionally does not install Node.js or change npm config.
 #
 # Usage:
@@ -86,7 +86,7 @@ trap 'cleanup_temp_dirs; exit 143' TERM
 
 print_usage() {
     cat <<EOF
-Qwen Code Installer
+Hanhai CLI Installer
 
 Usage: $0 [OPTIONS]
 
@@ -318,12 +318,12 @@ done
 validate_options
 
 print_header() {
-    echo "Installing Qwen Code version: $(display_install_version)"
+    echo "Installing Hanhai CLI version: $(display_install_version)"
 }
 
 print_node_help() {
     echo ""
-    echo "Node.js 22 or newer is required before installing Qwen Code with npm."
+    echo "Node.js 22 or newer is required before installing Hanhai CLI with npm."
     echo ""
     echo "Install Node.js, then rerun this installer:"
     case "$(uname -s 2>/dev/null || echo unknown)" in
@@ -519,8 +519,8 @@ maybe_update_shell_path() {
 
     [[ -z "${rc_file}" ]] && return 0
 
-    local begin_marker="# Qwen Code PATH block begin"
-    local end_marker="# Qwen Code PATH block end"
+    local begin_marker="# Hanhai CLI PATH block begin"
+    local end_marker="# Hanhai CLI PATH block end"
     local quoted_install_bin_dir
     quoted_install_bin_dir=$(shell_quote "${install_bin_dir}")
     local export_line
@@ -964,7 +964,7 @@ ensure_managed_install_dir() {
     fi
 
     local backup="${install_dir}.backup.$(date +%Y%m%dT%H%M%S 2>/dev/null || date +%Y%m%d%H%M%S)"
-    log_warning "${install_dir} exists but is not a Qwen Code standalone install."
+    log_warning "${install_dir} exists but is not a Hanhai CLI standalone install."
     log_warning "Backing up to: ${backup}"
     if mv "${install_dir}" "${backup}"; then
         return 0
@@ -1236,7 +1236,7 @@ install_standalone() {
     create_source_json
     rm -rf "${temp_dir}"
 
-    log_success "Qwen Code standalone archive installed successfully."
+    log_success "Hanhai CLI standalone archive installed successfully."
     log_info "Installed to ${INSTALL_LIB_DIR}"
 }
 
@@ -1260,7 +1260,7 @@ install_npm() {
     if command_exists qwen; then
         local qwen_version
         qwen_version=$(qwen --version 2>/dev/null || echo "unknown")
-        log_info "Existing Qwen Code detected: ${qwen_version}"
+        log_info "Existing Hanhai CLI detected: ${qwen_version}"
         if [[ "${VERSION}" == "latest" ]]; then
             log_info "Upgrading to the latest version."
         else
@@ -1279,12 +1279,12 @@ install_npm() {
 
     log_info "Running: npm install -g ${package_spec} --registry ${NPM_REGISTRY}"
     if "${install_cmd[@]}"; then
-        log_success "Qwen Code installed successfully."
+        log_success "Hanhai CLI installed successfully."
         create_source_json
         return 0
     fi
 
-    log_error "Failed to install Qwen Code."
+    log_error "Failed to install Hanhai CLI."
     echo ""
     echo "This installer does not change your npm prefix or shell profile."
     echo "If the failure is a permission error, install Node.js with a user-owned"
@@ -1340,7 +1340,7 @@ print_final_instructions() {
 
     echo "QWEN CODE"
     echo ""
-    echo "Qwen Code ${installed_version} installed successfully."
+    echo "Hanhai CLI ${installed_version} installed successfully."
     echo ""
     echo "To start:"
     echo "  cd <project>"
@@ -1389,7 +1389,7 @@ print_final_instructions() {
 
 main() {
     if [[ -z "${HOME:-}" ]]; then
-        log_error "HOME is not set; cannot determine where to install Qwen Code."
+        log_error "HOME is not set; cannot determine where to install Hanhai CLI."
         exit 1
     fi
 

@@ -340,13 +340,13 @@ describe('QwenAgent loadSession — Phase C worktree context restore', () => {
 
   it('VP2: live sidecar — pendingWorktreeNotice is set to contextMessage', async () => {
     const contextMessage =
-      '[Resumed] Active worktree: "my-feature" at /repo/.luoshu/worktrees/my-feature ' +
+      '[Resumed] Active worktree: "my-feature" at /repo/.hanhai/worktrees/my-feature ' +
       '(branch: worktree-my-feature). Continue using this path for all file operations.';
     mockRestoreWorktreeContext.mockResolvedValueOnce({
       contextMessage,
       session: {
         slug: 'my-feature',
-        worktreePath: '/repo/.luoshu/worktrees/my-feature',
+        worktreePath: '/repo/.hanhai/worktrees/my-feature',
         worktreeBranch: 'worktree-my-feature',
         originalCwd: '/repo',
         originalBranch: 'main',

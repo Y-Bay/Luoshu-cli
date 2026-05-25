@@ -1,6 +1,6 @@
 # Tool-Use Summaries
 
-Qwen Code can generate a short, git-commit-subject-style label after each tool batch completes, summarizing what the batch accomplished. The label appears inline in the transcript and replaces the generic `Tool × N` header in compact mode.
+Hanhai CLI can generate a short, git-commit-subject-style label after each tool batch completes, summarizing what the batch accomplished. The label appears inline in the transcript and replaces the generic `Tool × N` header in compact mode.
 
 This is a UX aid for parallel tool calls: when the model fans out into several `Read` + `Grep` + `Bash` calls at once, the summary tells you the intent at a glance instead of forcing you to scan the tool list.
 
@@ -38,7 +38,7 @@ The individual tool calls are still a keystroke away (`Ctrl+O` to toggle to full
 
 ## How It Works
 
-After a tool batch finalizes, Qwen Code fires a fire-and-forget call to the configured fast model with:
+After a tool batch finalizes, Hanhai CLI fires a fire-and-forget call to the configured fast model with:
 
 - The tool names, truncated arguments, and truncated results (each capped at 300 characters).
 - The assistant's most recent text output (first 200 characters) as an intent prefix.

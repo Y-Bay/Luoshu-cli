@@ -911,7 +911,7 @@ export class WebViewProvider {
           ).trim();
           const panelRef = this.panelManager.getPanel();
           if (panelRef) {
-            panelRef.title = title ? truncatePanelTitle(title) : 'Qwen Code';
+            panelRef.title = title ? truncatePanelTitle(title) : 'Hanhai CLI';
           }
           return;
         }
@@ -1062,7 +1062,7 @@ export class WebViewProvider {
   }
 
   /**
-   * Sync VSCode extension settings (qwen-code.*) to ~/.luoshu/settings.json
+   * Sync VSCode extension settings (qwen-code.*) to ~/.hanhai/settings.json
    * if an API key is configured. This enables auto-connect on startup
    * without requiring the user to click "Connect" each time.
    *
@@ -1093,7 +1093,7 @@ export class WebViewProvider {
       writeCodingPlanConfig(region, apiKey);
 
       console.log(
-        `[WebViewProvider] Synced VSCode settings → ~/.luoshu/settings.json (provider=${provider})`,
+        `[WebViewProvider] Synced VSCode settings → ~/.hanhai/settings.json (provider=${provider})`,
       );
       return true;
     } catch (error) {
@@ -1103,7 +1103,7 @@ export class WebViewProvider {
   }
 
   /**
-   * Sync ~/.luoshu/settings.json values back to VSCode Settings UI.
+   * Sync ~/.hanhai/settings.json values back to VSCode Settings UI.
    * This makes existing CLI-configured non-secret metadata visible in the
    * VSCode Settings page without mirroring credentials into settings.json.
    */
@@ -1115,7 +1115,7 @@ export class WebViewProvider {
       }
 
       console.log(
-        '[WebViewProvider] Syncing ~/.luoshu/settings.json → VSCode settings',
+        '[WebViewProvider] Syncing ~/.hanhai/settings.json → VSCode settings',
       );
 
       // Set guard to prevent onDidChangeConfiguration from triggering a write-back
@@ -1143,7 +1143,7 @@ export class WebViewProvider {
 
       if (updates.length === 0) {
         console.log(
-          '[WebViewProvider] VSCode settings already match ~/.luoshu/settings.json',
+          '[WebViewProvider] VSCode settings already match ~/.hanhai/settings.json',
         );
         return;
       }
@@ -1165,9 +1165,9 @@ export class WebViewProvider {
 
   /**
    * Attempt to restore authentication state and initialize connection.
-   * On startup, sync ~/.luoshu/settings.json → VSCode settings so the Settings UI
+   * On startup, sync ~/.hanhai/settings.json → VSCode settings so the Settings UI
    * reflects existing non-secret CLI config, then attempt a connection.
-   * Writing back to ~/.luoshu/settings.json happens through the auth flow and
+   * Writing back to ~/.hanhai/settings.json happens through the auth flow and
    * auth-related VSCode setting changes.
    */
   private async attemptAuthStateRestoration(): Promise<void> {
@@ -1319,7 +1319,7 @@ export class WebViewProvider {
 
   /**
    * Handle auth interactive — interactive auth flow result.
-   * Writes provider config to ~/.luoshu/settings.json and reconnects.
+   * Writes provider config to ~/.hanhai/settings.json and reconnects.
    * Mirrors the CLI's `qwen auth coding-plan` / `qwen auth` flow.
    */
   private async handleAuthInteractive(
@@ -1952,11 +1952,11 @@ export class WebViewProvider {
 
   /**
    * Show a VS Code notification with sound and a "Show" button that focuses
-   * the Qwen Code panel (or sidebar view) when clicked.
+   * the Hanhai CLI panel (or sidebar view) when clicked.
    */
   private notifyUser(message: string): void {
     void vscode.window
-      .showInformationMessage(`Qwen Code: ${message}`, 'Show')
+      .showInformationMessage(`Hanhai CLI: ${message}`, 'Show')
       .then((action) => {
         if (action === 'Show') {
           const panel = this.panelManager.getPanel();
@@ -1972,7 +1972,7 @@ export class WebViewProvider {
   }
 
   /**
-   * Whether the user can currently see the Qwen Code panel.
+   * Whether the user can currently see the Hanhai CLI panel.
    * Only true when VS Code is the foreground app AND the panel tab is visible.
    * If either condition is false the user needs a notification.
    */
@@ -2213,7 +2213,7 @@ export class WebViewProvider {
     // Ensure restored tab starts from default label and icon
     this.dotState = null;
     try {
-      panel.title = 'Qwen Code';
+      panel.title = 'Hanhai CLI';
       panel.iconPath = vscode.Uri.joinPath(
         this.extensionUri,
         'assets',
@@ -2243,7 +2243,7 @@ export class WebViewProvider {
           ).trim();
           const panelRef = this.panelManager.getPanel();
           if (panelRef) {
-            panelRef.title = title ? truncatePanelTitle(title) : 'Qwen Code';
+            panelRef.title = title ? truncatePanelTitle(title) : 'Hanhai CLI';
           }
           return;
         }

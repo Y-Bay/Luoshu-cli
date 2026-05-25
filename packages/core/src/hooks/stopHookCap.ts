@@ -6,7 +6,7 @@
 
 export const DEFAULT_STOP_HOOK_BLOCK_CAP = 8;
 export const MAX_STOP_HOOK_BLOCK_CAP = 100;
-export const STOP_HOOK_BLOCK_CAP_ENV = 'LUOSHU_STOP_HOOK_BLOCK_CAP';
+export const STOP_HOOK_BLOCK_CAP_ENV = 'HANHAI_STOP_HOOK_BLOCK_CAP';
 
 export function normalizeStopHookBlockingCap(value: unknown): number {
   if (typeof value !== 'number' || !Number.isFinite(value)) {

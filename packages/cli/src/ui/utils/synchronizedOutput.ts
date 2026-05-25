@@ -35,15 +35,15 @@ export function terminalSupportsSynchronizedOutput(
   env: NodeJS.ProcessEnv = process.env,
 ): boolean {
   if (
-    env['LUOSHU_DISABLE_SYNCHRONIZED_OUTPUT'] === '1' ||
-    env['LUOSHU_SYNCHRONIZED_OUTPUT'] === '0'
+    env['HANHAI_DISABLE_SYNCHRONIZED_OUTPUT'] === '1' ||
+    env['HANHAI_SYNCHRONIZED_OUTPUT'] === '0'
   ) {
     return false;
   }
 
   if (
-    env['LUOSHU_FORCE_SYNCHRONIZED_OUTPUT'] === '1' ||
-    env['LUOSHU_SYNCHRONIZED_OUTPUT'] === '1'
+    env['HANHAI_FORCE_SYNCHRONIZED_OUTPUT'] === '1' ||
+    env['HANHAI_SYNCHRONIZED_OUTPUT'] === '1'
   ) {
     return true;
   }

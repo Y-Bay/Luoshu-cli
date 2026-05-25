@@ -38,7 +38,7 @@ function getSandboxCommand(
 
   // note environment variable takes precedence over argument (from command line or settings)
   const environmentConfiguredSandbox =
-    process.env['LUOSHU_SANDBOX']?.toLowerCase().trim() ?? '';
+    process.env['HANHAI_SANDBOX']?.toLowerCase().trim() ?? '';
   sandbox =
     environmentConfiguredSandbox?.length > 0
       ? environmentConfiguredSandbox
@@ -63,7 +63,7 @@ function getSandboxCommand(
       return sandbox;
     }
     throw new FatalSandboxError(
-      `Missing sandbox command '${sandbox}' (from LUOSHU_SANDBOX)`,
+      `Missing sandbox command '${sandbox}' (from HANHAI_SANDBOX)`,
     );
   }
 
@@ -80,8 +80,8 @@ function getSandboxCommand(
   // throw an error if user requested sandbox but no command was found
   if (sandbox === true) {
     throw new FatalSandboxError(
-      'LUOSHU_SANDBOX is true but failed to determine command for sandbox; ' +
-        'install docker or podman or specify command in LUOSHU_SANDBOX',
+      'HANHAI_SANDBOX is true but failed to determine command for sandbox; ' +
+        'install docker or podman or specify command in HANHAI_SANDBOX',
     );
   }
 
@@ -98,7 +98,7 @@ export async function loadSandboxConfig(
   const packageJson = await getPackageJson();
   const image =
     argv.sandboxImage ??
-    process.env['LUOSHU_SANDBOX_IMAGE'] ??
+    process.env['HANHAI_SANDBOX_IMAGE'] ??
     settings.tools?.sandboxImage ??
     packageJson?.config?.sandboxImageUri;
 

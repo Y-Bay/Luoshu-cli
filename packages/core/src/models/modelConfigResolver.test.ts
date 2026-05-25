@@ -11,7 +11,7 @@ import {
 } from './modelConfigResolver.js';
 import { AuthType } from '../core/contentGenerator.js';
 import {
-  DEFAULT_LUOSHU_MODEL,
+  DEFAULT_HANHAI_MODEL,
   MAINLINE_CODER_MODEL,
 } from '../config/models.js';
 
@@ -130,19 +130,19 @@ describe('modelConfigResolver', () => {
         expect(result.sources['apiKey'].via?.kind).toBe('modelProviders');
       });
 
-      it('reads LUOSHU_MODEL as fallback for OPENAI_MODEL', () => {
+      it('reads HANHAI_MODEL as fallback for OPENAI_MODEL', () => {
         const result = resolveModelConfig({
           authType: AuthType.USE_OPENAI,
           cli: {},
           settings: {},
           env: {
-            LUOSHU_MODEL: 'qwen-model',
+            HANHAI_MODEL: 'qwen-model',
             OPENAI_API_KEY: 'key',
           },
         });
 
         expect(result.config.model).toBe('qwen-model');
-        expect(result.sources['model'].envKey).toBe('LUOSHU_MODEL');
+        expect(result.sources['model'].envKey).toBe('HANHAI_MODEL');
       });
     });
 
@@ -155,7 +155,7 @@ describe('modelConfigResolver', () => {
           env: {},
         });
 
-        expect(result.config.model).toBe(DEFAULT_LUOSHU_MODEL);
+        expect(result.config.model).toBe(DEFAULT_HANHAI_MODEL);
         expect(result.config.apiKey).toBe('QWEN_OAUTH_DYNAMIC_TOKEN');
         expect(result.sources['apiKey'].kind).toBe('computed');
       });
@@ -184,35 +184,35 @@ describe('modelConfigResolver', () => {
           env: {},
         });
 
-        expect(result.config.model).toBe(DEFAULT_LUOSHU_MODEL);
+        expect(result.config.model).toBe(DEFAULT_HANHAI_MODEL);
         expect(result.warnings).toHaveLength(1);
         expect(result.warnings[0]).toContain('unsupported-model');
       });
 
-      it('LUOSHU_API_TIMEOUT_MS applies in Qwen OAuth path', () => {
+      it('HANHAI_API_TIMEOUT_MS applies in Qwen OAuth path', () => {
         const result = resolveModelConfig({
           authType: AuthType.QWEN_OAUTH,
           cli: {},
           settings: {},
           env: {
-            LUOSHU_API_TIMEOUT_MS: '45000',
+            HANHAI_API_TIMEOUT_MS: '45000',
           },
         });
 
         expect(result.config.timeout).toBe(45000);
         expect(result.sources['timeout']).toBeDefined();
         expect(result.sources['timeout'].kind).toBe('env');
-        expect(result.sources['timeout'].envKey).toBe('LUOSHU_API_TIMEOUT_MS');
-        expect(result.config.model).toBe(DEFAULT_LUOSHU_MODEL);
+        expect(result.sources['timeout'].envKey).toBe('HANHAI_API_TIMEOUT_MS');
+        expect(result.config.model).toBe(DEFAULT_HANHAI_MODEL);
       });
 
-      it('modelProvider timeout takes precedence over LUOSHU_API_TIMEOUT_MS in OAuth', () => {
+      it('modelProvider timeout takes precedence over HANHAI_API_TIMEOUT_MS in OAuth', () => {
         const result = resolveModelConfig({
           authType: AuthType.QWEN_OAUTH,
           cli: {},
           settings: {},
           env: {
-            LUOSHU_API_TIMEOUT_MS: '45000',
+            HANHAI_API_TIMEOUT_MS: '45000',
           },
           modelProvider: {
             id: 'qwen-oauth',
@@ -227,65 +227,65 @@ describe('modelConfigResolver', () => {
         expect(result.sources['timeout'].kind).toBe('modelProviders');
       });
 
-      it('invalid LUOSHU_API_TIMEOUT_MS ignored in OAuth path', () => {
+      it('invalid HANHAI_API_TIMEOUT_MS ignored in OAuth path', () => {
         const result = resolveModelConfig({
           authType: AuthType.QWEN_OAUTH,
           cli: {},
           settings: {},
           env: {
-            LUOSHU_API_TIMEOUT_MS: 'not-a-number',
+            HANHAI_API_TIMEOUT_MS: 'not-a-number',
           },
         });
 
         expect(result.config.timeout).toBeUndefined();
       });
 
-      it('negative LUOSHU_API_TIMEOUT_MS ignored in OAuth path', () => {
+      it('negative HANHAI_API_TIMEOUT_MS ignored in OAuth path', () => {
         const result = resolveModelConfig({
           authType: AuthType.QWEN_OAUTH,
           cli: {},
           settings: {},
           env: {
-            LUOSHU_API_TIMEOUT_MS: '-100',
+            HANHAI_API_TIMEOUT_MS: '-100',
           },
         });
 
         expect(result.config.timeout).toBeUndefined();
       });
 
-      it('zero LUOSHU_API_TIMEOUT_MS ignored in OAuth path', () => {
+      it('zero HANHAI_API_TIMEOUT_MS ignored in OAuth path', () => {
         const result = resolveModelConfig({
           authType: AuthType.QWEN_OAUTH,
           cli: {},
           settings: {},
           env: {
-            LUOSHU_API_TIMEOUT_MS: '0',
+            HANHAI_API_TIMEOUT_MS: '0',
           },
         });
 
         expect(result.config.timeout).toBeUndefined();
       });
 
-      it('LUOSHU_API_TIMEOUT_MS works with float value in OAuth', () => {
+      it('HANHAI_API_TIMEOUT_MS works with float value in OAuth', () => {
         const result = resolveModelConfig({
           authType: AuthType.QWEN_OAUTH,
           cli: {},
           settings: {},
           env: {
-            LUOSHU_API_TIMEOUT_MS: '12345.67',
+            HANHAI_API_TIMEOUT_MS: '12345.67',
           },
         });
 
         expect(result.config.timeout).toBe(12345);
       });
 
-      it('LUOSHU_API_TIMEOUT_MS works with proxy in OAuth path', () => {
+      it('HANHAI_API_TIMEOUT_MS works with proxy in OAuth path', () => {
         const result = resolveModelConfig({
           authType: AuthType.QWEN_OAUTH,
           cli: {},
           settings: {},
           env: {
-            LUOSHU_API_TIMEOUT_MS: '60000',
+            HANHAI_API_TIMEOUT_MS: '60000',
           },
           proxy: 'http://proxy.example.com:8080',
         });
@@ -368,7 +368,7 @@ describe('modelConfigResolver', () => {
         expect(result.sources['timeout'].kind).toBe('modelProviders');
       });
 
-      it('LUOSHU_API_TIMEOUT_MS env var overrides settings timeout', () => {
+      it('HANHAI_API_TIMEOUT_MS env var overrides settings timeout', () => {
         const result = resolveModelConfig({
           authType: AuthType.USE_OPENAI,
           cli: {},
@@ -380,23 +380,23 @@ describe('modelConfigResolver', () => {
           },
           env: {
             OPENAI_API_KEY: 'key',
-            LUOSHU_API_TIMEOUT_MS: '900000',
+            HANHAI_API_TIMEOUT_MS: '900000',
           },
         });
 
         expect(result.config.timeout).toBe(900000);
         expect(result.sources['timeout'].kind).toBe('env');
-        expect(result.sources['timeout'].envKey).toBe('LUOSHU_API_TIMEOUT_MS');
+        expect(result.sources['timeout'].envKey).toBe('HANHAI_API_TIMEOUT_MS');
       });
 
-      it('modelProvider timeout wins over LUOSHU_API_TIMEOUT_MS', () => {
+      it('modelProvider timeout wins over HANHAI_API_TIMEOUT_MS', () => {
         const result = resolveModelConfig({
           authType: AuthType.USE_OPENAI,
           cli: {},
           settings: {},
           env: {
             MY_KEY: 'key',
-            LUOSHU_API_TIMEOUT_MS: '900000',
+            HANHAI_API_TIMEOUT_MS: '900000',
           },
           modelProvider: {
             id: 'model',
@@ -414,14 +414,14 @@ describe('modelConfigResolver', () => {
         expect(result.sources['timeout'].kind).toBe('modelProviders');
       });
 
-      it('LUOSHU_API_TIMEOUT_MS applies when modelProvider has no timeout', () => {
+      it('HANHAI_API_TIMEOUT_MS applies when modelProvider has no timeout', () => {
         const result = resolveModelConfig({
           authType: AuthType.USE_OPENAI,
           cli: {},
           settings: {},
           env: {
             MY_KEY: 'key',
-            LUOSHU_API_TIMEOUT_MS: '900000',
+            HANHAI_API_TIMEOUT_MS: '900000',
           },
           modelProvider: {
             id: 'model',
@@ -434,10 +434,10 @@ describe('modelConfigResolver', () => {
 
         expect(result.config.timeout).toBe(900000);
         expect(result.sources['timeout'].kind).toBe('env');
-        expect(result.sources['timeout'].envKey).toBe('LUOSHU_API_TIMEOUT_MS');
+        expect(result.sources['timeout'].envKey).toBe('HANHAI_API_TIMEOUT_MS');
       });
 
-      it('ignores invalid LUOSHU_API_TIMEOUT_MS values', () => {
+      it('ignores invalid HANHAI_API_TIMEOUT_MS values', () => {
         const result = resolveModelConfig({
           authType: AuthType.USE_OPENAI,
           cli: {},
@@ -449,7 +449,7 @@ describe('modelConfigResolver', () => {
           },
           env: {
             OPENAI_API_KEY: 'key',
-            LUOSHU_API_TIMEOUT_MS: 'invalid',
+            HANHAI_API_TIMEOUT_MS: 'invalid',
           },
         });
 
@@ -458,7 +458,7 @@ describe('modelConfigResolver', () => {
         expect(result.sources['timeout'].kind).toBe('settings');
       });
 
-      it('ignores negative or zero LUOSHU_API_TIMEOUT_MS values', () => {
+      it('ignores negative or zero HANHAI_API_TIMEOUT_MS values', () => {
         const result = resolveModelConfig({
           authType: AuthType.USE_OPENAI,
           cli: {},
@@ -470,7 +470,7 @@ describe('modelConfigResolver', () => {
           },
           env: {
             OPENAI_API_KEY: 'key',
-            LUOSHU_API_TIMEOUT_MS: '0',
+            HANHAI_API_TIMEOUT_MS: '0',
           },
         });
 
@@ -496,7 +496,7 @@ describe('modelConfigResolver', () => {
         expect(result.config.timeout).toBeUndefined();
       });
 
-      it('LUOSHU_API_TIMEOUT_MS works for Anthropic auth type', () => {
+      it('HANHAI_API_TIMEOUT_MS works for Anthropic auth type', () => {
         const result = resolveModelConfig({
           authType: AuthType.USE_ANTHROPIC,
           cli: {},
@@ -504,13 +504,13 @@ describe('modelConfigResolver', () => {
           env: {
             ANTHROPIC_API_KEY: 'key',
             ANTHROPIC_BASE_URL: 'https://api.anthropic.com',
-            LUOSHU_API_TIMEOUT_MS: '600000',
+            HANHAI_API_TIMEOUT_MS: '600000',
           },
         });
 
         expect(result.config.timeout).toBe(600000);
         expect(result.sources['timeout'].kind).toBe('env');
-        expect(result.sources['timeout'].envKey).toBe('LUOSHU_API_TIMEOUT_MS');
+        expect(result.sources['timeout'].envKey).toBe('HANHAI_API_TIMEOUT_MS');
       });
 
       it('env var actually changes resolved timeout value', () => {
@@ -526,14 +526,14 @@ describe('modelConfigResolver', () => {
           },
           env: {
             OPENAI_API_KEY: 'key',
-            LUOSHU_API_TIMEOUT_MS: '900000',
+            HANHAI_API_TIMEOUT_MS: '900000',
           },
         });
 
         // Timeout should be the env var value, not the settings value
         expect(result.config.timeout).toBe(900000);
         expect(result.sources['timeout'].kind).toBe('env');
-        expect(result.sources['timeout'].envKey).toBe('LUOSHU_API_TIMEOUT_MS');
+        expect(result.sources['timeout'].envKey).toBe('HANHAI_API_TIMEOUT_MS');
 
         // Prove it would be used by the client (default.ts:48 reads config.timeout)
         const clientTimeout = result.config.timeout;
@@ -547,7 +547,7 @@ describe('modelConfigResolver', () => {
           settings: { apiKey: 'key' },
           env: {
             OPENAI_API_KEY: 'key',
-            LUOSHU_API_TIMEOUT_MS: '999999999',
+            HANHAI_API_TIMEOUT_MS: '999999999',
           },
         });
 
@@ -562,7 +562,7 @@ describe('modelConfigResolver', () => {
           settings: { apiKey: 'key' },
           env: {
             OPENAI_API_KEY: 'key',
-            LUOSHU_API_TIMEOUT_MS: ' 300000 ',
+            HANHAI_API_TIMEOUT_MS: ' 300000 ',
           },
         });
 
@@ -571,7 +571,7 @@ describe('modelConfigResolver', () => {
         expect(result.sources['timeout'].kind).toBe('env');
       });
 
-      it('ignores negative LUOSHU_API_TIMEOUT_MS values', () => {
+      it('ignores negative HANHAI_API_TIMEOUT_MS values', () => {
         const result = resolveModelConfig({
           authType: AuthType.USE_OPENAI,
           cli: {},
@@ -581,7 +581,7 @@ describe('modelConfigResolver', () => {
           },
           env: {
             OPENAI_API_KEY: 'key',
-            LUOSHU_API_TIMEOUT_MS: '-100',
+            HANHAI_API_TIMEOUT_MS: '-100',
           },
         });
 
@@ -644,7 +644,7 @@ describe('modelConfigResolver', () => {
     it('always passes for Qwen OAuth', () => {
       const result = validateModelConfig({
         authType: AuthType.QWEN_OAUTH,
-        model: DEFAULT_LUOSHU_MODEL,
+        model: DEFAULT_HANHAI_MODEL,
         apiKey: 'QWEN_OAUTH_DYNAMIC_TOKEN',
       });
 
@@ -680,7 +680,7 @@ describe('modelConfigResolver', () => {
   });
 
   describe('[Regression] timeout env override refactor', () => {
-    it('[Regression] OAuth path must apply LUOSHU_API_TIMEOUT_MS (was broken before fix #3629)', () => {
+    it('[Regression] OAuth path must apply HANHAI_API_TIMEOUT_MS (was broken before fix #3629)', () => {
       // Guards against the original bug where resolveQwenOAuthConfig()
       // returned before applying the env override.
       const result = resolveModelConfig({
@@ -688,31 +688,31 @@ describe('modelConfigResolver', () => {
         cli: {},
         settings: {},
         env: {
-          LUOSHU_API_TIMEOUT_MS: '45000',
+          HANHAI_API_TIMEOUT_MS: '45000',
         },
       });
 
       expect(result.config.timeout).toBe(45000);
       expect(result.sources['timeout']).toBeDefined();
       expect(result.sources['timeout'].kind).toBe('env');
-      expect(result.sources['timeout'].envKey).toBe('LUOSHU_API_TIMEOUT_MS');
-      expect(result.config.model).toBe(DEFAULT_LUOSHU_MODEL);
+      expect(result.sources['timeout'].envKey).toBe('HANHAI_API_TIMEOUT_MS');
+      expect(result.config.model).toBe(DEFAULT_HANHAI_MODEL);
     });
 
-    it('[Regression] non-OAuth path must apply LUOSHU_API_TIMEOUT_MS', () => {
+    it('[Regression] non-OAuth path must apply HANHAI_API_TIMEOUT_MS', () => {
       const result = resolveModelConfig({
         authType: AuthType.USE_OPENAI,
         cli: {},
         settings: { apiKey: 'key' },
         env: {
           OPENAI_API_KEY: 'key',
-          LUOSHU_API_TIMEOUT_MS: '900000',
+          HANHAI_API_TIMEOUT_MS: '900000',
         },
       });
 
       expect(result.config.timeout).toBe(900000);
       expect(result.sources['timeout'].kind).toBe('env');
-      expect(result.sources['timeout'].envKey).toBe('LUOSHU_API_TIMEOUT_MS');
+      expect(result.sources['timeout'].envKey).toBe('HANHAI_API_TIMEOUT_MS');
     });
 
     it('[Regression] modelProvider timeout must win over env in both paths', () => {
@@ -723,7 +723,7 @@ describe('modelConfigResolver', () => {
         settings: {},
         env: {
           MY_KEY: 'key',
-          LUOSHU_API_TIMEOUT_MS: '900000',
+          HANHAI_API_TIMEOUT_MS: '900000',
         },
         modelProvider: {
           id: 'model',
@@ -742,7 +742,7 @@ describe('modelConfigResolver', () => {
         cli: {},
         settings: {},
         env: {
-          LUOSHU_API_TIMEOUT_MS: '45000',
+          HANHAI_API_TIMEOUT_MS: '45000',
         },
         modelProvider: {
           id: 'qwen-oauth',
@@ -764,7 +764,7 @@ describe('modelConfigResolver', () => {
         },
         env: {
           OPENAI_API_KEY: 'key',
-          LUOSHU_API_TIMEOUT_MS: '900000',
+          HANHAI_API_TIMEOUT_MS: '900000',
         },
       });
 
@@ -775,14 +775,14 @@ describe('modelConfigResolver', () => {
   });
 
   describe('[Additional] timeout env override edge cases', () => {
-    it('handles scientific notation in LUOSHU_API_TIMEOUT_MS', () => {
+    it('handles scientific notation in HANHAI_API_TIMEOUT_MS', () => {
       const result = resolveModelConfig({
         authType: AuthType.USE_OPENAI,
         cli: {},
         settings: { apiKey: 'key' },
         env: {
           OPENAI_API_KEY: 'key',
-          LUOSHU_API_TIMEOUT_MS: '1.5e5',
+          HANHAI_API_TIMEOUT_MS: '1.5e5',
         },
       });
 
@@ -790,14 +790,14 @@ describe('modelConfigResolver', () => {
       expect(result.sources['timeout'].kind).toBe('env');
     });
 
-    it('handles hex values in LUOSHU_API_TIMEOUT_MS', () => {
+    it('handles hex values in HANHAI_API_TIMEOUT_MS', () => {
       const result = resolveModelConfig({
         authType: AuthType.USE_OPENAI,
         cli: {},
         settings: { apiKey: 'key', generationConfig: { timeout: 30000 } },
         env: {
           OPENAI_API_KEY: 'key',
-          LUOSHU_API_TIMEOUT_MS: '0x2BF20', // 180000 in hex
+          HANHAI_API_TIMEOUT_MS: '0x2BF20', // 180000 in hex
         },
       });
 
@@ -805,14 +805,14 @@ describe('modelConfigResolver', () => {
       expect(result.sources['timeout'].kind).toBe('env');
     });
 
-    it('ignores empty string LUOSHU_API_TIMEOUT_MS', () => {
+    it('ignores empty string HANHAI_API_TIMEOUT_MS', () => {
       const result = resolveModelConfig({
         authType: AuthType.USE_OPENAI,
         cli: {},
         settings: { apiKey: 'key', generationConfig: { timeout: 30000 } },
         env: {
           OPENAI_API_KEY: 'key',
-          LUOSHU_API_TIMEOUT_MS: '',
+          HANHAI_API_TIMEOUT_MS: '',
         },
       });
 
@@ -839,7 +839,7 @@ describe('modelConfigResolver', () => {
           settings: {
             ...(type === AuthType.USE_OPENAI ? { apiKey: 'key' } : {}),
           },
-          env: { ...env, LUOSHU_API_TIMEOUT_MS: '99999' },
+          env: { ...env, HANHAI_API_TIMEOUT_MS: '99999' },
         });
 
         expect(result.config.timeout).toBe(99999);
@@ -906,7 +906,7 @@ describe('modelConfigResolver', () => {
     it('Qwen OAuth path: modalities auto-detected for default coder-model', () => {
       // resolveGenerationConfig is shared by both the OpenAI and Qwen OAuth
       // paths; the latter (resolveQwenOAuthConfig) passes the resolved Qwen
-      // OAuth model name (defaults to DEFAULT_LUOSHU_MODEL = 'coder-model') as
+      // OAuth model name (defaults to DEFAULT_HANHAI_MODEL = 'coder-model') as
       // modelId, so the new modalities fallback also fires here.
       //
       // modalityDefaults.ts maps /^coder-model$/ to { image: true, video: true }
@@ -920,7 +920,7 @@ describe('modelConfigResolver', () => {
         env: {},
       });
 
-      expect(result.config.model).toBe(DEFAULT_LUOSHU_MODEL);
+      expect(result.config.model).toBe(DEFAULT_HANHAI_MODEL);
       expect(result.config.modalities).toEqual({ image: true, video: true });
       expect(result.sources['modalities'].kind).toBe('computed');
     });

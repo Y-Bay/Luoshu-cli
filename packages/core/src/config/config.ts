@@ -130,7 +130,7 @@ import {
   DEFAULT_FILE_FILTERING_OPTIONS,
   DEFAULT_MEMORY_FILE_FILTERING_OPTIONS,
 } from './constants.js';
-import { DEFAULT_LUOSHU_EMBEDDING_MODEL } from './models.js';
+import { DEFAULT_HANHAI_EMBEDDING_MODEL } from './models.js';
 import { Storage } from './storage.js';
 import { ChatRecordingService } from '../services/chatRecordingService.js';
 import {
@@ -498,7 +498,7 @@ export interface AgentsCollabSettings {
   displayMode?: string;
   /** Arena-specific settings */
   arena?: {
-    /** Custom base directory for Arena worktrees (default: ~/.luoshu/arena) */
+    /** Custom base directory for Arena worktrees (default: ~/.hanhai/arena) */
     worktreeBaseDir?: string;
     /** Preserve worktrees and state files after session ends */
     preserveArtifacts?: boolean;
@@ -528,7 +528,7 @@ export interface ConfigParameters {
    * CLI surface. Matched case-insensitively on the final (post-rename)
    * command name. Sourced from settings (`slashCommands.disabled`, UNION
    * merged across scopes), the `--disabled-slash-commands` CLI flag, and
-   * the `LUOSHU_DISABLED_SLASH_COMMANDS` environment variable.
+   * the `HANHAI_DISABLED_SLASH_COMMANDS` environment variable.
    */
   disabledSlashCommands?: string[];
   /**
@@ -640,7 +640,7 @@ export interface ConfigParameters {
   channel?: string;
   /**
    * File descriptor number for structured JSON event output (dual output mode).
-   * When set, Qwen Code outputs structured JSON events to this fd while
+   * When set, Hanhai CLI outputs structured JSON events to this fd while
    * continuing to render the TUI on stdout. The caller must provide this fd
    * via spawn stdio configuration.
    * Mutually exclusive with jsonFile.
@@ -707,7 +707,7 @@ export interface ConfigParameters {
   projectHooks?: Record<string, unknown>;
 
   hooks?: Record<string, unknown>;
-  /** Glob patterns to exclude from .luoshu/rules/ loading. */
+  /** Glob patterns to exclude from .hanhai/rules/ loading. */
   contextRuleExcludes?: string[];
   /** Warnings generated during configuration resolution */
   warnings?: string[];
@@ -783,7 +783,7 @@ export class Config {
    * `startMcpDiscoveryInBackground` (or legacy blocking discovery)
    * fires the first pass. Pre-fix the acpAgent registered after
    * `initialize()` returned, missing the first pass entirely under
-   * `LUOSHU_LEGACY_MCP_BLOCKING=1` and racing against background
+   * `HANHAI_LEGACY_MCP_BLOCKING=1` and racing against background
    * discovery completion under the default mode.
    */
   private pendingMcpBudgetCallback?: (event: McpBudgetEvent) => void;
@@ -958,7 +958,7 @@ export class Config {
     setDebugLogSession(this);
     this.debugLogger = createDebugLogger();
     this.embeddingModel =
-      params.embeddingModel ?? DEFAULT_LUOSHU_EMBEDDING_MODEL;
+      params.embeddingModel ?? DEFAULT_HANHAI_EMBEDDING_MODEL;
     this.fileSystemService = new StandardFileSystemService();
     this.sandbox = params.sandbox;
     this.targetDir = path.resolve(params.targetDir);
@@ -1391,9 +1391,9 @@ export class Config {
     // after the registry exists. This lets `Config.initialize()` (and the
     // cli's `input_enabled` checkpoint) resolve without waiting on MCP
     // server response time. Users can opt back into the legacy synchronous
-    // behavior with `LUOSHU_LEGACY_MCP_BLOCKING=1` — kept ≥ 1 release as
+    // behavior with `HANHAI_LEGACY_MCP_BLOCKING=1` — kept ≥ 1 release as
     // an escape hatch.
-    const legacyBlockingMcp = process.env['LUOSHU_LEGACY_MCP_BLOCKING'] === '1';
+    const legacyBlockingMcp = process.env['HANHAI_LEGACY_MCP_BLOCKING'] === '1';
     const skipInlineMcpDiscovery = this.getBareMode() || !legacyBlockingMcp;
 
     this.toolRegistry = await this.createToolRegistry(
@@ -1447,20 +1447,20 @@ export class Config {
     // directory the worktree creators (`enter_worktree` and
     // `agent isolation:'worktree'`) write to. Using `this.targetDir`
     // directly would cause launches from a monorepo subdirectory to
-    // scan `<subdir>/.luoshu/worktrees/` — which never exists — and the
+    // scan `<subdir>/.hanhai/worktrees/` — which never exists — and the
     // sweep would silently be a no-op forever.
     if (!this.getBareMode()) {
       void (async () => {
         try {
           // Resolve the repo top-level FIRST. The previous code bailed
-          // on `fs.access(<targetDir>/.luoshu/worktrees)` before resolving,
+          // on `fs.access(<targetDir>/.hanhai/worktrees)` before resolving,
           // so a monorepo subdir launch (where `targetDir` is the
           // subdir, not the repo root) always early-returned and the
           // sweep was permanently a no-op. Fast-bail still happens, just
           // against the *correct* directory.
           const probe = new GitWorktreeService(this.targetDir);
           const root = (await probe.getRepoTopLevel()) ?? this.targetDir;
-          const worktreesDir = path.join(root, '.luoshu', 'worktrees');
+          const worktreesDir = path.join(root, '.hanhai', 'worktrees');
           try {
             await fsPromises.access(worktreesDir);
           } catch {
@@ -1590,7 +1590,7 @@ export class Config {
    *
    * Resolves immediately when:
    * - bare mode is on (no MCP discovery is started),
-   * - `LUOSHU_LEGACY_MCP_BLOCKING=1` is set (MCP already discovered
+   * - `HANHAI_LEGACY_MCP_BLOCKING=1` is set (MCP already discovered
    *   synchronously inside {@link initialize}), or
    * - no MCP servers are configured.
    */
@@ -2874,7 +2874,7 @@ export class Config {
 
   isCronEnabled(): boolean {
     // Cron is experimental and opt-in: enabled via settings or env var
-    if (process.env['LUOSHU_ENABLE_CRON'] === '1') return true;
+    if (process.env['HANHAI_ENABLE_CRON'] === '1') return true;
     return this.cronEnabled;
   }
 
@@ -2884,11 +2884,11 @@ export class Config {
    * `CLAUDE_CODE_EMIT_TOOL_USE_SUMMARIES` gate, but defaults to on so the
    * compact-mode UI benefits without configuration.
    *
-   * Env overrides (either direction): `LUOSHU_EMIT_TOOL_USE_SUMMARIES=0`
+   * Env overrides (either direction): `HANHAI_EMIT_TOOL_USE_SUMMARIES=0`
    * to force off, `=1` to force on.
    */
   getEmitToolUseSummaries(): boolean {
-    const env = process.env['LUOSHU_EMIT_TOOL_USE_SUMMARIES'];
+    const env = process.env['HANHAI_EMIT_TOOL_USE_SUMMARIES'];
     if (env === '0' || env === 'false') return false;
     if (env === '1' || env === 'true') return true;
     return this.emitToolUseSummaries;

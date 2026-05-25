@@ -1053,7 +1053,7 @@ describe('WebViewProvider settings sync', () => {
     expect(mockWriteModelProvidersConfig).not.toHaveBeenCalled();
   });
 
-  it('only syncs non-secret VS Code settings from ~/.luoshu/settings.json', async () => {
+  it('only syncs non-secret VS Code settings from ~/.hanhai/settings.json', async () => {
     mockReadQwenSettingsForVSCode.mockReturnValue({
       provider: 'coding-plan',
       apiKey: 'sk-updated',
@@ -1406,7 +1406,7 @@ describe('Notification & dot indicator', () => {
 
     // Notification should be shown
     expect(mockShowInformationMessage).toHaveBeenCalledWith(
-      'Qwen Code: Waiting for your input.',
+      'Hanhai CLI: Waiting for your input.',
       'Show',
     );
   });
@@ -1487,7 +1487,7 @@ describe('Notification & dot indicator', () => {
 
     // Notification with tool name
     expect(mockShowInformationMessage).toHaveBeenCalledWith(
-      'Qwen Code: Needs your permission to use Bash.',
+      'Hanhai CLI: Needs your permission to use Bash.',
       'Show',
     );
   });
@@ -1674,7 +1674,7 @@ describe('Notification & dot indicator', () => {
 
     // User is in VS Code but not looking at the panel — should notify
     expect(mockShowInformationMessage).toHaveBeenCalledWith(
-      'Qwen Code: Waiting for your input.',
+      'Hanhai CLI: Waiting for your input.',
       'Show',
     );
   });
@@ -1697,7 +1697,7 @@ describe('Notification & dot indicator', () => {
 
     // User left VS Code — should notify even though panel is visible
     expect(mockShowInformationMessage).toHaveBeenCalledWith(
-      'Qwen Code: Waiting for your input.',
+      'Hanhai CLI: Waiting for your input.',
       'Show',
     );
   });
@@ -1728,7 +1728,7 @@ describe('Notification & dot indicator', () => {
 
     // Notification without tool name (generic message)
     expect(mockShowInformationMessage).toHaveBeenCalledWith(
-      'Qwen Code: Waiting for your input.',
+      'Hanhai CLI: Waiting for your input.',
       'Show',
     );
   });

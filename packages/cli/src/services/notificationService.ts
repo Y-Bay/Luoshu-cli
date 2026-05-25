@@ -29,7 +29,7 @@ export interface NotificationOptions {
   title?: string;
 }
 
-const DEFAULT_TITLE = 'Luoshu CLI';
+const DEFAULT_TITLE = 'Hanhai CLI';
 
 /**
  * Send a notification through the auto-detected channel.

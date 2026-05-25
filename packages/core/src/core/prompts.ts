@@ -10,7 +10,7 @@ import os from 'node:os';
 import { ToolNames } from '../tools/tool-names.js';
 import process from 'node:process';
 import { isGitRepository } from '../utils/gitUtils.js';
-import { LUOSHU_DIR } from '../config/storage.js';
+import { HANHAI_DIR } from '../config/storage.js';
 import type { GenerateContentConfig } from '@google/genai';
 import { createDebugLogger } from '../utils/debugLogger.js';
 
@@ -183,9 +183,9 @@ export function getCoreSystemPrompt(
   deferredTools?: Array<{ name: string; description: string }>,
 ): string {
   // if QWEN_SYSTEM_MD is set (and not 0|false), override system prompt from file
-  // default path is .luoshu/system.md (project-level), can be overridden via QWEN_SYSTEM_MD
+  // default path is .hanhai/system.md (project-level), can be overridden via QWEN_SYSTEM_MD
   let systemMdEnabled = false;
-  let systemMdPath = path.resolve(path.join(LUOSHU_DIR, 'system.md'));
+  let systemMdPath = path.resolve(path.join(HANHAI_DIR, 'system.md'));
   // Resolve the environment variable to get either a path or a switch value.
   const systemMdResolution = resolvePathFromEnv(process.env['QWEN_SYSTEM_MD']);
 
@@ -207,7 +207,7 @@ export function getCoreSystemPrompt(
   const basePrompt = systemMdEnabled
     ? fs.readFileSync(systemMdPath, 'utf8')
     : `
-You are Luoshu CLI, an interactive CLI agent for the 洛书 (LUOSHU) language model, specializing in software engineering tasks. Your primary goal is to help users safely and efficiently, adhering strictly to the following instructions and utilizing your available tools.
+You are Hanhai CLI, an interactive CLI agent for the 瀚海 (HANHAI) language model, specializing in software engineering tasks. Your primary goal is to help users safely and efficiently, adhering strictly to the following instructions and utilizing your available tools.
 
 # Core Mandates
 
@@ -875,7 +875,7 @@ To help you check their settings, I can read their contents. Which one would you
 
 function getToolCallExamples(model?: string): string {
   // Check for environment variable override first
-  const toolCallStyle = process.env['LUOSHU_TOOL_CALL_STYLE'];
+  const toolCallStyle = process.env['HANHAI_TOOL_CALL_STYLE'];
   if (toolCallStyle) {
     switch (toolCallStyle.toLowerCase()) {
       case 'qwen-coder':
@@ -886,7 +886,7 @@ function getToolCallExamples(model?: string): string {
         return generalToolCallExamples;
       default:
         debugLogger.warn(
-          `Unknown LUOSHU_TOOL_CALL_STYLE value: ${toolCallStyle}. Using model-based detection.`,
+          `Unknown HANHAI_TOOL_CALL_STYLE value: ${toolCallStyle}. Using model-based detection.`,
         );
         break;
     }
@@ -987,7 +987,7 @@ type InsightPromptType =
   | 'at_a_glance';
 
 const INSIGHT_PROMPTS: Record<InsightPromptType, string> = {
-  analysis: `Analyze this Qwen Code session and extract structured facets.
+  analysis: `Analyze this Hanhai CLI session and extract structured facets.
 
 CRITICAL GUIDELINES:
 
@@ -1020,7 +1020,7 @@ CRITICAL GUIDELINES:
 
 4. If very short or just warmup, use warmup_minimal for goal_category`,
 
-  impressive_workflows: `Analyze this Qwen Code usage data and identify what's working well for this user. Use second person ("you").
+  impressive_workflows: `Analyze this Hanhai CLI usage data and identify what's working well for this user. Use second person ("you").
 
 Call respond_in_schema function with A VALID JSON OBJECT as argument:
 {
@@ -1032,18 +1032,18 @@ Call respond_in_schema function with A VALID JSON OBJECT as argument:
 
 Include 3 impressive workflows.`,
 
-  project_areas: `Analyze this Qwen Code usage data and identify project areas.
+  project_areas: `Analyze this Hanhai CLI usage data and identify project areas.
 
 Call respond_in_schema function with A VALID JSON OBJECT as argument:
 {
   "areas": [
-    {"name": "Area name", "session_count": N, "description": "2-3 sentences about what was worked on and how Qwen Code was used."}
+    {"name": "Area name", "session_count": N, "description": "2-3 sentences about what was worked on and how Hanhai CLI was used."}
   ]
 }
 
 Include 4-5 areas. Skip internal QC operations.`,
 
-  future_opportunities: `Analyze this Qwen Code usage data and identify future opportunities.
+  future_opportunities: `Analyze this Hanhai CLI usage data and identify future opportunities.
 
 Call respond_in_schema function with A VALID JSON OBJECT as argument:
 {
@@ -1055,7 +1055,7 @@ Call respond_in_schema function with A VALID JSON OBJECT as argument:
 
 Include 3 opportunities. Think BIG - autonomous workflows, parallel agents, iterating against tests.`,
 
-  friction_points: `Analyze this Qwen Code usage data and identify friction points for this user. Use second person ("you").
+  friction_points: `Analyze this Hanhai CLI usage data and identify friction points for this user. Use second person ("you").
 
 Call respond_in_schema function with A VALID JSON OBJECT as argument:
 {
@@ -1067,7 +1067,7 @@ Call respond_in_schema function with A VALID JSON OBJECT as argument:
 
 Include 3 friction categories with 2 examples each.`,
 
-  memorable_moment: `Analyze this Qwen Code usage data and find a memorable moment.
+  memorable_moment: `Analyze this Hanhai CLI usage data and find a memorable moment.
 
 Call respond_in_schema function with A VALID JSON OBJECT as argument:
 {
@@ -1077,16 +1077,16 @@ Call respond_in_schema function with A VALID JSON OBJECT as argument:
 
 Find something genuinely interesting or amusing from the session summaries.`,
 
-  improvements: `Analyze this Qwen Code usage data and suggest improvements.
+  improvements: `Analyze this Hanhai CLI usage data and suggest improvements.
 
 ## QC FEATURES REFERENCE (pick from these for features_to_try):
 1. **MCP Servers**: Connect Qwen to external tools, databases, and APIs via Model Context Protocol.
    - How to use: Run \`qwen mcp add --transport http <server-name> <http-url>\`
    - Good for: database queries, Slack integration, GitHub issue lookup, connecting to internal APIs
-   - Example: "To connect to GitHub, run \`qwen mcp add --header "Authorization: Bearer your_github_mcp_pat" --transport http github https://api.githubcopilot.com/mcp/\` and set the AUTHORIZATION header with your PAT. Then you can ask Qwen to query issues, PRs, or repos."
+   - Example: "To connect to GitHub, run \`qwen mcp add --header "Authorization: Bearer your_github_mcp_pat" --transport http github https://api.githubcopilot.com/mcp/\` and set the AUTHORIZATION header with your PAT. Then you can ask Hanhai to query issues, PRs, or repos."
 
 2. **Custom Skills**: Reusable prompts you define as markdown files that run with a single /command.
-   - How to use: Create \`.luoshu/skills/commit/SKILL.md\` with instructions. Then type \`/commit\` to run it.
+   - How to use: Create \`.hanhai/skills/commit/SKILL.md\` with instructions. Then type \`/commit\` to run it.
    - Good for: repetitive workflows - /commit, /review, /test, /deploy, /pr, or complex multi-step workflows
    - SKILL.md format:
     \`\`\`
@@ -1134,16 +1134,16 @@ IMPORTANT for Qwen_md_additions: PRIORITIZE instructions that appear MULTIPLE TI
 
 IMPORTANT for features_to_try: Pick 2-3 from the QC FEATURES REFERENCE above. Include 2-3 items for each category.`,
 
-  interaction_style: `Analyze this Qwen Code usage data and describe the user's interaction style.
+  interaction_style: `Analyze this Hanhai CLI usage data and describe the user's interaction style.
 
 Call respond_in_schema function with A VALID JSON OBJECT as argument:
 {
-  "narrative": "2-3 paragraphs analyzing HOW the user interacts with Qwen Code. Use second person 'you'. Describe patterns: iterate quickly vs detailed upfront specs? Interrupt often or let Qwen run? Include specific examples. Use **bold** for key insights.",
+  "narrative": "2-3 paragraphs analyzing HOW the user interacts with Hanhai CLI. Use second person 'you'. Describe patterns: iterate quickly vs detailed upfront specs? Interrupt often or let Qwen run? Include specific examples. Use **bold** for key insights.",
   "key_pattern": "One sentence summary of most distinctive interaction style"
 }
 `,
 
-  at_a_glance: `You're writing an "At a Glance" summary for a Qwen Code usage insights report for Qwen Code users. The goal is to help them understand their usage and improve how they can use Qwen better, especially as models improve.
+  at_a_glance: `You're writing an "At a Glance" summary for a Hanhai CLI usage insights report for Hanhai CLI users. The goal is to help them understand their usage and improve how they can use Qwen better, especially as models improve.
 
 Use this 4-part structure:
 
@@ -1151,7 +1151,7 @@ Use this 4-part structure:
 
 2. **What's hindering you** - Split into (a) Qwen's fault (misunderstandings, wrong approaches, bugs) and (b) user-side friction (not providing enough context, environment issues -- ideally more general than just one project). Be honest but constructive.
 
-3. **Quick wins to try** - Specific Qwen Code features they could try from the examples below, or a workflow technique if you think it's really compelling. (Avoid stuff like "Ask Qwen to confirm before taking actions" or "Type out more context up front" which are less compelling.)
+3. **Quick wins to try** - Specific Hanhai CLI features they could try from the examples below, or a workflow technique if you think it's really compelling. (Avoid stuff like "Ask Qwen to confirm before taking actions" or "Type out more context up front" which are less compelling.)
 
 4. **Ambitious workflows for better models** - As we move to much more capable models over the next 3-6 months, what should they prepare for? What workflows that seem impossible now will become possible? Draw from the appropriate section below.
 

@@ -14,7 +14,7 @@ export const helpCommand: SlashCommand = {
   kind: CommandKind.BUILT_IN,
   supportedModes: ['interactive'] as const,
   get description() {
-    return t('for help on Luoshu CLI');
+    return t('for help on Hanhai CLI');
   },
   action: async () => ({
     type: 'dialog',

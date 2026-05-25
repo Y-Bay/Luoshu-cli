@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const LUOSHU_SIMPLE_ENV_VAR = 'LUOSHU_SIMPLE';
+export const HANHAI_SIMPLE_ENV_VAR = 'HANHAI_SIMPLE';
 
 function isTruthy(value: string | undefined): boolean {
   if (!value) {
@@ -15,5 +15,5 @@ function isTruthy(value: string | undefined): boolean {
 }
 
 export function isBareMode(cliFlag?: boolean): boolean {
-  return cliFlag === true || isTruthy(process.env[LUOSHU_SIMPLE_ENV_VAR]);
+  return cliFlag === true || isTruthy(process.env[HANHAI_SIMPLE_ENV_VAR]);
 }

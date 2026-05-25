@@ -136,7 +136,7 @@ export interface CollectMemoryPressureSamplesOptions {
 }
 
 function defaultHeapSnapshotDir(): string {
-  return path.join(os.homedir(), '.luoshu', 'memory-snapshots');
+  return path.join(os.homedir(), '.hanhai', 'memory-snapshots');
 }
 
 function formatSnapshotTimestamp(now: Date): string {
@@ -424,7 +424,7 @@ function buildMemoryInsights(diagnostics: MemoryDiagnostics): MemoryInsights {
       'V8 heap statistics are unavailable; heap pressure assessment may be incomplete.',
     );
     recommendations.push(
-      'Re-run /doctor memory after restarting Luoshu CLI; if V8 diagnostics remain unavailable, include this report when filing an issue.',
+      'Re-run /doctor memory after restarting Hanhai CLI; if V8 diagnostics remain unavailable, include this report when filing an issue.',
     );
   }
 
@@ -433,7 +433,7 @@ function buildMemoryInsights(diagnostics: MemoryDiagnostics): MemoryInsights {
       'V8 heap usage is high; the process is close to its configured heap limit.',
     );
     recommendations.push(
-      'If the CLI is sluggish or near OOM, restart Luoshu CLI to recover memory, then capture a heap snapshot before the next restart to identify retained objects.',
+      'If the CLI is sluggish or near OOM, restart Hanhai CLI to recover memory, then capture a heap snapshot before the next restart to identify retained objects.',
     );
   }
 

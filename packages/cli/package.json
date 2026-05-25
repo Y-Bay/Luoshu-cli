@@ -1,7 +1,7 @@
 {
-  "name": "@luoshu/cli",
+  "name": "@hanhai/cli",
   "version": "0.1.0",
-  "description": "Luoshu CLI",
+  "description": "Hanhai CLI",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/QwenLM/qwen-code.git"
@@ -10,7 +10,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "luoshu": "dist/index.js"
+    "hanhai": "dist/index.js"
   },
   "exports": {
     ".": {

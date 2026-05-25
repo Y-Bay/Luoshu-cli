@@ -7,7 +7,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { Storage } from '../config/storage.js';
-import { LUOSHU_DIR, sanitizeCwd } from '../utils/paths.js';
+import { HANHAI_DIR, sanitizeCwd } from '../utils/paths.js';
 import type { AutoMemoryType } from './types.js';
 
 export const AUTO_MEMORY_DIRNAME = 'memory';
@@ -81,12 +81,12 @@ function findCanonicalGitRoot(startPath: string): string | null {
 
 /**
  * Returns the base directory for all auto-memory storage.
- * Defaults to the global qwen dir (`~/.qwen` or `$LUOSHU_HOME`);
- * overridable via LUOSHU_MEMORY_BASE_DIR for tests.
+ * Defaults to the global qwen dir (`~/.qwen` or `$HANHAI_HOME`);
+ * overridable via HANHAI_MEMORY_BASE_DIR for tests.
  */
 export function getMemoryBaseDir(): string {
-  if (process.env['LUOSHU_MEMORY_BASE_DIR']) {
-    return process.env['LUOSHU_MEMORY_BASE_DIR'];
+  if (process.env['HANHAI_MEMORY_BASE_DIR']) {
+    return process.env['HANHAI_MEMORY_BASE_DIR'];
   }
   return Storage.getGlobalQwenDir();
 }
@@ -100,8 +100,8 @@ export function getAutoMemoryRoot(projectRoot: string): string {
   if (cached !== undefined) return cached;
 
   let result: string;
-  if (process.env['LUOSHU_MEMORY_LOCAL'] === '1') {
-    result = path.join(projectRoot, LUOSHU_DIR, AUTO_MEMORY_DIRNAME);
+  if (process.env['HANHAI_MEMORY_LOCAL'] === '1') {
+    result = path.join(projectRoot, HANHAI_DIR, AUTO_MEMORY_DIRNAME);
   } else {
     const canonicalRoot =
       findCanonicalGitRoot(projectRoot) ?? path.resolve(projectRoot);

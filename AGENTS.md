@@ -1,6 +1,6 @@
 # AGENTS.md
 
-This file provides guidance to Qwen Code when working with code in this
+This file provides guidance to Hanhai CLI when working with code in this
 repository.
 
 ## Common Commands

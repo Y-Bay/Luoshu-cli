@@ -44,10 +44,10 @@ describe('ChatRecordingService - recordCustomTitle', () => {
       storage: {
         getProjectTempDir: vi
           .fn()
-          .mockReturnValue('/test/project/root/.luoshu/tmp/hash'),
+          .mockReturnValue('/test/project/root/.hanhai/tmp/hash'),
         getProjectDir: vi
           .fn()
-          .mockReturnValue('/test/project/root/.luoshu/projects/test-project'),
+          .mockReturnValue('/test/project/root/.hanhai/projects/test-project'),
       },
       getModel: vi.fn().mockReturnValue('qwen-plus'),
       getFastModel: vi.fn().mockReturnValue(undefined),

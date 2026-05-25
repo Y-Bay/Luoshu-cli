@@ -143,7 +143,7 @@ class Session {
       // the non-stream-json branch in `gemini.tsx` uses so the
       // `config_initialize_dur` derived phase shows up in stream-json
       // startup profiles. `profileCheckpoint` is a no-op when
-      // `LUOSHU_PROFILE_STARTUP` is unset, so this adds zero overhead
+      // `HANHAI_PROFILE_STARTUP` is unset, so this adds zero overhead
       // off the profiling path. Without these, stream-json profiles read
       // as missing the initialize phase entirely, which made the MCP
       // discovery timings look like they happened "before init".

@@ -153,7 +153,7 @@ class GlobToolInvocation extends BaseToolInvocation<
     })) as GlobPath[];
 
     // Filter using paths relative to the project root (the base that
-    // FileDiscoveryService uses for .gitignore / .luoshuignore evaluation).
+    // FileDiscoveryService uses for .gitignore / .hanhaiignore evaluation).
     // Using searchDir-relative paths would cause ignore rules to be
     // evaluated against incorrect paths when searchDir != projectRoot.
     const projectRoot = this.config.getTargetDir();

@@ -10,7 +10,7 @@ import {
   isDebugLoggingDegraded,
   isBareMode,
   logUserPrompt,
-  LUOSHU_SIMPLE_ENV_VAR,
+  HANHAI_SIMPLE_ENV_VAR,
   Storage,
   SessionService,
   setStartupEventSink,
@@ -129,7 +129,7 @@ function getNodeMemoryArgs(isDebugMode: boolean): string[] {
     );
   }
 
-  if (process.env['LUOSHU_NO_RELAUNCH']) {
+  if (process.env['HANHAI_NO_RELAUNCH']) {
     return [];
   }
 
@@ -393,7 +393,7 @@ export async function main() {
   profileCheckpoint('main_entry');
   // Bridge core-package startup events (Config.initialize, MCP discovery,
   // GeminiClient.setTools) into the cli's startup profiler. Gated on
-  // `isStartupProfilerEnabled()` so that when LUOSHU_PROFILE_STARTUP is
+  // `isStartupProfilerEnabled()` so that when HANHAI_PROFILE_STARTUP is
   // unset (the common case) every core-side `recordStartupEvent()` call
   // sees a null sink and short-circuits at the first comparison, instead
   // of going through this arrow wrapper and the profiler's own enabled
@@ -404,7 +404,7 @@ export async function main() {
   setupUnhandledRejectionHandler();
 
   if (process.argv.includes('--bare')) {
-    process.env[LUOSHU_SIMPLE_ENV_VAR] = '1';
+    process.env[HANHAI_SIMPLE_ENV_VAR] = '1';
   }
 
   // Run before yargs parses subcommands — handlers like `channel status`/`stop`
@@ -415,7 +415,7 @@ export async function main() {
   profileCheckpoint('after_parse_arguments');
 
   if (isBareMode(argv.bare)) {
-    process.env[LUOSHU_SIMPLE_ENV_VAR] = '1';
+    process.env[HANHAI_SIMPLE_ENV_VAR] = '1';
   }
 
   const settings = isBareMode(argv.bare)
@@ -630,7 +630,7 @@ export async function main() {
   }
 
   // We are now past the logic handling potentially launching a child process
-  // to run Qwen Code. It is now safe to perform expensive initialization that
+  // to run Hanhai CLI. It is now safe to perform expensive initialization that
   // may have side effects.
   profileCheckpoint('after_sandbox_check');
 
@@ -858,7 +858,7 @@ export async function main() {
         writeStderrLine(
           `Warning: MCP server(s) failed to start: ${failedMcpServers.join(', ')}. ` +
             `Continuing with built-in tools and any servers that did connect. ` +
-            `Re-run with LUOSHU_DEBUG=1 to see per-server reasons.`,
+            `Re-run with HANHAI_DEBUG=1 to see per-server reasons.`,
         );
       }
       // Finalize the non-interactive startup profile here so MCP events

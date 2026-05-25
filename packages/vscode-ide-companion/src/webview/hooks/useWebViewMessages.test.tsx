@@ -181,7 +181,7 @@ describe('useWebViewMessages', () => {
     ).toHaveBeenCalledWith('Past Conversations');
     expect(mockPostMessage).toHaveBeenCalledWith({
       type: 'updatePanelTitle',
-      data: { title: 'Qwen Code' },
+      data: { title: 'Hanhai CLI' },
     });
   });
 

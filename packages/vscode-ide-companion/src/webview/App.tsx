@@ -1424,7 +1424,7 @@ export const App: React.FC = () => {
             } else if (msg.role === 'thinking') {
               parts.push(`**Thinking:** ${content}`);
             } else {
-              parts.push(`**Qwen Code:** ${content}`);
+              parts.push(`**Hanhai CLI:** ${content}`);
             }
           } else if (
             item.type === 'completed-tool-call' ||
@@ -1477,7 +1477,7 @@ export const App: React.FC = () => {
             <p className="text-muted-foreground text-sm">
               {sessionManagement.isSwitchingSession
                 ? 'Loading conversation...'
-                : 'Preparing Qwen Code...'}
+                : 'Preparing Hanhai CLI...'}
             </p>
           </div>
         </div>
@@ -1532,7 +1532,7 @@ export const App: React.FC = () => {
                 className="text-sm"
                 style={{ color: 'var(--app-secondary-foreground)' }}
               >
-                Preparing Qwen Code...
+                Preparing Hanhai CLI...
               </span>
             </div>
           ) : (

@@ -194,7 +194,7 @@ function readOptionValue(argv, index, optionName) {
 }
 
 function printUsage() {
-  console.log(`Qwen Code standalone package builder
+  console.log(`Hanhai CLI standalone package builder
 
 Usage:
   npm run package:standalone -- --target TARGET --node-archive PATH [OPTIONS]
@@ -203,7 +203,7 @@ Options:
   --target TARGET         One of: ${Array.from(TARGETS.keys()).join(', ')}
   --node-archive PATH    Downloaded Node.js runtime archive.
   --out-dir DIR          Output directory. Defaults to dist/standalone.
-  --version VERSION      Qwen Code version. Defaults to package.json version.
+  --version VERSION      Hanhai CLI version. Defaults to package.json version.
   --skip-checksums       Do not update SHA256SUMS. Used by release packaging.
   -h, --help             Show this help message.`);
 }

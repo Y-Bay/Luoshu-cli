@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// Portuguese translations for Luoshu CLI CLI (pt-BR)
+// Portuguese translations for Hanhai CLI (pt-BR)
 
 export default {
   // ============================================================================
@@ -76,13 +76,13 @@ export default {
   'For a full list of shortcuts, see {{docPath}}':
     'Para uma lista completa de atalhos, consulte {{docPath}}',
   'docs/keyboard-shortcuts.md': 'docs/keyboard-shortcuts.md',
-  'for help on Luoshu CLI': 'para ajuda sobre o Luoshu CLI',
+  'for help on Hanhai CLI': 'para ajuda sobre o Hanhai CLI',
   'show version info': 'mostrar informações de versão',
   'submit a bug report': 'enviar um relatório de erro',
   // ============================================================================
   // System Information Fields
   // ============================================================================
-  'Luoshu CLI': 'Luoshu CLI',
+  'Hanhai CLI': 'Hanhai CLI',
   OS: 'SO',
   Auth: 'Autenticação',
   Model: 'Modelo',
@@ -97,13 +97,12 @@ export default {
   // ============================================================================
   // Commands - General
   // ============================================================================
-  'Analyzes the project and creates a tailored LUOSHU.md file.':
-    'Analisa o projeto e cria um arquivo LUOSHU.md personalizado.',
-  'List available Luoshu CLI tools. Usage: /tools [desc]':
-    'Listar ferramentas Luoshu CLI disponíveis. Uso: /tools [desc]',
+  'Analyzes the project and creates a tailored HANHAI.md file.':
+    'Analisa o projeto e cria um arquivo HANHAI.md personalizado.',
+  'List available Hanhai CLI tools. Usage: /tools [desc]':
+    'Listar ferramentas Hanhai CLI disponíveis. Uso: /tools [desc]',
   'List available skills.': 'Listar habilidades disponíveis.',
-  'Available Luoshu CLI CLI tools:':
-    'Ferramentas CLI do Luoshu CLI disponíveis:',
+  'Available Hanhai CLI tools:': 'Ferramentas CLI do Hanhai CLI disponíveis:',
   'No tools available': 'Nenhuma ferramenta disponível',
   'View or change the approval mode for tool usage':
     'Ver ou alterar o modo de aprovação para uso de ferramentas',
@@ -181,8 +180,8 @@ export default {
     'Limpar histórico de conversa e liberar contexto',
   'Compresses the context by replacing it with a summary.':
     'Comprime o contexto substituindo-o por um resumo.',
-  'open full Luoshu CLI documentation in your browser':
-    'abrir documentação completa do Luoshu CLI no seu navegador',
+  'open full Hanhai CLI documentation in your browser':
+    'abrir documentação completa do Hanhai CLI no seu navegador',
   'Configuration not available.': 'Configuração não disponível.',
   'Connect an LLM provider': 'Conectar a um provedor LLM',
   'Copy the last result or code snippet to clipboard':
@@ -274,8 +273,8 @@ export default {
   'Step {{n}}: Choose Location': 'Etapa {{n}}: Escolher Localização',
   'Step {{n}}: Choose Generation Method':
     'Etapa {{n}}: Escolher Método de Geração',
-  'Generate with Luoshu CLI (Recommended)':
-    'Gerar com Luoshu CLI (Recomendado)',
+  'Generate with Hanhai CLI (Recommended)':
+    'Gerar com Hanhai CLI (Recomendado)',
   'Manual Creation': 'Criação Manual',
   'Describe what this subagent should do and when it should be used. (Be comprehensive for best results)':
     'Descreva o que este subagente deve fazer e quando deve ser usado. (Seja abrangente para melhores resultados)',
@@ -340,11 +339,11 @@ export default {
   // ============================================================================
   // Commands - General (continued)
   // ============================================================================
-  'View and edit Luoshu CLI settings':
-    'Ver e editar configurações do Luoshu CLI',
+  'View and edit Hanhai CLI settings':
+    'Ver e editar configurações do Hanhai CLI',
   Settings: 'Configurações',
-  'To see changes, Luoshu CLI must be restarted. Press r to exit and apply changes now.':
-    'Para ver as alterações, o Luoshu CLI deve ser reiniciado. Pressione r para sair e aplicar as alterações agora.',
+  'To see changes, Hanhai CLI must be restarted. Press r to exit and apply changes now.':
+    'Para ver as alterações, o Hanhai CLI deve ser reiniciado. Pressione r para sair e aplicar as alterações agora.',
   // ============================================================================
   // Settings Labels
   // ============================================================================
@@ -367,7 +366,7 @@ export default {
   'Custom Witty Phrases': 'Frases de Efeito Personalizadas',
   'Show Welcome Back Dialog': 'Mostrar Diálogo de Bem-vindo de Volta',
   'Enable User Feedback': 'Ativar Feedback do Usuário',
-  'How is Qwen doing this session? (optional)':
+  'How is Hanhai doing this session? (optional)':
     'Como o Qwen está se saindo nesta sessão? (opcional)',
   Bad: 'Ruim',
   Fine: 'Bom',
@@ -456,16 +455,16 @@ export default {
   remote: 'remoto',
   'This extension will add the following commands: {{commands}}.':
     'Esta extensão adicionará os seguintes comandos: {{commands}}.',
-  'This extension will append info to your LUOSHU.md context using {{fileName}}':
-    'Esta extensão anexará informações ao seu contexto LUOSHU.md usando {{fileName}}',
+  'This extension will append info to your HANHAI.md context using {{fileName}}':
+    'Esta extensão anexará informações ao seu contexto HANHAI.md usando {{fileName}}',
   'This extension will install the following skills:':
     'Esta extensão instalará as seguintes habilidades:',
   'This extension will install the following subagents:':
     'Esta extensão instalará os seguintes subagentes:',
   'Installation cancelled for "{{name}}".':
     'Instalação cancelada para "{{name}}".',
-  'You are installing an extension from {{originSource}}. Some features may not work perfectly with Luoshu CLI.':
-    'Você está instalando uma extensão de {{originSource}}. Alguns recursos podem não funcionar perfeitamente com o Luoshu CLI.',
+  'You are installing an extension from {{originSource}}. Some features may not work perfectly with Hanhai CLI.':
+    'Você está instalando uma extensão de {{originSource}}. Alguns recursos podem não funcionar perfeitamente com o Hanhai CLI.',
   '--ref and --auto-update are not applicable for marketplace extensions.':
     '--ref e --auto-update não são aplicáveis para extensões de marketplace.',
   'Extension "{{name}}" installed successfully and enabled.':
@@ -561,8 +560,8 @@ export default {
     'instalar companion IDE necessário para {{ideName}}',
   'enable IDE integration': 'ativar integração com IDE',
   'disable IDE integration': 'desativar integração com IDE',
-  'IDE integration is not supported in your current environment. To use this feature, run Luoshu CLI in one of these supported IDEs: VS Code or VS Code forks.':
-    'A integração com IDE não é suportada no seu ambiente atual. Para usar este recurso, execute o Luoshu CLI em um destes IDEs suportados: VS Code ou forks do VS Code.',
+  'IDE integration is not supported in your current environment. To use this feature, run Hanhai CLI in one of these supported IDEs: VS Code or VS Code forks.':
+    'A integração com IDE não é suportada no seu ambiente atual. Para usar este recurso, execute o Hanhai CLI em um destes IDEs suportados: VS Code ou forks do VS Code.',
   'Set up GitHub Actions': 'Configurar GitHub Actions',
   'Configure terminal keybindings for multiline input (VS Code, Cursor, Windsurf, Trae)':
     'Configurar atalhos de terminal para entrada multilinhas (VS Code, Cursor, Windsurf, Trae)',
@@ -596,7 +595,7 @@ export default {
   // ============================================================================
   // Commands - Hooks
   // ============================================================================
-  'Manage Luoshu CLI hooks': 'Gerenciar hooks do Luoshu CLI',
+  'Manage Hanhai CLI hooks': 'Gerenciar hooks do Hanhai CLI',
   'List all configured hooks': 'Listar todos os hooks configurados',
   // Hooks - Dialog
   Hooks: 'Hooks',
@@ -612,8 +611,8 @@ export default {
   'No hook events found.': 'Nenhum evento de hook encontrado.',
   '{{count}} hook configured': '{{count}} hook configurado',
   '{{count}} hooks configured': '{{count}} hooks configurados',
-  'This menu is read-only. To add or modify hooks, edit settings.json directly or ask Luoshu CLI.':
-    'Este menu é somente leitura. Para adicionar ou modificar hooks, edite settings.json diretamente ou pergunte ao Luoshu CLI.',
+  'This menu is read-only. To add or modify hooks, edit settings.json directly or ask Hanhai CLI.':
+    'Este menu é somente leitura. Para adicionar ou modificar hooks, edite settings.json diretamente ou pergunte ao Hanhai CLI.',
   'Enter to select · Esc to cancel':
     'Enter para selecionar · Esc para cancelar',
   // Hooks - Detail Step
@@ -621,7 +620,7 @@ export default {
   'Configured hooks:': 'Hooks configurados:',
   'No hooks configured for this event.':
     'Nenhum hook configurado para este evento.',
-  'To add hooks, edit settings.json directly or ask Qwen.':
+  'To add hooks, edit settings.json directly or ask Hanhai.':
     'Para adicionar hooks, edite settings.json diretamente ou pergunte ao Qwen.',
   'Enter to select · Esc to go back': 'Enter para selecionar · Esc para voltar',
   // Hooks - Config Detail Step
@@ -630,7 +629,7 @@ export default {
   'Extension:': 'Extensão:',
   'Desc:': 'Descrição:',
   'No hook config selected': 'Nenhuma configuração de hook selecionada',
-  'To modify or remove this hook, edit settings.json directly or ask Qwen to help.':
+  'To modify or remove this hook, edit settings.json directly or ask Hanhai to help.':
     'Para modificar ou remover este hook, edite settings.json diretamente ou pergunte ao Qwen.',
   // Hooks - Disabled Step
   'Hook Configuration - Disabled': 'Configuração de Hook - Desativado',
@@ -643,8 +642,8 @@ export default {
   'StatusLine will not be displayed': 'StatusLine não será exibido',
   'Tool operations will proceed without hook validation':
     'As operações de ferramentas prosseguirão sem validação de hook',
-  'To re-enable hooks, remove "disableAllHooks" from settings.json or ask Luoshu CLI.':
-    'Para reativar os hooks, remova "disableAllHooks" do settings.json ou pergunte ao Luoshu CLI.',
+  'To re-enable hooks, remove "disableAllHooks" from settings.json or ask Hanhai CLI.':
+    'Para reativar os hooks, remova "disableAllHooks" do settings.json ou pergunte ao Hanhai CLI.',
   // Hooks - Source
   Project: 'Projeto',
   User: 'Usuário',
@@ -663,8 +662,8 @@ export default {
   'When notifications are sent': 'Quando notificações são enviadas',
   'When the user submits a prompt': 'Quando o usuário envia um prompt',
   'When a new session is started': 'Quando uma nova sessão é iniciada',
-  'Right before Luoshu CLI concludes its response':
-    'Logo antes do Luoshu CLI concluir sua resposta',
+  'Right before Hanhai CLI concludes its response':
+    'Logo antes do Hanhai CLI concluir sua resposta',
   'When a subagent (Agent tool call) is started':
     'Quando um subagente (chamada de ferramenta Agent) é iniciado',
   'Right before a subagent concludes its response':
@@ -715,7 +714,7 @@ export default {
     'mostrar stderr apenas ao usuário mas continuar com chamada de ferramenta',
   'block processing, erase original prompt, and show stderr to user only':
     'bloquear processamento, apagar prompt original e mostrar stderr apenas ao usuário',
-  'stdout shown to Qwen': 'stdout mostrado ao Qwen',
+  'stdout shown to Hanhai': 'stdout mostrado ao Qwen',
   'show stderr to user only (blocking errors ignored)':
     'mostrar stderr apenas ao usuário (erros de bloqueio ignorados)',
   'command completes successfully': 'comando concluído com sucesso',
@@ -923,8 +922,8 @@ export default {
     'O comando /directory add não é suportado em perfis de sandbox restritivos. Use --include-directories ao iniciar a sessão.',
   "Error adding '{{path}}': {{error}}":
     "Erro ao adicionar '{{path}}': {{error}}",
-  'Successfully added LUOSHU.md files from the following directories if there are:\n- {{directories}}':
-    'Arquivos LUOSHU.md adicionados com sucesso dos seguintes diretórios, se houverem:\n- {{directories}}',
+  'Successfully added HANHAI.md files from the following directories if there are:\n- {{directories}}':
+    'Arquivos HANHAI.md adicionados com sucesso dos seguintes diretórios, se houverem:\n- {{directories}}',
   'Error refreshing memory: {{error}}': 'Erro ao atualizar memória: {{error}}',
   'Successfully added directories:\n- {{directories}}':
     'Diretórios adicionados com sucesso:\n- {{directories}}',
@@ -1138,8 +1137,8 @@ export default {
     'Falha ao autenticar. Mensagem: {{message}}',
   'Authenticated successfully with {{authType}} credentials.':
     'Autenticado com sucesso com credenciais {{authType}}.',
-  'Invalid LUOSHU_DEFAULT_AUTH_TYPE value: "{{value}}". Valid values are: {{validValues}}':
-    'Valor LUOSHU_DEFAULT_AUTH_TYPE inválido: "{{value}}". Valores válidos são: {{validValues}}',
+  'Invalid HANHAI_DEFAULT_AUTH_TYPE value: "{{value}}". Valid values are: {{validValues}}':
+    'Valor HANHAI_DEFAULT_AUTH_TYPE inválido: "{{value}}". Valores válidos são: {{validValues}}',
   // ============================================================================
   // Dialogs - Model
   // ============================================================================
@@ -1168,12 +1167,12 @@ export default {
   Ask: 'Perguntar',
   Deny: 'Negar',
   Workspace: 'Área de trabalho',
-  "Luoshu CLI won't ask before using allowed tools.":
-    'O Luoshu CLI não perguntará antes de usar ferramentas permitidas.',
-  'Luoshu CLI will ask before using these tools.':
-    'O Luoshu CLI perguntará antes de usar essas ferramentas.',
-  'Luoshu CLI is not allowed to use denied tools.':
-    'O Luoshu CLI não tem permissão para usar ferramentas negadas.',
+  "Hanhai CLI won't ask before using allowed tools.":
+    'O Hanhai CLI não perguntará antes de usar ferramentas permitidas.',
+  'Hanhai CLI will ask before using these tools.':
+    'O Hanhai CLI perguntará antes de usar essas ferramentas.',
+  'Hanhai CLI is not allowed to use denied tools.':
+    'O Hanhai CLI não tem permissão para usar ferramentas negadas.',
   'Manage trusted directories for this workspace.':
     'Gerenciar diretórios confiáveis para esta área de trabalho.',
   'Any use of the {{tool}} tool': 'Qualquer uso da ferramenta {{tool}}',
@@ -1208,10 +1207,10 @@ export default {
   // Workspace directory management
   'Add directory…': 'Adicionar diretório…',
   'Add directory to workspace': 'Adicionar diretório à área de trabalho',
-  'Luoshu CLI can read files in the workspace, and make edits when auto-accept edits is on.':
-    'O Luoshu CLI pode ler arquivos na área de trabalho e fazer edições quando a aceitação automática está ativada.',
-  'Luoshu CLI will be able to read files in this directory and make edits when auto-accept edits is on.':
-    'O Luoshu CLI poderá ler arquivos neste diretório e fazer edições quando a aceitação automática está ativada.',
+  'Hanhai CLI can read files in the workspace, and make edits when auto-accept edits is on.':
+    'O Hanhai CLI pode ler arquivos na área de trabalho e fazer edições quando a aceitação automática está ativada.',
+  'Hanhai CLI will be able to read files in this directory and make edits when auto-accept edits is on.':
+    'O Hanhai CLI poderá ler arquivos neste diretório e fazer edições quando a aceitação automática está ativada.',
   'Enter the path to the directory:': 'Insira o caminho do diretório:',
   'Enter directory path…': 'Insira o caminho do diretório…',
   'Tab to complete · Enter to add · Esc to cancel':
@@ -1300,8 +1299,8 @@ export default {
     'Use /bug para enviar problemas aos mantenedores quando algo der errado.',
   'Switch auth type quickly with /auth.':
     'Troque o tipo de autenticação rapidamente com /auth.',
-  'You can run any shell commands from Luoshu CLI using ! (e.g. !ls).':
-    'Você pode executar quaisquer comandos shell do Luoshu CLI usando ! (ex: !ls).',
+  'You can run any shell commands from Hanhai CLI using ! (e.g. !ls).':
+    'Você pode executar quaisquer comandos shell do Hanhai CLI usando ! (ex: !ls).',
   'Type / to open the command popup; Tab autocompletes slash commands and saved prompts.':
     'Digite / para abrir o popup de comandos; Tab autocompleta comandos de barra e prompts salvos.',
   'You can resume a previous conversation by running qwen --continue or qwen --resume.':
@@ -1312,8 +1311,8 @@ export default {
     'Experimente /insight para gerar insights personalizados do seu histórico de conversas.',
   'Press Ctrl+O to toggle compact mode — hide tool output and thinking for a cleaner view.':
     'Pressione Ctrl+O para alternar o modo compacto — ocultar saída de ferramentas e raciocínio.',
-  'Add a LUOSHU.md file to give Luoshu CLI persistent project context.':
-    'Adicione um arquivo LUOSHU.md para dar ao Luoshu CLI um contexto persistente do projeto.',
+  'Add a HANHAI.md file to give Hanhai CLI persistent project context.':
+    'Adicione um arquivo HANHAI.md para dar ao Hanhai CLI um contexto persistente do projeto.',
   'Use /btw to ask a quick side question without disrupting the conversation.':
     'Use /btw para fazer uma pergunta lateral rápida sem interromper a conversa.',
   'Context is almost full! Run /compress now or start /new to continue.':
@@ -1739,8 +1738,8 @@ export default {
     'Já está no modo de planejamento. Use "/plan exit" para sair do modo de planejamento.',
   'Not in plan mode. Use "/plan" to enter plan mode first.':
     'Não está no modo de planejamento. Use "/plan" para entrar primeiro no modo de planejamento.',
-  "Set up Luoshu CLI's status line UI":
-    'Configurar a interface da barra de status do Luoshu CLI',
+  "Set up Hanhai CLI's status line UI":
+    'Configurar a interface da barra de status do Hanhai CLI',
 
   // === Core: added from PR #3328 ===
   'Open the memory manager.': 'Abrir o gerenciador de memória.',

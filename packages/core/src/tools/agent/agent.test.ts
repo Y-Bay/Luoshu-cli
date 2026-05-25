@@ -78,14 +78,14 @@ describe('AgentTool', () => {
       description: 'Specialized agent for searching and analyzing files',
       systemPrompt: 'You are a file search specialist.',
       level: 'project',
-      filePath: '/project/.luoshu/agents/file-search.md',
+      filePath: '/project/.hanhai/agents/file-search.md',
     },
     {
       name: 'code-review',
       description: 'Agent for reviewing code quality and best practices',
       systemPrompt: 'You are a code review specialist.',
       level: 'user',
-      filePath: '/home/user/.luoshu/agents/code-review.md',
+      filePath: '/home/user/.hanhai/agents/code-review.md',
     },
   ];
 
@@ -440,7 +440,7 @@ describe('AgentTool', () => {
           description: 'A brand new agent',
           systemPrompt: 'Do new things.',
           level: 'project',
-          filePath: '/project/.luoshu/agents/new-agent.md',
+          filePath: '/project/.hanhai/agents/new-agent.md',
         },
       ];
 
@@ -465,7 +465,7 @@ describe('AgentTool', () => {
           description: 'A test agent',
           systemPrompt: 'Test prompt',
           level: 'project',
-          filePath: '/project/.luoshu/agents/test-agent.md',
+          filePath: '/project/.hanhai/agents/test-agent.md',
         },
       ];
 
@@ -1780,7 +1780,7 @@ describe('AgentTool', () => {
       description: 'Background monitor agent',
       systemPrompt: 'You are a monitor.',
       level: 'project',
-      filePath: '/project/.luoshu/agents/monitor.md',
+      filePath: '/project/.hanhai/agents/monitor.md',
       background: true,
     };
 

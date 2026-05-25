@@ -58,7 +58,7 @@ export type AuthUiState = {
     message: string;
     detail?: string;
   } | null;
-  luoshuAuthState: ReturnType<typeof useQwenAuth>['luoshuAuthState'];
+  hanhaiAuthState: ReturnType<typeof useQwenAuth>['hanhaiAuthState'];
 };
 
 export type AuthController = {
@@ -101,7 +101,7 @@ export const useAuthCommand = (
     detail?: string;
   } | null>(null);
 
-  const { luoshuAuthState, cancelQwenAuth } = useQwenAuth(
+  const { hanhaiAuthState, cancelQwenAuth } = useQwenAuth(
     pendingAuthType,
     isAuthenticating,
   );
@@ -224,10 +224,10 @@ export const useAuthCommand = (
     setAuthError(null);
   }, [isAuthenticating, pendingAuthType, cancelQwenAuth, config]);
 
-  // -- Validate LUOSHU_DEFAULT_AUTH_TYPE env var on mount --------------------
+  // -- Validate HANHAI_DEFAULT_AUTH_TYPE env var on mount --------------------
 
   useEffect(() => {
-    const val = process.env['LUOSHU_DEFAULT_AUTH_TYPE'];
+    const val = process.env['HANHAI_DEFAULT_AUTH_TYPE'];
     const valid = [
       AuthType.QWEN_OAUTH,
       AuthType.USE_OPENAI,
@@ -238,7 +238,7 @@ export const useAuthCommand = (
     if (val && !valid.includes(val as AuthType)) {
       onAuthError(
         t(
-          'Invalid LUOSHU_DEFAULT_AUTH_TYPE value: "{{value}}". Valid values are: {{validValues}}',
+          'Invalid HANHAI_DEFAULT_AUTH_TYPE value: "{{value}}". Valid values are: {{validValues}}',
           { value: val, validValues: valid.join(', ') },
         ),
       );
@@ -254,7 +254,7 @@ export const useAuthCommand = (
       isAuthenticating,
       pendingAuthType,
       externalAuthState,
-      luoshuAuthState,
+      hanhaiAuthState,
     }),
     [
       authError,
@@ -262,7 +262,7 @@ export const useAuthCommand = (
       isAuthenticating,
       pendingAuthType,
       externalAuthState,
-      luoshuAuthState,
+      hanhaiAuthState,
     ],
   );
 
@@ -294,7 +294,7 @@ export const useAuthCommand = (
     isAuthenticating,
     pendingAuthType,
     externalAuthState,
-    luoshuAuthState,
+    hanhaiAuthState,
     closeAuthDialog,
     handleProviderSubmit,
     openAuthDialog,

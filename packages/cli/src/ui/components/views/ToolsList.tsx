@@ -24,7 +24,7 @@ export const ToolsList: React.FC<ToolsListProps> = ({
 }) => (
   <Box flexDirection="column">
     <Text bold color={theme.text.primary}>
-      {t('Available Luoshu CLI tools:')}
+      {t('Available Hanhai CLI tools:')}
     </Text>
     <Box height={1} />
     {tools.length > 0 ? (

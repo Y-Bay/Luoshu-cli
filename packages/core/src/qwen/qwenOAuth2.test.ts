@@ -1671,7 +1671,7 @@ describe('Utility Functions', () => {
 
       const expectedPath = path.join(
         os.homedir(),
-        '.luoshu',
+        '.hanhai',
         'oauth_creds.json',
       );
 

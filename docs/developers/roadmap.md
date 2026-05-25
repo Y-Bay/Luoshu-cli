@@ -1,4 +1,4 @@
-# Qwen Code RoadMap
+# Hanhai CLI RoadMap
 
 > **Objective**: Catch up with Claude Code's product functionality, continuously refine details, and enhance user experience.
 

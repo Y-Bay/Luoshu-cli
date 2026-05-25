@@ -5,7 +5,7 @@
  */
 
 import {
-  DEFAULT_LUOSHU_MODEL,
+  DEFAULT_HANHAI_MODEL,
   MAINLINE_CODER_MODEL,
 } from '../config/models.js';
 
@@ -69,7 +69,7 @@ export const AUTH_ENV_MAPPINGS = {
   openai: {
     apiKey: ['OPENAI_API_KEY'],
     baseUrl: ['OPENAI_BASE_URL'],
-    model: ['OPENAI_MODEL', 'LUOSHU_MODEL'],
+    model: ['OPENAI_MODEL', 'HANHAI_MODEL'],
   },
   anthropic: {
     apiKey: ['ANTHROPIC_API_KEY'],
@@ -95,7 +95,7 @@ export const AUTH_ENV_MAPPINGS = {
 
 export const DEFAULT_MODELS = {
   openai: MAINLINE_CODER_MODEL,
-  'qwen-oauth': DEFAULT_LUOSHU_MODEL,
+  'qwen-oauth': DEFAULT_HANHAI_MODEL,
 } as Partial<Record<AuthType, string>>;
 
 /**

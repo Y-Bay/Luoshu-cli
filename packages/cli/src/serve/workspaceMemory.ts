@@ -30,7 +30,7 @@ import {
  *
  * `GET /workspace/memory` returns the daemon's snapshot of explicit
  * `QWEN.md` / `AGENTS.md` files reachable from the bound workspace
- * plus the user's `~/.luoshu/` global. Read-only; returns
+ * plus the user's `~/.hanhai/` global. Read-only; returns
  * `initialized: false` and an empty `files` list when no files exist
  * (no synthetic 500s, mirroring PR 12's read-only routes).
  *
@@ -43,10 +43,10 @@ import {
  *
  * **Absolute filePath disclosure note**: success / 413 / GET-list
  * responses include absolute on-disk paths (`/work/<x>/QWEN.md`,
- * `/Users/<x>/.luoshu/QWEN.md`). This is by design for a daemon
+ * `/Users/<x>/.hanhai/QWEN.md`). This is by design for a daemon
  * contract: clients pre-flight `caps.workspaceCwd` to learn the
  * bound workspace root and can compute relative paths if they
- * prefer; the global scope (`~/.luoshu/QWEN.md`) is NOT under the
+ * prefer; the global scope (`~/.hanhai/QWEN.md`) is NOT under the
  * workspace root, so rewriting to a workspace-relative form would
  * lose information. The bearer-token gate + the daemon's loopback-
  * default binding already restrict who can see these paths. If a
@@ -247,7 +247,7 @@ export function mountWorkspaceMemoryRoutes(
           // file path in the constructor message — see
           // `WorkspaceMemoryFileTooLargeError`) and `filePath` are
           // gated behind QWEN_SERVE_DEBUG so production responses
-          // don't include `/Users/<x>/.luoshu/...` in the body.
+          // don't include `/Users/<x>/.hanhai/...` in the body.
           // Operators triaging an issue locally enable the debug
           // toggle to get the full text; in default mode SDK
           // callers branch on `code` + `bytes` / `limit` instead
@@ -312,7 +312,7 @@ interface DiscoveredFile {
 /**
  * Filesystem-only discovery of explicit `QWEN.md` / `AGENTS.md`
  * files reachable from the daemon's bound workspace plus the user's
- * `~/.luoshu/` global directory.
+ * `~/.hanhai/` global directory.
  *
  * Discovers the bound-workspace-root file(s) (no parent-directory
  * walk in this version) plus the global dir. `walkWorkspaceForMemory`
@@ -321,7 +321,7 @@ interface DiscoveredFile {
  * surface as "workspace root + global". Auto-memory (the `MEMORY.md`
  * index + per-type files) is intentionally NOT included; that's PR
  * 16.5's responsibility per scope decision in issue #4175. Path-
- * based rules (`.luoshu/rules/`) are also out of scope for v1.
+ * based rules (`.hanhai/rules/`) are also out of scope for v1.
  */
 async function collectWorkspaceMemoryStatus(
   boundWorkspace: string,

@@ -56,7 +56,7 @@ describe('useQwenAuth', () => {
       useQwenAuth(AuthType.USE_GEMINI, false),
     );
 
-    expect(result.current.luoshuAuthState).toEqual({
+    expect(result.current.hanhaiAuthState).toEqual({
       deviceAuth: null,
       authStatus: 'idle',
       authMessage: null,
@@ -69,7 +69,7 @@ describe('useQwenAuth', () => {
       useQwenAuth(AuthType.QWEN_OAUTH, false),
     );
 
-    expect(result.current.luoshuAuthState).toEqual({
+    expect(result.current.hanhaiAuthState).toEqual({
       deviceAuth: null,
       authStatus: 'idle',
       authMessage: null,
@@ -106,8 +106,8 @@ describe('useQwenAuth', () => {
       handleDeviceAuth!(mockDeviceAuth);
     });
 
-    expect(result.current.luoshuAuthState.deviceAuth).toEqual(mockDeviceAuth);
-    expect(result.current.luoshuAuthState.authStatus).toBe('polling');
+    expect(result.current.hanhaiAuthState.deviceAuth).toEqual(mockDeviceAuth);
+    expect(result.current.hanhaiAuthState.authStatus).toBe('polling');
   });
 
   it('should handle auth progress event - success', () => {
@@ -129,8 +129,8 @@ describe('useQwenAuth', () => {
       handleAuthProgress!('success', 'Authentication successful!');
     });
 
-    expect(result.current.luoshuAuthState.authStatus).toBe('success');
-    expect(result.current.luoshuAuthState.authMessage).toBe(
+    expect(result.current.hanhaiAuthState.authStatus).toBe('success');
+    expect(result.current.hanhaiAuthState.authMessage).toBe(
       'Authentication successful!',
     );
   });
@@ -154,8 +154,8 @@ describe('useQwenAuth', () => {
       handleAuthProgress!('error', 'Authentication failed');
     });
 
-    expect(result.current.luoshuAuthState.authStatus).toBe('error');
-    expect(result.current.luoshuAuthState.authMessage).toBe(
+    expect(result.current.hanhaiAuthState.authStatus).toBe('error');
+    expect(result.current.hanhaiAuthState.authMessage).toBe(
       'Authentication failed',
     );
   });
@@ -179,8 +179,8 @@ describe('useQwenAuth', () => {
       handleAuthProgress!('polling', 'Waiting for user authorization...');
     });
 
-    expect(result.current.luoshuAuthState.authStatus).toBe('polling');
-    expect(result.current.luoshuAuthState.authMessage).toBe(
+    expect(result.current.hanhaiAuthState.authStatus).toBe('polling');
+    expect(result.current.hanhaiAuthState.authMessage).toBe(
       'Waiting for user authorization...',
     );
   });
@@ -207,8 +207,8 @@ describe('useQwenAuth', () => {
       );
     });
 
-    expect(result.current.luoshuAuthState.authStatus).toBe('rate_limit');
-    expect(result.current.luoshuAuthState.authMessage).toBe(
+    expect(result.current.hanhaiAuthState.authStatus).toBe('rate_limit');
+    expect(result.current.hanhaiAuthState.authMessage).toBe(
       'Too many requests. The server is rate limiting our requests. Please select a different authentication method or try again later.',
     );
   });
@@ -232,8 +232,8 @@ describe('useQwenAuth', () => {
       handleAuthProgress!('success');
     });
 
-    expect(result.current.luoshuAuthState.authStatus).toBe('success');
-    expect(result.current.luoshuAuthState.authMessage).toBe(null);
+    expect(result.current.hanhaiAuthState.authStatus).toBe('success');
+    expect(result.current.hanhaiAuthState.authMessage).toBe(null);
   });
 
   it('should clean up event listeners when auth type changes', () => {
@@ -324,15 +324,15 @@ describe('useQwenAuth', () => {
       handleDeviceAuth!(mockDeviceAuth);
     });
 
-    expect(result.current.luoshuAuthState.deviceAuth).toEqual(mockDeviceAuth);
-    expect(result.current.luoshuAuthState.authStatus).toBe('polling');
+    expect(result.current.hanhaiAuthState.deviceAuth).toEqual(mockDeviceAuth);
+    expect(result.current.hanhaiAuthState.authStatus).toBe('polling');
 
     // Switch to different auth type
     rerender({ pendingAuthType: AuthType.USE_GEMINI, isAuthenticating: true });
 
-    expect(result.current.luoshuAuthState.deviceAuth).toBe(null);
-    expect(result.current.luoshuAuthState.authStatus).toBe('idle');
-    expect(result.current.luoshuAuthState.authMessage).toBe(null);
+    expect(result.current.hanhaiAuthState.deviceAuth).toBe(null);
+    expect(result.current.hanhaiAuthState.authStatus).toBe('idle');
+    expect(result.current.hanhaiAuthState.authMessage).toBe(null);
   });
 
   it('should reset state when authentication stops', () => {
@@ -356,15 +356,15 @@ describe('useQwenAuth', () => {
       handleDeviceAuth!(mockDeviceAuth);
     });
 
-    expect(result.current.luoshuAuthState.deviceAuth).toEqual(mockDeviceAuth);
-    expect(result.current.luoshuAuthState.authStatus).toBe('polling');
+    expect(result.current.hanhaiAuthState.deviceAuth).toEqual(mockDeviceAuth);
+    expect(result.current.hanhaiAuthState.authStatus).toBe('polling');
 
     // Stop authentication
     rerender({ isAuthenticating: false });
 
-    expect(result.current.luoshuAuthState.deviceAuth).toBe(null);
-    expect(result.current.luoshuAuthState.authStatus).toBe('idle');
-    expect(result.current.luoshuAuthState.authMessage).toBe(null);
+    expect(result.current.hanhaiAuthState.deviceAuth).toBe(null);
+    expect(result.current.hanhaiAuthState.authStatus).toBe('idle');
+    expect(result.current.hanhaiAuthState.authMessage).toBe(null);
   });
 
   it('should handle cancelQwenAuth function', () => {
@@ -384,16 +384,16 @@ describe('useQwenAuth', () => {
       handleDeviceAuth!(mockDeviceAuth);
     });
 
-    expect(result.current.luoshuAuthState.deviceAuth).toEqual(mockDeviceAuth);
+    expect(result.current.hanhaiAuthState.deviceAuth).toEqual(mockDeviceAuth);
 
     // Cancel auth
     act(() => {
       result.current.cancelQwenAuth();
     });
 
-    expect(result.current.luoshuAuthState.deviceAuth).toBe(null);
-    expect(result.current.luoshuAuthState.authStatus).toBe('idle');
-    expect(result.current.luoshuAuthState.authMessage).toBe(null);
+    expect(result.current.hanhaiAuthState.deviceAuth).toBe(null);
+    expect(result.current.hanhaiAuthState.authStatus).toBe('idle');
+    expect(result.current.hanhaiAuthState.authMessage).toBe(null);
   });
 
   it('should handle different auth types correctly', () => {
@@ -401,25 +401,25 @@ describe('useQwenAuth', () => {
     const { result: qwenResult } = renderHook(() =>
       useQwenAuth(AuthType.QWEN_OAUTH, true),
     );
-    expect(qwenResult.current.luoshuAuthState.authStatus).toBe('idle');
+    expect(qwenResult.current.hanhaiAuthState.authStatus).toBe('idle');
     expect(mockQwenOAuth2Events.on).toHaveBeenCalled();
 
     // Test with other auth types - should not set up event listeners
     const { result: geminiResult } = renderHook(() =>
       useQwenAuth(AuthType.USE_GEMINI, true),
     );
-    expect(geminiResult.current.luoshuAuthState.authStatus).toBe('idle');
+    expect(geminiResult.current.hanhaiAuthState.authStatus).toBe('idle');
 
     const { result: oauthResult } = renderHook(() =>
       useQwenAuth(AuthType.USE_OPENAI, true),
     );
-    expect(oauthResult.current.luoshuAuthState.authStatus).toBe('idle');
+    expect(oauthResult.current.hanhaiAuthState.authStatus).toBe('idle');
   });
 
   it('should initialize with idle status when starting authentication with Qwen auth', () => {
     const { result } = renderHook(() => useQwenAuth(AuthType.QWEN_OAUTH, true));
 
-    expect(result.current.luoshuAuthState.authStatus).toBe('idle');
+    expect(result.current.hanhaiAuthState.authStatus).toBe('idle');
     expect(mockQwenOAuth2Events.on).toHaveBeenCalled();
   });
 });
