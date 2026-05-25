@@ -6,7 +6,7 @@
 
 // Pre-submission checks for /review Step 9. Runs three deterministic
 // gh-API queries and emits a single JSON report describing self-PR status,
-// CI / build status, existing Qwen Code comment classification, and the
+// CI / build status, existing Hanhai CLI comment classification, and the
 // downgrade decisions the LLM should apply when constructing the review
 // event.
 
@@ -111,7 +111,7 @@ function classifyCi(checkRuns: CheckRun[], statuses: CommitStatus[]) {
 }
 
 function classifyExistingComments(
-  luoshuComments: RawComment[],
+  hanhaiComments: RawComment[],
   repliedToIds: Set<number>,
   newFindingKeys: Set<string>,
   commitSha: string,
@@ -121,7 +121,7 @@ function classifyExistingComments(
     CommentSummary[]
   > = { stale: [], resolved: [], overlap: [], noConflict: [] };
 
-  for (const c of luoshuComments) {
+  for (const c of hanhaiComments) {
     const summary: CommentSummary = {
       id: c.id,
       path: c.path ?? '',
@@ -182,14 +182,14 @@ async function runPresubmit(args: PresubmitArgs): Promise<void> {
   const statuses = statusResp?.statuses ?? [];
   const ciStatus = classifyCi(checkRuns, statuses);
 
-  // --- Existing Qwen Code comments --------------------------------------
+  // --- Existing Hanhai CLI comments --------------------------------------
   // Paginate: PRs can have >30 inline comments and the latest pages carry
   // the most recent (and most likely to overlap with new findings).
   const allComments = ghApiAll(
     `repos/${owner}/${repo}/pulls/${prNumber}/comments`,
   ) as RawComment[];
-  const luoshuComments = allComments.filter((c) =>
-    /via Luoshu CLI \/review/.test(c.body ?? ''),
+  const hanhaiComments = allComments.filter((c) =>
+    /via Hanhai CLI \/review/.test(c.body ?? ''),
   );
 
   const repliedToIds = new Set<number>();
@@ -204,7 +204,7 @@ async function runPresubmit(args: PresubmitArgs): Promise<void> {
   const newFindingKeys = new Set(newFindings.map((f) => `${f.path}:${f.line}`));
 
   const buckets = classifyExistingComments(
-    luoshuComments,
+    hanhaiComments,
     repliedToIds,
     newFindingKeys,
     commitSha,
@@ -229,7 +229,7 @@ async function runPresubmit(args: PresubmitArgs): Promise<void> {
     isSelfPr,
     ciStatus,
     existingComments: {
-      total: luoshuComments.length,
+      total: hanhaiComments.length,
       byBucket: {
         stale: buckets.stale.length,
         resolved: buckets.resolved.length,

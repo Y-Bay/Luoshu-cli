@@ -4,18 +4,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// `qwen review load-rules`: read project-specific code-review rules from
+// `hanhai review load-rules`: read project-specific code-review rules from
 // the **base branch** of a PR and emit a combined Markdown file.
 //
 // Rules are loaded from the base branch (not the PR branch) so a malicious
-// PR cannot inject `.luoshu/review-rules.md` content that bypasses scrutiny.
+// PR cannot inject `.hanhai/review-rules.md` content that bypasses scrutiny.
 // Sources, in order:
 //
-//   1. `.luoshu/review-rules.md`
+//   1. `.hanhai/review-rules.md`
 //   2. `.github/copilot-instructions.md` (preferred)
 //      OR `copilot-instructions.md` (fallback — only one is loaded)
 //   3. `AGENTS.md` — only the `## Code Review` section
-//   4. `LUOSHU.md`   — only the `## Code Review` section
+//   4. `HANHAI.md`   — only the `## Code Review` section
 //
 // Missing files are skipped silently. If no rules are found, the script
 // writes an empty file (or omits the file when `--out` is not given) and
@@ -64,10 +64,10 @@ function loadCombined(baseRef: string): {
   const loaded: string[] = [];
 
   // 1. Qwen-native rules.
-  const qwenRules = showFile(baseRef, '.luoshu/review-rules.md');
+  const qwenRules = showFile(baseRef, '.hanhai/review-rules.md');
   if (qwenRules) {
-    sections.push(`### From .luoshu/review-rules.md\n\n${qwenRules.trim()}`);
-    loaded.push('.luoshu/review-rules.md');
+    sections.push(`### From .hanhai/review-rules.md\n\n${qwenRules.trim()}`);
+    loaded.push('.hanhai/review-rules.md');
   }
 
   // 2. Copilot-compatible rules: prefer .github/copilot-instructions.md;
@@ -99,13 +99,13 @@ function loadCombined(baseRef: string): {
     }
   }
 
-  // 4. LUOSHU.md — extract Code Review section only.
-  const qwenMd = showFile(baseRef, 'LUOSHU.md');
+  // 4. HANHAI.md — extract Code Review section only.
+  const qwenMd = showFile(baseRef, 'HANHAI.md');
   if (qwenMd) {
     const section = extractCodeReviewSection(qwenMd);
     if (section) {
-      sections.push(`### From LUOSHU.md\n\n${section}`);
-      loaded.push('LUOSHU.md');
+      sections.push(`### From HANHAI.md\n\n${section}`);
+      loaded.push('HANHAI.md');
     }
   }
 
@@ -136,7 +136,7 @@ async function runLoadRules(args: LoadRulesArgs): Promise<void> {
 export const loadRulesCommand: CommandModule = {
   command: 'load-rules <base_ref>',
   describe:
-    'Read project review rules from the base branch (.luoshu/review-rules.md, .github/copilot-instructions.md, AGENTS.md, LUOSHU.md) and write a combined Markdown file',
+    'Read project review rules from the base branch (.hanhai/review-rules.md, .github/copilot-instructions.md, AGENTS.md, HANHAI.md) and write a combined Markdown file',
   builder: (yargs) =>
     yargs
       .positional('base_ref', {

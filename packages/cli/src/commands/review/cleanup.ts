@@ -5,9 +5,9 @@
  */
 
 // Post-review cleanup for /review Step 11.
-//   - Remove the temporary worktree at .luoshu/tmp/review-pr-<n>.
-//   - Delete the local branch ref qwen-review/pr-<n>.
-//   - Remove any .luoshu/tmp/qwen-review-<target>-* side files.
+//   - Remove the temporary worktree at .hanhai/tmp/review-pr-<n>.
+//   - Delete the local branch ref hanhai-review/pr-<n>.
+//   - Remove any .hanhai/tmp/hanhai-review-<target>-* side files.
 //
 // The command is idempotent — missing files / branches are silent OK.
 
@@ -65,7 +65,7 @@ function runCleanup(target: string): void {
     }
   }
 
-  // --- Per-target side files (under .luoshu/tmp/) -------------------------
+  // --- Per-target side files (under .hanhai/tmp/) -------------------------
   const prefix = tmpPrefix(target);
   let tmpEntries: string[] = [];
   try {

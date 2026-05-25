@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// `qwen review pr-context`: fetch a PR's metadata + existing comments and
+// `hanhai review pr-context`: fetch a PR's metadata + existing comments and
 // emit a single Markdown file that agents can consume as context.
 //
 // The Markdown is shaped so the calling LLM can pass it to review agents
@@ -86,7 +86,7 @@ function findRootId(startId: number, byId: Map<number, RawComment>): number {
  *
  * Filters out empty bodies (`COMMENTED` reviews submitted alongside inline
  * comments often have body=""), and the canonical "no issues found, LGTM"
- * template the qwen-review pipeline auto-emits — those carry no review
+ * template the hanhai-review pipeline auto-emits — those carry no review
  * content beyond their state, which the agent doesn't need re-told.
  */
 function isReviewWorthShowing(body: string | undefined): boolean {
