@@ -1,32 +1,32 @@
 #!/usr/bin/env bash
 #
-# Luoshu CLI — one-shot installer
+# Hanhai CLI — one-shot installer
 #
 #   Remote:
-#     bash -c "$(curl -fsSL https://raw.githubusercontent.com/Y-Bay/Luoshu-cli/main/install.sh)"
+#     bash -c "$(curl -fsSL https://raw.githubusercontent.com/Y-Bay/Hanhai-cli/main/install.sh)"
 #
 #   Local (from inside a checked-out repo):
 #     bash install.sh
 #
 #   Environment knobs:
-#     LUOSHU_INSTALL_DIR   target dir for clone (default: ~/Luoshu-cli)
-#     LUOSHU_VERBOSE=1     stream npm output instead of suppressing it
-#     LUOSHU_NO_COLOR=1    disable ANSI colors
+#     HANHAI_INSTALL_DIR   target dir for clone (default: ~/Hanhai-cli)
+#     HANHAI_VERBOSE=1     stream npm output instead of suppressing it
+#     HANHAI_NO_COLOR=1    disable ANSI colors
 #
 
 set -euo pipefail
 
-REPO_URL="https://github.com/Y-Bay/Luoshu-cli.git"
-DEFAULT_INSTALL_DIR="${LUOSHU_INSTALL_DIR:-$HOME/Luoshu-cli}"
+REPO_URL="https://github.com/Y-Bay/Hanhai-cli.git"
+DEFAULT_INSTALL_DIR="${HANHAI_INSTALL_DIR:-$HOME/Hanhai-cli}"
 MIN_NODE_MAJOR=22
-VERBOSE="${LUOSHU_VERBOSE:-0}"
+VERBOSE="${HANHAI_VERBOSE:-0}"
 
 TOTAL_STEPS=4
-LOG_FILE="$(mktemp -t luoshu-install.XXXXXX)"
+LOG_FILE="$(mktemp -t hanhai-install.XXXXXX)"
 START_TS=$(date +%s)
 
 # ---------- color / output ----------
-if [ -t 1 ] && [ -z "${LUOSHU_NO_COLOR:-}" ] && [ "${TERM:-}" != "dumb" ]; then
+if [ -t 1 ] && [ -z "${HANHAI_NO_COLOR:-}" ] && [ "${TERM:-}" != "dumb" ]; then
   C_RESET=$'\033[0m'
   C_DIM=$'\033[2m'
   C_BOLD=$'\033[1m'
@@ -67,12 +67,12 @@ section() {
 banner() {
   cat <<EOF
 
-${C_BOLD}${C_BLUE}      _____            _              ${C_CYAN}┌─────────────────────┐${C_RESET}
-${C_BOLD}${C_BLUE}     |  |  |_ _ ___ ___| |_ _ _        ${C_CYAN}│  洛书 · Luoshu CLI  │${C_RESET}
-${C_BOLD}${C_BLUE}     |  |  | | | . |_ -|   | | |       ${C_CYAN}│  v0.1.0  ·  installer ${C_RESET}${C_CYAN}│${C_RESET}
-${C_BOLD}${C_BLUE}     |_____|___|___|___|_|_|___|       ${C_CYAN}└─────────────────────┘${C_RESET}
+${C_BOLD}${C_BLUE}      _____         _       _          ${C_CYAN}┌─────────────────────┐${C_RESET}
+${C_BOLD}${C_BLUE}     |  |  |___ ___| |_ ___|_|         ${C_CYAN}│  瀚海 · Hanhai CLI  │${C_RESET}
+${C_BOLD}${C_BLUE}     |     | .'|   |   | .'| |         ${C_CYAN}│  v0.1.0  ·  installer ${C_RESET}${C_CYAN}│${C_RESET}
+${C_BOLD}${C_BLUE}     |__|__|__,|_|_|_|_|__,|_|         ${C_CYAN}└─────────────────────┘${C_RESET}
 
-${C_DIM}  Source: https://github.com/Y-Bay/Luoshu-cli${C_RESET}
+${C_DIM}  Source: https://github.com/Y-Bay/Hanhai-cli${C_RESET}
 EOF
 }
 
@@ -174,8 +174,8 @@ preflight() {
 
 # ---------- step 1: clone / pull ----------
 step_clone() {
-  if [ -f package.json ] && grep -q '"luoshu-cli"' package.json 2>/dev/null; then
-    step_header 1 "Using current Luoshu repo" "$(pwd)"
+  if [ -f package.json ] && grep -q '"hanhai-cli"' package.json 2>/dev/null; then
+    step_header 1 "Using current Hanhai repo" "$(pwd)"
     ok "Repo: $(pwd)"
     return
   fi
@@ -190,7 +190,7 @@ step_clone() {
     fi
     ok "Updated to $(git rev-parse --short HEAD)"
   else
-    step_header 1 "Cloning Luoshu-cli" "(partial clone, ~5MB initial)"
+    step_header 1 "Cloning Hanhai-cli" "(partial clone, ~5MB initial)"
     note "→ target: $DEFAULT_INSTALL_DIR"
     if ! run_with_spinner "git clone" \
         git -c http.version=HTTP/1.1 -c http.postBuffer=524288000 \
@@ -250,7 +250,7 @@ step_bundle() {
 # ---------- step 4 helpers ----------
 
 # Ephemeral paths: anything the OS or the user is likely to wipe. Linking
-# from these leaves the global `luoshu` as a dangling symlink later.
+# from these leaves the global `hanhai` as a dangling symlink later.
 is_ephemeral_path() {
   case "$1" in
     /tmp/*|/private/tmp/*|/var/tmp/*|/var/folders/*) return 0 ;;
@@ -260,19 +260,19 @@ is_ephemeral_path() {
 
 # `npm link` does NOT clean up a pre-existing global symlink whose target
 # no longer exists. The resulting dangling link silently shadows future
-# installs — `which luoshu` returns "not found" with no hint why. Detect
+# installs — `which hanhai` returns "not found" with no hint why. Detect
 # and remove it before linking.
 cleanup_stale_global_link() {
   local global_root link_path bin_path stale_target
   global_root=$(npm root -g 2>/dev/null) || return 0
-  link_path="$global_root/luoshu-cli"
-  bin_path="$(npm prefix -g 2>/dev/null)/bin/luoshu"
+  link_path="$global_root/hanhai-cli"
+  bin_path="$(npm prefix -g 2>/dev/null)/bin/hanhai"
 
   # `-L` checks it's a symlink; `! -e` is true when the link target is gone.
   if [ -L "$link_path" ] && [ ! -e "$link_path" ]; then
     stale_target=$(readlink "$link_path" 2>/dev/null || echo "<unreadable>")
     warn "Stale global symlink detected:"
-    hint "  luoshu-cli → $stale_target  (target missing)"
+    hint "  hanhai-cli → $stale_target  (target missing)"
     hint "  Cleaning up so the new link can take over..."
     rm -f "$link_path" "$bin_path"
     ok "Removed stale global registration."
@@ -281,15 +281,15 @@ cleanup_stale_global_link() {
 
 # ---------- step 4: npm link ----------
 step_link() {
-  step_header 4 "Registering 'luoshu' command" "(global symlink via npm link)"
+  step_header 4 "Registering 'hanhai' command" "(global symlink via npm link)"
 
   cleanup_stale_global_link
 
   if is_ephemeral_path "$(pwd)"; then
     warn "Installing from an ephemeral path: $(pwd)"
-    hint "If this directory is later deleted, 'luoshu' will become a"
+    hint "If this directory is later deleted, 'hanhai' will become a"
     hint "dangling symlink and silently fail. Re-run with a stable path:"
-    hint "  LUOSHU_INSTALL_DIR=\$HOME/Luoshu-cli bash install.sh"
+    hint "  HANHAI_INSTALL_DIR=\$HOME/Hanhai-cli bash install.sh"
   fi
 
   # --ignore-scripts skips the package's `prepare` hook, which would
@@ -303,13 +303,13 @@ step_link() {
     exit 1
   fi
 
-  if ! command -v luoshu >/dev/null 2>&1; then
-    fail "'luoshu' not on PATH after link. Try restarting your shell."
+  if ! command -v hanhai >/dev/null 2>&1; then
+    fail "'hanhai' not on PATH after link. Try restarting your shell."
     hint "Or check: npm bin -g"
     exit 1
   fi
-  ok "$(which luoshu)"
-  ok "luoshu --version → $(luoshu --version)"
+  ok "$(which hanhai)"
+  ok "hanhai --version → $(hanhai --version)"
 }
 
 # ---------- finale ----------
@@ -321,7 +321,7 @@ show_done() {
 
   echo
   echo "${C_GREEN}${C_BOLD}╭────────────────────────────────────────────────────────────╮${C_RESET}"
-  echo "${C_GREEN}${C_BOLD}│  ✓  Luoshu CLI installed in ${mins}m${secs}s.                          │${C_RESET}"
+  echo "${C_GREEN}${C_BOLD}│  ✓  Hanhai CLI installed in ${mins}m${secs}s.                          │${C_RESET}"
   echo "${C_GREEN}${C_BOLD}╰────────────────────────────────────────────────────────────╯${C_RESET}"
   echo
   printf '  %sQuick start (DeepSeek example):%s\n' "$C_BOLD" "$C_RESET"
@@ -330,13 +330,13 @@ show_done() {
   echo "    ${C_CYAN}export${C_RESET} OPENAI_BASE_URL='https://api.deepseek.com'"
   echo "    ${C_CYAN}export${C_RESET} OPENAI_MODEL='deepseek-chat'"
   echo
-  echo "    ${C_GREEN}luoshu${C_RESET}                    ${C_DIM}# interactive TUI${C_RESET}"
-  echo "    ${C_GREEN}luoshu${C_RESET} -p ${C_YELLOW}'hello'${C_RESET}         ${C_DIM}# one-shot prompt${C_RESET}"
+  echo "    ${C_GREEN}hanhai${C_RESET}                    ${C_DIM}# interactive TUI${C_RESET}"
+  echo "    ${C_GREEN}hanhai${C_RESET} -p ${C_YELLOW}'hello'${C_RESET}         ${C_DIM}# one-shot prompt${C_RESET}"
   echo
-  printf '  %sIf colors look banded over SSH:%s  %sFORCE_COLOR=3 luoshu%s\n' \
+  printf '  %sIf colors look banded over SSH:%s  %sFORCE_COLOR=3 hanhai%s\n' \
     "$C_BOLD" "$C_RESET" "$C_GREEN" "$C_RESET"
   echo
-  printf '  %sDocs:%s  https://github.com/Y-Bay/Luoshu-cli\n' "$C_DIM" "$C_RESET"
+  printf '  %sDocs:%s  https://github.com/Y-Bay/Hanhai-cli\n' "$C_DIM" "$C_RESET"
   echo
 }
 
