@@ -1,6 +1,6 @@
 ---
 name: loop
-description: Create a recurring loop that runs a prompt on a schedule. Usage - /loop 5m check the build, /loop check the PR every 30m, /loop run tests (defaults to 10m). /loop list to show jobs, /loop clear to cancel all.
+description: 创建按计划重复运行某个 prompt 的循环任务。用法：/loop 5m 检查构建、/loop 每 30 分钟检查 PR、/loop 跑测试（默认 10 分钟）；/loop list 查看任务，/loop clear 取消全部。
 argument-hint: '[interval] <prompt> | list | clear'
 allowedTools:
   - cron_create

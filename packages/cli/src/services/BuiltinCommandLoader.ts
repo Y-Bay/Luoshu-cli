@@ -21,7 +21,6 @@ import { deleteCommand } from '../ui/commands/deleteCommand.js';
 import { compressCommand } from '../ui/commands/compressCommand.js';
 import { contextCommand } from '../ui/commands/contextCommand.js';
 import { copyCommand } from '../ui/commands/copyCommand.js';
-import { docsCommand } from '../ui/commands/docsCommand.js';
 import { doctorCommand } from '../ui/commands/doctorCommand.js';
 import { diffCommand } from '../ui/commands/diffCommand.js';
 import { directoryCommand } from '../ui/commands/directoryCommand.js';
@@ -67,7 +66,7 @@ const builtinDebugLogger = createDebugLogger('BUILTIN_COMMAND_LOADER');
 
 /**
  * Loads the core, hard-coded slash commands that are an integral part
- * of the Qwen Code application.
+ * of the Hanhai CLI application.
  */
 export class BuiltinCommandLoader implements ICommandLoader {
   constructor(private config: Config | null) {}
@@ -109,7 +108,6 @@ export class BuiltinCommandLoader implements ICommandLoader {
       copyCommand,
       diffCommand,
       deleteCommand,
-      docsCommand,
       doctorCommand,
       directoryCommand,
       editorCommand,

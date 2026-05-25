@@ -1,6 +1,6 @@
 ---
 name: batch
-description: Execute batch operations on multiple files in parallel. Automatically discovers files, splits into chunks, and processes with parallel worker agents. Use `/batch` followed by operation and file pattern.
+description: 并行批量处理多个文件。自动发现文件、切分成多个块，并用并行的 worker agent 处理。用法：`/batch` 后跟操作和文件匹配模式。
 argument-hint: '<operation> <file-pattern>'
 allowedTools:
   - task
