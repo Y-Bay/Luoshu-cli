@@ -26,7 +26,7 @@ You can also point the SDK at an explicit CLI binary or script with
 Before using the SDK, verify that the CLI works in the same environment:
 
 ```bash
-qwen --version
+hanhai --version
 ```
 
 ## Quick Start

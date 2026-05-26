@@ -979,7 +979,7 @@ export async function parseArguments(): Promise<CliArgs> {
             const hasPositionalQuery = Array.isArray(query)
               ? query.length > 0
               : !!query;
-            // Allow stdin piping (`echo "..." | qwen --json-schema ...`):
+            // Allow stdin piping (`echo "..." | hanhai --json-schema ...`):
             // when stdin is not a TTY, the prompt is supplied via the pipe
             // and headless mode runs normally. Only reject true interactive
             // invocations with neither flag nor positional nor pipe — the
@@ -1005,7 +1005,7 @@ export async function parseArguments(): Promise<CliArgs> {
     .command(channelCommand)
     // Register /review skill helpers (presubmit checks, cleanup)
     .command(reviewCommand)
-    // Register `qwen serve` (Stage 1 daemon — see issue #3803)
+    // Register `hanhai serve` (Stage 1 daemon — see issue #3803)
     .command(serveCommand);
 
   yargsInstance

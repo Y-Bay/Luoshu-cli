@@ -656,7 +656,7 @@ export interface ConfigParameters {
    * JSON Schema that the model's final output must conform to. When set, a
    * synthetic `structured_output` tool is registered and the non-interactive
    * CLI ends the session the first time the model calls it with valid args.
-   * Only meaningful in headless mode (`qwen -p`).
+   * Only meaningful in headless mode (`hanhai -p`).
    */
   jsonSchema?: Record<string, unknown>;
   /**
@@ -1885,7 +1885,7 @@ export class Config {
     //
     // Only refresh when THIS process established its own sidecar at
     // startup (interactive UI). A non-interactive `/clear` (e.g.
-    // qwen --prompt-interactive) must not delete a sibling shell's
+    // hanhai --prompt-interactive) must not delete a sibling shell's
     // sidecar that happens to share the outgoing session id —
     // mirrors kimi-cli PR #2082's "write only when a session is
     // established for this process" rule.

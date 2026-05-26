@@ -3,7 +3,7 @@ export { AbortError, isAbortError } from './types/errors.js';
 export { Query } from './query/Query.js';
 export { SdkLogger } from './utils/logger.js';
 
-// Daemon HTTP client (talks to `qwen serve`; see GitHub issue #3803)
+// Daemon HTTP client (talks to `hanhai serve`; see GitHub issue #3803)
 export {
   DAEMON_APPROVAL_MODES,
   DAEMON_ERROR_KINDS,

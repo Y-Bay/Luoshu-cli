@@ -843,7 +843,7 @@ export default {
   servers: '個伺服器',
   'Add MCP servers to your settings to get started.':
     '請在設置中添加 MCP servers 以開始使用。',
-  'Run qwen --debug to see error logs': '運行 qwen --debug 查看錯誤日誌',
+  'Run hanhai --debug to see error logs': '運行 hanhai --debug 查看錯誤日誌',
   'OAuth Authentication': 'OAuth 認證',
   'Authenticating... Please complete the login in your browser.':
     '認證中... 請在瀏覽器中完成登錄。',
@@ -1182,8 +1182,8 @@ export default {
     '在 Hanhai CLI 中使用 ! 可運行任意 shell 命令（例如 !ls）。',
   'Type / to open the command popup; Tab autocompletes slash commands and saved prompts.':
     '輸入 / 打開命令彈窗；按 Tab 自動補全斜槓命令和保存的提示詞。',
-  'You can resume a previous conversation by running qwen --continue or qwen --resume.':
-    '運行 qwen --continue 或 qwen --resume 可繼續之前的會話。',
+  'You can resume a previous conversation by running hanhai --continue or hanhai --resume.':
+    '運行 hanhai --continue 或 hanhai --resume 可繼續之前的會話。',
   'You can switch permission mode quickly with Shift+Tab or /approval-mode.':
     '按 Shift+Tab 或輸入 /approval-mode 可快速切換權限模式。',
   'You can switch permission mode quickly with Tab or /approval-mode.':
@@ -1441,11 +1441,11 @@ export default {
   '⚠️  No authentication method configured.\n': '⚠️  未配置認證方式。\n',
   'Run one of the following commands to get started:\n':
     '運行以下命令之一開始配置：\n',
-  '  qwen auth qwen-oauth     - Authenticate with Qwen OAuth (discontinued)':
-    '  qwen auth qwen-oauth     - 使用 Qwen OAuth 登錄（已停用）',
+  '  hanhai auth qwen-oauth     - Authenticate with Qwen OAuth (discontinued)':
+    '  hanhai auth qwen-oauth     - 使用 Qwen OAuth 登錄（已停用）',
   'Or simply run:': '或者直接運行：',
-  '  qwen auth                - Interactive authentication setup\n':
-    '  qwen auth                - 交互式認證配置\n',
+  '  hanhai auth                - Interactive authentication setup\n':
+    '  hanhai auth                - 交互式認證配置\n',
   '✓ Authentication Method: Qwen OAuth': '✓ 認證方式：Qwen OAuth',
   '  Type: Free tier (discontinued 2026-04-15)':
     '  類型：免費額度（2026-04-15 已停用）',
@@ -1464,8 +1464,8 @@ export default {
     '⚠️  認證方式：阿里雲百鍊 Coding Plan（不完整）',
   '  Issue: API key not found in environment or settings\n':
     '  問題：在環境變量或設置中未找到 API Key\n',
-  '  Run `qwen auth coding-plan` to re-configure.\n':
-    '  運行 `qwen auth coding-plan` 重新配置。\n',
+  '  Run `hanhai auth coding-plan` to re-configure.\n':
+    '  運行 `hanhai auth coding-plan` 重新配置。\n',
   '✓ Authentication Method: {{type}}': '✓ 認證方式：{{type}}',
   '  Status: Configured\n': '  狀態：已配置\n',
   'Failed to check authentication status: {{error}}':

@@ -104,7 +104,7 @@ const query = qwen.query('Your prompt', {
 ### Experimental Daemon Session Client
 
 `DaemonSessionClient` is an experimental wrapper for clients that talk to a
-running `qwen serve` daemon over HTTP + SSE. It binds one daemon session so TUI,
+running `hanhai serve` daemon over HTTP + SSE. It binds one daemon session so TUI,
 channel, IDE, or web backend adapters do not need to pass `sessionId` into every
 call.
 

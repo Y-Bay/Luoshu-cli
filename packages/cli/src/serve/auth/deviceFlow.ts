@@ -5,7 +5,7 @@
  */
 
 /**
- * Device-flow authorization registry for `qwen serve` (issue #4175 Wave 4
+ * Device-flow authorization registry for `hanhai serve` (issue #4175 Wave 4
  * PR 21). The registry brokers an OAuth 2.0 Device Authorization Grant
  * (RFC 8628) initiated through `POST /workspace/auth/device-flow` so a
  * remote SDK client can ask the daemon to log in. Tokens land on the

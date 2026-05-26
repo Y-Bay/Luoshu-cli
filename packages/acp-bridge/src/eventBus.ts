@@ -71,7 +71,7 @@ const DEFAULT_MAX_QUEUED = 256;
  * 8000 matches the target set in #3803 §02 for chatty Stage 1
  * sessions, with ~30–60× headroom over a typical-but-busy turn at
  * the cost of a few hundred KB of RAM per session. Operators can
- * override per-daemon via `qwen serve --event-ring-size <n>`.
+ * override per-daemon via `hanhai serve --event-ring-size <n>`.
  */
 export const DEFAULT_RING_SIZE = 8000;
 /**

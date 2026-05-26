@@ -934,8 +934,8 @@ export default {
   servers: 'servidors',
   'Add MCP servers to your settings to get started.':
     'Afegiu MCP servers a la configuració per començar.',
-  'Run qwen --debug to see error logs':
-    "Executeu qwen --debug per veure els registres d'errors",
+  'Run hanhai --debug to see error logs':
+    "Executeu hanhai --debug per veure els registres d'errors",
   'OAuth Authentication': 'Autenticació OAuth',
   'Authenticating... Please complete the login in your browser.':
     "Autenticant... Completeu l'inici de sessió al vostre navegador.",
@@ -1333,8 +1333,8 @@ export default {
     'Podeu executar qualsevol ordre shell des de Hanhai CLI usant ! (p. ex. !ls).',
   'Type / to open the command popup; Tab autocompletes slash commands and saved prompts.':
     "Escriviu / per obrir el menú emergent d'ordres; Tab completa automàticament les ordres de barra i els missatges desats.",
-  'You can resume a previous conversation by running qwen --continue or qwen --resume.':
-    'Podeu reprendre una conversa anterior executant qwen --continue o qwen --resume.',
+  'You can resume a previous conversation by running hanhai --continue or hanhai --resume.':
+    'Podeu reprendre una conversa anterior executant hanhai --continue o hanhai --resume.',
   'You can switch permission mode quickly with Shift+Tab or /approval-mode.':
     'Podeu canviar ràpidament el mode de permisos amb Shift+Tab o /approval-mode.',
   'You can switch permission mode quickly with Tab or /approval-mode.':
@@ -1739,11 +1739,11 @@ export default {
     "⚠️  Cap mètode d'autenticació configurat.\n",
   'Run one of the following commands to get started:\n':
     'Executeu una de les ordres següents per començar:\n',
-  '  qwen auth qwen-oauth     - Authenticate with Qwen OAuth (discontinued)':
-    '  qwen auth qwen-oauth     - Autenticar-se amb Qwen OAuth (descontinuat)',
+  '  hanhai auth qwen-oauth     - Authenticate with Qwen OAuth (discontinued)':
+    '  hanhai auth qwen-oauth     - Autenticar-se amb Qwen OAuth (descontinuat)',
   'Or simply run:': 'O simplement executeu:',
-  '  qwen auth                - Interactive authentication setup\n':
-    "  qwen auth                - Configuració interactiva de l'autenticació\n",
+  '  hanhai auth                - Interactive authentication setup\n':
+    "  hanhai auth                - Configuració interactiva de l'autenticació\n",
   '✓ Authentication Method: Qwen OAuth': "✓ Mètode d'autenticació: Qwen OAuth",
   '  Type: Free tier (discontinued 2026-04-15)':
     '  Tipus: Nivell gratuït (descontinuat el 15-04-2026)',
@@ -1761,8 +1761,8 @@ export default {
     "⚠️  Mètode d'autenticació: Coding Plan d'Alibaba Cloud (Incomplet)",
   '  Issue: API key not found in environment or settings\n':
     "  Problema: API Key no trobada a l'entorn o la configuració\n",
-  '  Run `qwen auth coding-plan` to re-configure.\n':
-    '  Executeu `qwen auth coding-plan` per tornar a configurar.\n',
+  '  Run `hanhai auth coding-plan` to re-configure.\n':
+    '  Executeu `hanhai auth coding-plan` per tornar a configurar.\n',
   '✓ Authentication Method: {{type}}': "✓ Mètode d'autenticació: {{type}}",
   '  Status: Configured\n': '  Estat: Configurat\n',
   'Failed to check authentication status: {{error}}':

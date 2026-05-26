@@ -99,7 +99,7 @@ export function createDefaultFsAuditEmit(): (event: BridgeEvent) => void {
       if (data?.pathHash) ctx.push(`pathHash=${data.pathHash}`);
       const ctxStr = ctx.length > 0 ? ` (${ctx.join(' ')})` : '';
       writeStderrLine(
-        `qwen serve: fs audit emit is the default no-op — ${droppedCount} event(s) dropped so far. ` +
+        `hanhai serve: fs audit emit is the default no-op — ${droppedCount} event(s) dropped so far. ` +
           `Latest type=${event.type}${ctxStr}. ` +
           `Inject deps.fsFactory in createServeApp to wire audit into the EventBus.`,
       );
@@ -157,7 +157,7 @@ export interface ServeAppDeps {
 }
 
 /**
- * Build the Express app for `qwen serve`. Pure function — no side effects on
+ * Build the Express app for `hanhai serve`. Pure function — no side effects on
  * the network or process; `runQwenServe` does the listen/signal handling.
  *
  * `getPort` is invoked lazily by the host-allowlist middleware so callers
@@ -436,7 +436,7 @@ export function createServeApp(
         .send(getDemoHtml(getPort()));
     } catch (err) {
       writeStderrLine(
-        `qwen serve: /demo render failed: ${err instanceof Error ? err.message : String(err)}`,
+        `hanhai serve: /demo render failed: ${err instanceof Error ? err.message : String(err)}`,
       );
       res.status(500).json({ error: 'Failed to render demo page' });
     }
@@ -447,7 +447,7 @@ export function createServeApp(
   // carry the daemon's bearer; round-tripping a 401 just to know
   // the listener is up is waste). On non-loopback binds the
   // exemption becomes a low-severity info leak (attacker can probe
-  // arbitrary IP:port to confirm a `qwen serve` is listening), so
+  // arbitrary IP:port to confirm a `hanhai serve` is listening), so
   // we register `/health` AFTER `bearerAuth` and let it 401 like
   // every other route. Operators using the loopback default get the
   // probe-friendly behavior; operators exposing the daemon publicly
@@ -486,7 +486,7 @@ export function createServeApp(
       });
     } catch (err) {
       writeStderrLine(
-        `qwen serve: /health deep probe failed: ${err instanceof Error ? err.message : String(err)}`,
+        `hanhai serve: /health deep probe failed: ${err instanceof Error ? err.message : String(err)}`,
       );
       res.status(503).json({ status: 'degraded' });
     }
@@ -787,7 +787,7 @@ export function createServeApp(
         )
       ) {
         writeStderrLine(
-          `qwen serve debug: GET /workspace/auth/device-flow/${id} redacted verification fields — caller-clientId mismatch (initiator=${view.initiatorClientId ?? 'anonymous'}, caller=${clientId ?? 'anonymous'})`,
+          `hanhai serve debug: GET /workspace/auth/device-flow/${id} redacted verification fields — caller-clientId mismatch (initiator=${view.initiatorClientId ?? 'anonymous'}, caller=${clientId ?? 'anonymous'})`,
         );
       }
       res.status(200).json(toDeviceFlowStateBody(view, clientId));
@@ -1659,7 +1659,7 @@ export function createServeApp(
       // a raw-fetch client gets the same structured error.
       if (err instanceof SubscriberLimitExceededError) {
         writeStderrLine(
-          `qwen serve: subscriber limit reached for session ${sessionId} (limit=${err.limit}); rejecting new SSE client with 429`,
+          `hanhai serve: subscriber limit reached for session ${sessionId} (limit=${err.limit}); rejecting new SSE client with 429`,
         );
         res.setHeader('Retry-After', '5');
         res.status(429).json({
@@ -1801,7 +1801,7 @@ export function createServeApp(
       // the listener exists primarily so Node doesn't crash on EPIPE
       // — but operators get a breadcrumb when chasing flaky clients.
       writeStderrLine(
-        `qwen serve: SSE socket error (session ${sessionId}): ${err.message}`,
+        `hanhai serve: SSE socket error (session ${sessionId}): ${err.message}`,
       );
       cleanup();
     });
@@ -1875,7 +1875,7 @@ export function createServeApp(
         return;
       }
       writeStderrLine(
-        `qwen serve: unhandled error: ${err instanceof Error ? (err.stack ?? err.message) : String(err)}`,
+        `hanhai serve: unhandled error: ${err instanceof Error ? (err.stack ?? err.message) : String(err)}`,
       );
       if (!res.headersSent) {
         res.status(500).json({ error: 'Internal server error' });
@@ -2224,7 +2224,7 @@ function parseMaxQueuedQuery(
     // a fresh entry). Matches the `workspace_mismatch` log style in
     // `sendBridgeError`.
     writeStderrLine(
-      `qwen serve: rejected ?maxQueued ${safeLogValue(raw)} ` +
+      `hanhai serve: rejected ?maxQueued ${safeLogValue(raw)} ` +
         `(not a decimal integer)`,
     );
     res.status(400).json({
@@ -2240,7 +2240,7 @@ function parseMaxQueuedQuery(
     n > MAX_QUERY_MAX_QUEUED
   ) {
     writeStderrLine(
-      `qwen serve: rejected ?maxQueued ${safeLogValue(raw)} ` +
+      `hanhai serve: rejected ?maxQueued ${safeLogValue(raw)} ` +
         `(outside [${MIN_QUERY_MAX_QUEUED}, ${MAX_QUERY_MAX_QUEUED}])`,
     );
     res.status(400).json({
@@ -2276,7 +2276,7 @@ function parseLastEventId(raw: unknown): number | undefined {
     // "first connect, no resume").
     if (typeof raw === 'string' && raw.length > 0) {
       writeStderrLine(
-        `qwen serve: rejected Last-Event-ID ${safeLogValue(raw)} ` +
+        `hanhai serve: rejected Last-Event-ID ${safeLogValue(raw)} ` +
           `(not a decimal integer)`,
       );
     }
@@ -2288,7 +2288,7 @@ function parseLastEventId(raw: unknown): number | undefined {
   // tries to resume from beyond that is either malicious or broken.
   if (!Number.isFinite(n) || n > Number.MAX_SAFE_INTEGER) {
     writeStderrLine(
-      `qwen serve: rejected Last-Event-ID ${safeLogValue(raw)} ` +
+      `hanhai serve: rejected Last-Event-ID ${safeLogValue(raw)} ` +
         `(exceeds Number.MAX_SAFE_INTEGER)`,
     );
     return undefined;
@@ -2441,7 +2441,7 @@ function sendBridgeError(
     // (`req.workspaceCwd` → `canonicalizeWorkspace` → here). `path.resolve`
     // + `realpathSync.native` both preserve control characters inside
     // path segments — they only normalize separators / `..` / `.` and
-    // walk symlinks. A body like `{"cwd": "/legit/path\nqwen serve:
+    // walk symlinks. A body like `{"cwd": "/legit/path\nhanhai serve:
     // FAKE LOG LINE"}` would otherwise emit two valid-looking daemon
     // log lines, weaponizing line-based log shippers (Splunk / Loki /
     // journald → SIEM). `JSON.stringify` escapes control chars and
@@ -2451,7 +2451,7 @@ function sendBridgeError(
     // `--workspace` / `process.cwd()`) but quoted symmetrically for
     // readability.
     writeStderrLine(
-      `qwen serve: workspace_mismatch (POST /session): ` +
+      `hanhai serve: workspace_mismatch (POST /session): ` +
         `daemon bound to ${JSON.stringify(err.bound)}, ` +
         `rejected ${JSON.stringify(err.requested)}`,
     );
@@ -2526,7 +2526,7 @@ function sendBridgeError(
   ].filter(Boolean);
   const ctxStr = ctxParts.length > 0 ? ` (${ctxParts.join(' ')})` : '';
   writeStderrLine(
-    `qwen serve: bridge error${ctxStr}: ${err instanceof Error ? (err.stack ?? err.message) : String(err)}`,
+    `hanhai serve: bridge error${ctxStr}: ${err instanceof Error ? (err.stack ?? err.message) : String(err)}`,
   );
   res.status(500).json(errorPayload(err));
 }

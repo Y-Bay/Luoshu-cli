@@ -326,7 +326,7 @@ describe('runNonInteractive', () => {
 
   it('on EPIPE, destroys stdout and returns normally instead of process.exit', async () => {
     // Regression: process.exit(0) on EPIPE bypassed runExitCleanup → flush()
-    // and dropped queued JSONL writes for `qwen -p ... | head -1` patterns.
+    // and dropped queued JSONL writes for `hanhai -p ... | head -1` patterns.
     // process.exit is mocked to throw in beforeEach, so reaching the
     // assertion also proves the bypass route is gone.
     setupMetricsMock();
@@ -3362,10 +3362,10 @@ describe('runNonInteractive', () => {
     it('emits structuredResult to stdout in OutputFormat.TEXT mode', async () => {
       // The other --json-schema tests pin OutputFormat.JSON /
       // OutputFormat.STREAM_JSON. TEXT is the default for headless runs
-      // (`qwen -p "..."` without --output-format), so it needs its own
+      // (`hanhai -p "..."` without --output-format), so it needs its own
       // pin: a regression that diverged the TEXT adapter's
       // structuredResult handling from the JSON / stream-json paths
-      // would only surface to users running plain `qwen -p`.
+      // would only surface to users running plain `hanhai -p`.
       (mockConfig.getJsonSchema as Mock).mockReturnValue({
         type: 'object',
         properties: { summary: { type: 'string' } },

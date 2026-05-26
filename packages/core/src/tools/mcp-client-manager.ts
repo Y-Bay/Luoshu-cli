@@ -247,8 +247,8 @@ export function mcpTransportOf(config: MCPServerConfig): McpTransportKind {
 
 /**
  * Resolve budget config from env vars when the constructor caller
- * doesn't pass one. Daemon-mode (`qwen serve`) sets these when
- * spawning the `qwen --acp` child; standalone `qwen` invocations
+ * doesn't pass one. Daemon-mode (`hanhai serve`) sets these when
+ * spawning the `hanhai --acp` child; standalone `qwen` invocations
  * leave them unset and get `{ budgetMode: 'off' }` — the historical
  * behavior, no enforcement.
  *
@@ -275,7 +275,7 @@ function readBudgetFromEnv(): McpBudgetConfig {
       // boot breadcrumb so operators see the misconfiguration in
       // journald / docker logs.
       process.stderr.write(
-        `qwen serve: ignoring invalid HANHAI_SERVE_MCP_CLIENT_BUDGET=` +
+        `hanhai serve: ignoring invalid HANHAI_SERVE_MCP_CLIENT_BUDGET=` +
           `'${rawBudget}' (expected positive integer); ` +
           `MCP budget enforcement disabled for this child.\n`,
       );
@@ -291,7 +291,7 @@ function readBudgetFromEnv(): McpBudgetConfig {
       // budget-driven default; now it gets a stderr line so the
       // typo is visible.
       process.stderr.write(
-        `qwen serve: ignoring invalid QWEN_SERVE_MCP_BUDGET_MODE=` +
+        `hanhai serve: ignoring invalid QWEN_SERVE_MCP_BUDGET_MODE=` +
           `'${rawMode}' (expected enforce|warn|off); falling back to ` +
           `${clientBudget === undefined ? 'off' : 'warn'}.\n`,
       );
@@ -322,7 +322,7 @@ function readBudgetFromEnv(): McpBudgetConfig {
     clientBudget === undefined
   ) {
     process.stderr.write(
-      `qwen serve: QWEN_SERVE_MCP_BUDGET_MODE=${budgetMode} requires ` +
+      `hanhai serve: QWEN_SERVE_MCP_BUDGET_MODE=${budgetMode} requires ` +
         `HANHAI_SERVE_MCP_CLIENT_BUDGET=N; downgrading to off. ` +
         `Set both env vars to enable MCP guardrail enforcement.\n`,
     );
@@ -474,7 +474,7 @@ export class McpClientManager {
     this.healthConfig = { ...DEFAULT_HEALTH_CONFIG, ...healthConfig };
 
     // Tests inject `budgetConfig` directly; production reads env vars
-    // set by `qwen serve --mcp-client-budget=N --mcp-budget-mode=X`
+    // set by `hanhai serve --mcp-client-budget=N --mcp-budget-mode=X`
     // when spawning the ACP child. Standalone `qwen` invocations
     // leave both unset and get `mode: 'off'` — the pre-PR-14 default.
     const resolved = budgetConfig ?? readBudgetFromEnv();
@@ -501,7 +501,7 @@ export class McpClientManager {
       resolved.clientBudget === undefined
     ) {
       process.stderr.write(
-        `qwen serve: McpClientManager constructed with budgetMode=${resolvedMode} ` +
+        `hanhai serve: McpClientManager constructed with budgetMode=${resolvedMode} ` +
           `but no clientBudget; downgrading to off.\n`,
       );
       resolvedMode = 'off';
@@ -710,7 +710,7 @@ export class McpClientManager {
     // `lastRefusedServerNames.includes` guard above).
     this.pendingRefusalNames.add(serverName);
     process.stderr.write(
-      `qwen serve: MCP server '${serverName}' refused (budget exhausted, ` +
+      `hanhai serve: MCP server '${serverName}' refused (budget exhausted, ` +
         `budget=${this.clientBudget}, mode=enforce)\n`,
     );
   }

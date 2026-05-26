@@ -18,7 +18,7 @@ import { ndJsonStream, type Stream } from '@agentclientprotocol/sdk';
  * Used today by Stage 1 tests (replaces 10 sites of inline boilerplate
  * in `httpAcpBridge.test.ts`). Will also be consumed by the Stage 1.5b
  * in-process bridge (issue #4156) when that lands, to wrap an in-process
- * `QwenAgent` without spawning a `qwen --acp` child.
+ * `QwenAgent` without spawning a `hanhai --acp` child.
  *
  * `abort(reason?)` is the universal teardown primitive. It calls
  * `WritableStream.abort()` on both underlying byte-level

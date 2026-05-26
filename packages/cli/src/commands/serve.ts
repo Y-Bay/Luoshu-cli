@@ -9,7 +9,7 @@ import type { Argv, CommandModule } from 'yargs';
 // body-parser + qs + the daemon transport stack; static-importing it from
 // here would tax every `qwen` invocation (interactive, mcp, channel, etc.)
 // with ~50ms of cold ESM resolution. The runtime import is deferred to the
-// handler below so it only loads when the user actually runs `qwen serve`.
+// handler below so it only loads when the user actually runs `hanhai serve`.
 import { writeStderrLine } from '../utils/stdioHelpers.js';
 import { DEFAULT_RING_SIZE } from '../serve/eventBus.js';
 import { MCP_BUDGET_WARN_FRACTION } from '@qwen-code/qwen-code-core';
@@ -79,7 +79,7 @@ export const serveCommand: CommandModule<unknown, ServeArgs> = {
           'Absolute workspace path this daemon binds to. ' +
           'POST /session requests with a mismatched cwd return 400 workspace_mismatch. ' +
           'Defaults to process.cwd() when omitted. ' +
-          'For multi-workspace deployments, run one `qwen serve` per workspace ' +
+          'For multi-workspace deployments, run one `hanhai serve` per workspace ' +
           'on separate ports (or behind an external orchestrator).',
       })
       .option('max-connections', {
@@ -119,7 +119,7 @@ export const serveCommand: CommandModule<unknown, ServeArgs> = {
         type: 'boolean',
         default: true,
         description:
-          'Stage 1 mode: one `qwen --acp` child per daemon (the daemon binds to ' +
+          'Stage 1 mode: one `hanhai --acp` child per daemon (the daemon binds to ' +
           'one workspace at boot, multiplexing N sessions onto that child via ' +
           "the agent's native `newSession()`). Stage 2 native in-process mode " +
           'is not yet implemented; this flag will become opt-in then.',
@@ -148,7 +148,7 @@ export const serveCommand: CommandModule<unknown, ServeArgs> = {
   handler: async (argv) => {
     if (!argv['http-bridge']) {
       writeStderrLine(
-        'qwen serve: --no-http-bridge (native mode) is not yet implemented; ' +
+        'hanhai serve: --no-http-bridge (native mode) is not yet implemented; ' +
           'falling back to http-bridge.',
       );
     }
@@ -158,7 +158,7 @@ export const serveCommand: CommandModule<unknown, ServeArgs> = {
       // operators toward the env-var path which uses
       // `/proc/<pid>/environ` (owner-only).
       writeStderrLine(
-        'qwen serve: --token is visible in the process command line; ' +
+        'hanhai serve: --token is visible in the process command line; ' +
           'prefer the HANHAI_SERVER_TOKEN env var for any non-trivial ' +
           'deployment.',
       );
@@ -176,14 +176,14 @@ export const serveCommand: CommandModule<unknown, ServeArgs> = {
         mcpClientBudget <= 0
       ) {
         writeStderrLine(
-          'qwen serve: --mcp-client-budget must be a positive integer.',
+          'hanhai serve: --mcp-client-budget must be a positive integer.',
         );
         process.exit(1);
       }
     }
     if (mcpBudgetMode === 'enforce' && mcpClientBudget === undefined) {
       writeStderrLine(
-        'qwen serve: --mcp-budget-mode=enforce requires --mcp-client-budget=N.',
+        'hanhai serve: --mcp-budget-mode=enforce requires --mcp-client-budget=N.',
       );
       process.exit(1);
     }
@@ -194,7 +194,7 @@ export const serveCommand: CommandModule<unknown, ServeArgs> = {
       // policy in stderr (journald / docker logs) so operators don't
       // have to parse /capabilities or /workspace/mcp to confirm it.
       writeStderrLine(
-        `qwen serve: --mcp-client-budget=${mcpClientBudget} mode=${resolvedMcpMode}` +
+        `hanhai serve: --mcp-client-budget=${mcpClientBudget} mode=${resolvedMcpMode}` +
           (resolvedMcpMode === 'enforce'
             ? ' (servers past the cap will be refused at discovery)'
             : resolvedMcpMode === 'warn'
@@ -222,7 +222,7 @@ export const serveCommand: CommandModule<unknown, ServeArgs> = {
       });
     } catch (err) {
       writeStderrLine(
-        `qwen serve: ${err instanceof Error ? err.message : String(err)}`,
+        `hanhai serve: ${err instanceof Error ? err.message : String(err)}`,
       );
       process.exit(1);
     }

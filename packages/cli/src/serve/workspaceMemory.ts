@@ -98,7 +98,7 @@ export function mountWorkspaceMemoryRoutes(
       // exactly the silent-failure mode PR 12's read-only routes
       // avoided by routing bridge errors through `sendBridgeError`.
       writeStderrLine(
-        `qwen serve: GET /workspace/memory failed: ${
+        `hanhai serve: GET /workspace/memory failed: ${
           err instanceof Error ? (err.stack ?? err.message) : String(err)
         }`,
       );
@@ -221,7 +221,7 @@ export function mountWorkspaceMemoryRoutes(
         // either trim the file or switch to mode=replace.
         if (err instanceof WorkspaceMemoryWriteTimeoutError) {
           writeStderrLine(
-            `qwen serve: POST /workspace/memory timeout — file lock at ` +
+            `hanhai serve: POST /workspace/memory timeout — file lock at ` +
               `${err.filePath} did not acquire within ${err.timeoutMs}ms ` +
               `(stalled FS / OneDrive / NFS)`,
           );
@@ -240,7 +240,7 @@ export function mountWorkspaceMemoryRoutes(
         }
         if (err instanceof WorkspaceMemoryFileTooLargeError) {
           writeStderrLine(
-            `qwen serve: POST /workspace/memory refused — existing file ` +
+            `hanhai serve: POST /workspace/memory refused — existing file ` +
               `${err.filePath} is ${err.bytes} bytes (cap ${err.limit})`,
           );
           // Path disclosure: both `error` (which embeds the absolute
@@ -268,7 +268,7 @@ export function mountWorkspaceMemoryRoutes(
           return;
         }
         writeStderrLine(
-          `qwen serve: POST /workspace/memory failed (scope=${scope} mode=${mode}): ${
+          `hanhai serve: POST /workspace/memory failed (scope=${scope} mode=${mode}): ${
             err instanceof Error ? (err.stack ?? err.message) : String(err)
           }`,
         );

@@ -21,7 +21,7 @@ import type { ServePreflightCell, ServeWorkspaceEnvStatus } from './status.js';
  * (Node version, CLI entry path, ripgrep, git, npm, workspace dir).
  *
  * The bridge is intentionally agnostic about how its host computes
- * these cells; production `qwen serve` provides
+ * these cells; production `hanhai serve` provides
  * `cli/src/serve/daemonStatusProvider.ts` which wraps
  * `buildEnvStatusFromProcess` + `buildDaemonPreflightCells`. Future
  * Mode A / in-process consumers may omit the provider entirely; the
@@ -97,7 +97,7 @@ export interface BridgeOptions {
    * https://github.com/QwenLM/qwen-code/pull/3889#issuecomment-4427875644
    */
   sessionScope?: 'single' | 'thread';
-  /** Channel factory; defaults to spawning `qwen --acp` as a child process. */
+  /** Channel factory; defaults to spawning `hanhai --acp` as a child process. */
   channelFactory?: ChannelFactory;
   /** How long to wait for the child's `initialize` reply before giving up. */
   initializeTimeoutMs?: number;
@@ -118,7 +118,7 @@ export interface BridgeOptions {
    * `maxSessions`, where silently disabling a backpressure knob on a
    * config typo is worse than failing to start).
    *
-   * Operators tune via `qwen serve --event-ring-size <n>`. Cost
+   * Operators tune via `hanhai serve --event-ring-size <n>`. Cost
    * scales linearly with `ringSize`; each retained `BridgeEvent` is
    * an object reference plus its serialized payload (text chunks /
    * tool-call args / etc.), so the per-session memory ceiling is
@@ -219,7 +219,7 @@ export interface BridgeOptions {
   /**
    * #4175 Wave 5 PR 22b/2 — optional injection seam for daemon-host
    * status cells (env snapshot, daemon preflight). Production
-   * `qwen serve` provides
+   * `hanhai serve` provides
    * `createDaemonStatusProvider()` from
    * `cli/src/serve/daemonStatusProvider.ts`.
    *
@@ -233,7 +233,7 @@ export interface BridgeOptions {
    * that don't need daemon-host cells can omit the provider
    * without crashing those routes.
    *
-   * Mode A in-process consumers (`qwen --serve`, future) typically
+   * Mode A in-process consumers (`hanhai --serve`, future) typically
    * omit this provider — they don't run a separate daemon process
    * so daemon-host environment cells are not meaningful. They can
    * still query the routes; they'll see empty/idle cells.

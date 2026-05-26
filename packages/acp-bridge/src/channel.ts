@@ -15,7 +15,7 @@ import type { Stream } from '@agentclientprotocol/sdk';
  * This contract is consumed by the daemon HTTP bridge today and will be
  * shared by `packages/channels/base/AcpBridge.ts` and the VSCode IDE
  * companion's `acpConnection.ts` after PR 22b — both currently spawn
- * their own `qwen --acp` child via independent code paths.
+ * their own `hanhai --acp` child via independent code paths.
  */
 export interface AcpChannel {
   stream: Stream;

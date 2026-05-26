@@ -985,7 +985,8 @@ export default {
   servers: 'servers',
   'Add MCP servers to your settings to get started.':
     'Add MCP servers to your settings to get started.',
-  'Run qwen --debug to see error logs': 'Run qwen --debug to see error logs',
+  'Run hanhai --debug to see error logs':
+    'Run hanhai --debug to see error logs',
 
   // MCP OAuth Authentication
   'OAuth Authentication': 'OAuth Authentication',
@@ -1400,8 +1401,8 @@ export default {
     'You can run any shell commands from Hanhai CLI using ! (e.g. !ls).',
   'Type / to open the command popup; Tab autocompletes slash commands and saved prompts.':
     'Type / to open the command popup; Tab autocompletes slash commands and saved prompts.',
-  'You can resume a previous conversation by running qwen --continue or qwen --resume.':
-    'You can resume a previous conversation by running qwen --continue or qwen --resume.',
+  'You can resume a previous conversation by running hanhai --continue or hanhai --resume.':
+    'You can resume a previous conversation by running hanhai --continue or hanhai --resume.',
   'You can switch permission mode quickly with Shift+Tab or /approval-mode.':
     'You can switch permission mode quickly with Shift+Tab or /approval-mode.',
   'You can switch permission mode quickly with Tab or /approval-mode.':
@@ -1856,11 +1857,11 @@ export default {
     '⚠️  No authentication method configured.\n',
   'Run one of the following commands to get started:\n':
     'Run one of the following commands to get started:\n',
-  '  qwen auth qwen-oauth     - Authenticate with Qwen OAuth (discontinued)':
-    '  qwen auth qwen-oauth     - Authenticate with Qwen OAuth (discontinued)',
+  '  hanhai auth qwen-oauth     - Authenticate with Qwen OAuth (discontinued)':
+    '  hanhai auth qwen-oauth     - Authenticate with Qwen OAuth (discontinued)',
   'Or simply run:': 'Or simply run:',
-  '  qwen auth                - Interactive authentication setup\n':
-    '  qwen auth                - Interactive authentication setup\n',
+  '  hanhai auth                - Interactive authentication setup\n':
+    '  hanhai auth                - Interactive authentication setup\n',
   '✓ Authentication Method: Qwen OAuth': '✓ Authentication Method: Qwen OAuth',
   '  Type: Free tier (discontinued 2026-04-15)':
     '  Type: Free tier (discontinued 2026-04-15)',
@@ -1879,8 +1880,8 @@ export default {
     '⚠️  Authentication Method: Alibaba Cloud Coding Plan (Incomplete)',
   '  Issue: API key not found in environment or settings\n':
     '  Issue: API key not found in environment or settings\n',
-  '  Run `qwen auth coding-plan` to re-configure.\n':
-    '  Run `qwen auth coding-plan` to re-configure.\n',
+  '  Run `hanhai auth coding-plan` to re-configure.\n':
+    '  Run `hanhai auth coding-plan` to re-configure.\n',
   '✓ Authentication Method: {{type}}': '✓ Authentication Method: {{type}}',
   '  Status: Configured\n': '  Status: Configured\n',
   'Failed to check authentication status: {{error}}':

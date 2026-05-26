@@ -711,7 +711,7 @@ describe('parseArguments', () => {
   });
 
   it('should accept --json-schema with no -p / positional when stdin is piped', async () => {
-    // `echo "..." | qwen --json-schema ...` — input arrives via the
+    // `echo "..." | hanhai --json-schema ...` — input arrives via the
     // pipe, so the prompt-presence check must not block the run.
     process.argv = ['node', 'script.js', '--json-schema', '{"type":"object"}'];
 

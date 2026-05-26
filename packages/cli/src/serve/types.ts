@@ -13,7 +13,7 @@ import {
 /**
  * Stage 1 daemon mode shape.
  *
- * `http-bridge` (Stage 1): per #3803 §02, one `qwen --acp` child per
+ * `http-bridge` (Stage 1): per #3803 §02, one `hanhai --acp` child per
  *   daemon (the daemon binds to ONE workspace at boot). Multiple
  *   sessions multiplex onto that child via the agent's native
  *   `connection.newSession()` (see `acp-integration/acpAgent.ts:194`),
@@ -77,7 +77,7 @@ export interface ServeOptions {
    * Absolute workspace path this daemon binds to. Per #3803 §02 the
    * daemon is **1 daemon = 1 workspace × N sessions**: one bound
    * workspace at boot, sessions multiplexed on the single
-   * `qwen --acp` child via `connection.newSession()`.
+   * `hanhai --acp` child via `connection.newSession()`.
    *
    * `POST /session` calls whose `cwd` doesn't canonicalize to this
    * path are rejected with `400 workspace_mismatch`. Clients may

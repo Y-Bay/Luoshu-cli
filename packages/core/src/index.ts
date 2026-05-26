@@ -178,7 +178,7 @@ export * from './memory/paths.js';
 export * from './memory/store.js';
 export * from './memory/const.js';
 // Issue #4175 PR 16: write helper for hierarchical context files,
-// re-exported so the `qwen serve` daemon can mutate workspace memory
+// re-exported so the `hanhai serve` daemon can mutate workspace memory
 // via `POST /workspace/memory` without depending on internal paths.
 export * from './memory/writeContextFile.js';
 

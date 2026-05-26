@@ -1320,7 +1320,7 @@ export class WebViewProvider {
   /**
    * Handle auth interactive — interactive auth flow result.
    * Writes provider config to ~/.hanhai/settings.json and reconnects.
-   * Mirrors the CLI's `qwen auth coding-plan` / `qwen auth` flow.
+   * Mirrors the CLI's `hanhai auth coding-plan` / `hanhai auth` flow.
    */
   private async handleAuthInteractive(
     providerConfig: import('@qwen-code/qwen-code-core').ProviderConfig,

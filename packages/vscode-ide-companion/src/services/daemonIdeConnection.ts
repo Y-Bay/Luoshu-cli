@@ -6,7 +6,7 @@
 
 /**
  * Daemon-backed IDE connection spike. It mirrors the ACP process connection
- * shape while replacing the local child process with a qwen serve session.
+ * shape while replacing the local child process with a hanhai serve session.
  */
 
 import type {

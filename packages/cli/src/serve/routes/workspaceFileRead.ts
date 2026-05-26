@@ -95,7 +95,7 @@ export function sendFsError(res: Response, err: unknown, route: string): void {
     return;
   }
   writeStderrLine(
-    `qwen serve: ${route} unexpected error: ${
+    `hanhai serve: ${route} unexpected error: ${
       err instanceof Error ? err.message : String(err)
     }`,
   );
@@ -154,7 +154,7 @@ function requireStringQuery(
       status: 400,
     });
     writeStderrLine(
-      `qwen serve: ${route} rejected request missing required ?${name}`,
+      `hanhai serve: ${route} rejected request missing required ?${name}`,
     );
     return null;
   }

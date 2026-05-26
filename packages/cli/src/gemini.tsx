@@ -770,7 +770,7 @@ export async function main() {
       // runNonInteractive's main/drain loops. In TUI mode the same call
       // would just emit "Structured output accepted." and keep the chat
       // alive, which silently strands the user's run. Parse-time gating
-      // can't catch this case (`qwen --json-schema '...'` on a TTY with
+      // can't catch this case (`hanhai --json-schema '...'` on a TTY with
       // no prompt routes to interactive only after stdin TTY detection),
       // so reject here before the UI launches.
       if (config.getJsonSchema?.()) {

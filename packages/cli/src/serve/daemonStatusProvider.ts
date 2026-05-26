@@ -7,7 +7,7 @@
 /**
  * Daemon-host implementation of the `DaemonStatusProvider` interface
  * (declared in `@qwen-code/acp-bridge/bridgeOptions`). Production
- * `qwen serve` wires this into `BridgeOptions.statusProvider` so the
+ * `hanhai serve` wires this into `BridgeOptions.statusProvider` so the
  * bridge factory can pull env / preflight cells without importing
  * daemon-host-specific modules directly.
  *
@@ -32,7 +32,7 @@ import { buildEnvStatusFromProcess } from './envSnapshot.js';
 const REQUIRED_NODE_MAJOR = 22;
 
 /**
- * Construct the production `DaemonStatusProvider` for `qwen serve`.
+ * Construct the production `DaemonStatusProvider` for `hanhai serve`.
  * Returns a fresh provider per call; provider is stateless so callers
  * can cache if hot-path overhead matters (currently both methods are
  * called only from the route handlers, so per-request allocation is

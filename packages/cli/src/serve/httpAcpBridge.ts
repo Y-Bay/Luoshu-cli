@@ -63,7 +63,7 @@ import type {
  *     target that workspace; cross-workspace requests throw
  *     `WorkspaceMismatchError`. Multi-workspace deployments use multiple
  *     daemon processes (one per workspace, supervised externally).
- *   - One `qwen --acp` child total; multiple sessions multiplex onto it
+ *   - One `hanhai --acp` child total; multiple sessions multiplex onto it
  *     via `connection.newSession()` (the agent's native
  *     `sessions: Map<string, Session>` — see `acp-integration/acpAgent.ts:194`).
  *     Sessions share the child's process / OAuth state / `FileReadCache` /
@@ -201,7 +201,7 @@ import type {
 export type { BridgeOptions, DaemonStatusProvider };
 
 /**
- * The single `qwen --acp` child + the ACP connection on top of it,
+ * The single `hanhai --acp` child + the ACP connection on top of it,
  * shared by every SessionEntry in this daemon. Per #3803 §02 the
  * bridge is bound to one workspace at construction, so there is at
  * most one channel alive at any moment. Multiple sessions multiplex
@@ -416,7 +416,7 @@ function isServeDebugLoggingEnabled(): boolean {
 
 function writeServeDebugLine(message: string): void {
   if (!isServeDebugLoggingEnabled()) return;
-  writeStderrLine(`qwen serve debug: ${message}`);
+  writeStderrLine(`hanhai serve debug: ${message}`);
 }
 
 // `InvalidPermissionOptionError` lifted to
@@ -476,7 +476,7 @@ function hasControlCharacter(value: string): boolean {
  *     subscribers (`GET /session/:id/events`) drain it.
  *   - File reads/writes proxy to local fs (daemon and agent share the host).
  *
- * Stage 1 trust model: the spawned `qwen --acp` child runs as the same user
+ * Stage 1 trust model: the spawned `hanhai --acp` child runs as the same user
  * as the daemon, so the file-proxy methods do NOT enforce a workspace-cwd
  * sandbox. The agent could already read or write the same files via its
  * built-in tools (e.g. shell). Restricting the bridge here would be
@@ -546,7 +546,7 @@ class BridgeClient implements Client {
     // grow `pendingPermissionIds` past the limit.
     if (entry.pendingPermissionIds.size >= this.maxPendingPerSession) {
       writeStderrLine(
-        `qwen serve: session ${entry.sessionId} exceeded ` +
+        `hanhai serve: session ${entry.sessionId} exceeded ` +
           `maxPendingPermissionsPerSession (${this.maxPendingPerSession}) — ` +
           `resolving new permission as cancelled.`,
       );
@@ -623,7 +623,7 @@ class BridgeClient implements Client {
         timer = setTimeout(() => {
           if (settled) return;
           writeStderrLine(
-            `qwen serve: session ${entry.sessionId} permission ` +
+            `hanhai serve: session ${entry.sessionId} permission ` +
               `${requestId} timed out after ${this.permissionTimeoutMs}ms ` +
               `(no client voted) — resolving as cancelled.`,
           );
@@ -810,7 +810,7 @@ class BridgeClient implements Client {
       !this.inFlightRestoreIds.has(sessionId)
     ) {
       writeStderrLine(
-        `qwen serve: dropping mcp guardrail extNotification ` +
+        `hanhai serve: dropping mcp guardrail extNotification ` +
           `for tombstoned session ${JSON.stringify(sessionId)} ` +
           `(post-close stale event)`,
       );
@@ -827,7 +827,7 @@ class BridgeClient implements Client {
         // notification pressure from 64+ concurrent sessions —
         // worth surfacing.
         writeStderrLine(
-          `qwen serve: dropping mcp guardrail extNotification — ` +
+          `hanhai serve: dropping mcp guardrail extNotification — ` +
             `early-event buffer at MAX_EARLY_EVENT_SESSIONS ` +
             `(${MAX_EARLY_EVENT_SESSIONS}); possible session-id fanout abuse`,
         );
@@ -838,7 +838,7 @@ class BridgeClient implements Client {
     }
     if (buf.frames.length >= MAX_EARLY_EVENTS_PER_SESSION) {
       writeStderrLine(
-        `qwen serve: dropping mcp guardrail extNotification ` +
+        `hanhai serve: dropping mcp guardrail extNotification ` +
           `for session ${JSON.stringify(sessionId)} — per-session ` +
           `cap (${MAX_EARLY_EVENTS_PER_SESSION}) reached`,
       );
@@ -1534,7 +1534,7 @@ export function createHttpAcpBridge(opts: BridgeOptions): HttpAcpBridge {
   };
 
   /**
-   * Get-or-create the daemon's single `qwen --acp` channel (#3803 §02).
+   * Get-or-create the daemon's single `hanhai --acp` channel (#3803 §02).
    * N sessions multiplex onto it via `connection.newSession()`.
    * Concurrent callers coalesce through `inFlightChannelSpawn` so we
    * never spawn two children. The returned `ChannelInfo` is shared —
@@ -1617,7 +1617,7 @@ export function createHttpAcpBridge(opts: BridgeOptions): HttpAcpBridge {
       // `aliveChannels` declaration.
       if (aliveChannels.size > 2) {
         writeStderrLine(
-          `qwen serve: WARNING aliveChannels.size=${aliveChannels.size} ` +
+          `hanhai serve: WARNING aliveChannels.size=${aliveChannels.size} ` +
             `(expected 1, max 2 during killSession-then-spawnOrAttach ` +
             `overlap) — possible channel leak; check that prior channels' ` +
             `channel.exited fired and the handler ran cleanup.`,
@@ -1658,7 +1658,7 @@ export function createHttpAcpBridge(opts: BridgeOptions): HttpAcpBridge {
         // `session_died` frame and disconnects, the daemon's
         // child-stderr forwarder emits whatever the child wrote before
         // dying (often nothing on a SIGKILL / segfault), and operators
-        // can't tell from `qwen serve`'s own output that the agent
+        // can't tell from `hanhai serve`'s own output that the agent
         // process is gone.
         //
         // Suppressed during `shuttingDown` because the operator
@@ -1670,7 +1670,7 @@ export function createHttpAcpBridge(opts: BridgeOptions): HttpAcpBridge {
         // cleanup actually ran.
         if (!shuttingDown) {
           writeStderrLine(
-            `qwen serve: channel exited (code=${exitInfo?.exitCode ?? 'none'}, signal=${exitInfo?.signalCode ?? 'none'}, ${sessions.length} session(s) torn down)`,
+            `hanhai serve: channel exited (code=${exitInfo?.exitCode ?? 'none'}, signal=${exitInfo?.signalCode ?? 'none'}, ${sessions.length} session(s) torn down)`,
           );
         }
         for (const sid of sessions) {
@@ -2881,7 +2881,7 @@ export function createHttpAcpBridge(opts: BridgeOptions): HttpAcpBridge {
         originatorClientId = resolveTrustedClientId(entry, context.clientId);
       }
       writeStderrLine(
-        `qwen serve: closing session ${JSON.stringify(sessionId)}` +
+        `hanhai serve: closing session ${JSON.stringify(sessionId)}` +
           (originatorClientId
             ? ` by client ${JSON.stringify(originatorClientId)}`
             : ''),
@@ -2924,7 +2924,7 @@ export function createHttpAcpBridge(opts: BridgeOptions): HttpAcpBridge {
         ci.isDying = true;
         await ci.channel.kill().catch((err) => {
           writeStderrLine(
-            `qwen serve: closeSession channel kill failed for session ` +
+            `hanhai serve: closeSession channel kill failed for session ` +
               `${JSON.stringify(sessionId)}: ${String(err)}`,
           );
         });
@@ -2957,7 +2957,7 @@ export function createHttpAcpBridge(opts: BridgeOptions): HttpAcpBridge {
         if (entry.displayName !== nextDisplayName) {
           entry.displayName = nextDisplayName;
           writeStderrLine(
-            `qwen serve: updated session metadata ${JSON.stringify(sessionId)} ` +
+            `hanhai serve: updated session metadata ${JSON.stringify(sessionId)} ` +
               `displayName=${entry.displayName === undefined ? 'cleared' : 'set'}` +
               (context?.clientId
                 ? ` by client ${JSON.stringify(context.clientId)}`
@@ -3090,13 +3090,13 @@ export function createHttpAcpBridge(opts: BridgeOptions): HttpAcpBridge {
           if (shuttingDown) {
             writeServeDebugLine(detail);
           } else {
-            writeStderrLine(`qwen serve: ${detail}`);
+            writeStderrLine(`hanhai serve: ${detail}`);
           }
         }
       }
       if (sessions.length > 0 && successCount === 0 && !shuttingDown) {
         writeStderrLine(
-          `qwen serve: publishWorkspaceEvent type=${event.type} dropped on ALL ${failureCount} session bus(es); SSE subscribers will miss this event (GET fallback still authoritative)`,
+          `hanhai serve: publishWorkspaceEvent type=${event.type} dropped on ALL ${failureCount} session bus(es); SSE subscribers will miss this event (GET fallback still authoritative)`,
         );
       }
     },
@@ -3161,7 +3161,7 @@ export function createHttpAcpBridge(opts: BridgeOptions): HttpAcpBridge {
         );
       } catch (err) {
         writeStderrLine(
-          `qwen serve: statusProvider.getEnvStatus failed; ` +
+          `hanhai serve: statusProvider.getEnvStatus failed; ` +
             `falling back to idle envelope: ` +
             (err instanceof Error ? err.message : String(err)),
         );
@@ -3198,7 +3198,7 @@ export function createHttpAcpBridge(opts: BridgeOptions): HttpAcpBridge {
             await opts.statusProvider.getDaemonPreflightCells(boundWorkspace);
         } catch (err) {
           writeStderrLine(
-            `qwen serve: statusProvider.getDaemonPreflightCells failed; ` +
+            `hanhai serve: statusProvider.getDaemonPreflightCells failed; ` +
               `falling back to empty daemon cells: ` +
               (err instanceof Error ? err.message : String(err)),
           );
@@ -4081,7 +4081,7 @@ export const defaultSpawnChannelFactory: ChannelFactory = async (
   // Note: spawning `process.execPath` only works when the entry script can
   // be loaded by raw Node. In dev (e.g. `npm run dev` via `tsx`) the entry
   // is a `.ts` file Node can't run; users should `npm run build` before
-  // `qwen serve` or set `process.execPath` to a tsx-aware shim. Stage 1
+  // `hanhai serve` or set `process.execPath` to a tsx-aware shim. Stage 1
   // accepts this — the daemon is meant for built deployments.
   // Pass through the daemon's full environment to the child, scrubbing
   // ONLY daemon-internal secrets (see SCRUBBED_CHILD_ENV_KEYS at module
@@ -4248,7 +4248,7 @@ export const defaultSpawnChannelFactory: ChannelFactory = async (
 const KILL_HARD_DEADLINE_MS = 10_000;
 
 /**
- * Environment variables stripped from the spawned `qwen --acp` child's
+ * Environment variables stripped from the spawned `hanhai --acp` child's
  * environment. Everything else is passed through — see the
  * threat-model rationale at the call site in `defaultSpawnChannelFactory`.
  *

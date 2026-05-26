@@ -3750,7 +3750,7 @@ describe('runQwenServe', () => {
     // once at boot; `/capabilities.workspaceCwd` returns the canonical
     // form, NOT the raw input. Tests inject a fake bridge here so we
     // verify the route layer's canonicalization (not the bridge's),
-    // making this a true E2E that doesn't require a real `qwen --acp`
+    // making this a true E2E that doesn't require a real `hanhai --acp`
     // child.
     const bridge = fakeBridge();
     handle = await runQwenServe(
@@ -3778,7 +3778,7 @@ describe('runQwenServe', () => {
     // Without the boot-time stat check, `canonicalizeWorkspace`'s
     // ENOENT fallback to `path.resolve` would let the daemon boot
     // pointed at a non-existent directory; every `POST /session`
-    // would then spawn a `qwen --acp` child with that cwd and the
+    // would then spawn a `hanhai --acp` child with that cwd and the
     // agent would fail with an opaque ENOENT.
     await expect(
       runQwenServe({

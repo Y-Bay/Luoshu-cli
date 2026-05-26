@@ -243,7 +243,7 @@ const MOCK_DATA: InsightData = {
           why_for_you:
             'With 166 run_shell_command calls and repetitive tasks like PR creation, you could automate routine workflows',
           example_code:
-            '# Create PR from latest commits\nqwen -p "Create a PR for recent commits using .github/PULL_REQUEST_TEMPLATE.md"\n\n# Batch test generation\nqwen -p "Generate tests for src/DataProcessor.ts"',
+            '# Create PR from latest commits\nhanhai -p "Create a PR for recent commits using .github/PULL_REQUEST_TEMPLATE.md"\n\n# Batch test generation\nhanhai -p "Generate tests for src/DataProcessor.ts"',
         },
         {
           feature: 'Task Agents',

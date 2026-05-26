@@ -1511,8 +1511,8 @@ export default {
     'Вы можете выполнять любые shell-команды в Hanhai CLI с помощью ! (например, !ls).',
   'Type / to open the command popup; Tab autocompletes slash commands and saved prompts.':
     'Введите /, чтобы открыть меню команд; Tab автодополняет слэш-команды и сохранённые промпты.',
-  'You can resume a previous conversation by running qwen --continue or qwen --resume.':
-    'Вы можете продолжить предыдущий разговор, запустив qwen --continue или qwen --resume.',
+  'You can resume a previous conversation by running hanhai --continue or hanhai --resume.':
+    'Вы можете продолжить предыдущий разговор, запустив hanhai --continue или hanhai --resume.',
   'You can switch permission mode quickly with Shift+Tab or /approval-mode.':
     'Вы можете быстро переключать режим разрешений с помощью Shift+Tab или /approval-mode.',
   'You can switch permission mode quickly with Tab or /approval-mode.':
@@ -1627,8 +1627,8 @@ export default {
   servers: 'серверов',
   'Add MCP servers to your settings to get started.':
     'Добавьте MCP servers в настройки, чтобы начать.',
-  'Run qwen --debug to see error logs':
-    'Запустите qwen --debug для просмотра журналов ошибок',
+  'Run hanhai --debug to see error logs':
+    'Запустите hanhai --debug для просмотра журналов ошибок',
 
   // MCP OAuth Authentication
   'OAuth Authentication': 'OAuth-аутентификация',
@@ -1698,11 +1698,11 @@ export default {
     '⚠️  Метод аутентификации не настроен.\n',
   'Run one of the following commands to get started:\n':
     'Выполните одну из следующих команд для начала:\n',
-  '  qwen auth qwen-oauth     - Authenticate with Qwen OAuth (discontinued)':
-    '  qwen auth qwen-oauth     - Аутентификация через Qwen OAuth (прекращено)',
+  '  hanhai auth qwen-oauth     - Authenticate with Qwen OAuth (discontinued)':
+    '  hanhai auth qwen-oauth     - Аутентификация через Qwen OAuth (прекращено)',
   'Or simply run:': 'Или просто выполните:',
-  '  qwen auth                - Interactive authentication setup\n':
-    '  qwen auth                - Интерактивная настройка аутентификации\n',
+  '  hanhai auth                - Interactive authentication setup\n':
+    '  hanhai auth                - Интерактивная настройка аутентификации\n',
   '✓ Authentication Method: Qwen OAuth': '✓ Метод аутентификации: Qwen OAuth',
   '  Type: Free tier (discontinued 2026-04-15)':
     '  Тип: Бесплатный уровень (прекращено 2026-04-15)',
@@ -1720,8 +1720,8 @@ export default {
     '⚠️  Метод аутентификации: Alibaba Cloud Coding Plan (Не завершён)',
   '  Issue: API key not found in environment or settings\n':
     '  Проблема: API Key не найден в окружении или настройках\n',
-  '  Run `qwen auth coding-plan` to re-configure.\n':
-    '  Выполните `qwen auth coding-plan` для повторной настройки.\n',
+  '  Run `hanhai auth coding-plan` to re-configure.\n':
+    '  Выполните `hanhai auth coding-plan` для повторной настройки.\n',
   '✓ Authentication Method: {{type}}': '✓ Метод аутентификации: {{type}}',
   '  Status: Configured\n': '  Статус: Настроено\n',
   'Failed to check authentication status: {{error}}':

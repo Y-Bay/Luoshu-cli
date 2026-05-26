@@ -141,7 +141,7 @@ export function mountWorkspaceAgentsRoutes(
       res.status(200).json(status);
     } catch (err) {
       writeStderrLine(
-        `qwen serve: GET /workspace/agents failed: ${
+        `hanhai serve: GET /workspace/agents failed: ${
           err instanceof Error ? (err.stack ?? err.message) : String(err)
         }`,
       );
@@ -239,7 +239,7 @@ export function mountWorkspaceAgentsRoutes(
           }
         }
         writeStderrLine(
-          `qwen serve: POST /workspace/agents failed: ${
+          `hanhai serve: POST /workspace/agents failed: ${
             err instanceof Error ? (err.stack ?? err.message) : String(err)
           }`,
         );
@@ -264,7 +264,7 @@ export function mountWorkspaceAgentsRoutes(
         // a proper rollback policy on top once mutation auditing
         // arrives.
         writeStderrLine(
-          `qwen serve: agent_create_reload_failed (name=${safeLogValue(config.name)} ` +
+          `hanhai serve: agent_create_reload_failed (name=${safeLogValue(config.name)} ` +
             `level=${level}) — file likely persisted on disk; check ` +
             `\`GET /workspace/agents\` for a phantom entry`,
         );
@@ -301,7 +301,7 @@ export function mountWorkspaceAgentsRoutes(
       res.status(200).json(toDetail(config));
     } catch (err) {
       writeStderrLine(
-        `qwen serve: GET /workspace/agents/${safeLogValue(agentType)} failed: ${
+        `hanhai serve: GET /workspace/agents/${safeLogValue(agentType)} failed: ${
           err instanceof Error ? (err.stack ?? err.message) : String(err)
         }`,
       );
@@ -417,7 +417,7 @@ export function mountWorkspaceAgentsRoutes(
           }
         }
         writeStderrLine(
-          `qwen serve: POST /workspace/agents/${safeLogValue(agentType)} failed: ${
+          `hanhai serve: POST /workspace/agents/${safeLogValue(agentType)} failed: ${
             err instanceof Error ? (err.stack ?? err.message) : String(err)
           }`,
         );
@@ -436,7 +436,7 @@ export function mountWorkspaceAgentsRoutes(
         // change with the failed POST. The file is in its updated
         // state on disk; subsequent reads will pick it up.
         writeStderrLine(
-          `qwen serve: agent_update_reload_failed (name=${safeLogValue(agentType)} ` +
+          `hanhai serve: agent_update_reload_failed (name=${safeLogValue(agentType)} ` +
             `level=${existing.level}) — disk write completed; check ` +
             `\`GET /workspace/agents/${safeLogValue(agentType)}\` for the new state`,
         );
@@ -514,7 +514,7 @@ export function mountWorkspaceAgentsRoutes(
           }
         }
         writeStderrLine(
-          `qwen serve: DELETE /workspace/agents/${safeLogValue(agentType)} failed: ${
+          `hanhai serve: DELETE /workspace/agents/${safeLogValue(agentType)} failed: ${
             err instanceof Error ? (err.stack ?? err.message) : String(err)
           }`,
         );
@@ -559,7 +559,7 @@ export function mountWorkspaceAgentsRoutes(
 
       if (remaining.length > 0) {
         writeStderrLine(
-          `qwen serve: DELETE /workspace/agents/${safeLogValue(agentType)} partial — ` +
+          `hanhai serve: DELETE /workspace/agents/${safeLogValue(agentType)} partial — ` +
             `removed=${removed.map((r) => r.level).join(',') || 'none'} ` +
             `remaining=${remaining
               .map((r) => `${r.level}:${r.filePath}`)
@@ -1300,7 +1300,7 @@ export function createDaemonSubagentManager(
       // implementing every Config method.
       if (prop === 'then') return undefined;
       throw new Error(
-        `qwen serve workspace agents: SubagentManager touched Config.` +
+        `hanhai serve workspace agents: SubagentManager touched Config.` +
           `${String(prop)} which the daemon stub does not implement. ` +
           `Add it to createDaemonSubagentManager and audit safety.`,
       );
@@ -1318,7 +1318,7 @@ export function createDaemonSubagentManager(
       // continues to behave correctly.
       if (prop === 'then') return false;
       throw new Error(
-        `qwen serve workspace agents: SubagentManager probed Config.` +
+        `hanhai serve workspace agents: SubagentManager probed Config.` +
           `${String(prop)} via 'in' check; the daemon stub does not ` +
           `implement it. Add it to createDaemonSubagentManager and ` +
           `audit safety.`,

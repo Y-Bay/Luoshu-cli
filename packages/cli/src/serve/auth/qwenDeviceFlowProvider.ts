@@ -72,7 +72,7 @@ function sanitizeForStderr(value: string): string {
 }
 
 /**
- * Qwen-OAuth implementation of `DeviceFlowProvider` for `qwen serve`.
+ * Qwen-OAuth implementation of `DeviceFlowProvider` for `hanhai serve`.
  *
  * Uses the lower-level `QwenOAuth2Client` primitives (`requestDeviceAuthorization`
  * / `pollDeviceToken`) directly rather than the high-level
@@ -120,7 +120,7 @@ export class QwenOAuthDeviceFlowProvider implements DeviceFlowProvider {
       // when needed).
       const detail = err instanceof Error ? err.message : String(err);
       writeStderrLine(
-        `[serve] qwen device-flow start failed (raw): ${truncateForStderr(detail)}`,
+        `[serve] hanhai device-flow start failed (raw): ${truncateForStderr(detail)}`,
       );
       throw new UpstreamDeviceFlowError(
         'Qwen IdP device authorization request failed',
@@ -137,7 +137,7 @@ export class QwenOAuthDeviceFlowProvider implements DeviceFlowProvider {
       const errorData = auth as { error?: string; error_description?: string };
       writeStderrLine(
         truncateForStderr(
-          `[serve] qwen device-flow start error envelope (raw): error=${
+          `[serve] hanhai device-flow start error envelope (raw): error=${
             errorData?.error ?? 'unknown'
           } description=${errorData?.error_description ?? '(none)'}`,
         ),
@@ -275,7 +275,7 @@ export class QwenOAuthDeviceFlowProvider implements DeviceFlowProvider {
           safeDetail = `<non-Error throw: ${typeof err}>`;
         }
         writeStderrLine(
-          `[serve] qwen device-flow poll failed (errorKind=${errorKind}): ${truncateForStderr(safeDetail)}`,
+          `[serve] hanhai device-flow poll failed (errorKind=${errorKind}): ${truncateForStderr(safeDetail)}`,
         );
       }
       return {

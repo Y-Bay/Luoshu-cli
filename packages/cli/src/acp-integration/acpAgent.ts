@@ -764,7 +764,7 @@ class QwenAgent implements Agent {
         // having set debug=true, which makes silent slot-leak / type-
         // mismatch failures invisible in real deployments.
         process.stderr.write(
-          `qwen serve: getMcpClientAccounting failed: ` +
+          `hanhai serve: getMcpClientAccounting failed: ` +
             `${err instanceof Error ? err.message : String(err)}\n`,
         );
       }

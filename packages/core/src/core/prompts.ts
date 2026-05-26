@@ -1081,9 +1081,9 @@ Find something genuinely interesting or amusing from the session summaries.`,
 
 ## QC FEATURES REFERENCE (pick from these for features_to_try):
 1. **MCP Servers**: Connect Qwen to external tools, databases, and APIs via Model Context Protocol.
-   - How to use: Run \`qwen mcp add --transport http <server-name> <http-url>\`
+   - How to use: Run \`hanhai mcp add --transport http <server-name> <http-url>\`
    - Good for: database queries, Slack integration, GitHub issue lookup, connecting to internal APIs
-   - Example: "To connect to GitHub, run \`qwen mcp add --header "Authorization: Bearer your_github_mcp_pat" --transport http github https://api.githubcopilot.com/mcp/\` and set the AUTHORIZATION header with your PAT. Then you can ask Hanhai to query issues, PRs, or repos."
+   - Example: "To connect to GitHub, run \`hanhai mcp add --header "Authorization: Bearer your_github_mcp_pat" --transport http github https://api.githubcopilot.com/mcp/\` and set the AUTHORIZATION header with your PAT. Then you can ask Hanhai to query issues, PRs, or repos."
 
 2. **Custom Skills**: Reusable prompts you define as markdown files that run with a single /command.
    - How to use: Create \`.hanhai/skills/commit/SKILL.md\` with instructions. Then type \`/commit\` to run it.
@@ -1110,7 +1110,7 @@ Find something genuinely interesting or amusing from the session summaries.`,
     \`\`\`
 
 3. **Headless Mode**: Run Qwen non-interactively from scripts and CI/CD.
-   - How to use: \`qwen -p "fix lint errors"\`
+   - How to use: \`hanhai -p "fix lint errors"\`
    - Good for: CI/CD integration, batch code fixes, automated reviews
 
 4. **Task Agents**: Qwen spawns focused sub-agents for complex exploration or parallel work.

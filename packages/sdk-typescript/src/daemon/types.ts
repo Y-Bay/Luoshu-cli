@@ -5,7 +5,7 @@
  */
 
 /**
- * Wire types for the `qwen serve` daemon HTTP API.
+ * Wire types for the `hanhai serve` daemon HTTP API.
  *
  * These mirror the shapes emitted by `packages/cli/src/serve` but are
  * defined SDK-side to avoid an SDK→CLI dependency. The shapes are stable
@@ -507,7 +507,7 @@ export interface DaemonWorkspaceFileEditResult {
 /**
  * Storage level for a subagent definition.
  *
- * `project` / `user` / `builtin` are the levels the `qwen serve`
+ * `project` / `user` / `builtin` are the levels the `hanhai serve`
  * daemon currently surfaces through `GET /workspace/agents` and the
  * per-`agentType` detail route.
  *

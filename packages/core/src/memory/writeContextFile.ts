@@ -109,7 +109,7 @@ export interface WriteContextFileResult {
    * `true` when the call actually mutated the file on disk; `false`
    * when the helper short-circuited because the requested write would
    * have been a no-op (e.g. `mode: 'append'` with whitespace-only
-   * content). Callers like the `qwen serve` POST route use this to
+   * content). Callers like the `hanhai serve` POST route use this to
    * suppress spurious `memory_changed` events that would otherwise
    * fan out for a write that didn't change anything.
    */
@@ -118,7 +118,7 @@ export interface WriteContextFileResult {
 
 /**
  * Append/replace `QWEN.md` for the workspace or the user's global
- * `~/.hanhai/` directory. Used by the `qwen serve` daemon's
+ * `~/.hanhai/` directory. Used by the `hanhai serve` daemon's
  * `POST /workspace/memory` route (issue #4175 PR 16) and any other
  * caller that needs to mutate hierarchical memory through code.
  *

@@ -122,7 +122,7 @@ export type PermissionResolution =
     };
 
 /**
- * The contract `qwen serve`'s permission route layer talks to.
+ * The contract `hanhai serve`'s permission route layer talks to.
  * Today there is one implementation (first-responder) wired
  * inline in `BridgeClient`; PR 24 will provide all four behind
  * this surface plus pair-token authentication and an audit log.

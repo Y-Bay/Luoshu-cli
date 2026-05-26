@@ -201,7 +201,7 @@ describe('QwenOAuthDeviceFlowProvider.poll() — stderr audit branches', () => {
     expect(result.kind).toBe('error');
     expect(stderrLines).toHaveLength(1);
     const line = stderrLines[0];
-    expect(line).toContain('qwen device-flow poll failed');
+    expect(line).toContain('hanhai device-flow poll failed');
     expect(line).toContain('oauthError=slow_down');
     // The raw default message ("Device token poll failed: slow_down -
     // Polling too fast") MUST NOT appear — only the structured field.
