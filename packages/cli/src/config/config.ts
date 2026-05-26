@@ -59,6 +59,7 @@ import { channelCommand } from '../commands/channel.js';
 import { authCommand } from '../commands/auth.js';
 import { reviewCommand } from '../commands/review.js';
 import { serveCommand } from '../commands/serve.js';
+import { updateCommand } from '../commands/update.js';
 
 // UUID v4 regex pattern for validation
 const SESSION_ID_REGEX =
@@ -1006,7 +1007,9 @@ export async function parseArguments(): Promise<CliArgs> {
     // Register /review skill helpers (presubmit checks, cleanup)
     .command(reviewCommand)
     // Register `hanhai serve` (Stage 1 daemon — see issue #3803)
-    .command(serveCommand);
+    .command(serveCommand)
+    // Register `hanhai update` (self-update for source/git installs)
+    .command(updateCommand);
 
   yargsInstance
     .version(await getCliVersion()) // This will enable the --version flag based on package.json
