@@ -1217,6 +1217,17 @@ const SETTINGS_SCHEMA = {
             parentKey: 'generationConfig',
             showInDialog: false,
           },
+          contextWindowSizeForce: {
+            type: 'boolean',
+            label: 'Force Context Window Size',
+            category: 'Generation Configuration',
+            requiresRestart: false,
+            default: false,
+            description:
+              'When true, treats `contextWindowSize` as authoritative and suppresses endpoint capability probing. Default false: Hanhai CLI probes the model server (/v1/models, llama.cpp /props, Ollama /api/show) at startup and overrides `contextWindowSize` if the server reports a different value, emitting a startup warning. Set to true if you deliberately want to under-budget the server window.',
+            parentKey: 'generationConfig',
+            showInDialog: false,
+          },
         },
       },
     },

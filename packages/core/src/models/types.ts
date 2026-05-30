@@ -37,6 +37,7 @@ export type ModelGenerationConfig = Pick<
   | 'customHeaders'
   | 'extra_body'
   | 'contextWindowSize'
+  | 'contextWindowSizeForce'
   | 'modalities'
   | 'splitToolMedia'
 >;

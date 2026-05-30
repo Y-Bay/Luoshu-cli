@@ -30,6 +30,7 @@ export const MODEL_GENERATION_CONFIG_FIELDS = [
   'schemaCompliance',
   'reasoning',
   'contextWindowSize',
+  'contextWindowSizeForce',
   'customHeaders',
   'extra_body',
   'modalities',

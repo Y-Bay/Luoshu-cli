@@ -118,6 +118,11 @@ export type ContentGeneratorConfig = {
   // Context window size override. If set to a positive number, it will override
   // the automatic detection. Leave undefined to use automatic detection.
   contextWindowSize?: number;
+  // When true, `contextWindowSize` above is treated as authoritative and
+  // endpoint capability probing is suppressed. Default false: a successful
+  // probe overrides `contextWindowSize` (and emits a startup warning) so
+  // users don't silently waste server window with a stale setting.
+  contextWindowSizeForce?: boolean;
   // Custom HTTP headers to be sent with requests
   customHeaders?: Record<string, string>;
   // Extra body parameters to be merged into the request body

@@ -34,6 +34,9 @@ import {
   createContentGenerator,
   resolveContentGeneratorConfigWithSources,
 } from '../core/contentGenerator.js';
+import { knownTokenLimit } from '../core/tokenLimits.js';
+import { probeEndpointCapabilities } from '../utils/endpointCapabilityProbe.js';
+import { applyContextWindowProbe } from '../utils/applyContextWindowProbe.js';
 import { getRuntimeContentGenerator } from '../agents/runtime/agent-context.js';
 
 // Services
@@ -1767,6 +1770,49 @@ export class Config {
       },
     );
     const newContentGeneratorConfig = config;
+
+    // --- Endpoint capability probe -----------------------------------------
+    // For private / self-hosted endpoints (llama.cpp, vLLM, Ollama, …) the
+    // CLI has no static table of context window sizes — users hand-edit
+    // settings.json and the value drifts from the server's actual `-c <N>`.
+    // Probe the endpoint and override `contextWindowSize` when the server
+    // reports something different. Skipped when:
+    //   - no baseUrl (e.g., gemini-oauth which uses Google's hosted API)
+    //   - the model name is in the known-models table (cloud APIs)
+    //   - the user opted out via `generationConfig.contextWindowSizeForce`
+    // Failure is silent: probe is best-effort, never blocks startup.
+    if (
+      newContentGeneratorConfig.baseUrl &&
+      !newContentGeneratorConfig.contextWindowSizeForce &&
+      !(
+        newContentGeneratorConfig.model &&
+        knownTokenLimit(newContentGeneratorConfig.model) !== undefined
+      )
+    ) {
+      try {
+        const cacheDir = path.join(Storage.getGlobalQwenDir(), 'cache');
+        const probed = await probeEndpointCapabilities({
+          baseUrl: newContentGeneratorConfig.baseUrl,
+          apiKey: newContentGeneratorConfig.apiKey,
+          modelId: newContentGeneratorConfig.model,
+          cacheDir,
+        });
+        const decision = applyContextWindowProbe({
+          explicitValue: newContentGeneratorConfig.contextWindowSize,
+          force: newContentGeneratorConfig.contextWindowSizeForce,
+          probed,
+        });
+        if (decision.value !== undefined) {
+          newContentGeneratorConfig.contextWindowSize = decision.value;
+        }
+        if (decision.warning) {
+          this.warnings.push(decision.warning);
+        }
+      } catch {
+        // Probe is best-effort; failure must never block startup.
+      }
+    }
+
     this.contentGenerator = await createContentGenerator(
       newContentGeneratorConfig,
       this,
