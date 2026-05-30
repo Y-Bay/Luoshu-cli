@@ -30,6 +30,10 @@ const CONTEXT_LENGTH_PATTERNS = [
   /\btoo many tokens\b/i,
   /\btokens?\s*>\s*[\d,]+\s*(?:maximum|max|limit)\b/i,
   /\b(?:input|prompt|messages?|context)\b[^\n]{0,120}\btokens?\b[^\n]{0,120}\bexceed(?:s|ed|ing)?\b/i,
+  // llama.cpp / llama-server style: "...exceeds [the|available|maximum] context size..."
+  // Anchored on the "context size" phrase to avoid false positives like
+  // "file size exceeds the upload limit" or "response size exceeded".
+  /\bexceed(?:s|ed|ing)?\s+(?:the\s+|available\s+|maximum\s+)*context\s+size\b/i,
 ];
 
 function parseInteger(value: string): number {
@@ -45,6 +49,17 @@ function parseTokenCounts(text: string): {
     return {
       actualTokens: parseInteger(greaterThanMatch[1]!),
       limitTokens: parseInteger(greaterThanMatch[2]!),
+    };
+  }
+
+  // llama.cpp: "request (20073 tokens) exceeds the available context size (8192 tokens)"
+  const llamaCppParensMatch = text.match(
+    /\((\d[\d,]*)\s*tokens?\)[\s\S]*?exceed(?:s|ed|ing)?[\s\S]*?\((\d[\d,]*)\s*tokens?\)/i,
+  );
+  if (llamaCppParensMatch) {
+    return {
+      actualTokens: parseInteger(llamaCppParensMatch[1]!),
+      limitTokens: parseInteger(llamaCppParensMatch[2]!),
     };
   }
 

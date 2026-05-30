@@ -19,6 +19,11 @@ describe('contextLengthError', () => {
     'Input token length is too long',
     'The input token count (127234) exceeds the maximum number of tokens allowed (100000).',
     '{"error":{"code":"context_length_exceeded","message":"too many tokens in prompt"}}',
+    // llama.cpp / llama-server 风格（实测来自 -c 8192 启动的本地服务报错）
+    'request (20073 tokens) exceeds the available context size (8192 tokens)',
+    'exceeds available context size',
+    'input exceeds maximum context size of 8192',
+    'try increasing it, exceeds the context size',
   ])('matches context overflow: %s', (message) => {
     expect(isContextLengthExceededError(new Error(message))).toBe(true);
   });
@@ -35,8 +40,23 @@ describe('contextLengthError', () => {
     'deadline exceeded',
     'Request timeout after 60s. Try reducing input length or increasing timeout in config.',
     'connection timed out while waiting for response',
+    // 防误伤：含 "exceeds" + "size" 但语义不同
+    'file size exceeds the upload limit',
+    'maximum response size exceeded',
   ])('does not match unrelated errors: %s', (message) => {
     expect(isContextLengthExceededError(new Error(message))).toBe(false);
+  });
+
+  it('parses llama.cpp parenthesized token counts', () => {
+    const info = getContextLengthExceededInfo(
+      new Error(
+        'request (20073 tokens) exceeds the available context size (8192 tokens)',
+      ),
+    );
+
+    expect(info.isExceeded).toBe(true);
+    expect(info.actualTokens).toBe(20073);
+    expect(info.limitTokens).toBe(8192);
   });
 
   it('parses prompt-too-long actual and limit token counts', () => {
