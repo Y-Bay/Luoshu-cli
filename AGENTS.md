@@ -1,176 +1,97 @@
 # AGENTS.md
 
-This file provides guidance to Hanhai CLI when working with code in this
-repository.
+Guidance for AI agents working on this codebase. Human contributors: see
+[CONTRIBUTING.md](./CONTRIBUTING.md) for build, dev, and PR workflow.
 
-## Common Commands
+## What this is
 
-### Building
+Hanhai CLI — a terminal AI coding assistant, fork of qwen-code / gemini-cli,
+configured to pair with the 瀚海 language model.
 
-```bash
-npm install        # Install all dependencies
-npm run build      # Build all packages (TypeScript compilation + asset copying)
-npm run build:all  # Build everything including sandbox container
-npm run bundle     # Bundle dist/ into a single dist/cli.js via esbuild
-                   # (requires build first)
-```
+Monorepo layout:
 
-`npm run build` compiles TS into each package's `dist/`. `npm run bundle`
-takes that output and produces a single `dist/cli.js` via esbuild. Bundle
-requires build to have run first.
+- `packages/core` — agent runtime (tool scheduling, chat, memory, compression)
+- `packages/cli` — TUI + entrypoint (`hanhai`)
+- `packages/channels` — Telegram/WeiXin/DingTalk channel adapters
+- `packages/acp-bridge` — ACP (Agent Client Protocol) primitives
+- `packages/webui` + `packages/web-templates` — `/insight` rendering
+- `packages/vscode-ide-companion` — VS Code extension
+- `packages/sdk-typescript` — external programmatic SDK
 
-### Development
+## Hard conventions you MUST follow
 
-```bash
-npm run dev        # Run CLI directly from TypeScript source (no build needed)
-```
+- TypeScript strict (`noImplicitAny`, `strictNullChecks`). ESLint rule
+  `@typescript-eslint/no-explicit-any` is `error` — do not paper over types
+  with `any`.
+- ESM only (`"type": "module"`). No CJS in source.
+- Prettier: single quotes, semicolons, trailing commas, 2-space indent.
+- Tests collocated: `foo.ts` → `foo.test.ts`, vitest.
+- Conventional Commits (`feat(scope):`, `fix:`, `chore:`, `docs:`,
+  `refactor:`, `i18n:`, `style:`). End commit messages with the
+  `Co-Authored-By:` trailer when applicable.
+- Node.js ≥ 22.
 
-Runs the CLI via `tsx` with `DEV=true`. Changes to `packages/core` or
-`packages/cli` are reflected immediately without rebuilding.
+## Do not touch
 
-### Unit Testing
+- `packages/core/vendor/` — platform ripgrep + tree-sitter binaries (loaded
+  by `ripgrepUtils.ts` at runtime).
+- `packages/*/dist/`, root `dist/` — build / bundle output (gitignored).
+- Copyright headers — Apache 2.0 requires preserving upstream attribution.
 
-Tests must be run from within the specific package directory, not the project
-root.
-
-**Run individual test files** (always preferred):
-
-```bash
-cd packages/core && npx vitest run src/path/to/file.test.ts
-cd packages/cli && npx vitest run src/path/to/file.test.ts
-```
-
-**Update snapshots:**
+## After-edit validation (smallest scope first)
 
 ```bash
-cd packages/cli && npx vitest run src/path/to/file.test.ts --update
+# Run only the touched test files
+npx vitest run packages/<pkg>/src/path/to/file.test.ts
+
+# Snapshot updates when a test prints fixtures or full prompts
+npx vitest run <path> --update
 ```
 
-**Avoid:**
-
-- `npm run test -- --filter=...` — does NOT filter; runs the entire suite
-- `npx vitest` from the project root — fails due to package-specific vitest
-  configs
-- Running the whole test suite unless necessary (e.g., final PR verification)
-
-**Test gotchas:**
-
-- In CLI tests, use `vi.hoisted()` for mocks consumed by `vi.mock()` — the
-  mock factory runs at module load time, before test execution.
-
-### Integration Testing
-
-Build the bundle first: `npm run build && npm run bundle`
-
-Run from the project root using the dedicated npm scripts:
+If you changed a locale file (`packages/cli/src/i18n/locales/*.js`):
 
 ```bash
-npm run test:integration:cli:sandbox:none
-npm run test:integration:interactive:sandbox:none
+npm run check-i18n
 ```
 
-Or combined in one command:
+If you changed `settingsSchema.ts`:
 
 ```bash
-cd integration-tests && \
-  cross-env QWEN_SANDBOX=false npx vitest run cli interactive
+npm run generate:settings-schema   # commit any resulting schema diff
 ```
 
-**Gotcha:** In interactive tests, always call `session.idle()` between sends —
-ANSI output streams asynchronously.
-
-### Linting & Formatting
+For cross-package changes before declaring done:
 
 ```bash
-npm run lint       # ESLint check
-npm run lint:fix   # Auto-fix lint issues
-npm run format     # Prettier formatting
-npm run typecheck  # TypeScript type checking
-npm run preflight  # Full check: clean → install → format → lint → build
-                   # → typecheck → test
+# Avoids TS5055 stale-incremental errors on clean rebuilds
+find packages -name "*.tsbuildinfo" -not -path "*/node_modules/*" -delete
+rm -rf packages/*/dist packages/channels/*/dist
+npm run build && npm run bundle
 ```
 
-## Code Conventions
+## Lessons learned (load-bearing tribal knowledge)
 
-- **Module system**: ESM throughout (`"type": "module"` in all packages)
-- **TypeScript**: Strict mode with `noImplicitAny`, `strictNullChecks`,
-  `noUnusedLocals`, `verbatimModuleSyntax`
-- **Formatting**: Prettier — single quotes, semicolons, trailing commas,
-  2-space indent, 80-char width
-- **Linting**: No `any` types, consistent type imports, no relative imports
-  between packages
-- **Tests**: Collocated with source (`file.test.ts` next to `file.ts`),
-  vitest framework
-- **Commits**: Conventional Commits (e.g., `feat(cli): Add --json flag`)
-- **Node.js**: Development and production both require `>=22` (Ink 7 + React 19.2 requirement)
+- `npm link` in this repo needs `--ignore-scripts` — the `prepare` hook
+  re-runs build and triggers TS5055 on existing `dist/` outputs. Use
+  `npm link --ignore-scripts`.
+- The pre-commit hook (lint-staged) only operates on **staged** files; CI
+  Lint runs over the **whole repo** plus `actionlint` / `shellcheck` /
+  `yamllint` / `check-i18n` / settings-schema diff. Running `npm run lint`
+  locally is not equivalent to CI Lint.
+- Locale check (`check-i18n`) is **strict on extras**: any key in `zh.js` /
+  `zh-TW.js` not present in `en.js` fails CI. Add the English key in
+  `en.js` first (English key as value is fine).
+- `core` is loaded by `cli` as a workspace package — when the bundled `cli.js`
+  doesn't show a change you expect, the change probably needs to land in
+  `packages/core` and a full rebuild, not just an `esbuild` re-bundle.
 
-## Development Guidelines
+## Project directories (agent-relevant)
 
-### General workflow
+`.hanhai/` is the runtime config dir for end users. Within this repo,
+historical artifacts may live under `.hanhai/`:
 
-1. **Design doc for non-trivial work** — write one in `.hanhai/design/` if the
-   change touches multiple files or involves design decisions. Skip for small
-   bugfixes.
-2. **Test plan for behavioral changes** — write an E2E test plan in
-   `.hanhai/e2e-tests/` when the change affects user-observable behavior. Dry-run
-   against the global `hanhai` CLI first to confirm the baseline.
-3. **Build + typecheck before declaring done**:
-   `npm run build && npm run typecheck`.
-4. **Code review** — run `/review` when available. Triage each comment:
-   valid / false positive / overthinking.
-
-### Feature development
-
-Use the `/feat-dev` skill for the full workflow: investigate, design, test plan,
-dry-run, implement, verify, code review, and iterate.
-
-### Bugfix
-
-Use the `/bugfix` skill for the reproduce-first workflow: reproduce, fix,
-verify, test, and code review.
-
-## GitHub Operations
-
-Use the `gh` CLI for all GitHub-related operations — issues, pull requests,
-comments, CI checks, releases, and API calls. Prefer `gh issue view`,
-`gh pr view`, `gh pr checks`, `gh run view`, `gh api`, etc. over web fetches
-or manual REST calls.
-
-## Testing, Debugging, and Bug Fixes
-
-- **Bug reproduction & verification**: spawn the `test-engineer` agent. It
-  reads code and docs to understand the bug, then reproduces it via E2E testing
-  (or a test-script fallback). It also handles post-fix verification. It cannot
-  edit source code — only observe and report.
-- **Hard bugs**: use the `structured-debugging` skill when debugging requires
-  more than a quick glance — especially when the first attempt at a fix didn't
-  work or the behavior seems impossible.
-- **E2E testing**: the `e2e-testing` skill covers headless mode, interactive
-  (tmux) mode, MCP server testing, and API traffic inspection. The
-  `test-engineer` agent invokes this skill internally — you typically don't
-  need to use it directly.
-
-## Submitting PRs
-
-When creating a PR, follow the template at `.github/pull_request_template.md`.
-After the PR is submitted, post a separate comment with the E2E test report if
-applicable.
-
-- **PR description**: explain the motivation and changes in prose. Avoid
-  referencing file names or function names.
-- **Reviewer Test Plan**: describe behaviors a reviewer should verify and what
-  to expect, not scripted test commands.
-
-## Project Directories
-
-Project artifacts live under `.hanhai/`:
-
-| Directory                 | Purpose                              |
-| ------------------------- | ------------------------------------ |
-| `.hanhai/design/`         | Design docs for planned features     |
-| `.hanhai/e2e-tests/`      | E2E test plans and results           |
-| `.hanhai/issues/`         | Issue drafts before filing on GitHub |
-| `.hanhai/pr-drafts/`      | PR drafts before submitting          |
-| `.hanhai/pr-reviews/`     | PR review notes                      |
-| `.hanhai/investigations/` | Structured debugging journals        |
-| `.hanhai/scripts/`        | Utility scripts                      |
+| Dir                       | Purpose                          |
+| ------------------------- | -------------------------------- |
+| `.hanhai/design/`         | Design docs for planned features |
+| `.hanhai/e2e-tests/`      | E2E test plans and results       |
+| `.hanhai/investigations/` | Debugging journals               |
