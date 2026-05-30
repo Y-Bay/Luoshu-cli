@@ -1028,7 +1028,17 @@ export async function processSingleFileContent(
           _meta?.originalLineCount ?? (await countFileLines(filePath));
         const selectedLines = content.split('\n').map((line) => line.trimEnd());
         const startLine = offset || 0;
-        const configCharLimit = config.getTruncateToolOutputThreshold();
+        // Hard upper bound on a single file-read's contribution to LLM
+        // context. Independent of `truncateToolOutputThreshold` config so
+        // that misconfiguration (Infinity / NaN / 0 / undefined) can never
+        // inject an unbounded payload and trigger a context overflow on
+        // the model server. Normal `truncateToolOutputThreshold` (default
+        // 25_000) still applies; this is only the worst-case floor.
+        const HARD_CAP_CHARS = 100_000;
+        const rawCharLimit = config.getTruncateToolOutputThreshold();
+        const configCharLimit = Number.isFinite(rawCharLimit)
+          ? Math.min(rawCharLimit, HARD_CAP_CHARS)
+          : HARD_CAP_CHARS;
 
         // Apply character limit truncation
         let llmContent = '';

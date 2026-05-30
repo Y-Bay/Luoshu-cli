@@ -1485,5 +1485,71 @@ describe('fileUtils', () => {
         statSpy.mockRestore();
       }
     });
+
+    // -------------------------------------------------------------------
+    // Hard cap safety net: regardless of what config.getTruncateToolOutputThreshold()
+    // returns, a single read must never inject more than HARD_CAP_CHARS
+    // characters into the LLM context. Protects against config bypasses
+    // (Infinity / NaN / undefined) where the previous Number.isFinite()
+    // gate would skip truncation entirely.
+    // -------------------------------------------------------------------
+    describe('hard char-limit safety net', () => {
+      // Mirror the constant in fileUtils.ts. If this is changed there,
+      // change here too.
+      const HARD_CAP_CHARS = 100_000;
+      const HUGE = 'x'.repeat(200_000); // > HARD_CAP, so cap must engage
+
+      function makeConfigWith(threshold: unknown): Config {
+        return {
+          ...mockConfig,
+          getTruncateToolOutputThreshold: () => threshold as number,
+        } as unknown as Config;
+      }
+
+      it('caps when getTruncateToolOutputThreshold returns Infinity', async () => {
+        actualNodeFs.writeFileSync(testTextFilePath, HUGE);
+        const result = await processSingleFileContent(
+          testTextFilePath,
+          makeConfigWith(Infinity),
+        );
+        const content = result.llmContent as string;
+        // +200 leaves room for the "... [truncated]" marker.
+        expect(content.length).toBeLessThanOrEqual(HARD_CAP_CHARS + 200);
+        expect(result.isTruncated).toBe(true);
+      });
+
+      it('caps when getTruncateToolOutputThreshold returns NaN', async () => {
+        actualNodeFs.writeFileSync(testTextFilePath, HUGE);
+        const result = await processSingleFileContent(
+          testTextFilePath,
+          makeConfigWith(NaN),
+        );
+        const content = result.llmContent as string;
+        expect(content.length).toBeLessThanOrEqual(HARD_CAP_CHARS + 200);
+        expect(result.isTruncated).toBe(true);
+      });
+
+      it('caps when getTruncateToolOutputThreshold returns undefined', async () => {
+        actualNodeFs.writeFileSync(testTextFilePath, HUGE);
+        const result = await processSingleFileContent(
+          testTextFilePath,
+          makeConfigWith(undefined),
+        );
+        const content = result.llmContent as string;
+        expect(content.length).toBeLessThanOrEqual(HARD_CAP_CHARS + 200);
+        expect(result.isTruncated).toBe(true);
+      });
+
+      it('honors a small finite threshold (does not raise it to HARD_CAP)', async () => {
+        actualNodeFs.writeFileSync(testTextFilePath, HUGE);
+        const result = await processSingleFileContent(
+          testTextFilePath,
+          makeConfigWith(1000),
+        );
+        const content = result.llmContent as string;
+        // The user's explicit small config wins; cap must not raise it.
+        expect(content.length).toBeLessThanOrEqual(1100);
+      });
+    });
   });
 });
