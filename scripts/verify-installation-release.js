@@ -44,7 +44,7 @@ const REMOTE_FETCH_TIMEOUT_MS = 30_000;
 function standaloneArchiveNamesFromReleaseTargets(releaseTargets) {
   return releaseTargets.map(
     ({ qwenTarget }) =>
-      `qwen-code-${qwenTarget}.${qwenTarget === 'win-x64' ? 'zip' : 'tar.gz'}`,
+      `hanhai-cli-${qwenTarget}.${qwenTarget === 'win-x64' ? 'zip' : 'tar.gz'}`,
   );
 }
 
