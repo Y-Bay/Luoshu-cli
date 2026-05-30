@@ -524,6 +524,11 @@
             "contextWindowSize": {
               "description": "Overrides the default context window size for the selected model. Use this setting when a provider's effective context limit differs from Hanhai CLI's default. This value defines the model's assumed maximum context capacity, not a per-request token limit.",
               "type": "number"
+            },
+            "contextWindowSizeForce": {
+              "description": "When true, treats `contextWindowSize` as authoritative and suppresses endpoint capability probing. Default false: Hanhai CLI probes the model server (/v1/models, llama.cpp /props, Ollama /api/show) at startup and overrides `contextWindowSize` if the server reports a different value, emitting a startup warning. Set to true if you deliberately want to under-budget the server window.",
+              "type": "boolean",
+              "default": false
             }
           }
         }
